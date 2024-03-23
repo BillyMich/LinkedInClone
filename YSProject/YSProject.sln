@@ -17,23 +17,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedAppSettings", "SharedAppSettings", "{DFD78FF5-D51F-4671-8D7F-FB1AA0F2164B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Development", "Development", "{0D0B6B0C-77FD-4BD2-951B-AE550E3C842F}"
-	ProjectSection(SolutionItems) = preProject
-		appsettings.json = appsettings.json
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Production", "Production", "{02CD0353-7F2A-42A6-91D2-450FB441C317}"
-	ProjectSection(SolutionItems) = preProject
-		appsettings.json = appsettings.json
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B6BBA9AC-8974-477C-9358-A155E07AB8CC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XUnit", "XUnit", "{BF651F70-7B7F-4A21-B071-46E865AB6B20}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{E35E6418-2719-45BC-B8DA-065BD3FE21E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSProject.XUnit", "test\YSProject.XUnit\YSProject.XUnit.csproj", "{D56170DE-3596-4ABD-8033-DE0B81FCD637}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YSProject.XUnit", "test\YSProject.XUnit\YSProject.XUnit.csproj", "{D56170DE-3596-4ABD-8033-DE0B81FCD637}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YSProject.Api", "src\Api\YSProject.Api\YSProject.Api.csproj", "{6389ED4B-333B-48C8-ABCA-0DD4353F6D1E}"
 EndProject
@@ -41,7 +31,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YSProject.Core", "src\Core\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YSProject.Domain", "src\Domain\YSProject.Domain\YSProject.Domain.csproj", "{C79CB832-07F0-4E6A-8454-58AB34A3178E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSProject.Application", "src\Application\YSProject.Application\YSProject.Application.csproj", "{BFBA08C5-EFB9-40D9-84FD-0BD6DD5142E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YSProject.Application", "src\Application\YSProject.Application\YSProject.Application.csproj", "{BFBA08C5-EFB9-40D9-84FD-0BD6DD5142E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YSProject.ApiHost", "src\Api\YSProject.ApiHost\YSProject.ApiHost.csproj", "{2C974108-0527-4681-B6DC-84305153340D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Development", "Development", "{843653B7-2A76-4ADB-BC25-3E42DEAE9422}"
+	ProjectSection(SolutionItems) = preProject
+		src\SharedAppSettings\appsettings.ApiHost.json = src\SharedAppSettings\appsettings.ApiHost.json
+		src\SharedAppSettings\appsettings.json = src\SharedAppSettings\appsettings.json
+		src\SharedAppSettings\appsettings.Logging.json = src\SharedAppSettings\appsettings.Logging.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +68,10 @@ Global
 		{BFBA08C5-EFB9-40D9-84FD-0BD6DD5142E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFBA08C5-EFB9-40D9-84FD-0BD6DD5142E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFBA08C5-EFB9-40D9-84FD-0BD6DD5142E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C974108-0527-4681-B6DC-84305153340D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C974108-0527-4681-B6DC-84305153340D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C974108-0527-4681-B6DC-84305153340D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C974108-0527-4681-B6DC-84305153340D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,8 +83,7 @@ Global
 		{0F09AA5F-253B-4EAE-B114-171D24F7E082} = {783910A6-6093-470F-87FA-13126E071DC7}
 		{12B885A0-E603-4126-A7D4-6978796CEE30} = {783910A6-6093-470F-87FA-13126E071DC7}
 		{DFD78FF5-D51F-4671-8D7F-FB1AA0F2164B} = {783910A6-6093-470F-87FA-13126E071DC7}
-		{0D0B6B0C-77FD-4BD2-951B-AE550E3C842F} = {DFD78FF5-D51F-4671-8D7F-FB1AA0F2164B}
-		{02CD0353-7F2A-42A6-91D2-450FB441C317} = {DFD78FF5-D51F-4671-8D7F-FB1AA0F2164B}
+		{B6BBA9AC-8974-477C-9358-A155E07AB8CC} = {783910A6-6093-470F-87FA-13126E071DC7}
 		{BF651F70-7B7F-4A21-B071-46E865AB6B20} = {B6BBA9AC-8974-477C-9358-A155E07AB8CC}
 		{E35E6418-2719-45BC-B8DA-065BD3FE21E5} = {783910A6-6093-470F-87FA-13126E071DC7}
 		{D56170DE-3596-4ABD-8033-DE0B81FCD637} = {BF651F70-7B7F-4A21-B071-46E865AB6B20}
@@ -89,6 +91,8 @@ Global
 		{7EDB6EDE-B17F-4E77-BC5B-7D87B474540B} = {9FBE4E7A-82DA-45F7-8DB2-6EC9210FD36B}
 		{C79CB832-07F0-4E6A-8454-58AB34A3178E} = {98682120-E7A5-481D-B10C-D995B1820B4D}
 		{BFBA08C5-EFB9-40D9-84FD-0BD6DD5142E5} = {4BB25BB2-F9B5-41B6-B70E-C265E6A18FE5}
+		{2C974108-0527-4681-B6DC-84305153340D} = {E35E6418-2719-45BC-B8DA-065BD3FE21E5}
+		{843653B7-2A76-4ADB-BC25-3E42DEAE9422} = {DFD78FF5-D51F-4671-8D7F-FB1AA0F2164B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D317DCE4-8A81-4BFF-910C-FCB8C1758B77}
