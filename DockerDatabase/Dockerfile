@@ -1,5 +1,5 @@
 # Choose ubuntu version
-FROM mcr.microsoft.com/mssql/server:2019-CU13-ubuntu-20.04
+FROM mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04
 
 # Create app directory
 WORKDIR /usr/src/app
