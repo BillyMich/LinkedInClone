@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [linkedin]    Script Date: 4/17/2024 10:38:34 PM ******/
+/****** Object:  Database [linkedin]    Script Date: 4/17/2024 11:28:58 PM ******/
 CREATE DATABASE [linkedin]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -82,13 +82,13 @@ ALTER DATABASE [linkedin] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_
 GO
 USE [linkedin]
 GO
-/****** Object:  Table [dbo].[Advertisement]    Script Date: 4/17/2024 10:38:34 PM ******/
+/****** Object:  Table [dbo].[Advertisement]    Script Date: 4/17/2024 11:28:58 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Advertisement](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Title] [nvarchar](50) NOT NULL,
 	[CreatorId] [int] NOT NULL,
 	[IsActive] [bit] NOT NULL,
@@ -102,13 +102,13 @@ CREATE TABLE [dbo].[Advertisement](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Comment]    Script Date: 4/17/2024 10:38:34 PM ******/
+/****** Object:  Table [dbo].[Comment]    Script Date: 4/17/2024 11:28:58 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Comment](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[PostId] [int] NOT NULL,
 	[CreatorId] [int] NOT NULL,
 	[FreeTxt] [nvarchar](200) NOT NULL,
@@ -120,13 +120,13 @@ CREATE TABLE [dbo].[Comment](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ContactRequest]    Script Date: 4/17/2024 10:38:34 PM ******/
+/****** Object:  Table [dbo].[ContactRequest]    Script Date: 4/17/2024 11:28:58 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[ContactRequest](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[UserRequestId] [int] NOT NULL,
 	[UserResiverId] [int] NOT NULL,
 	[IsActive] [bit] NOT NULL,
@@ -139,13 +139,13 @@ CREATE TABLE [dbo].[ContactRequest](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CV]    Script Date: 4/17/2024 10:38:34 PM ******/
+/****** Object:  Table [dbo].[CV]    Script Date: 4/17/2024 11:28:58 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[CV](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[UserId] [int] NOT NULL,
 	[UrlBath] [nvarchar](250) NOT NULL,
 	[DateCreated] [datetimeoffset](7) NOT NULL,
@@ -156,13 +156,13 @@ CREATE TABLE [dbo].[CV](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Education]    Script Date: 4/17/2024 10:38:34 PM ******/
+/****** Object:  Table [dbo].[Education]    Script Date: 4/17/2024 11:28:58 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Education](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[UserId] [int] NOT NULL,
 	[Name] [nvarchar](50) NOT NULL,
 	[Description] [nvarchar](200) NOT NULL,
@@ -175,7 +175,7 @@ CREATE TABLE [dbo].[Education](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Experience]    Script Date: 4/17/2024 10:38:34 PM ******/
+/****** Object:  Table [dbo].[Experience]    Script Date: 4/17/2024 11:28:58 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -194,27 +194,31 @@ CREATE TABLE [dbo].[Experience](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Message]    Script Date: 4/17/2024 10:38:34 PM ******/
+/****** Object:  Table [dbo].[Message]    Script Date: 4/17/2024 11:28:58 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Message](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[SenderId] [int] NOT NULL,
 	[ResiverId] [int] NOT NULL,
 	[FreeTxt] [nvarchar](200) NOT NULL,
 	[DateCreated] [datetimeoffset](7) NOT NULL,
-	[DateUpdated] [datetimeoffset](7) NOT NULL
+	[DateUpdated] [datetimeoffset](7) NOT NULL,
+ CONSTRAINT [PK_Message] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Post]    Script Date: 4/17/2024 10:38:34 PM ******/
+/****** Object:  Table [dbo].[Post]    Script Date: 4/17/2024 11:28:58 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Post](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Title] [nvarchar](50) NOT NULL,
 	[FreeTxt] [nchar](1000) NOT NULL,
 	[IsActive] [bit] NOT NULL,
@@ -229,13 +233,13 @@ CREATE TABLE [dbo].[Post](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[User]    Script Date: 4/17/2024 10:38:34 PM ******/
+/****** Object:  Table [dbo].[User]    Script Date: 4/17/2024 11:28:58 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[User](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](20) NOT NULL,
 	[SurName] [nvarchar](20) NOT NULL,
 	[Username] [nvarchar](50) NOT NULL,
