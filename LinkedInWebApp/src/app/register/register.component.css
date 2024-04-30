@@ -1,0 +1,9 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  .register-form {
+    width: 100%;
+  }
+  
