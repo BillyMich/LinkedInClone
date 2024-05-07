@@ -1,0 +1,26 @@
+﻿namespace LinkedInWebApi.Core
+{
+    public class UserDto
+    {
+
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string SurName { get; set; }
+
+        public string UserName { get; set; }
+
+        public string Phone { get; set; }
+
+        public string Email { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public byte Role { get; set; }
+
+        public DateTimeOffset DateCreated { get; set; }
+
+        public DateTimeOffset DateUpdated { get; set; }
+    }
+}
