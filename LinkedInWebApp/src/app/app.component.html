@@ -1,6 +1,12 @@
-<h1>LinkedIn</h1>
-<nav>
-  <a routerLink="/login">Sign in</a><br>
-  <a routerLink="/register">Register</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="main-container">
+  <a routerLink="/">
+    <img src="../assets/logo.png" alt="Logo" class="logo">
+  </a>
+  <nav class="main-nav">
+    <ul>
+      <li><a routerLink="/login">Sign in</a></li>
+      <li><a routerLink="/register">Register</a></li>
+    </ul>
+  </nav>
+  <router-outlet></router-outlet>
+</div>
