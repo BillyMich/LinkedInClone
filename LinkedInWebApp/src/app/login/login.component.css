@@ -3,6 +3,8 @@
   .login-form {
       width: 90%;
       padding: 10px;
+      margin-left:auto;
+      margin-right:auto;
   }
 }
 .login-container {
@@ -25,6 +27,17 @@
   background: white;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   border-radius: 8px;
+}
+
+.login-header-content {
+  
+  display: grid;
+  gap: 10px;
+  justify-content: center; /* Aligns children to the center */
+  align-items: center; /* Centers children vertically */
+  width: 100%;
+  margin-bottom: 20px; /* Space below the header */
+  margin-top: 20px;
 }
 
 .mat-form-field {

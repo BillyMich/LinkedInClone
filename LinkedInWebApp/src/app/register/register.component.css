@@ -2,36 +2,53 @@
 
 @media (max-width: 600px) {
   .register-form {
-      width: 90%; /* More width on smaller screens */
-      padding: 10px;
-      margin-left:auto;
+    width: 90%; /* Ensures form width is responsive */
+    padding: 10px;
+    margin-left: auto; /* Keep this if it helps alignment */
+    margin-right: auto; /* Add this to ensure symmetry */
   }
 }
+
+
 .register-container {
   display: flex;
-  justify-content: flex-start; /* Aligns children (form) to the right */
+  justify-content: center; /* Center aligns the children horizontally */
   align-items: center; /* Centers children vertically */
-  height: 50vh; /* Full viewport height */
+  min-height: 60vh; /* Full viewport height to center vertically */
   padding: 20px; /* Padding around the container */
   width: 100%;
-  background-color:  #f4f4f4; /* Light grey background for the whole page */
+  background-color: #f4f4f4; /* Light grey background for the whole page */
 }
 
 .register-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%; /* Control the width of the form */
-  max-width: 650px; /* Limit the maximum width */
-  padding: 20px;
+  width: 100%; /* Adjust this if the form needs to be narrower */
+  max-width: 450px; /* Adjust max-width for better control */
+  padding: 10px;
   background: white; /* Background color */
   box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Shadow for depth */
   border-radius: 8px; /* Rounded corners */
+  margin: auto; /* Ensures margin is auto to center the form */
+}
+
+.register-header-content {
+  
+  display: grid;
+  gap: 10px;
+  justify-content: center; /* Aligns children to the center */
+  align-items: center; /* Centers children vertically */
+  width: 100%;
+  margin-bottom: 20px; /* Space below the header */
 }
 
 .mat-form-field {
-  width: calc(100% - 20px); 
+  width: 100%; 
+  margin-bottom: 20px; /* Adds space below each input field */
 }
+
+
 button {
   width: 100%; /* Full width for the button */
   margin-top: 10px; /* Space above the button */

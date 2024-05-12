@@ -1,5 +1,10 @@
 <div class="login-container">
+    
   <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
+    <div class="login-header-content">
+        <h1 class="heading"> Sign in</h1>
+        <p class="sub-heading">Stay tuned on your professional hub! </p>
+    </div>
       <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
           <input matInput placeholder="Enter your email" formControlName="email" required>
