@@ -6,14 +6,14 @@
   }
   
   .logo {
-    width: 120px; 
+    width: 180px; 
     height: auto;
     cursor: pointer; /* Indicates the logo is clickable */
     transition: transform 0.3s ease; /* Smooth transition for user feedback */
   }
   
   .logo:hover {
-    transform: scale(1.05); /* Slightly enlarge the logo on hover */
+    transform: scale(1.15); /* Slightly enlarge the logo on hover */
   }
   
   
