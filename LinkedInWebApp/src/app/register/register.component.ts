@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -17,8 +16,10 @@ export class RegisterComponent implements OnInit {
     this.registerForm = new FormGroup({
       fullName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.email]),
+      phone: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      confirmPassword: new FormControl('', [Validators.required])
+      confirmPassword: new FormControl('', [Validators.required]),
+      profilePicture: new FormControl(null)
     }, { validators: this.passwordMatchValidator });    
   }
 
@@ -30,7 +31,15 @@ export class RegisterComponent implements OnInit {
   
     return password.value === confirmPassword.value ? null : { 'mismatch': true };
   };
-  
+
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.registerForm.patchValue({
+        profilePicture: file
+      });
+    }
+  }
 
   onSubmit() {
     if (this.registerForm.valid) {

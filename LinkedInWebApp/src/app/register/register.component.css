@@ -2,54 +2,77 @@
 
 @media (max-width: 600px) {
   .register-form {
-    width: 90%; /* Ensures form width is responsive */
+    width: 90%; 
     padding: 10px;
-    margin-left: auto; /* Keep this if it helps alignment */
-    margin-right: auto; /* Add this to ensure symmetry */
+    margin-left: auto;
+    margin-right: auto; 
   }
 }
 
-
 .register-container {
   display: flex;
-  justify-content: center; /* Center aligns the children horizontally */
-  align-items: center; /* Centers children vertically */
-  min-height: 60vh; /* Full viewport height to center vertically */
-  padding: 20px; /* Padding around the container */
+  justify-content: center; 
+  align-items: center; 
+  min-height: 60vh; 
+  padding: 20px; 
   width: 100%;
-  background-color: #f4f4f4; /* Light grey background for the whole page */
+  background-color: #f4f4f4;
 }
 
 .register-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%; /* Adjust this if the form needs to be narrower */
-  max-width: 450px; /* Adjust max-width for better control */
+  width: 100%; 
+  max-width: 450px; 
   padding: 10px;
-  background: white; /* Background color */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Shadow for depth */
-  border-radius: 8px; /* Rounded corners */
-  margin: auto; /* Ensures margin is auto to center the form */
+  background: white; 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+  border-radius: 8px; 
+  margin: auto; 
 }
 
 .register-header-content {
-  
   display: grid;
   gap: 10px;
-  justify-content: center; /* Aligns children to the center */
-  align-items: center; /* Centers children vertically */
+  justify-content: center; 
+  align-items: center; 
   width: 100%;
-  margin-bottom: 20px; /* Space below the header */
+  margin-bottom: 20px; 
 }
 
 .mat-form-field {
   width: 100%; 
-  margin-bottom: 20px; /* Adds space below each input field */
+  margin-bottom: 20px; 
+}
+
+button {
+  width: 100%; 
+  margin-top: 10px; 
 }
 
 
-button {
-  width: 100%; /* Full width for the button */
-  margin-top: 10px; /* Space above the button */
+label {
+  width: 100%;
+  font-weight: bold; 
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+  box-sizing: border-box; 
+}
+
+small {
+  color: red; 
+  margin-top: -10px; 
+  margin-bottom: 10px; 
+  display: block;
 }
