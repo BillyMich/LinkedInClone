@@ -1,3 +1,4 @@
+// src/app/register/register.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { AuthService } from '../services/auth.service';

@@ -1,0 +1,11 @@
+<!-- src/app/admin/user-list/user-list.component.html -->
+<div class="user-list-container">
+    <h1>User List</h1>
+    <ul>
+      <li *ngFor="let user of users">
+        {{ user.fullName }} - {{ user.email }}
+        <button routerLink="/admin/users/{{ user.id }}">View Profile</button>
+      </li>
+    </ul>
+  </div>
+  
