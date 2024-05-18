@@ -1,0 +1,55 @@
+<!-- src/app/register/register.component.html -->
+<div class="register-container">
+  <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="fullName">Full Name</label>
+      <input id="fullName" formControlName="fullName" type="text" />
+      <div *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched">
+        <small *ngIf="registerForm.get('fullName')?.errors?.['required']">Full Name is required</small>
+        <small *ngIf="registerForm.get('fullName')?.errors?.['minlength']">Full Name must be at least 3 characters long</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="email">Email</label>
+      <input id="email" formControlName="email" type="email" />
+      <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        <small *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</small>
+        <small *ngIf="registerForm.get('email')?.errors?.['email']">Enter a valid email</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="phone">Phone Number</label>
+      <input id="phone" formControlName="phone" type="text" />
+      <div *ngIf="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched">
+        <small *ngIf="registerForm.get('phone')?.errors?.['required']">Phone Number is required</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input id="password" formControlName="password" type="password" />
+      <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        <small *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</small>
+        <small *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="confirmPassword">Confirm Password</label>
+      <input id="confirmPassword" formControlName="confirmPassword" type="password" />
+      <div *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
+        <small *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required</small>
+        <small *ngIf="registerForm.get('confirmPassword')?.errors?.['mismatch']">Passwords do not match</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="profilePicture">Profile Picture</label>
+      <input id="profilePicture" formControlName="profilePicture" type="file" (change)="onFileChange($event)" />
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+  </form>
+</div>
