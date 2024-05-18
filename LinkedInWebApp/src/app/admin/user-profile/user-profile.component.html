@@ -1,0 +1,11 @@
+<!-- src/app/admin/user-profile/user-profile.component.html -->
+<div class="user-profile-container" *ngIf="user">
+    <h1>{{ user.fullName }}'s Profile</h1>
+    <p>Email: {{ user.email }}</p>
+    <p>Phone: {{ user.phone }}</p>
+    <p>Profile Picture: <img [src]="user.profilePictureUrl" alt="Profile Picture" /></p>
+    
+    <button (click)="exportData('xml')">Export as XML</button>
+    <button (click)="exportData('json')">Export as JSON</button>
+  </div>
+  
