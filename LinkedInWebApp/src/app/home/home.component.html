@@ -1,0 +1,13 @@
+<!-- src/app/home/home.component.html -->
+<div class="home-container">
+    <h1>Timeline</h1>
+    <div *ngFor="let article of articles" class="article">
+      <h2>{{ article.title }}</h2>
+      <p>{{ article.content }}</p>
+      <div class="actions">
+        <button (click)="likeArticle(article.id)">Like</button>
+        <button (click)="commentArticle(article.id, 'Great article!')">Comment</button>
+      </div>
+    </div>
+  </div>
+  
