@@ -19,11 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkedInWebApi.Reposirotry"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{B15A3DFE-87F6-4E0D-A528-B1CA3EECBA1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedInWebApi.Application", "src\Application\LinkedInWebApi.Application\LinkedInWebApi.Application.csproj", "{7192E9FF-E973-46B1-9E46-85E0B445E5A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkedInWebApi.Application", "src\Application\LinkedInWebApi.Application\LinkedInWebApi.Application.csproj", "{7192E9FF-E973-46B1-9E46-85E0B445E5A0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{F3D0C12A-01B8-415D-BA53-4D828642C8C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedInWebApi.Core", "src\Core\LinkedInWebApi.Core\LinkedInWebApi.Core.csproj", "{32522742-BE4E-4B16-B125-E312D54AB811}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkedInWebApi.Core", "src\Core\LinkedInWebApi.Core\LinkedInWebApi.Core.csproj", "{32522742-BE4E-4B16-B125-E312D54AB811}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

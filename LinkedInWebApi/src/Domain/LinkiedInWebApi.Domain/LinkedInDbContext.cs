@@ -2,13 +2,14 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using LinkiedInWebApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LinkiedInWebApi.Domain.Entities;
+namespace LinkiedInWebApi.Domain;
 
-public partial class linkedinContext : DbContext
+public partial class LinkedInDbContext : DbContext
 {
-    public linkedinContext(DbContextOptions<linkedinContext> options)
+    public LinkedInDbContext(DbContextOptions<LinkedInDbContext> options)
         : base(options)
     {
     }

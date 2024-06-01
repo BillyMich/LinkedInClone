@@ -1,6 +1,8 @@
-﻿using LinkedInWebApi.Application.Dto;
-using LinkedInWebApi.Application.Handlers;
+﻿using LinkedInWebApi.Application.Handlers;
+using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LinkedInWebApi.Controllers
 {
@@ -25,27 +27,17 @@ namespace LinkedInWebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("login")]
-        public async Task<IActionResult> Login()
-        {
-            return Ok();
-
-        }
-
-        /// <summary>
-        /// Register
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDto registerDto)
+        public async Task<ActionResult<List<Claim>>> Login(UserLoginDto userLoginDto)
         {
             try
             {
-                var registerUserResult = await _authenticationHandler.RegisterUserHandler(registerDto);
-                if (!registerUserResult.Success)
-                {
-                    return BadRequest(registerUserResult.ErrorMessage);
-                }
 
+                var userClaims = await _authenticationHandler.LoginUserHandler(userLoginDto);
+
+                if (userClaims == null)
+                {
+                    return BadRequest("Invalid email or password");
+                }
 
                 return Ok();
 
@@ -54,36 +46,35 @@ namespace LinkedInWebApi.Controllers
             {
                 return BadRequest(ex.Message);
             }
+
         }
 
-        [HttpPost("forgot-password")]
-        public IActionResult ForgotPassword()
+        /// <summary>
+        /// Register
+        /// </summary>
+        /// <returns>Returns 204 if the registration completed successfully and if not
+        /// it will return 400 with the error message depending on the error
+        /// </returns>
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(UserRegisterDto userRegisterDto)
         {
-            return Ok();
+            try
+            {
+                var registerUserResult = await _authenticationHandler.RegisterUserHandler(userRegisterDto);
+
+                if (!registerUserResult)
+                {
+                    return BadRequest("Something wrong happed");
+                }
+
+                return NoContent();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpPost("reset-password")]
-        public IActionResult ResetPassword()
-        {
-            return Ok();
-        }
-
-        [HttpPost("change-password")]
-        public IActionResult ChangePassword()
-        {
-            return Ok();
-        }
-
-        [HttpPost("refresh-token")]
-        public IActionResult RefreshToken()
-        {
-            return Ok();
-        }
-
-        [HttpPost("revoke-token")]
-        public IActionResult RevokeToken()
-        {
-            return Ok();
-        }
     }
 }

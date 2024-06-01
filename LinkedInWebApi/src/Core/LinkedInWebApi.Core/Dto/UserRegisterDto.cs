@@ -1,6 +1,6 @@
-﻿namespace LinkedInWebApi.Application.Dto
+﻿namespace LinkedInWebApi.Core
 {
-    public class RegisterDto
+    public class UserRegisterDto
     {
         /// <summary>
         /// Name
@@ -10,7 +10,7 @@
         /// <summary>
         /// Surname
         /// </summary>
-        public string Surname { get; set; }
+        public string SurName { get; set; }
 
         /// <summary>
         /// User name

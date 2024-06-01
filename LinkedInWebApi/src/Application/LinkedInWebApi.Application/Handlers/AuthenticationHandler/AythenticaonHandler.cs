@@ -1,31 +1,28 @@
-﻿using LinkedInWebApi.Application.Dto;
-using LinkedInWebApi.Application.Services;
+﻿using LinkedInWebApi.Application.Services;
 using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
+using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Handlers
 {
     public class AuthenticationHandler : IAuthenticationHandler
     {
 
-        private readonly IRegisterUserService _registerUserService;
+        private readonly IUserAuthenticationService _userAuthenticationService;
 
 
-        public AuthenticationHandler(IRegisterUserService registerUserService)
+        public AuthenticationHandler(IUserAuthenticationService registerUserService)
         {
-            _registerUserService = registerUserService;
+            _userAuthenticationService = registerUserService;
         }
 
-
-        public async Task<IResult<bool>> RegisterUserHandler(RegisterDto registerDto)
+        public Task<List<Claim>> LoginUserHandler(UserLoginDto registerDto)
         {
+            throw new NotImplementedException();
+        }
 
-            var registerUserResult = await _registerUserService.RegisterUserService(registerDto);
-
-            if (registerUserResult.Success)
-            {
-                return new SuccessResult<bool>(registerUserResult.Data);
-            }
-
+        public Task<bool> RegisterUserHandler(UserRegisterDto registerDto)
+        {
             throw new NotImplementedException();
         }
     }

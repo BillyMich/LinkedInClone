@@ -1,11 +1,15 @@
-﻿using LinkedInWebApi.Application.Dto;
-using LinkedInWebApi.Core;
+﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
+using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Handlers
 {
     public interface IAuthenticationHandler
     {
 
-        Task<IResult<bool>> RegisterUserHandler(RegisterDto registerDto);
+        Task<bool> RegisterUserHandler(UserRegisterDto registerDto);
+
+        Task<List<Claim>> LoginUserHandler(UserLoginDto registerDto);
+
     }
 }
