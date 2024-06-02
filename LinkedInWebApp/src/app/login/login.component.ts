@@ -1,6 +1,4 @@
 /* login.component.ts */
-import { User } from '../models/user.model'; 
-import { Login } from '../models/login';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
@@ -13,10 +11,7 @@ import { AuthService } from '../services/auth.service';
 
 export class LoginComponent implements OnInit { 
 
-
-  userModel = new User("John", "Doe", "johnDoe@protonmail.com", "12345678");
   loginForm!: FormGroup; 
-  userLogin = new Login("JohnD", "pass123@@gg");
 
   constructor(private authService: AuthService) {}
 

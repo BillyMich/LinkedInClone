@@ -21,6 +21,11 @@ namespace LinkedInWebApi.Application.Services
 
             var userDto = await _userReadCommands.CheckUserPasswordAsync(userLoginDto.Email, userLoginDto.Password);
 
+            if (userDto == null)
+            {
+                return null;
+            }
+
             var listClaims = _jwtHandler.GetClaims(userDto);
 
             return listClaims;

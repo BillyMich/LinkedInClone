@@ -1,6 +1,7 @@
 ﻿using LinkedInWebApi.Application.Handlers;
 using LinkedInWebApi.Core;
 using LinkedInWebApi.Core.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -27,6 +28,8 @@ namespace LinkedInWebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("login")]
+        [AllowAnonymous]
+
         public async Task<ActionResult<List<Claim>>> Login(UserLoginDto userLoginDto)
         {
             try

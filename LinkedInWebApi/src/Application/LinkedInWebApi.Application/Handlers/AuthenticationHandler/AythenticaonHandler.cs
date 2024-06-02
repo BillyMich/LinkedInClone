@@ -18,7 +18,8 @@ namespace LinkedInWebApi.Application.Handlers
 
         public Task<List<Claim>> LoginUserHandler(UserLoginDto registerDto)
         {
-            throw new NotImplementedException();
+
+            return _userAuthenticationService.LoginUserService(registerDto);
         }
 
         public Task<bool> RegisterUserHandler(UserRegisterDto registerDto)
