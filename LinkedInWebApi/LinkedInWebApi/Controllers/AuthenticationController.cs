@@ -3,14 +3,13 @@ using LinkedInWebApi.Core;
 using LinkedInWebApi.Core.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace LinkedInWebApi.Controllers
 {
     /// <summary>
     /// Controller for authentication
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
@@ -29,20 +28,25 @@ namespace LinkedInWebApi.Controllers
         /// <returns></returns>
         [HttpPost("login")]
         [AllowAnonymous]
-
-        public async Task<ActionResult<List<Claim>>> Login(UserLoginDto userLoginDto)
+        public async Task<ActionResult<string>> Login(UserLoginDto userLoginDto)
         {
             try
             {
 
-                var userClaims = await _authenticationHandler.LoginUserHandler(userLoginDto);
+                var generatedToken = await _authenticationHandler.LoginUserHandler(userLoginDto);
 
-                if (userClaims == null)
+                if (generatedToken == null)
                 {
-                    return BadRequest("Invalid email or password");
+                    return Unauthorized("Invalid email or password");
                 }
 
-                return Ok();
+                var response = new
+                {
+                    access_token = generatedToken,
+                    token_type = "bearer",
+                };
+
+                return Ok(response);
 
             }
             catch (Exception ex)
@@ -59,6 +63,7 @@ namespace LinkedInWebApi.Controllers
         /// it will return 400 with the error message depending on the error
         /// </returns>
         [HttpPost("register")]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(UserRegisterDto userRegisterDto)
         {
             try

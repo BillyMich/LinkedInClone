@@ -1,7 +1,6 @@
 ﻿using LinkedInWebApi.Application.Services;
 using LinkedInWebApi.Core;
 using LinkedInWebApi.Core.Dto;
-using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Handlers
 {
@@ -16,7 +15,7 @@ namespace LinkedInWebApi.Application.Handlers
             _userAuthenticationService = registerUserService;
         }
 
-        public Task<List<Claim>> LoginUserHandler(UserLoginDto registerDto)
+        public Task<string> LoginUserHandler(UserLoginDto registerDto)
         {
 
             return _userAuthenticationService.LoginUserService(registerDto);
@@ -24,7 +23,7 @@ namespace LinkedInWebApi.Application.Handlers
 
         public Task<bool> RegisterUserHandler(UserRegisterDto registerDto)
         {
-            throw new NotImplementedException();
+            return _userAuthenticationService.RegisterUserAsync(registerDto);
         }
     }
 }

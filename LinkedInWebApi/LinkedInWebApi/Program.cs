@@ -16,7 +16,14 @@ builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
 builder.Services.AddDbContext<LinkedInDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"),
+    sqlServerOptionsAction: sqlOptions =>
+    {
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5, // The number of times to retry before failing
+            maxRetryDelay: TimeSpan.FromSeconds(1), // The maximum delay between retries
+            errorNumbersToAdd: null); // SQL error numbers to consider as transient
+    }));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -1,6 +1,5 @@
 ﻿using LinkedInWebApi.Core;
 using LinkedInWebApi.Core.Dto;
-using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Services
 {
@@ -9,6 +8,6 @@ namespace LinkedInWebApi.Application.Services
 
         Task<bool> RegisterUserAsync(UserRegisterDto registerDto);
 
-        Task<List<Claim>> LoginUserService(UserLoginDto userLoginDto);
+        Task<string> LoginUserService(UserLoginDto userLoginDto);
     }
 }

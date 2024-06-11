@@ -1,9 +1,9 @@
-export class LoginRequest{
-    email: string;
-    password: string;
+export class UserLoginDto{
+    Email: string;
+    Password: string;
 
     constructor(email:string, password:string){
-        this.email = email;
-        this.password = password;
+        this.Email = email;
+        this.Password = password;
     }
 }

@@ -190,7 +190,7 @@ public partial class LinkedInDbContext : DbContext
             entity.Property(e => e.Phone)
                 .IsRequired()
                 .HasMaxLength(50);
-            entity.Property(e => e.SurName)
+            entity.Property(e => e.Surname)
                 .IsRequired()
                 .HasMaxLength(20);
             entity.Property(e => e.Username)

@@ -4,7 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { LoginRequest } from '../models/login-request.model';
+import { UserLoginDto } from '../models/login-request.model';
+import { LocalStorageService } from './local-storage.service';
 
 
 const apiUrl = environment.apiPath;
@@ -14,16 +15,17 @@ const apiUrl = environment.apiPath;
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private localStorageService : LocalStorageService) {}
 
   login(email: string, password: string): Observable<any> {
 
-    const loginRequest = new LoginRequest(email, password);
+    const loginRequest = new UserLoginDto(email, password);
 
-    return this.http.post<any>(`${apiUrl}/login`, {loginRequest})
+    return this.http.post<any>(`${apiUrl}/login`, loginRequest)
       .pipe(
         map(response => {
-          // successful login
+          console.log('Login response', response);
+          this.localStorageService.saveToken(response.access_token)
           return response;
         }),
         catchError(error => {

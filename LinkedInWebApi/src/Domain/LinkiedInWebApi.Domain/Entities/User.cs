@@ -11,7 +11,7 @@ public partial class User
 
     public string Name { get; set; }
 
-    public string SurName { get; set; }
+    public string Surname { get; set; }
 
     public string Username { get; set; }
 

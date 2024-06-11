@@ -10,7 +10,7 @@
         /// <summary>
         /// Surname
         /// </summary>
-        public string SurName { get; set; }
+        public string Surname { get; set; }
 
         /// <summary>
         /// User name
@@ -25,7 +25,7 @@
         /// <summary>
         /// Role
         /// </summary>
-        public byte Role { get; set; }
+        public Role Role { get; set; }
 
         /// <summary>
         /// Email

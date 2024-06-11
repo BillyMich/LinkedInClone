@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-welcome',
@@ -6,10 +8,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent {
-  user = { email: '', password: '' };
+  user = { email:'', password: '' };
+  
+  constructor(private authService: AuthService) {}
+
 
   onLogin() {
-    console.log('Logging in with:', this.user.email, this.user.password);
-   
+    console.log('Login form submitted', this.user);
+      this.authService.login(this.user.email, this.user.password)
+        .subscribe({
+          next: (response) =>{
+             console.log('Login successful', response)
+          },
+          error: (error) => {
+            console.error('Login failed', error)
+          }
+        });
   }
+   
 }

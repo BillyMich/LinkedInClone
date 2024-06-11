@@ -1,6 +1,6 @@
 ﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Reposirotry.Extensions;
 using LinkiedInWebApi.Domain;
-using LinkiedInWebApi.Domain.Entities;
 
 namespace LinkedInWebApi.Reposirotry.Commands
 {
@@ -16,32 +16,23 @@ namespace LinkedInWebApi.Reposirotry.Commands
         }
 
 
-        public async Task<bool> RegisterUserAsync(UserRegisterDto registerDto)
+        public async Task<bool> RegisterUserAsync(UserDto userDto)
         {
 
             try
             {
-
-                linkedInDbContext.Users.Add(new User
-                {
-                    Name = registerDto.Name,
-                    SurName = registerDto.SurName,
-                    Phone = registerDto.Phone,
-                    Email = registerDto.Email,
-                    Password = registerDto.Password
-                });
-
-
+                linkedInDbContext.Users.Add(userDto.ToUser());
                 await linkedInDbContext.SaveChangesAsync();
+                return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new NotImplementedException();
+                throw new Exception(ex.Message);
             }
 
 
 
-            throw new NotImplementedException();
+
         }
     }
 }

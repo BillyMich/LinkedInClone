@@ -29,7 +29,7 @@ namespace LinkedInWebApi.Core
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email,user.Email),
-                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Role,user.Role.ToString()),
                 new Claim(ClaimTypes.NameIdentifier , user.Id.ToString())
             };
@@ -47,6 +47,14 @@ namespace LinkedInWebApi.Core
                 expires: DateTime.Now.AddMinutes(Convert.ToDouble(_jwtSettings["expiryInMinutes"])),
                 signingCredentials: signingCredentials);
             return tokenOptions;
+        }
+
+        public string GenerateToken(UserDto user)
+        {
+            var signingCredentials = GetSigningCredentials();
+            var claims = GetClaims(user);
+            var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
+            return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
     }
 }
