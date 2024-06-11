@@ -2,13 +2,32 @@
 <div class="register-container">
   <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div>
-      <label for="fullName">Full Name</label>
-      <input id="fullName" formControlName="fullName" type="text" />
-      <div *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched">
-        <small *ngIf="registerForm.get('fullName')?.errors?.['required']">Full Name is required</small>
-        <small *ngIf="registerForm.get('fullName')?.errors?.['minlength']">Full Name must be at least 3 characters long</small>
+      <label for="Name">Name</label>
+      <input id="Name" formControlName="Name" type="text" />
+      <div *ngIf="registerForm.get('Name')?.invalid && registerForm.get('Name')?.touched">
+        <small *ngIf="registerForm.get('Name')?.errors?.['required']">Name is required</small>
+        <small *ngIf="registerForm.get('Name')?.errors?.['minlength']">Name must be at least 3 characters long</small>
       </div>
     </div>
+
+    <div>
+      <label for="Surname">Surname</label>
+      <input id="Surname" formControlName="Surname" type="text" />
+      <div *ngIf="registerForm.get('Surname')?.invalid && registerForm.get('Surname')?.touched">
+        <small *ngIf="registerForm.get('Surname')?.errors?.['required']">Surname is required</small>
+        <small *ngIf="registerForm.get('Surname')?.errors?.['minlength']">Surname must be at least 3 characters long</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="UserName">UserName</label>
+      <input id="UserName" formControlName="UserName" type="text" />
+      <div *ngIf="registerForm.get('UserName')?.invalid && registerForm.get('UserName')?.touched">
+        <small *ngIf="registerForm.get('UserName')?.errors?.['required']">UserName is required</small>
+        <small *ngIf="registerForm.get('UserName')?.errors?.['minlength']">UserName must be at least 3 characters long</small>
+      </div>
+    </div>
+
 
     <div>
       <label for="email">Email</label>
@@ -44,12 +63,7 @@
         <small *ngIf="registerForm.get('confirmPassword')?.errors?.['mismatch']">Passwords do not match</small>
       </div>
     </div>
-
-    <div>
-      <label for="profilePicture">Profile Picture</label>
-      <input id="profilePicture" formControlName="profilePicture" type="file" (change)="onFileChange($event)" />
-    </div>
-
+    
     <button type="submit" [disabled]="registerForm.invalid">Register</button>
   </form>
 </div>
