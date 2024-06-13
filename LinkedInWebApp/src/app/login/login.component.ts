@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -23,14 +24,21 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    if (this.loginForm.valid) {  /* e-mail (format), password (8 length) */
+    if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
         .subscribe({
-          next: (response) =>{
-             console.log('Login successful', response)
+          next: (response) => {
+            if (response && response.user) {
+              const role = response.user.role;
+              if (role === 'admin') {
+                this.router.navigate(['/admin']);
+              } else {
+                this.router.navigate(['/home']);
+              }
+            }
           },
           error: (error) => {
-            console.error('Login failed', error)
+            console.error('Login failed', error);
           }
         });
     } else {

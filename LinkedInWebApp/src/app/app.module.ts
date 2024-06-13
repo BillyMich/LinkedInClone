@@ -9,12 +9,17 @@ import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
 import { UserProfileComponent } from './admin/user-profile/user-profile.component';
+import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
+import { BypassLoginComponent } from './bypass-login/bypass-login.component';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { SidebarComponent } from './sidebar/sidebar.component'; 
 
 @NgModule({
   declarations: [
@@ -24,7 +29,11 @@ import { MatButtonModule } from '@angular/material/button';
     RegisterComponent,
     AdminComponent,
     UserListComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    HomeComponent,
+    BypassLoginComponent,
+    NavigationBarComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +44,8 @@ import { MatButtonModule } from '@angular/material/button';
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

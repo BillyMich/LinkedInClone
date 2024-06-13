@@ -7,13 +7,13 @@ import { environment } from '../../environments/environment';
 import { UserLoginDto } from '../models/login-request.model';
 import { LocalStorageService } from './local-storage.service';
 
-
 const apiUrl = environment.apiPath;
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private apiUrl = 'http://localhost:4200/api'; 
 
   constructor(private http: HttpClient,private localStorageService : LocalStorageService) {}
 
@@ -24,19 +24,26 @@ export class AuthService {
     return this.http.post<any>(`${apiUrl}/login`, loginRequest)
       .pipe(
         map(response => {
+          if (response && response.user) {
+            localStorage.setItem('currentUser', JSON.stringify(response.user));
+          }
           console.log('Login response', response);
           this.localStorageService.saveToken(response.access_token)
           return response;
-        }),
-        catchError(error => {
-          //  login error
-          console.error('Login error', error);
-          return of(null);
         })
       );
   }
 
   register(user: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/register`, user);
+  }
+
+  logout(): void {
+    localStorage.removeItem('currentUser');
+  }
+
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('currentUser') || '{}');
     return this.http.post<any>(`${apiUrl}/register`, user)
       .pipe(
         map(response => {

@@ -7,12 +7,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:??/api'; 
+  private apiUrl = 'http://localhost:4200/api'; 
 
   constructor(private http: HttpClient) {}
 
   getAllUsers(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/users`);
+  }
+  
+  updateUser(id: string, user: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/users/${id}`, user);
   }
 
   getUserById(id: string): Observable<any> {
