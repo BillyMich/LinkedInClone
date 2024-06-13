@@ -8,27 +8,51 @@ import { ArticleService } from '../services/article.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  articles: any[] = [];
+  posts: any[] = [];
+  newPostContent: string = '';
+  newComment: string = '';
 
   constructor(private articleService: ArticleService) {}
 
   ngOnInit() {
+    this.fetchPosts();
+  }
+
+  fetchPosts() {
     this.articleService.getArticles().subscribe((data: any[]) => {
-      this.articles = data;
+      this.posts = data;
     });
   }
 
-  likeArticle(articleId: string) {
-    this.articleService.likeArticle(articleId).subscribe((response) => {
-      console.log('Article liked', response);
-      // Update the article in the articles array
+  onPostSubmit() {
+    if (this.newPostContent) {
+      const newPost = {
+        content: this.newPostContent,
+        mediaUrls: [] // media handling
+      };
+      this.articleService.createArticle(newPost).subscribe(() => {
+        this.fetchPosts();
+        this.newPostContent = '';
+      });
+    }
+  }
+
+  onFileChange(event: any) {
+    // file handling 
+  }
+
+  onLike(postId: string) {
+    this.articleService.likeArticle(postId).subscribe(() => {
+      this.fetchPosts();
     });
   }
 
-  commentArticle(articleId: string, comment: string) {
-    this.articleService.commentArticle(articleId, comment).subscribe((response) => {
-      console.log('Comment added', response);
-      // Update the article in the articles array
-    });
+  onCommentSubmit(postId: string) {
+    if (this.newComment) {
+      this.articleService.commentArticle(postId, this.newComment).subscribe(() => {
+        this.fetchPosts();
+        this.newComment = '';
+      });
+    }
   }
 }

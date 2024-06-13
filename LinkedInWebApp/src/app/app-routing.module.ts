@@ -10,6 +10,7 @@ import { UserProfileComponent } from './admin/user-profile/user-profile.componen
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { BypassLoginComponent } from './bypass-login/bypass-login.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
   { path: 'admin/users', component: UserListComponent, canActivate: [AdminGuard] },
   { path: 'admin/users/:id', component: UserProfileComponent, canActivate: [AdminGuard] },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'bypass-login', component: BypassLoginComponent}
 ];
 
 @NgModule({

@@ -16,7 +16,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router'; 
+import { RouterModule } from '@angular/router';
+import { BypassLoginComponent } from './bypass-login/bypass-login.component';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { SidebarComponent } from './sidebar/sidebar.component'; 
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { RouterModule } from '@angular/router';
     AdminComponent,
     UserListComponent,
     UserProfileComponent,
-    HomeComponent
+    HomeComponent,
+    BypassLoginComponent,
+    NavigationBarComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

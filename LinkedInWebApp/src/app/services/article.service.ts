@@ -1,4 +1,3 @@
-// src/app/services/article.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -7,12 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ArticleService {
-  private apiUrl = 'http://localhost:??/api'; // Adjust as necessary
+  private apiUrl = 'http://localhost:4200/api'; 
 
   constructor(private http: HttpClient) {}
 
   getArticles(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/articles`);
+  }
+
+  createArticle(article: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/articles`, article);
   }
 
   likeArticle(articleId: string): Observable<any> {
