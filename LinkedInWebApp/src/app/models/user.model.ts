@@ -3,12 +3,14 @@ export class User {
     last_name: string;
     email: string;
     password: string;
-  
-    constructor(name: string, last_name: string, email: string, password: string) {
-        this.name = name;
-        this.last_name = last_name;
-        this.email = email;
-        this.password = password;
+    role: string;
+
+    constructor() {
+        this.name = '';
+        this.last_name = '';
+        this.email = '';
+        this.password = '';
+        this.role = '';
     }
-  }
+}
   

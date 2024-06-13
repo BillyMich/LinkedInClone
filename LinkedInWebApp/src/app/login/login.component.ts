@@ -1,4 +1,4 @@
-// src/app/login/login.component.ts
+/* login.component.ts */
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
@@ -9,10 +9,12 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router) {}
+export class LoginComponent implements OnInit { 
+
+  loginForm!: FormGroup; 
+
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
