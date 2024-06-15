@@ -13,7 +13,7 @@ const apiUrl = environment.apiPath;
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:4200/api'; 
+  private apiUrl = 'http://localhost:5152/api'; 
 
   constructor(private http: HttpClient,private localStorageService : LocalStorageService) {}
 
@@ -44,17 +44,5 @@ export class AuthService {
 
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('currentUser') || '{}');
-    return this.http.post<any>(`${apiUrl}/register`, user)
-      .pipe(
-        map(response => {
-          // successful registration
-          return response;
-        }),
-        catchError(error => {
-          // registration error
-          console.error('Registration error', error);
-          return of(null);
-        })
-      );
   }
 }
