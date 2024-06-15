@@ -19,7 +19,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { BypassLoginComponent } from './bypass-login/bypass-login.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
-import { SidebarComponent } from './sidebar/sidebar.component'; 
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SettingsComponent } from './settings/settings.component'; 
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     HomeComponent,
     BypassLoginComponent,
     NavigationBarComponent,
-    SidebarComponent
+    SidebarComponent,
+    ProfileComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
