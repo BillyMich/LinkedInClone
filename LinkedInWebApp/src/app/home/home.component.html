@@ -1,0 +1,34 @@
+<!-- src/app/home/home.component.html -->
+<app-navigation-bar></app-navigation-bar>
+<div class="home-container">
+  <app-sidebar></app-sidebar>
+  <div class="main-content">
+    <div class="post-creation">
+      <h2>Δημιουργία νέου άρθρου</h2>
+      <form (submit)="onPostSubmit()">
+        <textarea [(ngModel)]="newPostContent" placeholder="Γράψτε κάτι..."></textarea>
+        <input type="file" (change)="onFileChange($event)" multiple />
+        <button type="submit">Δημοσίευση</button>
+      </form>
+    </div>
+    <div class="timeline">
+      <h2>Χρονολόγιο</h2>
+      <div *ngFor="let post of posts" class="post">
+        <h3>{{ post.author }}</h3>
+        <p>{{ post.content }}</p>
+        <div *ngIf="post.mediaUrls.length > 0">
+          <div *ngFor="let mediaUrl of post.mediaUrls">
+            <img *ngIf="mediaUrl.endsWith('.jpg') || mediaUrl.endsWith('.png')" [src]="mediaUrl" alt="Media" />
+            <video *ngIf="mediaUrl.endsWith('.mp4')" [src]="mediaUrl" controls></video>
+            <audio *ngIf="mediaUrl.endsWith('.mp3')" [src]="mediaUrl" controls></audio>
+          </div>
+        </div>
+        <button (click)="onLike(post.id)">Σημειώστε το ενδιαφέρον</button>
+        <form (submit)="onCommentSubmit(post.id)">
+          <input [(ngModel)]="newComment" placeholder="Γράψτε ένα σχόλιο..." />
+          <button type="submit">Σχόλιο</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

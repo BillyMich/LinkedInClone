@@ -1,0 +1,64 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .logo {
+    width: 180px; 
+    height: auto;
+    cursor: pointer; /* Indicates the logo is clickable */
+    transition: transform 0.3s ease; /* Smooth transition for user feedback */
+  }
+  
+  .logo:hover {
+    transform: scale(1.15); /* Slightly enlarge the logo on hover */
+  }
+  
+  
+  .main-nav {
+    width: 100%;
+    background-color: #f8f9fa; /* Light grey background */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    margin-top: 20px; /* Space between logo and nav */
+  }
+  
+  .main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Center the navigation items horizontally */
+  }
+  
+  .main-nav ul li {
+    margin: 0 15px; /* Spacing between nav items */
+  }
+  
+  .main-nav ul li a {
+    text-decoration: none;
+    color: hsl(282, 100%, 35%); /* Bootstrap's primary blue */
+    font-weight: 500;
+    padding: 10px;
+    display: block;
+  }
+  
+  .main-nav ul li a:hover, .main-nav ul li a:focus {
+    text-decoration: none;
+    color: hwb(286 6% 16%); /* Darker blue on hover/focus */
+    background-color: #e9ecef; /* Light background on hover/focus */
+  }
+  
+  /* Optional: Responsive adjustments */
+  @media (max-width: 768px) {
+    .main-nav ul {
+      flex-direction: column; /* Stack the navigation items vertically on smaller screens */
+    }
+  
+    .main-nav ul li {
+      width: 100%; /* Full width nav items */
+      text-align: center; /* Center text for nav items */
+    }
+  }
+  
