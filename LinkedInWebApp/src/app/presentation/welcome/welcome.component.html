@@ -1,0 +1,17 @@
+<div class="welcome-container">
+    <div class="login-section">
+      <h1>Welcome to Your Professional Hub</h1>
+      <form class="login-form" (ngSubmit)="onLogin()">
+        <input type="email" placeholder="Email" name="email" [(ngModel)]="user.email" required>
+        <input type="password" placeholder="Password" name="password" [(ngModel)]="user.password" required>
+        <button type="submit">Login</button>
+      </form>
+      <button routerLink="/register">Register</button>
+      <p>Connect, grow, and discover new professional opportunities through our platform.</p>
+      <footer>© 2024 Professional Networking App. All rights reserved.</footer>
+    </div>
+    <div class="welcome-image">
+      <img src="assets/dxf91zhqd2z6b0bwg85ktm5s4.svg" alt="Welcome Image">
+    </div>
+  </div>
+  
