@@ -30,9 +30,6 @@ namespace LinkedInWebApi.Reposirotry.Commands
                 throw new Exception(ex.Message);
             }
 
-
-
-
         }
     }
 }

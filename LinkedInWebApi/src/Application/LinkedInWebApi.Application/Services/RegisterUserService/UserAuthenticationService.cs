@@ -36,7 +36,6 @@ namespace LinkedInWebApi.Application.Services
         public async Task<bool> RegisterUserAsync(UserRegisterDto registerDto)
         {
 
-            //todo:add validation here
 
             var userDto = new UserDto
             {
@@ -54,7 +53,6 @@ namespace LinkedInWebApi.Application.Services
 
 
             var registerUserResult = await _userInsertCommands.RegisterUserAsync(userDto);
-
             return registerUserResult;
 
         }

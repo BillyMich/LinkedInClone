@@ -25,6 +25,7 @@ builder.Services.AddDbContext<LinkedInDbContext>(options =>
             errorNumbersToAdd: null); // SQL error numbers to consider as transient
     }));
 
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

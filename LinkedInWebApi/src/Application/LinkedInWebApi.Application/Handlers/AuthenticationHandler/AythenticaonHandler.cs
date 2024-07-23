@@ -21,6 +21,11 @@ namespace LinkedInWebApi.Application.Handlers
             return _userAuthenticationService.LoginUserService(registerDto);
         }
 
+        /// <summary>
+        /// Register User Handler
+        /// </summary>
+        /// <param name="registerDto"></param>
+        /// <returns></returns>
         public Task<bool> RegisterUserHandler(UserRegisterDto registerDto)
         {
             return _userAuthenticationService.RegisterUserAsync(registerDto);

@@ -8,6 +8,7 @@
   <ItemGroup>
     <Folder Include="Extensions\" />
     <Folder Include="Constants\" />
+    <Folder Include="ExceptionHandler\" />
   </ItemGroup>
 
 	<ItemGroup>
