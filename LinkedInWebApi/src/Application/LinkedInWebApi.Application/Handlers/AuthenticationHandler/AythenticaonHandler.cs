@@ -15,6 +15,7 @@ namespace LinkedInWebApi.Application.Handlers
             _userAuthenticationService = registerUserService;
         }
 
+
         public Task<string> LoginUserHandler(UserLoginDto registerDto)
         {
 

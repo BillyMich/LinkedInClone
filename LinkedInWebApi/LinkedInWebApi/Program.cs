@@ -1,5 +1,8 @@
 using LinkedInWebApi.Application.Handlers;
+using LinkedInWebApi.Application.Handlers.UserHandler;
 using LinkedInWebApi.Application.Services;
+using LinkedInWebApi.Application.Services.UserService;
+using LinkedInWebApi.Application.Services.ValidationServices;
 using LinkedInWebApi.Core;
 using LinkedInWebApi.Reposirotry.Commands;
 using LinkiedInWebApi.Domain;
@@ -60,6 +63,9 @@ builder.Services.AddScoped<IAuthenticationHandler, AuthenticationHandler>();
 builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
 builder.Services.AddScoped<IUserReadCommands, UserReadCommands>();
 builder.Services.AddScoped<IUserInsertCommands, UserInsertCommands>();
+builder.Services.AddScoped<IUserValidationServices, UserValidationsServices>();
+builder.Services.AddScoped<IUserHandler, UserHandler>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 builder.Services.AddCors();

@@ -1,4 +1,6 @@
-﻿using LinkedInWebApi.Core;
+﻿using LinkedInWebApi.Application.Extensions;
+using LinkedInWebApi.Application.Services.ValidationServices;
+using LinkedInWebApi.Core;
 using LinkedInWebApi.Core.Dto;
 using LinkedInWebApi.Reposirotry.Commands;
 
@@ -9,12 +11,13 @@ namespace LinkedInWebApi.Application.Services
         private readonly IUserReadCommands _userReadCommands;
         private readonly IUserInsertCommands _userInsertCommands;
         private readonly JwtHandler _jwtHandler;
-
-        public UserAuthenticationService(IUserReadCommands userReadCommands, IUserInsertCommands userInsertCommands, JwtHandler jwtHandler)
+        private readonly IUserValidationServices _userValidationServices;
+        public UserAuthenticationService(IUserReadCommands userReadCommands, IUserInsertCommands userInsertCommands, JwtHandler jwtHandler, IUserValidationServices userValidationServices)
         {
             _userReadCommands = userReadCommands;
             _jwtHandler = jwtHandler;
             _userInsertCommands = userInsertCommands;
+            _userValidationServices = userValidationServices;
         }
 
         public async Task<string> LoginUserService(UserLoginDto userLoginDto)
@@ -36,23 +39,15 @@ namespace LinkedInWebApi.Application.Services
         public async Task<bool> RegisterUserAsync(UserRegisterDto registerDto)
         {
 
+            var isValidToRegister = await _userValidationServices.IsValidUserToRegister(registerDto);
 
-            var userDto = new UserDto
+            if (!isValidToRegister)
             {
-                Username = registerDto.UserName,
-                Name = registerDto.Name,
-                Surname = registerDto.Surname,
-                Password = registerDto.Password,
-                Role = Role.User,
-                Email = registerDto.Email,
-                IsActive = true,
-                Phone = registerDto.Phone,
-                DateCreated = DateTimeOffset.Now,
-                DateUpdated = DateTimeOffset.Now,
-            };
+                return false;
+            }
 
+            var registerUserResult = await _userInsertCommands.RegisterUserAsync(registerDto.ToUserDto());
 
-            var registerUserResult = await _userInsertCommands.RegisterUserAsync(userDto);
             return registerUserResult;
 
         }

@@ -1,6 +1,8 @@
 ﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Extensions;
 using LinkedInWebApi.Reposirotry.Extensions;
 using LinkiedInWebApi.Domain;
+using LinkiedInWebApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinkedInWebApi.Reposirotry.Commands
@@ -41,6 +43,42 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
             return user.ToUserDto();
 
+        }
+
+        public async Task<UserDto> GetUserByIdAsync(int id)
+        {
+
+            var user = await linkedInDbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (user == null)
+            {
+                return null;
+            }
+            return user.ToUserDto();
+
+        }
+
+        public async Task<List<UserDto>> GetUsersAsync()
+        {
+            var users = await linkedInDbContext.Users.ToListAsync();
+
+            // TODO: Implement extension for that job
+            return users.Select(x => x.ToUserDto()).ToList();
+
+        }
+
+        public async Task<string> GetUsersToJsonAsync()
+        {
+            var users = await linkedInDbContext.Users.ToListAsync();
+
+            return users.SerializeToJson<User>();
+        }
+
+        public async Task<string> GetUsersToXMLAsync()
+        {
+            var users = await linkedInDbContext.Users.ToListAsync();
+
+            return users.SerializeToXml<User>();
         }
     }
 }
