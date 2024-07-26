@@ -2,6 +2,7 @@
 using LinkedInWebApi.Application.Services.ValidationServices;
 using LinkedInWebApi.Core;
 using LinkedInWebApi.Core.Dto;
+using LinkedInWebApi.Core.ExceptionHandler;
 using LinkedInWebApi.Reposirotry.Commands;
 
 namespace LinkedInWebApi.Application.Services
@@ -27,11 +28,10 @@ namespace LinkedInWebApi.Application.Services
 
             if (userDto == null)
             {
-                return null;
+                throw ErrorException.AuthenticationException;
             }
 
             var token = _jwtHandler.GenerateToken(userDto);
-
             return token;
 
         }

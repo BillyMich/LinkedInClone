@@ -4,6 +4,7 @@ using LinkedInWebApi.Application.Services;
 using LinkedInWebApi.Application.Services.UserService;
 using LinkedInWebApi.Application.Services.ValidationServices;
 using LinkedInWebApi.Core;
+using LinkedInWebApi.Middlewares;
 using LinkedInWebApi.Reposirotry.Commands;
 using LinkiedInWebApi.Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -97,7 +98,7 @@ app.UseCors("AllowAngularApp");
 
 app.UseHttpsRedirection();
 app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
+app.UseExceptionMiddleware();
 app.UseAuthentication();
 app.UseAuthorization();
 

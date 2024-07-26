@@ -2,6 +2,9 @@
 
 namespace LinkedInWebApi.Application.Extensions
 {
+    /// <summary>
+    /// User extensions
+    /// </summary>
     public static class UserExtensions
     {
 

@@ -30,29 +30,16 @@ namespace LinkedInWebApi.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<string>> Login(UserLoginDto userLoginDto)
         {
-            try
+
+            var accessToken = await _authenticationHandler.LoginUserHandler(userLoginDto);
+
+            var response = new
             {
+                access_token = accessToken,
+                token_type = "bearer",
+            };
 
-                var generatedToken = await _authenticationHandler.LoginUserHandler(userLoginDto);
-
-                if (generatedToken == null)
-                {
-                    return Unauthorized("Invalid email or password");
-                }
-
-                var response = new
-                {
-                    access_token = generatedToken,
-                    token_type = "bearer",
-                };
-
-                return Ok(response);
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return Ok(response);
 
         }
 
@@ -66,23 +53,10 @@ namespace LinkedInWebApi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(UserRegisterDto userRegisterDto)
         {
-            try
-            {
-                var registerUserResult = await _authenticationHandler.RegisterUserHandler(userRegisterDto);
 
-                if (!registerUserResult)
-                {
-                    return BadRequest("Something wrong happed");
-                }
+            var registerUserResult = await _authenticationHandler.RegisterUserHandler(userRegisterDto);
 
-                return NoContent();
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            return NoContent();
         }
-
     }
 }
