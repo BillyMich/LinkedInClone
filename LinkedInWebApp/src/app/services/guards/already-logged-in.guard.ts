@@ -6,16 +6,16 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 @Injectable({
   providedIn: 'root'
 })
-export class LogedInGuard implements CanActivate {
+export class AlreadyLoggedInGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private router: Router , private localStorageServices : LocalStorageService) {}
+  constructor(private authService: AuthService, private router: Router,private localStorageServices : LocalStorageService) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-    const isLoggedIn = this.localStorageServices.isLoggedIn();
-    if (!isLoggedIn) {
-      this.router.navigate(['/login']);
+        const isLoggedIn = this.localStorageServices.isLoggedIn();
+        if (isLoggedIn) {
+      this.router.navigate(['/home']);
       return false;
     }
     return true;

@@ -2,6 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { AuthService } from '../../../services/auth-service/auth.service';
+import { Router } from '@angular/router'; // Import Router
+
 
 @Component({
   selector: 'app-register',
@@ -10,8 +12,10 @@ import { AuthService } from '../../../services/auth-service/auth.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
+  errorMessage: string | null = null;
 
-  constructor(private authService: AuthService) {} 
+
+  constructor(private authService: AuthService,private router: Router) {} 
 
   ngOnInit() {
     this.registerForm = new FormGroup({
@@ -47,15 +51,13 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       this.authService.register(this.registerForm.value).subscribe({
         next: (response: any) => {
-          console.log('Registration successful', response);
-          
+          this.router.navigate(['/login']); // Redirect to login on success
+
         },
         error: (error: any) => {
-          console.error('Registration failed', error);
+          this.errorMessage = error.error.Message || 'Registration failed';
         }
       });
-    } else {
-      console.log('Form is not valid');
     }
   }
 }

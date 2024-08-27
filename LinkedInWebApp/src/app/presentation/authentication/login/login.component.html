@@ -1,5 +1,9 @@
+
 <div class="login-container">
-    
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  
   <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
     <div class="login-header-content">
         <h1 class="heading"> Sign in</h1>

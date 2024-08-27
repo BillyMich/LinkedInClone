@@ -1,12 +1,15 @@
 using LinkedInWebApi.Application.Handlers;
+using LinkedInWebApi.Application.Handlers.UserHandler;
 using LinkedInWebApi.Application.Services;
+using LinkedInWebApi.Application.Services.UserService;
+using LinkedInWebApi.Application.Services.ValidationServices;
 using LinkedInWebApi.Core;
+using LinkedInWebApi.Middlewares;
 using LinkedInWebApi.Reposirotry.Commands;
 using LinkiedInWebApi.Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -60,6 +63,9 @@ builder.Services.AddScoped<IAuthenticationHandler, AuthenticationHandler>();
 builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
 builder.Services.AddScoped<IUserReadCommands, UserReadCommands>();
 builder.Services.AddScoped<IUserInsertCommands, UserInsertCommands>();
+builder.Services.AddScoped<IUserValidationServices, UserValidationsServices>();
+builder.Services.AddScoped<IUserHandler, UserHandler>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 builder.Services.AddCors();
@@ -81,17 +87,17 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
-app.UseStaticFiles(new StaticFileOptions()
-{
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
-    RequestPath = new PathString("/Resources")
-});
+//app.UseStaticFiles(new StaticFileOptions()
+//{
+//    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+//    RequestPath = new PathString("/Resources")
+//});
 app.UseCors("AllowAngularApp");
 
 
 app.UseHttpsRedirection();
 app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
+app.UseExceptionMiddleware();
 app.UseAuthentication();
 app.UseAuthorization();
 

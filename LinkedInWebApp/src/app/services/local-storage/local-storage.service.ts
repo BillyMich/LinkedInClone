@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { User } from '../../models/user.model';
 const USER_KEY = 'auth-user';
 
@@ -8,36 +9,35 @@ const USER_KEY = 'auth-user';
 })
 export class LocalStorageService {
 
-  constructor() { }
-  clean(): void {
-    window.sessionStorage.clear();
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   public saveToken(token: any): void {
-    window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.setItem(USER_KEY,token);
+    if (isPlatformBrowser(this.platformId)) {
+      window.sessionStorage.removeItem(USER_KEY);
+      window.sessionStorage.setItem(USER_KEY, token);
+    }
   }
 
-  public getUser(): string | null {
-    const user = window.sessionStorage.getItem(USER_KEY);
-    if (user) {
-      return user;
+  getUser() {
+    if (isPlatformBrowser(this.platformId)) {
+      const user = window.sessionStorage.getItem(USER_KEY);
+      if (user) {
+        return user;
+      }
     }
-
     return null;
   }
+
+
 
   public logout(): void {
     window.sessionStorage.clear();
   }
 
-  public isLoggedIn(): boolean {
-    const user = this.getUser();
-    if (user) {
-
-      return true;
+  isLoggedIn() {
+    if (isPlatformBrowser(this.platformId)) {
+      return !!window.sessionStorage.getItem(USER_KEY);
     }
-    
     return false;
   }
 

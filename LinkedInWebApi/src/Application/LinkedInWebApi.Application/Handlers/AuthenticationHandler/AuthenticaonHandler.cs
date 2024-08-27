@@ -4,6 +4,9 @@ using LinkedInWebApi.Core.Dto;
 
 namespace LinkedInWebApi.Application.Handlers
 {
+    /// <summary>
+    /// Authentication Handler
+    /// </summary>
     public class AuthenticationHandler : IAuthenticationHandler
     {
 
@@ -15,6 +18,11 @@ namespace LinkedInWebApi.Application.Handlers
             _userAuthenticationService = registerUserService;
         }
 
+        /// <summary>
+        /// Login User Handler
+        /// </summary>
+        /// <param name="registerDto"></param>
+        /// <returns></returns>
         public Task<string> LoginUserHandler(UserLoginDto registerDto)
         {
 
