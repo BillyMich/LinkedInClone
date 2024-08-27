@@ -7,17 +7,20 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
   profileForm!: FormGroup;
   user: any;
 
-  constructor(private authService: AuthService, private userService: UserService) {}
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+  ) {}
 
   ngOnInit() {
     const currentUser = this.authService.getCurrentUser();
-    this.userService.getUserById(currentUser.id).subscribe(data => {
+    this.userService.getUserById(currentUser.id).subscribe((data) => {
       this.user = data;
       this.initForm();
     });
@@ -25,10 +28,16 @@ export class ProfileComponent implements OnInit {
 
   initForm() {
     this.profileForm = new FormGroup({
-      fullName: new FormControl(this.user.fullName, [Validators.required, Validators.minLength(3)]),
-      email: new FormControl(this.user.email, [Validators.required, Validators.email]),
+      fullName: new FormControl(this.user.fullName, [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      email: new FormControl(this.user.email, [
+        Validators.required,
+        Validators.email,
+      ]),
       phone: new FormControl(this.user.phone, [Validators.required]),
-      profilePicture: new FormControl(null)
+      profilePicture: new FormControl(null),
     });
   }
 
@@ -36,21 +45,23 @@ export class ProfileComponent implements OnInit {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.profileForm.patchValue({
-        profilePicture: file
+        profilePicture: file,
       });
     }
   }
 
   onSubmit() {
     if (this.profileForm.valid) {
-      this.userService.updateUser(this.user.id, this.profileForm.value).subscribe({
-        next: response => {
-          this.user = response;
-        },
-        error: error => {
-          console.error('Update failed', error);
-        }
-      });
+      this.userService
+        .updateUser(this.user.id, this.profileForm.value)
+        .subscribe({
+          next: (response) => {
+            this.user = response;
+          },
+          error: (error) => {
+            console.error('Update failed', error);
+          },
+        });
     } else {
       console.log('Form is not valid');
     }

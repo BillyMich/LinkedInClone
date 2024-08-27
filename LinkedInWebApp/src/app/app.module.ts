@@ -20,7 +20,7 @@ import { RouterModule } from '@angular/router';
 import { NavigationBarComponent } from './presentation/navigation-bar/navigation-bar.component';
 import { SidebarComponent } from './presentation/sidebar/sidebar.component';
 import { ProfileComponent } from './presentation/profile/profile.component';
-import { SettingsComponent } from './presentation/settings/settings.component'; 
+import { SettingsComponent } from './presentation/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -47,9 +47,9 @@ import { SettingsComponent } from './presentation/settings/settings.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

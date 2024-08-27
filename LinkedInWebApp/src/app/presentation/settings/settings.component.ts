@@ -5,7 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+  styleUrls: ['./settings.component.css'],
 })
 export class SettingsComponent implements OnInit {
   settingsForm!: FormGroup;
@@ -17,7 +17,7 @@ export class SettingsComponent implements OnInit {
   initForm() {
     this.settingsForm = new FormGroup({
       // settings field
-      notification: new FormControl(true, Validators.required)
+      notification: new FormControl(true, Validators.required),
     });
   }
 

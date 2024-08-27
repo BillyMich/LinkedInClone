@@ -1,10 +1,10 @@
 /* login.component.css*/
 @media (max-width: 600px) {
   .login-form {
-      width: 90%;
-      padding: 10px;
-      margin-left:auto;
-      margin-right:auto;
+    width: 90%;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 .login-container {
@@ -25,12 +25,11 @@
   max-width: 450px; /* Optional: Set a max-width to prevent the form from being too wide on larger screens */
   padding: 20px;
   background: white;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
 .login-header-content {
-  
   display: grid;
   gap: 10px;
   justify-content: center; /* Aligns children to the center */
@@ -41,10 +40,9 @@
 }
 
 .mat-form-field {
-  width: 100%; 
+  width: 100%;
   margin-bottom: 20px; /* Adds space below each input field */
 }
-
 
 /* Enhance input fields appearance */
 input {
