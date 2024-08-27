@@ -10,28 +10,29 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 const apiUrl = environment.apiPath;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5152/api'; 
+  private apiUrl = 'http://localhost:5152/api';
 
-  constructor(private http: HttpClient,private localStorageService : LocalStorageService) {}
+  constructor(
+    private http: HttpClient,
+    private localStorageService: LocalStorageService,
+  ) {}
 
   login(email: string, password: string): Observable<any> {
-
     const loginRequest = new UserLoginDto(email, password);
 
-    return this.http.post<any>(`${apiUrl}/login`, loginRequest)
-      .pipe(
-        map(response => {
-          if (response && response.user) {
-            localStorage.setItem('currentUser', JSON.stringify(response.user));
-          }
-          console.log('Login response', response);
-          this.localStorageService.saveToken(response.access_token)
-          return response;
-        })
-      );
+    return this.http.post<any>(`${apiUrl}/login`, loginRequest).pipe(
+      map((response) => {
+        if (response && response.user) {
+          localStorage.setItem('currentUser', JSON.stringify(response.user));
+        }
+        console.log('Login response', response);
+        this.localStorageService.saveToken(response.access_token);
+        return response;
+      }),
+    );
   }
 
   register(user: any): Observable<any> {

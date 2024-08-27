@@ -5,7 +5,7 @@ import { ArticleService } from '../../services/article.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
   posts: any[] = [];
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     if (this.newPostContent) {
       const newPost = {
         content: this.newPostContent,
-        mediaUrls: [] // media handling
+        mediaUrls: [], // media handling
       };
       this.articleService.createArticle(newPost).subscribe(() => {
         this.fetchPosts();
@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
   }
 
   onFileChange(event: any) {
-    // file handling 
+    // file handling
   }
 
   onLike(postId: string) {
@@ -49,10 +49,12 @@ export class HomeComponent implements OnInit {
 
   onCommentSubmit(postId: string) {
     if (this.newComment) {
-      this.articleService.commentArticle(postId, this.newComment).subscribe(() => {
-        this.fetchPosts();
-        this.newComment = '';
-      });
+      this.articleService
+        .commentArticle(postId, this.newComment)
+        .subscribe(() => {
+          this.fetchPosts();
+          this.newComment = '';
+        });
     }
   }
 }

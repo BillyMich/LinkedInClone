@@ -3,12 +3,10 @@ import { isPlatformBrowser } from '@angular/common';
 import { User } from '../../models/user.model';
 const USER_KEY = 'auth-user';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LocalStorageService {
-
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   public saveToken(token: any): void {
@@ -28,8 +26,6 @@ export class LocalStorageService {
     return null;
   }
 
-
-
   public logout(): void {
     window.sessionStorage.clear();
   }
@@ -41,22 +37,25 @@ export class LocalStorageService {
     return false;
   }
 
-  public returnUser(): User | null
-  {
+  public returnUser(): User | null {
     const token = this.getUser();
 
     if (!token) {
       return null;
     }
 
-    const user : any = 
-    {
-      email: JSON.parse(window.atob(token.split('.')[1]))["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
-      name:  JSON.parse(window.atob(token.split('.')[1]))["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
-      role:  JSON.parse(window.atob(token.split('.')[1]))["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"],
+    const user: any = {
+      email: JSON.parse(window.atob(token.split('.')[1]))[
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
+      ],
+      name: JSON.parse(window.atob(token.split('.')[1]))[
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
+      ],
+      role: JSON.parse(window.atob(token.split('.')[1]))[
+        'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+      ],
     };
 
-    return user
+    return user;
   }
-  
 }
