@@ -44,6 +44,7 @@ export class AuthService {
 
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('currentUser') || '{}');
+    /*
     return this.http.post<any>(`${apiUrl}/register`, user)
       .pipe(
         map(response => {
@@ -56,5 +57,6 @@ export class AuthService {
           return of(null);
         })
       );
+    */
   }
 }

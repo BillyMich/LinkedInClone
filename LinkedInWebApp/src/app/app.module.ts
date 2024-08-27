@@ -21,7 +21,9 @@ import { BypassLoginComponent } from './bypass-login/bypass-login.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ProfileComponent } from './profile/profile.component';
-import { SettingsComponent } from './settings/settings.component'; 
+import { SettingsComponent } from './settings/settings.component';
+import { JobsComponent } from './jobs/jobs.component';
+import { DiscussionsComponent } from './discussions/discussions.component'; 
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { SettingsComponent } from './settings/settings.component';
     NavigationBarComponent,
     SidebarComponent,
     ProfileComponent,
-    SettingsComponent
+    SettingsComponent,
+    JobsComponent,
+    DiscussionsComponent
   ],
   imports: [
     BrowserModule,

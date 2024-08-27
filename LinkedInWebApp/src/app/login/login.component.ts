@@ -1,20 +1,17 @@
-/* login.component.ts */
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'; // Make sure Router is imported
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
 
-export class LoginComponent implements OnInit { 
-
-  loginForm!: FormGroup; 
-
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {} // Inject Router
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -31,9 +28,9 @@ export class LoginComponent implements OnInit {
             if (response && response.user) {
               const role = response.user.role;
               if (role === 'admin') {
-                this.router.navigate(['/admin']);
+                this.router.navigate(['/admin']); // Router navigation
               } else {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/home']); // Router navigation
               }
             }
           },

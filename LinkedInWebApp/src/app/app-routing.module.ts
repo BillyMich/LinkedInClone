@@ -13,7 +13,8 @@ import { AdminGuard } from './guards/admin.guard';
 import { BypassLoginComponent } from './bypass-login/bypass-login.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import { JobsComponent } from './jobs/jobs.component';
+import { DiscussionsComponent } from './discussions/discussions.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -25,7 +26,9 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'bypass-login', component: BypassLoginComponent},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] }
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
+  { path: 'jobs', component: JobsComponent, canActivate: [AuthGuard] },
+  { path: 'discussions', component: DiscussionsComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
