@@ -1,4 +1,9 @@
 <!-- src/app/register/register.component.html -->
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
 <div class="register-container">
   <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div>

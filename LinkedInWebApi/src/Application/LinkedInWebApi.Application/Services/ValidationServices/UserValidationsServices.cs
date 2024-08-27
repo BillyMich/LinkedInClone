@@ -1,4 +1,5 @@
 ﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.ExceptionHandler;
 using LinkedInWebApi.Reposirotry.Commands;
 
 namespace LinkedInWebApi.Application.Services.ValidationServices
@@ -12,19 +13,17 @@ namespace LinkedInWebApi.Application.Services.ValidationServices
             _userReadCommands = userReadCommands;
         }
 
-        public async Task<bool> IsValidUserToRegister(UserRegisterDto userRegisterDto)
+        public async Task IsValidUserToRegister(UserRegisterDto userRegisterDto)
         {
 
             var userWithSameEmailExist = await _userReadCommands.GetUserByEmailAsync(userRegisterDto.Email);
 
             if (userWithSameEmailExist != null)
             {
-                return false;
+                throw ErrorException.EmailAlreadyExistsFromAnotherUserException;
             }
 
-            //todo : add more validations
 
-            return true;
 
         }
     }

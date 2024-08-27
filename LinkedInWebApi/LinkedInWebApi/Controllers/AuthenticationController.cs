@@ -32,13 +32,12 @@ namespace LinkedInWebApi.Controllers
         {
 
             var accessToken = await _authenticationHandler.LoginUserHandler(userLoginDto);
-
+            //TODO FIX THIS
             var response = new
             {
                 access_token = accessToken,
                 token_type = "bearer",
             };
-
             return Ok(response);
 
         }

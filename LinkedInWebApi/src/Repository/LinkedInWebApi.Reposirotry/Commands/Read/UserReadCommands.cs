@@ -52,7 +52,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
             if (user == null)
             {
-                return null;
+                //throw new ErrorException.NoUserFountWithGivenIdException();
             }
             return user.ToUserDto();
 
@@ -61,8 +61,6 @@ namespace LinkedInWebApi.Reposirotry.Commands
         public async Task<List<UserDto>> GetUsersAsync()
         {
             var users = await linkedInDbContext.Users.ToListAsync();
-
-            // TODO: Implement extension for that job
             return users.Select(x => x.ToUserDto()).ToList();
 
         }

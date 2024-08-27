@@ -7,6 +7,9 @@ using LinkedInWebApi.Reposirotry.Commands;
 
 namespace LinkedInWebApi.Application.Services
 {
+    /// <summary>
+    /// User Authentication Service
+    /// </summary>
     public class UserAuthenticationService : IUserAuthenticationService
     {
         private readonly IUserReadCommands _userReadCommands;
@@ -21,6 +24,11 @@ namespace LinkedInWebApi.Application.Services
             _userValidationServices = userValidationServices;
         }
 
+        /// <summary>
+        /// Login User Service
+        /// </summary>
+        /// <param name="userLoginDto"></param>
+        /// <returns></returns>
         public async Task<string> LoginUserService(UserLoginDto userLoginDto)
         {
 
@@ -36,15 +44,16 @@ namespace LinkedInWebApi.Application.Services
 
         }
 
+        /// <summary>
+        /// Register User Service
+        /// </summary>
+        /// <param name="registerDto"></param>
+        /// <returns></returns>
         public async Task<bool> RegisterUserAsync(UserRegisterDto registerDto)
         {
 
-            var isValidToRegister = await _userValidationServices.IsValidUserToRegister(registerDto);
+            await _userValidationServices.IsValidUserToRegister(registerDto);
 
-            if (!isValidToRegister)
-            {
-                return false;
-            }
 
             var registerUserResult = await _userInsertCommands.RegisterUserAsync(registerDto.ToUserDto());
 

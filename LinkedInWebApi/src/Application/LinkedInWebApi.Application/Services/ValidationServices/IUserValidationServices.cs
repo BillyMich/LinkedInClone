@@ -5,7 +5,7 @@ namespace LinkedInWebApi.Application.Services.ValidationServices
     public interface IUserValidationServices
     {
 
-        Task<bool> IsValidUserToRegister(UserRegisterDto userRegisterDto);
+        Task IsValidUserToRegister(UserRegisterDto userRegisterDto);
 
     }
 }

@@ -1,12 +1,15 @@
 ﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Reposirotry.Commands;
 
 namespace LinkedInWebApi.Application.Services.UserService
 {
     public class UserService : IUserService
     {
+        private readonly IUserReadCommands _userReadCommands;
+
         public Task<UserDto> GetUser(int id)
         {
-            throw new NotImplementedException();
+            return _userReadCommands.GetUserByIdAsync(id);
         }
 
         public Task<List<UserDto>> GetUsers()

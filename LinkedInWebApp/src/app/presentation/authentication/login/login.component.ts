@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth-service/auth.service'; 
 import { Router } from '@angular/router';
+import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +14,12 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit { 
 
   loginForm!: FormGroup; 
+  errorMessage: string | null = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+
+  constructor(private authService: AuthService, 
+    private router: Router, 
+    private localStorageService :LocalStorageService) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -28,17 +33,17 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
         .subscribe({
           next: (response) => {
-            if (response && response.user) {
-              const role = response.user.role;
-              if (role === 'admin') {
+            console.log('Login response', response);
+            var userLogedIn = this.localStorageService.returnUser();
+            console.log('User logged in', userLogedIn); 
+            if (userLogedIn?.role === 'admin') {
                 this.router.navigate(['/admin']);
               } else {
                 this.router.navigate(['/home']);
               }
-            }
           },
           error: (error) => {
-            console.error('Login failed', error);
+            this.errorMessage = error.error.Message || 'User login failed';
           }
         });
     } else {

@@ -12,18 +12,20 @@ import { AuthGuard } from './services/guards/auth.guard';
 import { SettingsComponent } from './presentation/settings/settings.component';
 import { ProfileComponent } from './presentation/profile/profile.component';
 import { LogedInGuard } from './services/guards/loged-in.guard';
+import { AlreadyLoggedInGuard } from './services/guards/already-logged-in.guard';
 
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: '', component: WelcomeComponent, canActivate: [AlreadyLoggedInGuard] }, // Apply AlreadyLoggedInGuard
+  { path: 'login', component: LoginComponent, canActivate: [AlreadyLoggedInGuard] }, // Apply AlreadyLoggedInGuard
+  { path: 'register', component: RegisterComponent, canActivate: [AlreadyLoggedInGuard] }, // Apply AlreadyLoggedInGuard
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
   { path: 'admin/users', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'admin/users/:id', component: UserProfileComponent, canActivate: [AuthGuard] },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] }
+  { path: 'home', component: HomeComponent, canActivate: [LogedInGuard] }, // Apply LogedInGuard
+  { path: 'profile', component: ProfileComponent, canActivate: [LogedInGuard] }, // Apply LogedInGuard
+  { path: 'settings', component: SettingsComponent, canActivate: [LogedInGuard] }, // Apply LogedInGuard
+  { path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({

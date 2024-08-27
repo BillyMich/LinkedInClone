@@ -1,4 +1,6 @@
-﻿using LinkedInWebApi.Extensions;
+﻿// Ignore Spelling: Middleware
+
+using LinkedInWebApi.Extensions;
 
 namespace LinkedInWebApi.Middlewares
 {
