@@ -21,6 +21,9 @@ import { NavigationBarComponent } from './presentation/navigation-bar/navigation
 import { SidebarComponent } from './presentation/sidebar/sidebar.component';
 import { ProfileComponent } from './presentation/profile/profile.component';
 import { SettingsComponent } from './presentation/settings/settings.component';
+import { JobsComponent } from './presentation/jobs/jobs.component';
+import { DiscussionsComponent } from './presentation/discussions/discussions.component';
+import { NotificationsComponent } from './presentation/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,10 @@ import { SettingsComponent } from './presentation/settings/settings.component';
     SidebarComponent,
     ProfileComponent,
     SettingsComponent,
+    SettingsComponent,
+    JobsComponent,
+    DiscussionsComponent,
+    NotificationsComponent,
   ],
   imports: [
     BrowserModule,

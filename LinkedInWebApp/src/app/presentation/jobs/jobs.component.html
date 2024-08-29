@@ -1,0 +1,40 @@
+<!-- src/app/jobs/jobs.component.html -->
+<div class="jobs-container">
+  <h1 class="title">Αγγελίες</h1>
+
+  <div class="job-form-container">
+    <button class="toggle-button" (click)="toggleJobForm()">Δημοσίευση Αγγελίας</button>
+    
+    <div *ngIf="showJobForm" class="job-form">
+      <h2>Νέα Αγγελία</h2>
+      <form (submit)="postJob()">
+        <div class="form-group">
+          <label for="title">Τίτλος</label>
+          <input id="title" [(ngModel)]="newJob.title" placeholder="Τίτλος Αγγελίας" required />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Περιγραφή</label>
+          <textarea id="description" [(ngModel)]="newJob.description" placeholder="Περιγραφή Αγγελίας" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="skillsRequired">Απαιτούμενες Δεξιότητες</label>
+          <input id="skillsRequired" [(ngModel)]="newJob.skillsRequired" placeholder="Δεξιότητες" required />
+        </div>
+
+        <button type="submit" class="submit-button">Δημοσίευση</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="job-listings">
+    <h2 class="section-title">Διαθέσιμες Αγγελίες</h2>
+    <div *ngFor="let job of jobListings" class="job-listing">
+      <h3>{{ job.title }}</h3>
+      <p>{{ job.description }}</p>
+      <p><strong>Δεξιότητες:</strong> {{ job.skillsRequired }}</p>
+      <button (click)="applyForJob(job.id)" class="apply-button">Κάντε Αίτηση</button>
+    </div>
+  </div>
+</div>
