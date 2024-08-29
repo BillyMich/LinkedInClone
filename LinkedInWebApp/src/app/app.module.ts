@@ -23,7 +23,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { JobsComponent } from './jobs/jobs.component';
-import { DiscussionsComponent } from './discussions/discussions.component'; 
+import { DiscussionsComponent } from './discussions/discussions.component';
+import { NotificationsComponent } from './notifications/notifications.component'; 
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { DiscussionsComponent } from './discussions/discussions.component';
     ProfileComponent,
     SettingsComponent,
     JobsComponent,
-    DiscussionsComponent
+    DiscussionsComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
