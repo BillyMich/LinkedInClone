@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ArticleService {
-  private apiUrl = 'http://localhost:4200/api'; 
+  private apiUrl = 'http://localhost:5152/api';
 
   constructor(private http: HttpClient) {}
 
@@ -23,6 +23,8 @@ export class ArticleService {
   }
 
   commentArticle(articleId: string, comment: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/articles/${articleId}/comment`, { comment });
+    return this.http.post<any>(`${this.apiUrl}/articles/${articleId}/comment`, {
+      comment,
+    });
   }
 }

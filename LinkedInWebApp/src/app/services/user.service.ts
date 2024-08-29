@@ -4,17 +4,17 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:4200/api'; 
+  private apiUrl = 'http://localhost:5152/api';
 
   constructor(private http: HttpClient) {}
 
   getAllUsers(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/users`);
   }
-  
+
   updateUser(id: string, user: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/users/${id}`, user);
   }
@@ -25,7 +25,7 @@ export class UserService {
 
   exportUserData(id: string, format: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/users/${id}/export`, {
-      params: { format }
+      params: { format },
     });
   }
 }

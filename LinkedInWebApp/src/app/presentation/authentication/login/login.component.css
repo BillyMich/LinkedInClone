@@ -1,0 +1,56 @@
+/* login.component.css*/
+@media (max-width: 600px) {
+  .login-form {
+    width: 90%;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+.login-container {
+  display: flex;
+  justify-content: flex-start; /* Aligns children (form) to the right */
+  align-items: center; /* Centers children vertically */
+  height: 50vh; /* Full viewport height */
+  padding: 20px; /* Padding around the container */
+  width: 100%;
+  background-color: #f4f4f4; /* Light grey background for the whole page */
+}
+
+/* Specific styles for the form */
+.login-form {
+  display: grid;
+  gap: 20px;
+  width: 80%; /* Adjust this to control the form width */
+  max-width: 450px; /* Optional: Set a max-width to prevent the form from being too wide on larger screens */
+  padding: 20px;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.login-header-content {
+  display: grid;
+  gap: 10px;
+  justify-content: center; /* Aligns children to the center */
+  align-items: center; /* Centers children vertically */
+  width: 100%;
+  margin-bottom: 20px; /* Space below the header */
+  margin-top: 20px;
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 20px; /* Adds space below each input field */
+}
+
+/* Enhance input fields appearance */
+input {
+  width: 100%; /* Full width inside the form field */
+}
+
+/* Button styling */
+button {
+  width: 100%; /* Full width button */
+  margin-top: 10px; /* Margin on top of the button */
+}
