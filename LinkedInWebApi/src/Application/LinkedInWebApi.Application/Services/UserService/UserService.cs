@@ -1,4 +1,5 @@
 ﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
 using LinkedInWebApi.Reposirotry.Commands;
 
 namespace LinkedInWebApi.Application.Services.UserService
@@ -23,6 +24,11 @@ namespace LinkedInWebApi.Application.Services.UserService
         }
 
         public Task<string> GetUsersToXML()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto)
         {
             throw new NotImplementedException();
         }

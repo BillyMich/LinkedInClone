@@ -1,5 +1,6 @@
 ﻿using LinkedInWebApi.Application.Handlers.UserHandler;
 using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -46,23 +47,30 @@ namespace LinkedInWebApi.Controllers
         }
 
 
-        [HttpPost("getUsersXML")]
+        [HttpGet("getUsersXML")]
         [AllowAnonymous]
-        public async Task<ActionResult<string>> GetUsersXML()
-        {
-                var result = await _userHandler.GetUsersToXML();
-                return Ok(result);
-        }
-
-        [HttpPost("getUsersJson")]
-        [AllowAnonymous]
-        public async Task<ActionResult<string>> GetUsersJson()
+        [ProducesResponseType(typeof(FileStreamResult), 200)]
+        public async Task<IActionResult> GetUsersXML([FromQuery] List<int>? ids)
         {
             try
             {
-                var result = await _userHandler.GetUsersToJson();
+                return await _userHandler.GetUsersToXML(ids);
 
-                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("getUsersJson")]
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(FileStreamResult), 200)]
+        public async Task<IActionResult> GetUsersJson([FromQuery] List<int>? ids)
+        {
+            try
+            {
+                return await _userHandler.GetUsersToJson(ids);
 
             }
             catch (Exception)
@@ -71,5 +79,20 @@ namespace LinkedInWebApi.Controllers
             }
 
         }
+
+        [HttpPost("update-User-Settings")]
+        public async Task<ActionResult<UpdateUserSettingsDto>> UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto)
+        {
+            try
+            {
+                return null;
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+        }
+
     }
 }

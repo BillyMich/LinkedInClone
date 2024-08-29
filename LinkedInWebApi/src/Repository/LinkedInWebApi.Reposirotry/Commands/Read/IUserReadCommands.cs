@@ -10,7 +10,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
         Task<UserDto?> GetUserByIdAsync(int id);
 
-        Task<List<UserDto>> GetUsersAsync();
+        Task<List<UserDto>> GetUsersAsync(List<int>? ints);
 
         Task<string> GetUsersToJsonAsync();
 
