@@ -1,7 +1,9 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { User } from '../../models/user.model';
+
 const USER_KEY = 'auth-user';
+const TOKEN_KEY = 'auth-token'; 
 
 @Injectable({
   providedIn: 'root',
@@ -9,28 +11,47 @@ const USER_KEY = 'auth-user';
 export class LocalStorageService {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  public saveToken(token: any): void {
+  public saveToken(token: string): void {
     if (isPlatformBrowser(this.platformId)) {
-      window.sessionStorage.removeItem(USER_KEY);
-      window.sessionStorage.setItem(USER_KEY, token);
+      window.sessionStorage.removeItem(TOKEN_KEY);
+      window.sessionStorage.setItem(TOKEN_KEY, token);
     }
   }
 
-  getUser() {
+  public getToken(): string | null {
     if (isPlatformBrowser(this.platformId)) {
-      const user = window.sessionStorage.getItem(USER_KEY);
-      if (user) {
-        return user;
-      }
+      return window.sessionStorage.getItem(TOKEN_KEY);
     }
     return null;
   }
 
-  public logout(): void {
-    window.sessionStorage.clear();
+  public removeToken(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.sessionStorage.removeItem(TOKEN_KEY);
+    }
   }
 
-  isLoggedIn() {
+  public saveUser(user: string): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.sessionStorage.removeItem(USER_KEY);
+      window.sessionStorage.setItem(USER_KEY, user);
+    }
+  }
+
+  public getUser(): string | null {
+    if (isPlatformBrowser(this.platformId)) {
+      return window.sessionStorage.getItem(USER_KEY);
+    }
+    return null;
+  }
+
+  public clearSession(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.sessionStorage.clear();
+    }
+  }
+
+  public isLoggedIn(): boolean {
     if (isPlatformBrowser(this.platformId)) {
       return !!window.sessionStorage.getItem(USER_KEY);
     }
@@ -38,7 +59,7 @@ export class LocalStorageService {
   }
 
   public returnUser(): User | null {
-    const token = this.getUser();
+    const token = this.getToken();
 
     if (!token) {
       return null;

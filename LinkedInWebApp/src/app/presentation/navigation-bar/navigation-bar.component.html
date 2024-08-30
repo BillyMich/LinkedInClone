@@ -1,12 +1,52 @@
 <!-- src/app/navigation-bar/navigation-bar.component.html -->
-<nav>
-  <ul>
-    <li><a routerLink="/home">Αρχική Σελίδα</a></li>
-    <li><a routerLink="/network">Δίκτυο</a></li>
-    <li><a routerLink="/jobs">Αγγελίες</a></li>
-    <li><a routerLink="/discussions">Συζητήσεις</a></li>
-    <li><a routerLink="/notifications">Ειδοποιήσεις</a></li>
-    <li><a routerLink="/profile">Προσωπικά Στοιχεία</a></li>
-    <li><a routerLink="/settings">Ρυθμίσεις</a></li>
+<nav class="navbar">
+  <div class="navbar-logo">
+    <a routerLink="/home">
+      <img src="../../../assets/logo.png" alt="LinkedHub Logo">
+    </a>
+  </div>
+  <ul class="navbar-list">
+    <li class="navbar-item">
+      <a routerLink="/home" class="navbar-link">
+        <img src="../../../assets/icons/house-solid.svg" alt="Home Icon" class="small-icon"> 
+        <span>Αρχική Σελίδα</span>
+      </a>
+    </li>
+    <li class="navbar-item">
+      <a routerLink="/network" class="navbar-link">
+        <img src="../../../assets/icons/users-solid.svg" alt="Network Icon" class="small-icon"> 
+        <span>Δίκτυο</span>
+      </a>
+    </li>
+    <li class="navbar-item">
+      <a routerLink="/jobs" class="navbar-link">
+        <img src="../../../assets/icons/briefcase-solid.svg" alt="Jobs Icon" class="small-icon"> 
+        <span>Αγγελίες</span>
+      </a>
+    </li>
+    <li class="navbar-item">
+      <a routerLink="/discussions" class="navbar-link">
+        <img src="../../../assets/icons/comments-solid.svg" alt="Discussions Icon" class="small-icon"> 
+        <span>Συζητήσεις</span>
+      </a>
+    </li>
+    <li class="navbar-item">
+      <a routerLink="/notifications" class="navbar-link">
+        <img src="../../../assets/icons/bell-solid.svg" alt="Notifications Icon" class="small-icon"> 
+        <span>Ειδοποιήσεις</span>
+      </a>
+    </li>
+    <li class="navbar-item">
+      <a routerLink="/profile" class="navbar-link">
+        <img src="../../../assets/icons/user-solid.svg" alt="Profile Icon" class="small-icon"> 
+        <span>Προσωπικά Στοιχεία</span>
+      </a>
+    </li>
+    <li class="navbar-item">
+      <a routerLink="/settings" class="navbar-link">
+        <img src="../../../assets/icons/gears-solid.svg" alt="Settings Icon" class="small-icon"> 
+        <span>Ρυθμίσεις</span>
+      </a>
+    </li>
   </ul>
 </nav>

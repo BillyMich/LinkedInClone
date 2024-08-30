@@ -5,6 +5,8 @@
     <label for="notification">Ειδοποιήσεις</label>
     <input id="notification" formControlName="notification" type="checkbox" />
 
-    <button type="submit">Save</button>
+    <button type="submit" class="primary-button">Save</button>
   </form>
+
+  <button (click)="onSignOut()" class="signout-button">Sign Out</button>
 </div>

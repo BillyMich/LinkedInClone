@@ -1,7 +1,7 @@
 // src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { UserLoginDto } from '../../models/login-request.model';
@@ -26,9 +26,8 @@ export class AuthService {
     return this.http.post<any>(`${apiUrl}/login`, loginRequest).pipe(
       map((response) => {
         if (response && response.user) {
-          localStorage.setItem('currentUser', JSON.stringify(response.user));
+          this.localStorageService.saveUser(JSON.stringify(response.user));
         }
-        console.log('Login response', response);
         this.localStorageService.saveToken(response.access_token);
         return response;
       }),
@@ -39,11 +38,11 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/register`, user);
   }
 
-  logout(): void {
-    localStorage.removeItem('currentUser');
+  signOut(): void {
+    this.localStorageService.clearSession();
   }
 
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem('currentUser') || '{}');
+    return JSON.parse(this.localStorageService.getUser() || '{}');
   }
 }

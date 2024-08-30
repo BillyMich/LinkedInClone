@@ -11,7 +11,7 @@
           placeholder="Γράψτε κάτι..."
         ></textarea>
         <input type="file" (change)="onFileChange($event)" multiple />
-        <button type="submit">Δημοσίευση</button>
+        <button type="submit" class="primary-button">Δημοσίευση</button>
       </form>
     </div>
     <div class="timeline">
@@ -38,10 +38,10 @@
             ></audio>
           </div>
         </div>
-        <button (click)="onLike(post.id)">Σημειώστε το ενδιαφέρον</button>
+        <button (click)="onLike(post.id)" class="secondary-button">Σημειώστε το ενδιαφέρον</button>
         <form (submit)="onCommentSubmit(post.id)">
           <input [(ngModel)]="newComment" placeholder="Γράψτε ένα σχόλιο..." />
-          <button type="submit">Σχόλιο</button>
+          <button type="submit" class="secondary-button">Σχόλιο</button>
         </form>
       </div>
     </div>

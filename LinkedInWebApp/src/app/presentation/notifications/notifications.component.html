@@ -1,28 +1,27 @@
 <!-- src/app/notifications/notifications.component.html -->
 <div class="notifications-container">
-    <div class="connection-requests">
-      <h2>Αιτήματα Σύνδεσης</h2>
-      <ul>
-        <li *ngFor="let request of connectionRequests">
-          <p>{{ request.name }} θέλει να συνδεθεί μαζί σας.</p>
-          <button (click)="acceptRequest(request.id)">Αποδοχή</button>
-          <button (click)="rejectRequest(request.id)">Απόρριψη</button>
-          <a [routerLink]="['/profile', request.userId]">Προβολή Προφίλ</a>
-        </li>
-      </ul>
-    </div>
-  
-    <div class="interest-notes">
-      <h2>Σημειώσεις Ενδιαφέροντος και Σχόλια</h2>
-      <ul>
-        <li *ngFor="let note of interestNotes">
-          <p>{{ note.userName }} σημείωσε το ενδιαφέρον του για το άρθρο σας: {{ note.articleTitle }}</p>
-        </li>
-        <li *ngFor="let comment of comments">
-          <p>{{ comment.userName }} σχολίασε στο άρθρο σας: "{{ comment.articleTitle }}"</p>
-          <p>{{ comment.content }}</p>
-        </li>
-      </ul>
-    </div>
+  <div class="connection-requests">
+    <h2>Αιτήματα Σύνδεσης</h2>
+    <ul>
+      <li *ngFor="let request of connectionRequests">
+        <p>{{ request.name }} θέλει να συνδεθεί μαζί σας.</p>
+        <button (click)="acceptRequest(request.id)" class="primary-button">Αποδοχή</button>
+        <button (click)="rejectRequest(request.id)" class="secondary-button">Απόρριψη</button>
+        <a [routerLink]="['/profile', request.userId]" class="profile-link">Προβολή Προφίλ</a>
+      </li>
+    </ul>
   </div>
-  
+
+  <div class="interest-notes">
+    <h2>Σημειώσεις Ενδιαφέροντος και Σχόλια</h2>
+    <ul>
+      <li *ngFor="let note of interestNotes">
+        <p>{{ note.userName }} σημείωσε το ενδιαφέρον του για το άρθρο σας: {{ note.articleTitle }}</p>
+      </li>
+      <li *ngFor="let comment of comments">
+        <p>{{ comment.userName }} σχολίασε στο άρθρο σας: "{{ comment.articleTitle }}"</p>
+        <p>{{ comment.content }}</p>
+      </li>
+    </ul>
+  </div>
+</div>

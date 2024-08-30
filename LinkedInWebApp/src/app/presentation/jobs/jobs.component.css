@@ -2,16 +2,17 @@
 .jobs-container {
   padding: 20px;
   max-width: 800px;
-  margin: 0 auto;
-  background-color: #f9f9f9;
-  border-radius: 10px;
+  margin: 60px auto 0; 
+  background-color: #f5f5f5;
+  border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .title {
   text-align: center;
-  font-size: 2em;
+  font-size: 24px;
   color: #333;
+  margin-bottom: 20px;
 }
 
 .job-form-container {
@@ -21,23 +22,25 @@
 
 .toggle-button {
   padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
+  font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
+  background-color: #0073b1;
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s ease;
 }
 
 .toggle-button:hover {
-  background-color: #0056b3;
+  background-color: #005f91;
 }
 
 .job-form {
   margin-top: 20px;
   background-color: #fff;
-  padding: 15px;
+  padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
@@ -48,6 +51,8 @@ label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
+  font-size: 14px;
+  color: #333;
 }
 
 input[type="text"],
@@ -57,23 +62,26 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
+  font-size: 14px;
 }
 
 textarea {
   resize: vertical;
 }
 
-.submit-button {
-  padding: 10px 20px;
-  background-color: #28a745;
-  color: white;
+.primary-button {
+  background-color: #0073b1;
+  color: #fff;
   border: none;
+  padding: 10px 20px;
   border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.submit-button:hover {
-  background-color: #218838;
+.primary-button:hover {
+  background-color: #005f91;
 }
 
 .job-listings {
@@ -81,7 +89,7 @@ textarea {
 }
 
 .section-title {
-  font-size: 1.5em;
+  font-size: 20px;
   margin-bottom: 20px;
   color: #333;
   text-align: center;
@@ -89,27 +97,34 @@ textarea {
 
 .job-listing {
   background-color: #fff;
-  padding: 15px;
+  padding: 20px;
   margin-bottom: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .job-listing h3 {
   margin-top: 0;
-  font-size: 1.2em;
-  color: #007bff;
+  font-size: 18px;
+  color: #0073b1;
+}
+
+.job-listing p {
+  font-size: 14px;
+  color: #555;
 }
 
 .apply-button {
+  background-color: #f0f0f0;
+  color: #0073b1;
+  border: 1px solid #0073b1;
   padding: 10px 20px;
-  background-color: #ffc107;
-  color: black;
-  border: none;
   border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .apply-button:hover {
-  background-color: #e0a800;
+  background-color: #e0e0e0;
 }

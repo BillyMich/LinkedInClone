@@ -1,24 +1,64 @@
 /* src/app/settings/settings.component.css */
 .settings-container {
   padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 60px auto 0; 
+  background-color: #f5f5f5; 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
 }
 
 label {
   display: block;
-  margin-top: 10px;
+  margin-top: 20px;
   font-weight: bold;
+  font-size: 14px;
+  color: #333;
 }
 
 input[type="checkbox"] {
   margin-top: 5px;
 }
 
-button {
+.primary-button {
+  background-color: #0073b1;
+  color: #fff;
   padding: 10px 20px;
-  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+  display: block;
+  width: 100%;
+}
+
+.primary-button:hover {
+  background-color: #005f91;
+}
+
+.signout-button {
+  background-color: #ff4d4d; 
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+  display: block;
+  width: 100%;
+}
+
+.signout-button:hover {
+  background-color: #cc0000;
 }
