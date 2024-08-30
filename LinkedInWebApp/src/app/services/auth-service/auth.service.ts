@@ -26,8 +26,9 @@ export class AuthService {
     return this.http.post<any>(`${apiUrl}/login`, loginRequest).pipe(
       map((response) => {
         if (response && response.user) {
-          this.localStorageService.saveUser(JSON.stringify(response.user));
+          localStorage.setItem('currentUser', JSON.stringify(response.user));
         }
+        console.log('Login response', response);
         this.localStorageService.saveToken(response.access_token);
         return response;
       }),
@@ -38,11 +39,12 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/register`, user);
   }
 
-  signOut(): void {
-    this.localStorageService.clearSession();
+  logout(): void {
+    localStorage.removeItem('currentUser');
+    this.localStorageService.logout(); 
   }
 
   getCurrentUser() {
-    return JSON.parse(this.localStorageService.getUser() || '{}');
+    return JSON.parse(localStorage.getItem('currentUser') || '{}');
   }
 }

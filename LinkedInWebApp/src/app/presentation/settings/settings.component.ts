@@ -34,7 +34,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onSignOut() {
-    this.authService.signOut(); 
+    this.authService.logout(); 
     this.router.navigate(['/login']); 
   }
 }
