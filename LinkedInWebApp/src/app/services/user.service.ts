@@ -20,14 +20,14 @@ export class UserService {
 
   getUserById(id: string): Observable<any> {
     const userId = parseInt(id, 10); // convert to int
-    return this.http.post<any>(`${this.apiUrl}/getUser`, { id: userId });
+    return this.http.get<any>(`${this.apiUrl}/getUser/${userId}`);
   }
 
   exportUserData(id: string, format: string): Observable<any> {
     if (format === 'xml') {
       return this.http.get(`${this.apiUrl}/getUsersXML`, {
         params: { id },
-        responseType: 'text', 
+        responseType: 'text',
       });
     } else if (format === 'json') {
       return this.http.get(`${this.apiUrl}/getUsersJson`, {
