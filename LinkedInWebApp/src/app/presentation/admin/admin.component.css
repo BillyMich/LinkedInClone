@@ -1,4 +1,7 @@
 /* src/app/admin/admin.component.css */
+.content {
+  padding-top: 70px; 
+}
 .admin-container {
   display: flex;
   flex-direction: column;

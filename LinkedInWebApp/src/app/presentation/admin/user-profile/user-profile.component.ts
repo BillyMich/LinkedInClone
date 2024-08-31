@@ -1,4 +1,3 @@
-// src/app/admin/user-profile/user-profile.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../services/user.service';
@@ -10,7 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./user-profile.component.css'],
 })
 export class UserProfileComponent implements OnInit {
-  user: any;
+  user: any = {};  
   editMode = false;
   profileForm!: FormGroup;
 
@@ -21,15 +20,28 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     const userId = this.route.snapshot.paramMap.get('id')!;
-    this.userService.getUserById(userId).subscribe((data: any) => {
-      this.user = data;
-      this.initForm();
+    console.log('Fetching data for user ID:', userId);  
+    this.userService.getUserById(userId).subscribe({
+      next: (data: any) => {
+        if (data) {
+          this.user = data;
+          console.log('User data:', this.user);
+          this.initForm();
+        } else {
+          console.error('User data is null or undefined');
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching user:', error);
+      },
     });
+    
   }
+  
 
   initForm() {
     this.profileForm = new FormGroup({
-      fullName: new FormControl(this.user.fullName, [
+      fullName: new FormControl(this.user.name, [
         Validators.required,
         Validators.minLength(3),
       ]),
@@ -57,17 +69,16 @@ export class UserProfileComponent implements OnInit {
 
   onSubmit() {
     if (this.profileForm.valid) {
-      this.userService
-        .updateUser(this.user.id, this.profileForm.value)
-        .subscribe({
-          next: (response: any) => {
-            this.user = response;
-            this.editMode = false;
-          },
-          error: (error: any) => {
-            console.error('Update failed', error);
-          },
-        });
+      this.userService.updateUser(this.user.id, this.profileForm.value).subscribe({
+        next: (response: any) => {
+          this.user = response;
+          this.editMode = false;
+          console.log('User profile updated successfully:', this.user);
+        },
+        error: (error: any) => {
+          console.error('Update failed', error);
+        },
+      });
     } else {
       console.log('Form is not valid');
     }

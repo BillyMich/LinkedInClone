@@ -1,4 +1,3 @@
-// src/app/services/user.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -12,20 +11,30 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getAllUsers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/users`);
+    return this.http.post<any[]>(`${this.apiUrl}/getUsers`, {});
   }
 
   updateUser(id: string, user: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/users/${id}`, user);
+    return this.http.post<any>(`${this.apiUrl}/update-User-Settings`, user);
   }
 
   getUserById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/users/${id}`);
+    const userId = parseInt(id, 10); // convert to int
+    return this.http.post<any>(`${this.apiUrl}/getUser`, { id: userId });
   }
 
   exportUserData(id: string, format: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/users/${id}/export`, {
-      params: { format },
-    });
+    if (format === 'xml') {
+      return this.http.get(`${this.apiUrl}/getUsersXML`, {
+        params: { id },
+        responseType: 'text', 
+      });
+    } else if (format === 'json') {
+      return this.http.get(`${this.apiUrl}/getUsersJson`, {
+        params: { id },
+        responseType: 'json',
+      });
+    }
+    throw new Error('Invalid format specified');
   }
 }
