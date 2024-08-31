@@ -19,22 +19,19 @@ export class UserService {
   }
 
   getUserById(id: string): Observable<any> {
-    const userId = parseInt(id, 10); // convert to int
+    const userId = parseInt(id, 10);
     return this.http.get<any>(`${this.apiUrl}/getUser/${userId}`);
   }
 
-  exportUserData(id: string, format: string): Observable<any> {
-    if (format === 'xml') {
-      return this.http.get(`${this.apiUrl}/getUsersXML`, {
-        params: { id },
-        responseType: 'text',
-      });
-    } else if (format === 'json') {
-      return this.http.get(`${this.apiUrl}/getUsersJson`, {
-        params: { id },
-        responseType: 'json',
-      });
-    }
-    throw new Error('Invalid format specified');
+  exportUserData(ids: string[], format: string): Observable<Blob> {
+    const params = ids.map(id => `ids=${id}`).join('&');
+    const url = format === 'xml' 
+      ? `${this.apiUrl}/getUsersXML?${params}` 
+      : `${this.apiUrl}/getUsersJson?${params}`;
+  
+    return this.http.get(url, {
+      responseType: 'blob'  // Use 'blob' for binary data, this is correct.
+    });
   }
+  
 }

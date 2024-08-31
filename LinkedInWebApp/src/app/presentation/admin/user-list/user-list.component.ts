@@ -1,4 +1,3 @@
-// src/app/admin/user-list/user-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { ChangeDetectorRef } from '@angular/core';
@@ -16,30 +15,43 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
     this.userService.getAllUsers().subscribe({
       next: (data: any[]) => {
-        this.users = data;
-        this.cdr.detectChanges(); 
+        this.users = data.map(user => ({ ...user, selected: false }));
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error fetching users:', err);
       },
     });
   }
-  
 
   exportSelectedUsers(format: string = 'json') {
-    const selectedUsers = this.users.filter((user) => user.selected);
-    if (selectedUsers.length > 0) {
-      selectedUsers.forEach((user) => {
-        this.userService.exportUserData(user.id, format).subscribe({
-          next: (data) => {
-           
-            console.log(`${format.toUpperCase()} Data:`, data);
-          },
-          error: (err) => {
-            console.error(`Error exporting user data to ${format}:`, err);
-          },
-        });
+    const selectedUserIds = this.users
+      .filter(user => user.selected)
+      .map(user => user.id);
+  
+    if (selectedUserIds.length > 0) {
+      this.userService.exportUserData(selectedUserIds, format).subscribe({
+        next: (blob) => {
+          const dataType = format === 'xml' ? 'application/xml' : 'application/json';
+          const blobUrl = window.URL.createObjectURL(new Blob([blob], { type: dataType }));
+          
+          const a = document.createElement('a');
+          a.href = blobUrl;
+          a.download = `users.${format}`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        },
+        error: (err) => {
+          console.error(`Error exporting user data to ${format}:`, err);
+        },
       });
+    } else {
+      console.log('No users selected for export.');
     }
+  }
+
+  trackByFn(index: number, user: any): string {
+    return user.id;
   }
 }
