@@ -1,4 +1,6 @@
 ﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LinkedInWebApi.Application.Handlers.UserHandler
 {
@@ -19,9 +21,11 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
         Task<List<UserDto>> GetUsersHandler();
 
         /// <summary> Returns then user list as XML </summary>
-        Task<string> GetUsersToXML();
+        Task<IActionResult> GetUsersToXML(List<int>? ids);
 
-        Task<string> GetUsersToJson();
+        Task<IActionResult> GetUsersToJson(List<int>? ids);
+
+        Task<bool> UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto);
 
     }
 }

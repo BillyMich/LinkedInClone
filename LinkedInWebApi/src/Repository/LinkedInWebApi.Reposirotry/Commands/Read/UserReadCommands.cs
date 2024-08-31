@@ -58,10 +58,14 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
         }
 
-        public async Task<List<UserDto>> GetUsersAsync()
+        public async Task<List<UserDto>> GetUsersAsync(List<int>? ids)
         {
-            var users = await linkedInDbContext.Users.ToListAsync();
-            return users.Select(x => x.ToUserDto()).ToList();
+            if (ids == null || ids.Count == 0)
+            {
+                return await linkedInDbContext.Users.Select(x => x.ToUserDto()).ToListAsync();
+            }
+
+            return await linkedInDbContext.Users.Where(x => ids.Contains(x.Id)).Select(x => x.ToUserDto()).ToListAsync();
 
         }
 
