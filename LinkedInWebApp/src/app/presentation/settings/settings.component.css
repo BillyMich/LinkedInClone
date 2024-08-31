@@ -1,4 +1,7 @@
 /* src/app/settings/settings.component.css */
+.content {
+  padding-top: 70px; 
+}
 .settings-container {
   padding: 20px;
   max-width: 600px;

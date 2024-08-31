@@ -3,8 +3,7 @@
   <div class="conversations-list">
     <h2>Ιδιωτικές Συζητήσεις</h2>
     <ul>
-      <li *ngFor="let conversation of conversations" 
-          (click)="selectConversation(conversation)"
+      <li *ngFor="let conversation of conversations" (click)="selectConversation(conversation)"
           [class.selected]="conversation === selectedConversation">
         {{ conversation.name }}
       </li>
@@ -22,7 +21,7 @@
     </div>
     <div class="message-input">
       <input type="text" [(ngModel)]="newMessage" placeholder="Γράψτε ένα μήνυμα..." />
-      <button (click)="sendMessage()" class="primary-button">Αποστολή</button>
+      <button (click)="sendMessage()">Αποστολή</button>
     </div>
   </div>
 </div>

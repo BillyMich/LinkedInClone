@@ -1,4 +1,7 @@
 /* src/app/jobs/jobs.component.css */
+.content {
+  padding-top: 70px; 
+}
 .jobs-container {
   padding: 20px;
   max-width: 800px;
