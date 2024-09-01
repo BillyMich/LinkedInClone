@@ -1,4 +1,4 @@
 <div class="main-container">
-  <app-navigation-bar></app-navigation-bar>
+  <app-navigation-bar *ngIf="isLoggedIn()"></app-navigation-bar>
   <router-outlet></router-outlet>
 </div>

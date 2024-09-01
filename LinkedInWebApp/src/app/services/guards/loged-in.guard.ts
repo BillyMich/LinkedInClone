@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
   Router,
 } from '@angular/router';
-import { AuthService } from '../auth-service/auth.service'; // Adjust the path as necessary
+import { AuthService } from '../auth-service/auth.service'; 
 import { LocalStorageService } from '../local-storage/local-storage.service';
 
 @Injectable({

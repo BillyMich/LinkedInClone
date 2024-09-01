@@ -24,6 +24,7 @@ import { SettingsComponent } from './presentation/settings/settings.component';
 import { JobsComponent } from './presentation/jobs/jobs.component';
 import { DiscussionsComponent } from './presentation/discussions/discussions.component';
 import { NotificationsComponent } from './presentation/notifications/notifications.component';
+import { NetworkComponent } from './presentation/network/network.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { NotificationsComponent } from './presentation/notifications/notificatio
     JobsComponent,
     DiscussionsComponent,
     NotificationsComponent,
+    NetworkComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,24 +1,28 @@
 <div class="welcome-container">
   <div class="login-section">
     <h1>Welcome to Your Professional Hub</h1>
-    <form class="login-form" (ngSubmit)="onLogin()">
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
       <input
         type="email"
         placeholder="Email"
-        name="email"
-        [(ngModel)]="user.email"
+        formControlName="email"
         required
       />
       <input
         type="password"
         placeholder="Password"
-        name="password"
-        [(ngModel)]="user.password"
+        formControlName="password"
         required
       />
       <button type="submit">Login</button>
     </form>
-    <button routerLink="/register">Register</button>
+
+    <button routerLink="/register" class="register-button">Register</button>
     <p>
       Connect, grow, and discover new professional opportunities through our
       platform.
