@@ -1,6 +1,7 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { User } from '../../models/user.model';
+
 const USER_KEY = 'auth-user';
 
 @Injectable({

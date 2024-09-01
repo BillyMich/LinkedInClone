@@ -19,12 +19,13 @@ namespace LinkedInWebApi.Controllers
             _userHandler = userHandler;
         }
 
+
         /// <summary>
         /// Get User by Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost("getUser")]
+        [HttpGet("getUser/{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<UserDto?>> GetUser(int id)
         {

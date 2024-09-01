@@ -1,4 +1,3 @@
-// src/app/services/user.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -12,20 +11,27 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getAllUsers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/users`);
+    return this.http.post<any[]>(`${this.apiUrl}/getUsers`, {});
   }
 
   updateUser(id: string, user: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/users/${id}`, user);
+    return this.http.post<any>(`${this.apiUrl}/update-User-Settings`, user);
   }
 
   getUserById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/users/${id}`);
+    const userId = parseInt(id, 10);
+    return this.http.get<any>(`${this.apiUrl}/getUser/${userId}`);
   }
 
-  exportUserData(id: string, format: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/users/${id}/export`, {
-      params: { format },
+  exportUserData(ids: string[], format: string): Observable<Blob> {
+    const params = ids.map(id => `ids=${id}`).join('&');
+    const url = format === 'xml' 
+      ? `${this.apiUrl}/getUsersXML?${params}` 
+      : `${this.apiUrl}/getUsersJson?${params}`;
+  
+    return this.http.get(url, {
+      responseType: 'blob'  // Use 'blob' for binary data, this is correct.
     });
   }
+  
 }

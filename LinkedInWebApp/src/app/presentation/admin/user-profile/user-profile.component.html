@@ -1,6 +1,5 @@
-<!-- src/app/admin/user-profile/user-profile.component.html -->
-<div class="user-profile-container" *ngIf="user">
-  <h1>{{ editMode ? "Edit Profile" : user.fullName + "'s Profile" }}</h1>
+<div class="user-profile-container content" *ngIf="user && user.name">
+  <h1>{{ editMode ? "Edit Profile" : user.name + "'s Profile" }}</h1>
 
   <form *ngIf="editMode" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
     <label for="fullName">Full Name</label>

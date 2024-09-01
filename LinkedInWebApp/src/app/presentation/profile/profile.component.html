@@ -1,5 +1,5 @@
 <!-- src/app/profile/profile.component.html -->
-<div class="profile-container" *ngIf="user">
+<div class="profile-container content" *ngIf="user">
   <h1>Προσωπικά Στοιχεία</h1>
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
     <label for="fullName">Full Name</label>
@@ -19,6 +19,6 @@
       (change)="onFileChange($event)"
     />
 
-    <button type="submit">Save</button>
+    <button type="submit" class="primary-button">Save</button>
   </form>
 </div>

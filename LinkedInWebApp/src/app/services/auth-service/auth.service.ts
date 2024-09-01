@@ -1,7 +1,7 @@
 // src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { UserLoginDto } from '../../models/login-request.model';
@@ -41,6 +41,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('currentUser');
+    this.localStorageService.logout(); 
   }
 
   getCurrentUser() {

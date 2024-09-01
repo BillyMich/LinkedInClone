@@ -1,10 +1,14 @@
-<!-- src/app/admin/user-list/user-list.component.html -->
-<div class="user-list-container">
+<div class="user-list-container content">
   <h1>User List</h1>
+  
   <ul>
-    <li *ngFor="let user of users">
-      {{ user.fullName }} - {{ user.email }}
-      <button routerLink="/admin/users/{{ user.id }}">View Profile</button>
+    <li *ngFor="let user of users; trackBy: trackByFn">
+      <input type="checkbox" [(ngModel)]="user.selected" />
+      {{ user.name }} - {{ user.email }}
+      <button [routerLink]="'/admin/users/' + user.id">View Profile</button>
     </li>
   </ul>
+  
+  <button type="button" (click)="exportSelectedUsers('json')">Export to JSON</button>
+  <button type="button" (click)="exportSelectedUsers('xml')">Export to XML</button>
 </div>

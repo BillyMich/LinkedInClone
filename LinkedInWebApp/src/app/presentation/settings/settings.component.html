@@ -1,10 +1,12 @@
 <!-- src/app/settings/settings.component.html -->
-<div class="settings-container">
+<div class="settings-container content">
   <h1>Ρυθμίσεις</h1>
   <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
     <label for="notification">Ειδοποιήσεις</label>
     <input id="notification" formControlName="notification" type="checkbox" />
 
-    <button type="submit">Save</button>
+    <button type="submit" class="primary-button">Save</button>
   </form>
+
+  <button (click)="onSignOut()" class="signout-button">Sign Out</button>
 </div>

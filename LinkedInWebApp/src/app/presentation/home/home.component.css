@@ -1,4 +1,8 @@
 /* src/app/home/home.component.css */
+.content {
+  padding-top: 70px; 
+}
+
 .home-container {
   display: flex;
 }
@@ -18,9 +22,14 @@ textarea {
   margin-bottom: 1rem;
 }
 
-button {
+.primary-button {
   padding: 0.5rem 1rem;
   margin-top: 1rem;
+  cursor: pointer;
+}
+
+.secondary-button {
+  padding: 0.5rem 1rem;
   cursor: pointer;
 }
 

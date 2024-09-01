@@ -39,7 +39,6 @@ import { NotificationsComponent } from './presentation/notifications/notificatio
     SidebarComponent,
     ProfileComponent,
     SettingsComponent,
-    SettingsComponent,
     JobsComponent,
     DiscussionsComponent,
     NotificationsComponent,

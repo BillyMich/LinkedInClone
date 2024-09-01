@@ -1,4 +1,7 @@
 /* src/app/admin/user-list/user-list.component.css */
+.content {
+  padding-top: 70px; 
+}
 .user-list-container {
   padding: 20px;
   background-color: #ffffff;

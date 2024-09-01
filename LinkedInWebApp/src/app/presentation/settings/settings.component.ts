@@ -1,6 +1,7 @@
-// src/app/settings/settings.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth-service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -10,23 +11,30 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class SettingsComponent implements OnInit {
   settingsForm!: FormGroup;
 
+  constructor(private authService: AuthService, private router: Router) {}
+
   ngOnInit() {
     this.initForm();
   }
 
   initForm() {
     this.settingsForm = new FormGroup({
-      // settings field
+     
       notification: new FormControl(true, Validators.required),
     });
   }
 
   onSubmit() {
     if (this.settingsForm.valid) {
-      // handle settings submission
+    
       console.log('Settings saved', this.settingsForm.value);
     } else {
       console.log('Form is not valid');
     }
+  }
+
+  onSignOut() {
+    this.authService.logout(); 
+    this.router.navigate(['/login']); 
   }
 }
