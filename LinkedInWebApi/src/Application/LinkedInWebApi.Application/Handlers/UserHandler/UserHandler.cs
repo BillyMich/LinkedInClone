@@ -1,6 +1,7 @@
 ﻿using LinkedInWebApi.Application.Services.UserService;
 using LinkedInWebApi.Core;
 using LinkedInWebApi.Core.Dto;
+using LinkedInWebApi.Core.ExceptionHandler;
 using LinkedInWebApi.Core.Extensions;
 using LinkedInWebApi.Reposirotry.Commands;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +14,19 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
     {
         IUserReadCommands _userReadCommands;
         IUserService _userService;
+        IUserUpdateCommands _userUpdateCommands;
 
         public UserHandler(IUserReadCommands userReadCommands, IUserService userService)
         {
             _userReadCommands = userReadCommands;
             _userService = userService;
         }
+
+        public Task<List<UserDto>> GetConectedUsersHandler()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<UserDto?> GetUserHandler(int id)
         {
             return await _userReadCommands.GetUserByIdAsync(id);
@@ -57,9 +65,21 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
             };
         }
 
-        public Task<bool> UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto)
+        public async Task UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto)
         {
-            throw new NotImplementedException();
+
+            var userToUpdate = await _userReadCommands.GetUserByEmailAsync(updateUserSettingsDto.Email);
+
+            if (userToUpdate == null)
+            {
+                throw ErrorException.UnexpectedBehaviorException;
+            }
+
+            userToUpdate.Email = updateUserSettingsDto.Email;
+            userToUpdate.Password = updateUserSettingsDto.Password;
+
+            await _userUpdateCommands.UpdateUserAsync(userToUpdate);
+
         }
     }
 }

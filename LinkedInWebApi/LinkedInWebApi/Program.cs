@@ -1,4 +1,5 @@
 using LinkedInWebApi.Application.Handlers;
+using LinkedInWebApi.Application.Handlers.MessageHandler;
 using LinkedInWebApi.Application.Handlers.UserHandler;
 using LinkedInWebApi.Application.Services;
 using LinkedInWebApi.Application.Services.UserService;
@@ -6,6 +7,9 @@ using LinkedInWebApi.Application.Services.ValidationServices;
 using LinkedInWebApi.Core;
 using LinkedInWebApi.Middlewares;
 using LinkedInWebApi.Reposirotry.Commands;
+using LinkedInWebApi.Reposirotry.Commands.Insert;
+using LinkedInWebApi.Reposirotry.Commands.Read;
+using LinkedInWebApi.Reposirotry.Commands.Update;
 using LinkiedInWebApi.Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
@@ -67,6 +71,10 @@ builder.Services.AddScoped<IUserInsertCommands, UserInsertCommands>();
 builder.Services.AddScoped<IUserValidationServices, UserValidationsServices>();
 builder.Services.AddScoped<IUserHandler, UserHandler>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserUpdateCommands, UserUpdateCommands>();
+builder.Services.AddScoped<IMessageInsertCommands, MessageInsertCommands>();
+builder.Services.AddScoped<IMessageHandler, MessageHandler>();
+builder.Services.AddScoped<IMessageReadCommands, MessageReadCommands>();
 
 
 builder.Services.AddCors();

@@ -82,5 +82,19 @@ namespace LinkedInWebApi.Reposirotry.Extensions
             return users.Select(x => x.ToUserDto()).ToList();
         }
 
+
+        public static User UpdateUserFromDto(this User user, UserDto userDto)
+        {
+            user.Username = userDto.Username;
+            user.Name = userDto.Name;
+            user.Surname = userDto.Surname;
+            user.Email = userDto.Email;
+            user.Phone = userDto.Phone;
+            user.Role = (byte)userDto.Role;
+            user.IsActive = userDto.IsActive;
+            user.DateUpdated = DateTimeOffset.Now;
+
+            return user;
+        }
     }
 }
