@@ -30,8 +30,17 @@ export class UserService {
       : `${this.apiUrl}/getUsersJson?${params}`;
   
     return this.http.get(url, {
-      responseType: 'blob'  // Use 'blob' for binary data, this is correct.
+      responseType: 'blob' 
     });
   }
-  
+  // eikonika pros to paron
+  getConnectedProfessionals(): Observable<any[]> {
+    return this.http.post<any[]>(`${this.apiUrl}/getUsers`, {});
+  }
+
+  searchProfessionals(query: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/searchProfessionals`, {
+      params: { query },
+    });
+  }
 }

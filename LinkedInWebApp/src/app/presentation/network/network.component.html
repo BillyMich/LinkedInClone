@@ -1,0 +1,33 @@
+<div class="network-container content">
+    <h1>Δίκτυο</h1>
+  
+ 
+    <div class="search-bar">
+      <input type="text" placeholder="Αναζήτηση επαγγελματιών..." [(ngModel)]="searchQuery" />
+      <button (click)="searchProfessionals()">Αναζήτηση</button>
+    </div>
+  
+
+    <div *ngIf="searchResults.length > 0" class="search-results">
+      <h2>Αποτελέσματα Αναζήτησης</h2>
+      <ul>
+        <li *ngFor="let professional of searchResults">
+          <a [routerLink]="['/profile', professional.id]">
+            {{ professional.fullName }} - {{ professional.jobTitle }} at {{ professional.employer }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  
+
+    <div class="professional-grid">
+      <div *ngFor="let professional of connectedProfessionals" class="professional-card">
+        <img [src]="professional.profilePictureUrl" alt="Profile Picture" />
+        <h3>{{ professional.fullName }}</h3>
+        <p>{{ professional.jobTitle }} at {{ professional.employer }}</p>
+        <button [routerLink]="['/profile', professional.id]">View Profile</button>
+        <button (click)="startPrivateChat(professional.id)">Start Private Chat</button>
+      </div>
+    </div>
+  </div>
+  

@@ -15,6 +15,7 @@ import { SettingsComponent } from './presentation/settings/settings.component';
 import { ProfileComponent } from './presentation/profile/profile.component';
 import { LogedInGuard } from './services/guards/loged-in.guard';
 import { AlreadyLoggedInGuard } from './services/guards/already-logged-in.guard';
+import { NetworkComponent } from './presentation/network/network.component';
 
 const routes: Routes = [
   {
@@ -67,7 +68,12 @@ const routes: Routes = [
     component: NotificationsComponent,
     canActivate: [LogedInGuard],
   },
-  { path: '**', redirectTo: '/home' },
+  { 
+    path: 'network', 
+    component: NetworkComponent, 
+    canActivate: [LogedInGuard] 
+  },
+  { path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({
