@@ -50,16 +50,17 @@ namespace LinkedInWebApi.Controllers
             return BadRequest("Failed to insert message.");
         }
 
-        //[HttpPost("insertMessage")]
-        //public async Task<IActionResult> GetChat([FromBody] )
-        //{
-        //    var result = await _messageHandler.InsertMessage(newMessage);
-        //    if (result)
-        //    {
-        //        return Ok();
-        //    }
-        //    return BadRequest("Failed to insert message.");
-        //}
+
+        [HttpPost("getChatMessages")]
+        public async Task<IActionResult> GetChatMessages([FromBody] GetChatDto getChatDto)
+        {
+            var result = await _messageHandler.GetMessageOfChat(getChatDto);
+            if (result)
+            {
+                return Ok();
+            }
+            return BadRequest("Failed to insert message.");
+        }
 
 
     }

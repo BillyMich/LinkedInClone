@@ -29,11 +29,10 @@ namespace LinkedInWebApi.Application.Handlers.MessageHandler
             return await _messageInsertCommands.InsertMessage(newMessage);
         }
 
-        public async Task<List<MessageDto>?> GetMessageOfChat(int userId, int otherUserId)
+        public async Task<List<MessageDto>?> GetMessageOfChat(GetChatDto getChatDto)
         {
-            return await _messageReadCommands.GetMessagesOfChat(userId, otherUserId);
+            return await _messageReadCommands.GetMessagesOfChat(getChatDto.SenderId, getChatDto.ReceiverId);
         }
-
 
     }
 }

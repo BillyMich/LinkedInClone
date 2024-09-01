@@ -9,7 +9,7 @@ namespace LinkedInWebApi.Application.Handlers.MessageHandler
 
         Task<bool> InsertMessage(NewMessageDto newMessage);
 
-        Task<List<MessageDto>> GetMessageOfChat(int userId, int otherUserId);
+        Task<List<MessageDto>> GetMessageOfChat(GetChatDto getChatDto);
 
 
     }
