@@ -1,14 +1,19 @@
 <div class="user-list-container content">
   <h1>User List</h1>
-  
-  <ul>
-    <li *ngFor="let user of users; trackBy: trackByFn">
-      <input type="checkbox" [(ngModel)]="user.selected" />
-      {{ user.name }} - {{ user.email }}
-      <button [routerLink]="'/admin/users/' + user.id">View Profile</button>
+
+  <div class="action-buttons">
+    <button type="button" (click)="exportSelectedUsers('json')" class="primary-button">Export to JSON</button>
+    <button type="button" (click)="exportSelectedUsers('xml')" class="secondary-button">Export to XML</button>
+  </div>
+
+  <ul class="user-list">
+    <li *ngFor="let user of users; trackBy: trackByFn" class="user-item">
+      <input type="checkbox" [(ngModel)]="user.selected" class="checkbox" />
+      <div class="user-info">
+        <span class="user-name">{{ user.name }}</span>
+        <span class="user-email">{{ user.email }}</span>
+      </div>
+      <button [routerLink]="'/admin/users/' + user.id" class="view-profile-button">View Profile</button>
     </li>
   </ul>
-  
-  <button type="button" (click)="exportSelectedUsers('json')">Export to JSON</button>
-  <button type="button" (click)="exportSelectedUsers('xml')">Export to XML</button>
 </div>

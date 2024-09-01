@@ -1,28 +1,18 @@
-/* login.component.css*/
-@media (max-width: 600px) {
-  .login-form {
-    width: 90%;
-    padding: 10px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
 .login-container {
   display: flex;
-  justify-content: flex-start; /* Aligns children (form) to the right */
-  align-items: center; /* Centers children vertically */
-  height: 50vh; /* Full viewport height */
-  padding: 20px; /* Padding around the container */
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  padding: 20px;
   width: 100%;
-  background-color: #f4f4f4; /* Light grey background for the whole page */
+  background-color: #f4f4f4;
 }
 
-/* Specific styles for the form */
 .login-form {
   display: grid;
   gap: 20px;
-  width: 80%; /* Adjust this to control the form width */
-  max-width: 450px; /* Optional: Set a max-width to prevent the form from being too wide on larger screens */
+  width: 80%;
+  max-width: 450px;
   padding: 20px;
   background: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -30,27 +20,39 @@
 }
 
 .login-header-content {
-  display: grid;
-  gap: 10px;
-  justify-content: center; /* Aligns children to the center */
-  align-items: center; /* Centers children vertically */
-  width: 100%;
-  margin-bottom: 20px; /* Space below the header */
-  margin-top: 20px;
+  text-align: center;
 }
 
 .mat-form-field {
   width: 100%;
-  margin-bottom: 20px; /* Adds space below each input field */
 }
 
-/* Enhance input fields appearance */
-input {
-  width: 100%; /* Full width inside the form field */
-}
-
-/* Button styling */
 button {
-  width: 100%; /* Full width button */
-  margin-top: 10px; /* Margin on top of the button */
+  width: 100%;
+  margin-top: 10px;
+}
+
+.register-prompt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.register-prompt span {
+  font-size: 14px;
+  color: #555;
+}
+
+.register-prompt button {
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #0073b1;
+  color: white;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.register-prompt button:hover {
+  background-color: #005f91;
 }
