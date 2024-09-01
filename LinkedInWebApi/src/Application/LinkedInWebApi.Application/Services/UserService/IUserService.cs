@@ -1,4 +1,5 @@
 ﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
 
 namespace LinkedInWebApi.Application.Services.UserService
 {
@@ -11,5 +12,7 @@ namespace LinkedInWebApi.Application.Services.UserService
         Task<string> GetUsersToXML();
 
         Task<string> GetUsersToJson();
+
+        Task<bool> UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto);
     }
 }

@@ -1,9 +1,9 @@
 <!-- src/app/jobs/jobs.component.html -->
-<div class="jobs-container">
+<div class="jobs-container content">
   <h1 class="title">Αγγελίες</h1>
 
   <div class="job-form-container">
-    <button class="toggle-button" (click)="toggleJobForm()">Δημοσίευση Αγγελίας</button>
+    <button class="toggle-button primary-button" (click)="toggleJobForm()">Δημοσίευση Αγγελίας</button>
     
     <div *ngIf="showJobForm" class="job-form">
       <h2>Νέα Αγγελία</h2>
@@ -23,7 +23,7 @@
           <input id="skillsRequired" [(ngModel)]="newJob.skillsRequired" placeholder="Δεξιότητες" required />
         </div>
 
-        <button type="submit" class="submit-button">Δημοσίευση</button>
+        <button type="submit" class="submit-button primary-button">Δημοσίευση</button>
       </form>
     </div>
   </div>
@@ -34,7 +34,7 @@
       <h3>{{ job.title }}</h3>
       <p>{{ job.description }}</p>
       <p><strong>Δεξιότητες:</strong> {{ job.skillsRequired }}</p>
-      <button (click)="applyForJob(job.id)" class="apply-button">Κάντε Αίτηση</button>
+      <button (click)="applyForJob(job.id)" class="apply-button secondary-button">Κάντε Αίτηση</button>
     </div>
   </div>
 </div>

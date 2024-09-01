@@ -1,4 +1,7 @@
 /* src/app/admin/user-profile/user-profile.component.css */
+.content {
+  padding-top: 70px; 
+}
 .user-profile-container {
   padding: 20px;
   background-color: #ffffff;
