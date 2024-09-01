@@ -25,7 +25,7 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
 
         Task<IActionResult> GetUsersToJson(List<int>? ids);
 
-        Task<bool> UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto);
+        Task UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto);
 
     }
 }

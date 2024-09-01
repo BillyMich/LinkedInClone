@@ -82,11 +82,13 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpPost("update-User-Settings")]
-        public async Task<ActionResult<UpdateUserSettingsDto>> UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto)
+        public async Task<ActionResult> UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto)
         {
             try
             {
-                return null;
+                await _userHandler.UpdateUserSettings(updateUserSettingsDto);
+
+                return NoContent();
             }
             catch (Exception)
             {
@@ -94,6 +96,8 @@ namespace LinkedInWebApi.Controllers
             }
 
         }
+
+
 
     }
 }
