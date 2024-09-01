@@ -1,7 +1,7 @@
-<!-- src/app/home/home.component.html -->
 <div class="home-container content">
   <app-sidebar></app-sidebar>
   <div class="main-content">
+
     <div class="post-creation">
       <h2>Δημιουργία νέου άρθρου</h2>
       <form (submit)="onPostSubmit()">
@@ -13,12 +13,17 @@
         <button type="submit" class="primary-button">Δημοσίευση</button>
       </form>
     </div>
+
+
     <div class="timeline">
       <h2>Χρονολόγιο</h2>
       <div *ngFor="let post of posts" class="post">
-        <h3>{{ post.author }}</h3>
+        <div class="post-header">
+          <h3>{{ post.author }}</h3>
+          <p class="timestamp">{{ post.timestamp | date: 'short' }}</p>
+        </div>
         <p>{{ post.content }}</p>
-        <div *ngIf="post.mediaUrls.length > 0">
+        <div *ngIf="post.mediaUrls.length > 0" class="media-content">
           <div *ngFor="let mediaUrl of post.mediaUrls">
             <img
               *ngIf="mediaUrl.endsWith('.jpg') || mediaUrl.endsWith('.png')"
@@ -37,11 +42,13 @@
             ></audio>
           </div>
         </div>
-        <button (click)="onLike(post.id)" class="secondary-button">Σημειώστε το ενδιαφέρον</button>
-        <form (submit)="onCommentSubmit(post.id)">
-          <input [(ngModel)]="newComment" placeholder="Γράψτε ένα σχόλιο..." />
-          <button type="submit" class="secondary-button">Σχόλιο</button>
-        </form>
+        <div class="post-actions">
+          <button (click)="onLike(post.id)" class="secondary-button">Σημειώστε το ενδιαφέρον</button>
+          <form (submit)="onCommentSubmit(post.id)">
+            <input [(ngModel)]="newComment" placeholder="Γράψτε ένα σχόλιο..." />
+            <button type="submit" class="secondary-button">Σχόλιο</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>

@@ -20,6 +20,7 @@ export class AuthService {
     private localStorageService: LocalStorageService,
   ) {}
 
+
   login(email: string, password: string): Observable<any> {
     const loginRequest = new UserLoginDto(email, password);
 
@@ -47,4 +48,5 @@ export class AuthService {
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('currentUser') || '{}');
   }
+  
 }
