@@ -32,5 +32,10 @@ namespace LinkedInWebApi.Application.Services.UserService
         {
             throw new NotImplementedException();
         }
+
+        public Task UpdateUserSettingsAsync(int id, UpdateUserSettingsDto updateUserSettingsDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

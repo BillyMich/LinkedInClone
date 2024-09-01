@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Helpers\" />
-    <Folder Include="Commands\Update\" />
     <Folder Include="Validation\" />
   </ItemGroup>
 

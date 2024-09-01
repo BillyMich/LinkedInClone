@@ -291,3 +291,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Images of Application
+/LinkedInWebApi/LinkedInWebApi/Resources/
