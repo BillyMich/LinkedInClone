@@ -39,24 +39,33 @@ namespace LinkedInWebApi.Controllers
         /// Get Users
         /// </summary>
         /// <returns></returns>
-        [HttpPost("getUsers")]
-        [AllowAnonymous]
-        public async Task<ActionResult<List<UserDto>>> GetUsers()
+        [HttpGet("getUsers")]
+        public async Task<ActionResult<List<UserDto>>> GetUsers([FromQuery] List<int>? ids)
+        {
+            var result = await _userHandler.GetUsersHandler();
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Get Users
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("getConectedUsers")]
+        public async Task<ActionResult<List<UserDto>>> GetConectedUsers()
         {
             var result = await _userHandler.GetUsersHandler();
             return Ok(result);
         }
 
 
-        [HttpGet("getUsersXML")]
+        [HttpPost("getUsersXML")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(FileStreamResult), 200)]
-        public async Task<IActionResult> GetUsersXML([FromQuery] List<int>? ids)
+        public async Task<IActionResult> GetUsersXML(List<int>? ids)
         {
             try
             {
                 return await _userHandler.GetUsersToXML(ids);
-
             }
             catch (Exception)
             {
@@ -64,15 +73,14 @@ namespace LinkedInWebApi.Controllers
             }
         }
 
-        [HttpGet("getUsersJson")]
+        [HttpPost("getUsersJson")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(FileStreamResult), 200)]
-        public async Task<IActionResult> GetUsersJson([FromQuery] List<int>? ids)
+        public async Task<IActionResult> GetUsersJson(List<int>? ids)
         {
             try
             {
                 return await _userHandler.GetUsersToJson(ids);
-
             }
             catch (Exception)
             {

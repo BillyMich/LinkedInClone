@@ -21,6 +21,12 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
             _userReadCommands = userReadCommands;
             _userService = userService;
         }
+
+        public Task<List<UserDto>> GetConectedUsersHandler()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<UserDto?> GetUserHandler(int id)
         {
             return await _userReadCommands.GetUserByIdAsync(id);

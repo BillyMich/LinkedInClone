@@ -27,5 +27,6 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
 
         Task UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto);
 
+        Task<List<UserDto>> GetConectedUsersHandler();
     }
 }
