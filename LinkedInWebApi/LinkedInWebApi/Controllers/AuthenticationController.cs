@@ -22,8 +22,10 @@ namespace LinkedInWebApi.Controllers
         }
 
 
+        //TODO : FIX THIS CONTROLLERS AFTER FINISH
+
         /// <summary>
-        /// Login
+        /// Login 
         /// </summary>
         /// <returns></returns>
         [HttpPost("login")]
@@ -32,7 +34,6 @@ namespace LinkedInWebApi.Controllers
         {
 
             var accessToken = await _authenticationHandler.LoginUserHandler(userLoginDto);
-            //TODO FIX THIS
             var response = new
             {
                 access_token = accessToken,

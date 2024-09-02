@@ -12,7 +12,6 @@ namespace LinkedInWebApi.Application.Services.UserService
         Task<string> GetUsersToXML();
 
         Task<string> GetUsersToJson();
-
-        Task<bool> UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto);
+        Task UpdateUserSettingsAsync(int id, UpdateUserSettingsDto updateUserSettingsDto);
     }
 }
