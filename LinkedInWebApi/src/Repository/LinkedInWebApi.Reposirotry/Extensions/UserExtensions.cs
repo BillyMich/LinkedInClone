@@ -1,5 +1,5 @@
 ﻿using LinkedInWebApi.Core;
-using LinkiedInWebApi.Domain.Entities;
+using LinkiedInWebApi.Domain.Entity;
 
 namespace LinkedInWebApi.Reposirotry.Extensions
 {
@@ -32,8 +32,8 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 Phone = user.Phone,
                 Role = (Role)user.Role,
                 IsActive = user.IsActive,
-                DateCreated = user.DateCreated,
-                DateUpdated = user.DateUpdated,
+                CreatedAt = user.CreatedAt,
+                UpdatedAt = user.UpdatedAt,
             };
         }
 
@@ -42,7 +42,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
         /// </summary>
         /// <param name="userDto"></param>
         /// <returns></returns>
-        public static User ToUser(this UserDto userDto)
+        public static User ToUserRegister(this UserDto userDto)
         {
 
             return new User
@@ -56,21 +56,22 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 Phone = userDto.Phone,
                 Role = (byte)userDto.Role,
                 IsActive = userDto.IsActive,
-                Password = userDto.Password,
-                DateCreated = DateTimeOffset.Now,
-                DateUpdated = DateTimeOffset.Now,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now,
+                UserPasswords = new List<UserPassword>()
+                {
+                    new UserPassword
+                    {
+                        Password = userDto.Password,
+                        CreatedAt = DateTimeOffset.Now,
+                        UpdatedAt = DateTimeOffset.Now,
+                        IsActive = true
+
+                    }
+                }
             };
         }
 
-        /// <summary>
-        /// Convert List<UserDto> to List<User>
-        /// </summary>
-        /// <param name="userDtos"></param>
-        /// <returns></returns>
-        public static List<User> ToUserList(this List<UserDto> userDtos)
-        {
-            return userDtos.Select(x => x.ToUser()).ToList();
-        }
 
         /// <summary>
         /// Convert List<User> to List<UserDto>
@@ -92,7 +93,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
             user.Phone = userDto.Phone;
             user.Role = (byte)userDto.Role;
             user.IsActive = userDto.IsActive;
-            user.DateUpdated = DateTimeOffset.Now;
+            user.UpdatedAt = DateTimeOffset.Now;
 
             return user;
         }

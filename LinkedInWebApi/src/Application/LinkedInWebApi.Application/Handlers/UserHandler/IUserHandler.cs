@@ -1,5 +1,6 @@
 ﻿using LinkedInWebApi.Core;
 using LinkedInWebApi.Core.Dto;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkedInWebApi.Application.Handlers.UserHandler
@@ -28,5 +29,7 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
         Task UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto);
 
         Task<List<UserDto>> GetConectedUsersHandler();
+
+        Task UpdateProfilePicture(int userId, IFormFile file);
     }
 }

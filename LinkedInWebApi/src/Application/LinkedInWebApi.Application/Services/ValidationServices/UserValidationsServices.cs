@@ -16,6 +16,7 @@ namespace LinkedInWebApi.Application.Services.ValidationServices
         public async Task IsValidUserToRegister(UserRegisterDto userRegisterDto)
         {
 
+            //TODO: Add more validations
             var userWithSameEmailExist = await _userReadCommands.GetUserByEmailAsync(userRegisterDto.Email);
 
             if (userWithSameEmailExist != null)

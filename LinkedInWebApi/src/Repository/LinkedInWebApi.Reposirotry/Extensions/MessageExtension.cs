@@ -1,5 +1,5 @@
 ﻿using LinkedInWebApi.Core.Dto;
-using LinkiedInWebApi.Domain.Entities;
+using LinkiedInWebApi.Domain.Entity;
 
 namespace LinkedInWebApi.Reposirotry.Extensions
 {
@@ -8,16 +8,15 @@ namespace LinkedInWebApi.Reposirotry.Extensions
 
 
 
-        public static Message ToNewMessageDto(this NewMessageDto newMessage)
+        public static ChatMessage ToNewMessageDto(this NewMessageDto newMessage)
         {
 
-            return new Message
+            return new ChatMessage
             {
                 SenderId = newMessage.SenderId,
-                ResiverId = newMessage.ReceiverId,
                 FreeTxt = newMessage.Message,
-                DateCreated = DateTimeOffset.Now,
-                DateUpdated = DateTimeOffset.Now,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now,
             };
         }
 

@@ -2,11 +2,12 @@
 
 namespace LinkedInWebApi.Controllers
 {
+    [Route("api/")]
+    [ApiController]
     public class AdvertisementController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+
+
+
     }
 }

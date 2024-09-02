@@ -1,6 +1,5 @@
 ﻿using LinkedInWebApi.Core.Dto;
-using LinkedInWebApi.Reposirotry.Commands.Insert;
-using LinkedInWebApi.Reposirotry.Commands.Read;
+using LinkedInWebApi.Reposirotry.Commands;
 
 namespace LinkedInWebApi.Application.Handlers.MessageHandler
 {

@@ -54,7 +54,6 @@ namespace LinkedInWebApi.Application.Services
 
             await _userValidationServices.IsValidUserToRegister(registerDto);
 
-
             var registerUserResult = await _userInsertCommands.RegisterUserAsync(registerDto.ToUserDto());
 
             return registerUserResult;

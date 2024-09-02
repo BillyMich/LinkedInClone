@@ -1,12 +1,12 @@
 ﻿{
    "CodeGenerationMode": 4,
-   "ContextClassName": "linkedinContext",
+   "ContextClassName": "LinkedInDbContext",
    "ContextNamespace": null,
    "FilterSchemas": false,
    "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": null,
-   "OutputPath": "Entities",
+   "OutputPath": "Entity",
    "PreserveCasingWithRegex": true,
    "ProjectRootNamespace": "LinkiedInWebApi.Domain",
    "Schemas": null,
@@ -19,7 +19,15 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Comment]",
+         "Name": "[dbo].[AdvertismentProfessionalBranch]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Chat]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ChatMessage]",
          "ObjectType": 0
       },
       {
@@ -27,27 +35,55 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[CV]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Education]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Experience]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Message]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Post]",
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[PostComment]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PostPhoto]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PostReaction]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProfessionalBranch]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[User]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserCV]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserEducation]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserEducationProfessionalBranch]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserExperience]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserExpirienceProfessionalBranch]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserPassword]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserPhotoProfile]",
          "ObjectType": 0
       }
    ],

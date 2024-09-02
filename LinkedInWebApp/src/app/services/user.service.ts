@@ -11,7 +11,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getAllUsers(): Observable<any[]> {
-    return this.http.post<any[]>(`${this.apiUrl}/getUsers`, {});
+    return this.http.get<any[]>(`${this.apiUrl}/getUsers`, {});
   }
 
   updateUser(id: string, user: any): Observable<any> {
@@ -24,13 +24,14 @@ export class UserService {
   }
 
   exportUserData(ids: string[], format: string): Observable<Blob> {
-    const params = ids.map(id => `ids=${id}`).join('&');
-    const url = format === 'xml' 
-      ? `${this.apiUrl}/getUsersXML?${params}` 
-      : `${this.apiUrl}/getUsersJson?${params}`;
-  
+    const params = ids.map((id) => `ids=${id}`).join('&');
+    const url =
+      format === 'xml'
+        ? `${this.apiUrl}/getUsersXML?${params}`
+        : `${this.apiUrl}/getUsersJson?${params}`;
+
     return this.http.get(url, {
-      responseType: 'blob' 
+      responseType: 'blob',
     });
   }
   // eikonika pros to paron

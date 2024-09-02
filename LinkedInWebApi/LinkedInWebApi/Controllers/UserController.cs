@@ -89,7 +89,7 @@ namespace LinkedInWebApi.Controllers
 
         }
 
-        [HttpPost("update-User-Settings")]
+        [HttpPost("updateUserSettings")]
         public async Task<ActionResult> UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto)
         {
             try
@@ -105,7 +105,21 @@ namespace LinkedInWebApi.Controllers
 
         }
 
+        [HttpPost("updateProfilePicture")]
+        public async Task<ActionResult> UpdateProfilePicture(IFormFile file)
+        {
+            try
+            {
+                await _userHandler.UpdateUserSettings(updateUserSettingsDto);
 
+                return NoContent();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+        }
 
     }
 }

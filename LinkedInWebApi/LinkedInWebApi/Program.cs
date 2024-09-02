@@ -7,8 +7,6 @@ using LinkedInWebApi.Application.Services.ValidationServices;
 using LinkedInWebApi.Core;
 using LinkedInWebApi.Middlewares;
 using LinkedInWebApi.Reposirotry.Commands;
-using LinkedInWebApi.Reposirotry.Commands.Insert;
-using LinkedInWebApi.Reposirotry.Commands.Read;
 using LinkedInWebApi.Reposirotry.Commands.Update;
 using LinkiedInWebApi.Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

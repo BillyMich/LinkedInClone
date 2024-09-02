@@ -4,6 +4,7 @@ using LinkedInWebApi.Core.Dto;
 using LinkedInWebApi.Core.ExceptionHandler;
 using LinkedInWebApi.Core.Extensions;
 using LinkedInWebApi.Reposirotry.Commands;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
@@ -65,6 +66,23 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
             };
         }
 
+        public async Task UpdateProfilePicture(int userId, IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(memoryStream);
+                    var image = new ImageModelDto
+                    {
+                        FileName = file.FileName,
+                        DataOfFile = memoryStream.ToArray()
+                    };
+                }
+
+            throw new NotImplementedException();
+        }
+
         public async Task UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto)
         {
 
@@ -81,5 +99,7 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
             await _userUpdateCommands.UpdateUserAsync(userToUpdate);
 
         }
+
+
     }
 }

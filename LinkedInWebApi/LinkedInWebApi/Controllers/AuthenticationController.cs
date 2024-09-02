@@ -22,8 +22,6 @@ namespace LinkedInWebApi.Controllers
         }
 
 
-        //TODO : FIX THIS CONTROLLERS AFTER FINISH
-
         /// <summary>
         /// Login 
         /// </summary>
@@ -34,6 +32,8 @@ namespace LinkedInWebApi.Controllers
         {
 
             var accessToken = await _authenticationHandler.LoginUserHandler(userLoginDto);
+
+            //TODO: Return the access token in a proper way
             var response = new
             {
                 access_token = accessToken,
@@ -54,9 +54,15 @@ namespace LinkedInWebApi.Controllers
         public async Task<IActionResult> Register(UserRegisterDto userRegisterDto)
         {
 
-            var registerUserResult = await _authenticationHandler.RegisterUserHandler(userRegisterDto);
-
-            return NoContent();
+            try
+            {
+                var registerUserResult = await _authenticationHandler.RegisterUserHandler(userRegisterDto);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
