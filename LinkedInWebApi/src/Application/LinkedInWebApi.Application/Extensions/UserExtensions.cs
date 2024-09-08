@@ -20,8 +20,8 @@ namespace LinkedInWebApi.Application.Extensions
                 Email = registerDto.Email,
                 IsActive = true,
                 Phone = registerDto.Phone,
-                DateCreated = DateTimeOffset.Now,
-                DateUpdated = DateTimeOffset.Now,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now,
             };
         }
     }

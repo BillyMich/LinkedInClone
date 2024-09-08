@@ -1,4 +1,5 @@
 ﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
 
 namespace LinkedInWebApi.Reposirotry.Commands
 {
@@ -6,5 +7,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
     {
 
         Task<bool> UpdateUserAsync(UserDto userDto);
+
+        Task<bool> UpdateProfilePicture(int userId, ImageModelDto imageModelDto);
     }
 }

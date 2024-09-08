@@ -1,16 +1,16 @@
-﻿using LinkedInWebApi.Core.Dto;
+﻿using LinkedInWebApi.Core;
+using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Handlers.MessageHandler
 {
     public interface IMessageHandler
     {
 
-        Task<List<ChatDto>?> GetChatsOfUser(string userId);
+        Task<bool> InsertMessage(NewMessageDto newMessage, ClaimsIdentity claimsIdentity);
 
-        Task<bool> InsertMessage(NewMessageDto newMessage);
+        Task<List<ChatDto>?> GetChatsOfUser(string userId, ClaimsIdentity claimsIdentity);
 
-        Task<List<MessageDto>> GetMessageOfChat(GetChatDto getChatDto);
-
+        Task<List<MessageDto>> GetMessageOfChat(GetChatDto getChatDto, ClaimsIdentity claimsIdentity);
 
     }
 }

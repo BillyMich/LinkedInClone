@@ -2,7 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using LinkiedInWebApi.Domain.Entities;
+using LinkiedInWebApi.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinkiedInWebApi.Domain;
@@ -16,21 +16,39 @@ public partial class LinkedInDbContext : DbContext
 
     public virtual DbSet<Advertisement> Advertisements { get; set; }
 
-    public virtual DbSet<Comment> Comments { get; set; }
+    public virtual DbSet<AdvertismentProfessionalBranch> AdvertismentProfessionalBranches { get; set; }
+
+    public virtual DbSet<Chat> Chats { get; set; }
+
+    public virtual DbSet<ChatMessage> ChatMessages { get; set; }
 
     public virtual DbSet<ContactRequest> ContactRequests { get; set; }
 
-    public virtual DbSet<Cv> Cvs { get; set; }
-
-    public virtual DbSet<Education> Educations { get; set; }
-
-    public virtual DbSet<Experience> Experiences { get; set; }
-
-    public virtual DbSet<Message> Messages { get; set; }
-
     public virtual DbSet<Post> Posts { get; set; }
 
+    public virtual DbSet<PostComment> PostComments { get; set; }
+
+    public virtual DbSet<PostPhoto> PostPhotos { get; set; }
+
+    public virtual DbSet<PostReaction> PostReactions { get; set; }
+
+    public virtual DbSet<ProfessionalBranch> ProfessionalBranches { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<UserCv> UserCvs { get; set; }
+
+    public virtual DbSet<UserEducation> UserEducations { get; set; }
+
+    public virtual DbSet<UserEducationProfessionalBranch> UserEducationProfessionalBranches { get; set; }
+
+    public virtual DbSet<UserExperience> UserExperiences { get; set; }
+
+    public virtual DbSet<UserExpirienceProfessionalBranch> UserExpirienceProfessionalBranches { get; set; }
+
+    public virtual DbSet<UserPassword> UserPasswords { get; set; }
+
+    public virtual DbSet<UserPhotoProfile> UserPhotoProfiles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -51,23 +69,50 @@ public partial class LinkedInDbContext : DbContext
                 .HasConstraintName("FK_Advertisement_User");
         });
 
-        modelBuilder.Entity<Comment>(entity =>
+        modelBuilder.Entity<AdvertismentProfessionalBranch>(entity =>
         {
-            entity.ToTable("Comment");
+            entity.ToTable("AdvertismentProfessionalBranch");
+
+            entity.HasOne(d => d.Advertisment).WithMany(p => p.AdvertismentProfessionalBranches)
+                .HasForeignKey(d => d.AdvertismentId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AdvertismentProfessionalBranch_Advertisement");
+
+            entity.HasOne(d => d.ProfessionalBranch).WithMany(p => p.AdvertismentProfessionalBranches)
+                .HasForeignKey(d => d.ProfessionalBranchId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AdvertismentProfessionalBranch_ProfessionalBranch");
+        });
+
+        modelBuilder.Entity<Chat>(entity =>
+        {
+            entity.ToTable("Chat");
+
+            entity.HasOne(d => d.UserId1Navigation).WithMany(p => p.ChatUserId1Navigations)
+                .HasForeignKey(d => d.UserId1)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Chat_User");
+
+            entity.HasOne(d => d.UserId2Navigation).WithMany(p => p.ChatUserId2Navigations)
+                .HasForeignKey(d => d.UserId2)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Chat_User1");
+        });
+
+        modelBuilder.Entity<ChatMessage>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_Message");
+
+            entity.ToTable("ChatMessage");
 
             entity.Property(e => e.FreeTxt)
                 .IsRequired()
                 .HasMaxLength(200);
 
-            entity.HasOne(d => d.Creator).WithMany(p => p.Comments)
-                .HasForeignKey(d => d.CreatorId)
+            entity.HasOne(d => d.Chat).WithMany(p => p.ChatMessages)
+                .HasForeignKey(d => d.ChatId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Comment_User");
-
-            entity.HasOne(d => d.Post).WithMany(p => p.Comments)
-                .HasForeignKey(d => d.PostId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Comment_Post");
+                .HasConstraintName("FK_ChatMessage_Chat");
         });
 
         modelBuilder.Entity<ContactRequest>(entity =>
@@ -85,74 +130,6 @@ public partial class LinkedInDbContext : DbContext
                 .HasConstraintName("FK_ContactRequest_User");
         });
 
-        modelBuilder.Entity<Cv>(entity =>
-        {
-            entity.ToTable("CV");
-
-            entity.Property(e => e.UrlBath)
-                .IsRequired()
-                .HasMaxLength(250);
-
-            entity.HasOne(d => d.User).WithMany(p => p.Cvs)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_CV_User");
-        });
-
-        modelBuilder.Entity<Education>(entity =>
-        {
-            entity.ToTable("Education");
-
-            entity.Property(e => e.Description)
-                .IsRequired()
-                .HasMaxLength(200);
-            entity.Property(e => e.Name)
-                .IsRequired()
-                .HasMaxLength(50);
-
-            entity.HasOne(d => d.User).WithMany(p => p.Educations)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Education_User");
-        });
-
-        modelBuilder.Entity<Experience>(entity =>
-        {
-            entity.ToTable("Experience");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Description)
-                .IsRequired()
-                .HasMaxLength(200);
-            entity.Property(e => e.Name)
-                .IsRequired()
-                .HasMaxLength(50);
-
-            entity.HasOne(d => d.User).WithMany(p => p.Experiences)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Experience_User");
-        });
-
-        modelBuilder.Entity<Message>(entity =>
-        {
-            entity.ToTable("Message");
-
-            entity.Property(e => e.FreeTxt)
-                .IsRequired()
-                .HasMaxLength(200);
-
-            entity.HasOne(d => d.Resiver).WithMany(p => p.MessageResivers)
-                .HasForeignKey(d => d.ResiverId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Message_User");
-
-            entity.HasOne(d => d.Sender).WithMany(p => p.MessageSenders)
-                .HasForeignKey(d => d.SenderId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Message_User1");
-        });
-
         modelBuilder.Entity<Post>(entity =>
         {
             entity.ToTable("Post");
@@ -161,9 +138,6 @@ public partial class LinkedInDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(1000)
                 .IsFixedLength();
-            entity.Property(e => e.MultimediaUrlPath)
-                .IsRequired()
-                .HasMaxLength(250);
             entity.Property(e => e.Title)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -172,6 +146,59 @@ public partial class LinkedInDbContext : DbContext
                 .HasForeignKey(d => d.CreatorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Post_User");
+        });
+
+        modelBuilder.Entity<PostComment>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_Comment");
+
+            entity.ToTable("PostComment");
+
+            entity.Property(e => e.FreeTxt)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.HasOne(d => d.Creator).WithMany(p => p.PostComments)
+                .HasForeignKey(d => d.CreatorId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Comment_User");
+
+            entity.HasOne(d => d.Post).WithMany(p => p.PostComments)
+                .HasForeignKey(d => d.PostId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Comment_Post");
+        });
+
+        modelBuilder.Entity<PostPhoto>(entity =>
+        {
+            entity.ToTable("PostPhoto");
+
+            entity.Property(e => e.DataOfFile).IsRequired();
+            entity.Property(e => e.FileName)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.HasOne(d => d.Post).WithMany(p => p.PostPhotos)
+                .HasForeignKey(d => d.PostId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PostPhoto_Post");
+        });
+
+        modelBuilder.Entity<PostReaction>(entity =>
+        {
+            entity.ToTable("PostReaction");
+
+            entity.HasOne(d => d.Post).WithMany(p => p.PostReactions)
+                .HasForeignKey(d => d.PostId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PostReaction_Post");
+        });
+
+        modelBuilder.Entity<ProfessionalBranch>(entity =>
+        {
+            entity.ToTable("ProfessionalBranch");
+
+            entity.Property(e => e.Name).HasMaxLength(50);
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -183,19 +210,133 @@ public partial class LinkedInDbContext : DbContext
                 .HasMaxLength(50);
             entity.Property(e => e.Name)
                 .IsRequired()
-                .HasMaxLength(20);
-            entity.Property(e => e.Password)
-                .IsRequired()
-                .HasMaxLength(250);
+                .HasMaxLength(50);
             entity.Property(e => e.Phone)
                 .IsRequired()
                 .HasMaxLength(50);
             entity.Property(e => e.Surname)
                 .IsRequired()
-                .HasMaxLength(20);
+                .HasMaxLength(50);
             entity.Property(e => e.Username)
                 .IsRequired()
                 .HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<UserCv>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_CV");
+
+            entity.ToTable("UserCV");
+
+            entity.Property(e => e.DataOfFile).IsRequired();
+            entity.Property(e => e.FileName)
+                .IsRequired()
+                .HasMaxLength(250);
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserCvs)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CV_User");
+        });
+
+        modelBuilder.Entity<UserEducation>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_Education");
+
+            entity.ToTable("UserEducation");
+
+            entity.Property(e => e.Description)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserEducations)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Education_User");
+        });
+
+        modelBuilder.Entity<UserEducationProfessionalBranch>(entity =>
+        {
+            entity.ToTable("UserEducationProfessionalBranch");
+
+            entity.HasOne(d => d.ProfessionalBranch).WithMany(p => p.UserEducationProfessionalBranches)
+                .HasForeignKey(d => d.ProfessionalBranchId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserEducationProfessionalBranch_ProfessionalBranch");
+
+            entity.HasOne(d => d.UserEducation).WithMany(p => p.UserEducationProfessionalBranches)
+                .HasForeignKey(d => d.UserEducationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserEducationProfessionalBranch_UserEducation");
+        });
+
+        modelBuilder.Entity<UserExperience>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_Experience");
+
+            entity.ToTable("UserExperience");
+
+            entity.Property(e => e.Description)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserExperiences)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Experience_User");
+        });
+
+        modelBuilder.Entity<UserExpirienceProfessionalBranch>(entity =>
+        {
+            entity.ToTable("UserExpirienceProfessionalBranch");
+
+            entity.HasOne(d => d.ProfessionalBranch).WithMany(p => p.UserExpirienceProfessionalBranches)
+                .HasForeignKey(d => d.ProfessionalBranchId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserExpirienceProfessionalBranch_ProfessionalBranch");
+
+            entity.HasOne(d => d.UserExperience).WithMany(p => p.UserExpirienceProfessionalBranches)
+                .HasForeignKey(d => d.UserExperienceId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserExpirienceProfessionalBranch_UserExperience");
+        });
+
+        modelBuilder.Entity<UserPassword>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_UserPassworld");
+
+            entity.ToTable("UserPassword");
+
+            entity.Property(e => e.Password)
+                .IsRequired()
+                .HasMaxLength(250);
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserPasswords)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserPassworld_User");
+        });
+
+        modelBuilder.Entity<UserPhotoProfile>(entity =>
+        {
+            entity.ToTable("UserPhotoProfile");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.DataOfFile).IsRequired();
+            entity.Property(e => e.FileName)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserPhotoProfiles)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserPhotoProfile_User");
         });
 
         OnModelCreatingPartial(modelBuilder);
