@@ -1,16 +1,16 @@
-﻿using LinkedInWebApi.Core.Dto;
+﻿using LinkedInWebApi.Core;
 
 namespace LinkedInWebApi.Application.Handlers
 {
     public interface IContactRequestHandler
     {
 
-        Task CreateContactRequest(ContactRequestDto contactRequestDto);
+        Task<List<UserDto>> GetConnectedUsers(int userId);
 
-        Task AcceptContactRequest(int userId, int contactRequestId);
+        Task<List<ContactRequestDto>> GetConnectedContactsByStatus(int userId, int statusId);
 
-        Task<List<ContactRequestDto>> GetContacts(int userId);
+        Task<bool> CreateContactRequest(ContactRequestDto contactRequestDto);
 
-        Task<List<ContactRequestDto>> GetContactRequests(int userId);
+        Task<bool> ChangeStatusOfRequest(int requestId, bool status);
     }
 }

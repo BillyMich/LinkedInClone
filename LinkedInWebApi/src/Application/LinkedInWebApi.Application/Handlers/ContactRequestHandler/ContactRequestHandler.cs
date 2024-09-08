@@ -1,27 +1,35 @@
-﻿using LinkedInWebApi.Core.Dto;
+﻿using LinkedInWebApi.Application.Services;
+using LinkedInWebApi.Core;
 
 namespace LinkedInWebApi.Application.Handlers
 {
     public class ContactRequestHandler : IContactRequestHandler
     {
-        public Task AcceptContactRequest(int userId, int contactRequestId)
+        private readonly IContactRequestService _contactRequestService;
+
+        public ContactRequestHandler(IContactRequestService contactRequestService)
         {
-            throw new NotImplementedException();
+            _contactRequestService = contactRequestService;
         }
 
-        public Task CreateContactRequest(ContactRequestDto contactRequestDto)
+        public async Task<bool> ChangeStatusOfRequest(int requestId, bool status)
         {
-            throw new NotImplementedException();
+            return await _contactRequestService.ChangeStatusOfRequest(requestId, status);
         }
 
-        public Task<List<ContactRequestDto>> GetContactRequests(int userId)
+        public async Task<bool> CreateContactRequest(ContactRequestDto contactRequestDto)
         {
-            throw new NotImplementedException();
+            return await _contactRequestService.CreateContactRequest(contactRequestDto);
         }
 
-        public Task<List<ContactRequestDto>> GetContacts(int userId)
+        public async Task<List<ContactRequestDto>> GetConnectedContactsByStatus(int userId, int statusId)
         {
-            throw new NotImplementedException();
+            return await _contactRequestService.GetConnectedContactsByStatus(userId, statusId);
+        }
+
+        public async Task<List<UserDto>> GetConnectedUsers(int userId)
+        {
+            return await _contactRequestService.GetConnectedUsers(userId);
         }
     }
 }

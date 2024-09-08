@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
 
-namespace LinkedInWebApi.Application.Services.ContactRequestService
+namespace LinkedInWebApi.Application.Services
 {
-    internal interface IContactRequestService
+    public interface IContactRequestService
     {
+        Task<List<UserDto>> GetConnectedUsers(int userId);
+
+        Task<List<ContactRequestDto>> GetConnectedContactsByStatus(int userId, int statusId);
+
+        Task<bool> CreateContactRequest(ContactRequestDto contactRequestDto);
+
+        Task<bool> ChangeStatusOfRequest(int requestId, bool status);
     }
 }
