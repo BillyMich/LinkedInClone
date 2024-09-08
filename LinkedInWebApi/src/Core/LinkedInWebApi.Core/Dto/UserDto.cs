@@ -21,8 +21,8 @@
 
         public Role Role { get; set; }
 
-        public DateTimeOffset DateCreated { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
 
-        public DateTimeOffset DateUpdated { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
     }
 }

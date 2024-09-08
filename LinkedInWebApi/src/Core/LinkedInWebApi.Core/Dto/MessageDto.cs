@@ -1,13 +1,11 @@
-﻿namespace LinkedInWebApi.Core.Dto
+﻿namespace LinkedInWebApi.Core
 {
     public class MessageDto
     {
         public int SenderId { get; set; }
 
-        public int ReceiverId { get; set; }
+        public string FreeTxt { get; set; }
 
-        public string Message { get; set; }
-
-        public DateTime DateCreated { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

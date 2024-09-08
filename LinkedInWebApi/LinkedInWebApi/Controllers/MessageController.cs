@@ -1,63 +1,62 @@
 ﻿using LinkedInWebApi.Application.Handlers.MessageHandler;
-using LinkedInWebApi.Core.Dto;
+using LinkedInWebApi.Core;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace LinkedInWebApi.Controllers
 {
-    [Route("api/")]
+    [Route("api/message/")]
     [ApiController]
     public class MessageController : Controller
     {
 
         IMessageHandler _messageHandler;
+        private readonly ClaimsIdentity _identity;
 
-        public MessageController(IMessageHandler messageHandler)
+        public MessageController(IMessageHandler messageHandler, ClaimsIdentity identity)
         {
             _messageHandler = messageHandler;
+            _identity = identity;
         }
 
-        /// <summary>
-        /// Get Message by Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpPost("getChats")]
-        public async Task<ActionResult<ChatDto?>> GetChatsOfUser()
+        [HttpPost("InsertMessage")]
+        public async Task<ActionResult<bool>> InsertMessage([FromBody] NewMessageDto newMessage)
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-            var nameIdentificationClaim = identity.FindFirst("NameIdentification")?.Value;
-
-
-            var result = await _messageHandler.GetChatsOfUser(nameIdentificationClaim);
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Insert a new message
-        /// </summary>
-        /// <param name="newMessage"></param>
-        /// <returns></returns>
-        [HttpPost("insertMessage")]
-        public async Task<IActionResult> InsertMessage([FromBody] NewMessageDto newMessage)
-        {
-            var result = await _messageHandler.InsertMessage(newMessage);
-            if (result)
+            try
             {
-                return Ok();
+                return Ok(await _messageHandler.InsertMessage(newMessage, _identity));
             }
-            return BadRequest("Failed to insert message.");
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
-
-        [HttpPost("getChatMessages")]
-        public async Task<ActionResult<List<MessageDto>?>> GetChatMessages([FromBody] GetChatDto getChatDto)
+        [HttpPost("GetChatsOfUser")]
+        public async Task<ActionResult<List<ChatDto>?>> GetChatsOfUser(string userId)
         {
-            var result = await _messageHandler.GetMessageOfChat(getChatDto);
-            return Ok(result);
+            try
+            {
+                return Ok(await _messageHandler.GetChatsOfUser(userId, _identity));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
+        [HttpPost("GetMessageOfChat")]
+        public async Task<ActionResult<List<MessageDto>>> GetMessageOfChat([FromBody] GetChatDto getChatDto)
+        {
+            try
+            {
+                return Ok(await _messageHandler.GetMessageOfChat(getChatDto, _identity));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
 
     }
 }

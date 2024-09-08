@@ -1,8 +1,7 @@
-﻿namespace LinkedInWebApi.Core.Dto
+﻿namespace LinkedInWebApi.Core
 {
     public class NewMessageDto
     {
-        public int SenderId { get; set; }
         public int ReceiverId { get; set; }
         public string Message { get; set; }
     }

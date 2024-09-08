@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\LinkedInWebApi.Core\LinkedInWebApi.Core.csproj" />
-    <ProjectReference Include="..\..\Repository\LinkedInWebApi.Reposirotry\LinkedInWebApi.Reposirotry.csproj" />
+    <Compile Remove="Dto\**" />
+    <EmbeddedResource Remove="Dto\**" />
+    <None Remove="Dto\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dto\Authetication\" />
+    <ProjectReference Include="..\..\Core\LinkedInWebApi.Core\LinkedInWebApi.Core.csproj" />
+    <ProjectReference Include="..\..\Repository\LinkedInWebApi.Reposirotry\LinkedInWebApi.Reposirotry.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,7 @@
-﻿namespace LinkedInWebApi.Core.Dto
+﻿namespace LinkedInWebApi.Core
 {
     public class GetChatDto
     {
-        public int SenderId { get; set; }
-
-        public int ReceiverId { get; set; }
+        public int UserToChat { get; set; }
     }
 }

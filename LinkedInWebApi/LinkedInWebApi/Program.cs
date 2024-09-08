@@ -3,13 +3,9 @@ using LinkedInWebApi.Application.Handlers.MessageHandler;
 using LinkedInWebApi.Application.Handlers.UserHandler;
 using LinkedInWebApi.Application.Services;
 using LinkedInWebApi.Application.Services.UserService;
-using LinkedInWebApi.Application.Services.ValidationServices;
 using LinkedInWebApi.Core;
 using LinkedInWebApi.Middlewares;
 using LinkedInWebApi.Reposirotry.Commands;
-using LinkedInWebApi.Reposirotry.Commands.Insert;
-using LinkedInWebApi.Reposirotry.Commands.Read;
-using LinkedInWebApi.Reposirotry.Commands.Update;
 using LinkiedInWebApi.Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
@@ -63,18 +59,39 @@ builder.Services.AddAuthentication(opt =>
 
 builder.Services.AddScoped<JwtHandler>();
 
-
+//Handlers
+builder.Services.AddScoped<IAdvertisementHandler, AdvertisementHandler>();
 builder.Services.AddScoped<IAuthenticationHandler, AuthenticationHandler>();
-builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
-builder.Services.AddScoped<IUserReadCommands, UserReadCommands>();
-builder.Services.AddScoped<IUserInsertCommands, UserInsertCommands>();
-builder.Services.AddScoped<IUserValidationServices, UserValidationsServices>();
-builder.Services.AddScoped<IUserHandler, UserHandler>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IUserUpdateCommands, UserUpdateCommands>();
-builder.Services.AddScoped<IMessageInsertCommands, MessageInsertCommands>();
+builder.Services.AddScoped<IContactRequestHandler, ContactRequestHandler>();
 builder.Services.AddScoped<IMessageHandler, MessageHandler>();
+builder.Services.AddScoped<IPostHandler, PostHandler>();
+builder.Services.AddScoped<IUserHandler, UserHandler>();
+
+//Services
+builder.Services.AddScoped<IAdvertisementService, AdvertisementService>();
+builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
+builder.Services.AddScoped<IContactRequestService, ContactRequestService>();
+builder.Services.AddScoped<IMessageService, MessageService>();
+builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserValidationServices, UserValidationsServices>();
+
+
+//Commands
+builder.Services.AddScoped<IAdvertisementInserCommands, AdvertisementInserCommands>();
+builder.Services.AddScoped<IAdvertisemenReadCommands, AdvertisementReadCommands>();
+builder.Services.AddScoped<IAdvertisementUpdateCommands, AdvertisementUpdateCommands>();
+builder.Services.AddScoped<IContactRequestInsertCommands, ContactRequestInsertCommands>();
+builder.Services.AddScoped<IContactRequestReadCommands, ContactRequestReadCommands>();
+builder.Services.AddScoped<IContactRequestUpdateCommands, ContactRequestUpdateCommands>();
+builder.Services.AddScoped<IMessageInsertCommands, MessageInsertCommands>();
 builder.Services.AddScoped<IMessageReadCommands, MessageReadCommands>();
+builder.Services.AddScoped<IContactRequestInsertCommands, ContactRequestInsertCommands>();
+builder.Services.AddScoped<IContactRequestReadCommands, ContactRequestReadCommands>();
+builder.Services.AddScoped<IContactRequestUpdateCommands, ContactRequestUpdateCommands>();
+builder.Services.AddScoped<IUserInsertCommands, UserInsertCommands>();
+builder.Services.AddScoped<IUserReadCommands, UserReadCommands>();
+builder.Services.AddScoped<IUserUpdateCommands, UserUpdateCommands>();
 
 
 builder.Services.AddCors();
