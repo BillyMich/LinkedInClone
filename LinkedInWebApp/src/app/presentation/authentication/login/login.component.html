@@ -1,8 +1,4 @@
 <div class="login-container">
-  <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
-  </div>
-
   <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
     <div class="login-header-content">
       <h1 class="heading">Sign in</h1>
@@ -27,6 +23,12 @@
         required
       />
     </mat-form-field>
+    
+   
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
     <button
       mat-raised-button
       color="primary"
@@ -35,6 +37,7 @@
     >
       Sign in
     </button>
+    
     <div class="register-prompt">
       <span>Don't have an account?</span>
       <button

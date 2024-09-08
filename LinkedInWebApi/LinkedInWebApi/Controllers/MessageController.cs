@@ -52,14 +52,10 @@ namespace LinkedInWebApi.Controllers
 
 
         [HttpPost("getChatMessages")]
-        public async Task<IActionResult> GetChatMessages([FromBody] GetChatDto getChatDto)
+        public async Task<ActionResult<List<MessageDto>?>> GetChatMessages([FromBody] GetChatDto getChatDto)
         {
             var result = await _messageHandler.GetMessageOfChat(getChatDto);
-            if (result)
-            {
-                return Ok();
-            }
-            return BadRequest("Failed to insert message.");
+            return Ok(result);
         }
 
 
