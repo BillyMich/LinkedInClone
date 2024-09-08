@@ -1,5 +1,7 @@
 ﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Reposirotry.Extensions;
 using LinkiedInWebApi.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace LinkedInWebApi.Reposirotry.Commands
 {
@@ -13,11 +15,43 @@ namespace LinkedInWebApi.Reposirotry.Commands
             _linkedInDbContext = linkedInDbContext;
         }
 
-        public Task<bool> UpdateAdvertisement(AdvertisementDto advertisementDto)
+        public async Task<bool> DeleteAdvertisement(int id, int creatorId)
+        {
+            try
+            {
+                var advertisement = await _linkedInDbContext.Advertisements.FirstOrDefaultAsync(x => x.Id == id && x.CreatorId == creatorId);
+
+                if (advertisement == null)
+                {
+                    return false;
+                }
+
+                _linkedInDbContext.Advertisements.Remove(advertisement);
+                _linkedInDbContext.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateAdvertisement(AdvertisementDto advertisementDto, int creatorId)
         {
 
-            return null;
-
+            try
+            {
+                var advertisement = await _linkedInDbContext.Advertisements.FirstOrDefaultAsync(x => x.Id == advertisementDto.Id && x.CreatorId == creatorId);
+                advertisement.ToUpdateAdvertisement(advertisementDto);
+                _linkedInDbContext.Advertisements.Update(advertisement);
+                _linkedInDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
 
         }
     }

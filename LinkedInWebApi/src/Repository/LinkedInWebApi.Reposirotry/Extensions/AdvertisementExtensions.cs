@@ -1,4 +1,4 @@
-﻿using LinkedInWebApi.Core.Dto;
+﻿using LinkedInWebApi.Core;
 using LinkiedInWebApi.Domain.Entity;
 
 namespace LinkedInWebApi.Reposirotry.Extensions
@@ -6,6 +6,17 @@ namespace LinkedInWebApi.Reposirotry.Extensions
     public static class AdvertisementExtensions
     {
 
+        public static Advertisement ToAdvertisement(this CreateAdvertisementDto advertisementDto, int creatorId)
+        {
+            return new Advertisement
+            {
+                Title = advertisementDto.Title,
+                FreeTxt = advertisementDto.FreeTxt,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now,
+                CreatorId = creatorId
+            };
+        }
 
         public static AdvertisementDto ToAdvertisementDto(this Advertisement? advertisement)
         {
@@ -37,6 +48,15 @@ namespace LinkedInWebApi.Reposirotry.Extensions
         public static List<AdvertisementDto> ToAdvertisementDtos(this List<Advertisement> advertisements)
         {
             return advertisements.Select(x => x.ToAdvertisementDto()).ToList();
+        }
+
+        public static Advertisement ToUpdateAdvertisement(this Advertisement advertisement, AdvertisementDto advertisementDto)
+        {
+            advertisement.Title = advertisementDto.Title;
+            advertisement.FreeTxt = advertisementDto.FreeTxt;
+            advertisement.UpdatedAt = DateTimeOffset.Now;
+
+            return advertisement;
         }
 
     }

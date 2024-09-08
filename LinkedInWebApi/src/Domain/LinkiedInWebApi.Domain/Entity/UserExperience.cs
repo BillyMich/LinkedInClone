@@ -15,6 +15,8 @@ public partial class UserExperience
 
     public string Description { get; set; }
 
+    public bool IsPublic { get; set; }
+
     public bool IsActive { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }

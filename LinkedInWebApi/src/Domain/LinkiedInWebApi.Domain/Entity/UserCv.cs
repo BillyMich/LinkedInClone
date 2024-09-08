@@ -13,11 +13,15 @@ public partial class UserCv
 
     public string FileName { get; set; }
 
+    public bool IsPublic { get; set; }
+
+    public byte[] DataOfFile { get; set; }
+
+    public bool IsActive { get; set; }
+
     public DateTimeOffset CreatedAt { get; set; }
 
     public DateTimeOffset UpdatedAt { get; set; }
-
-    public byte[] DataOfFile { get; set; }
 
     public virtual User User { get; set; }
 }

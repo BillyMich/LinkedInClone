@@ -19,6 +19,8 @@ public partial class Chat
 
     public bool IsActive { get; set; }
 
+    public virtual ICollection<ChatMessage> ChatMessages { get; set; } = new List<ChatMessage>();
+
     public virtual User UserId1Navigation { get; set; }
 
     public virtual User UserId2Navigation { get; set; }

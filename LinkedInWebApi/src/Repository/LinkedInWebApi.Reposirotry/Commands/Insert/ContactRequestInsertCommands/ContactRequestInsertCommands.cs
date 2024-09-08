@@ -1,4 +1,4 @@
-﻿using LinkedInWebApi.Core.Dto;
+﻿using LinkedInWebApi.Core;
 using LinkedInWebApi.Reposirotry.Extensions;
 using LinkiedInWebApi.Domain;
 
@@ -14,12 +14,12 @@ namespace LinkedInWebApi.Reposirotry.Commands
             _linkedInDbContext = linkedInDbContext;
         }
 
-        public async Task<bool> CreateContactRequest(ContactRequestDto ContactRequestDto)
+        public async Task<bool> CreateContactRequest(ContactRequestDto ContactRequestDto, int userId)
         {
 
             try
             {
-                await _linkedInDbContext.ContactRequests.AddAsync(ContactRequestDto.ToContanctRequest());
+                await _linkedInDbContext.ContactRequests.AddAsync(ContactRequestDto.ToContanctRequest(userId));
                 await _linkedInDbContext.SaveChangesAsync();
                 return true;
             }

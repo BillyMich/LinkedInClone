@@ -1,4 +1,4 @@
-﻿using LinkedInWebApi.Core.Dto;
+﻿using LinkedInWebApi.Core;
 using LinkedInWebApi.Reposirotry.Extensions;
 using LinkiedInWebApi.Domain;
 
@@ -15,11 +15,11 @@ namespace LinkedInWebApi.Reposirotry.Commands
         }
 
 
-        public async Task<bool> CreateAdvertisement(AdvertisementDto advertisementDto)
+        public async Task<bool> CreateAdvertisement(CreateAdvertisementDto advertisementDto, int userId)
         {
             try
             {
-                await _linkedInDbContext.Advertisements.AddAsync(advertisementDto.ToAdvertisement());
+                await _linkedInDbContext.Advertisements.AddAsync(advertisementDto.ToAdvertisement(userId));
                 await _linkedInDbContext.SaveChangesAsync();
                 return true;
             }

@@ -1,50 +1,81 @@
-﻿using LinkedInWebApi.Core.Dto;
+﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.ExceptionHandler;
+using LinkedInWebApi.Core.Helpers;
+using LinkedInWebApi.Reposirotry.Commands;
+using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Services
 {
     public class AdvertisementService : IAdvertisementService
     {
+        private readonly IAdvertisementInserCommands _advertisemenInsertCommands;
+        private readonly IAdvertisementUpdateCommands _advertisemenUpdateCommands;
+        private readonly IAdvertisemenReadCommands _advertisemenReadCommands;
 
-        public AdvertisementService() { }
-
-        public Task<int> CreateAdvertisment(AdvertisementDto advertisementDto)
+        public AdvertisementService(IAdvertisementInserCommands advertisemenInsertCommands, IAdvertisementUpdateCommands advertisemenUpdateCommands, IAdvertisemenReadCommands advertisemenReadCommands)
         {
-            throw new NotImplementedException();
+            _advertisemenInsertCommands = advertisemenInsertCommands;
+            _advertisemenUpdateCommands = advertisemenUpdateCommands;
+            _advertisemenReadCommands = advertisemenReadCommands;
         }
 
-        public Task<bool> DeleteAdvertisment(int id)
+        public async Task<bool> CreateAdvertisement(CreateAdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+
+            var curentUserId = ClaimsIdentityaHelper.GetUserId(claimsIdentity);
+            var result = await _advertisemenInsertCommands.CreateAdvertisement(advertisementDto, curentUserId);
+
+            if (!result)
+            {
+                throw ErrorException.UnexpectedBehaviorException;
+            }
+
+            return true;
+
         }
 
-        public Task<AdvertisementDto?> GetAdvertisment(int id)
+        public async Task<bool> DeleteAdvertisment(int id, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            var curentUserId = ClaimsIdentityaHelper.GetUserId(claimsIdentity);
+            var result = await _advertisemenUpdateCommands.DeleteAdvertisement(id, curentUserId);
+
+            if (!result)
+            {
+                throw ErrorException.UnexpectedBehaviorException;
+            }
+            return true;
         }
 
-        public Task<List<AdvertisementDto>> GetAdvertisments()
+        public async Task<AdvertisementDto?> GetAdvertisment(int id, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return await _advertisemenReadCommands.GetAdvertisment(id);
         }
 
-        public Task<List<AdvertisementDto>> GetAdvertismentsByCreator(int creatorId)
+        public Task<List<AdvertisementDto>> GetAdvertisments(ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return _advertisemenReadCommands.GetAdvertisments();
         }
 
         public Task<List<AdvertisementDto>> GetAdvertismentsByProfessionalBranches(List<int> professionalBranches)
         {
-            throw new NotImplementedException();
+            return _advertisemenReadCommands.GetAdvertismentsByProfessionalBranches(professionalBranches);
         }
 
-        public Task<List<AdvertisementDto>> GetAdvertismentsByStatus(byte status)
+        public Task<List<AdvertisementDto>> GetAdvertismentsOfUserByStatus(byte status, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return _advertisemenReadCommands.GetAdvertismentsByStatus(status);
         }
 
-        public Task<bool> UpdateAdvertisment(AdvertisementDto advertisementDto)
+        public async Task<bool> UpdateAdvertisment(AdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            var curentUserId = ClaimsIdentityaHelper.GetUserId(claimsIdentity);
+            var result = await _advertisemenUpdateCommands.UpdateAdvertisement(advertisementDto, curentUserId);
+
+            if (!result)
+            {
+                throw ErrorException.UnexpectedBehaviorException;
+            }
+            return true;
         }
     }
 }

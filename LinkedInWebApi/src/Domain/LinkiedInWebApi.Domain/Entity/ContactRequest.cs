@@ -8,12 +8,20 @@ namespace LinkiedInWebApi.Domain.Entity;
 public partial class ContactRequest
 {
     public int Id { get; set; }
+
     public int UserRequestId { get; set; }
+
     public int UserResiverId { get; set; }
+
     public bool IsActive { get; set; }
+
     public bool IsAccepted { get; set; }
+
     public DateTimeOffset CreatedAt { get; set; }
+
     public DateTimeOffset UpdatedAt { get; set; }
+
     public virtual User UserRequest { get; set; }
+
     public virtual User UserResiver { get; set; }
 }

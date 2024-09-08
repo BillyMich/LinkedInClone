@@ -1,6 +1,7 @@
 ﻿using LinkedInWebApi.Core;
 using LinkedInWebApi.Core.Dto;
 using LinkedInWebApi.Reposirotry.Commands;
+using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Services.UserService
 {
@@ -8,7 +9,7 @@ namespace LinkedInWebApi.Application.Services.UserService
     {
         private readonly IUserReadCommands _userReadCommands;
 
-        public Task<UserDto> GetUser(int id)
+        public Task<UserDto> GetUser(int id, ClaimsIdentity claimsIdentity)
         {
             return _userReadCommands.GetUserByIdAsync(id);
         }

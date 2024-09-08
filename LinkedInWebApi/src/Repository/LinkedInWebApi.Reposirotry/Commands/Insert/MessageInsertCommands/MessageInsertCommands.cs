@@ -1,4 +1,4 @@
-﻿using LinkedInWebApi.Core.Dto;
+﻿using LinkedInWebApi.Core;
 using LinkedInWebApi.Reposirotry.Extensions;
 using LinkiedInWebApi.Domain;
 
@@ -20,12 +20,12 @@ namespace LinkedInWebApi.Reposirotry.Commands
         /// <param name="newMessage"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task<bool> InsertMessage(NewMessageDto newMessage)
+        public async Task<bool> InsertMessage(NewMessageDto newMessage, int userId)
         {
 
             try
             {
-                _linkedInDbContext.ChatMessages.Add(newMessage.ToNewMessageDto());
+                _linkedInDbContext.ChatMessages.Add(newMessage.ToNewMessageDto(userId));
                 await _linkedInDbContext.SaveChangesAsync();
                 return true;
             }

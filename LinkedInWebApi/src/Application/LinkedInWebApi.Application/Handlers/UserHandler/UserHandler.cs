@@ -7,20 +7,23 @@ using LinkedInWebApi.Reposirotry.Commands;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Security.Claims;
 using System.Text;
 
 namespace LinkedInWebApi.Application.Handlers.UserHandler
 {
     public class UserHandler : IUserHandler
     {
-        IUserReadCommands _userReadCommands;
-        IUserService _userService;
-        IUserUpdateCommands _userUpdateCommands;
+        private readonly IUserService _userService;
+        private readonly IUserReadCommands _userReadCommands;
+        private readonly IUserUpdateCommands _userUpdateCommands;
 
-        public UserHandler(IUserReadCommands userReadCommands, IUserService userService)
+
+        public UserHandler(IUserService userService, IUserReadCommands userReadCommands, IUserUpdateCommands userUpdateCommands)
         {
-            _userReadCommands = userReadCommands;
             _userService = userService;
+            _userReadCommands = userReadCommands;
+            _userUpdateCommands = userUpdateCommands;
         }
 
         public Task<List<UserDto>> GetConectedUsersHandler()
@@ -28,7 +31,12 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
             throw new NotImplementedException();
         }
 
-        public async Task<UserDto?> GetUserHandler(int id)
+        public Task<List<UserDto>> GetConectedUsersHandler(ClaimsIdentity claimsIdentity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<UserDto?> GetUserHandler(int id, ClaimsIdentity claimsIdentity)
         {
             return await _userReadCommands.GetUserByIdAsync(id);
         }
@@ -36,6 +44,11 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
         public async Task<List<UserDto>> GetUsersHandler()
         {
             return await _userReadCommands.GetUsersAsync(new List<int>());
+        }
+
+        public Task<List<UserDto>> GetUsersHandler(ClaimsIdentity claimsIdentity)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<IActionResult> GetUsersToJson(List<int>? ids)
@@ -53,6 +66,11 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
             };
         }
 
+        public Task<IActionResult> GetUsersToJson(List<int>? ids, ClaimsIdentity claimsIdentity)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IActionResult> GetUsersToXML(List<int>? ids)
         {
 
@@ -64,6 +82,11 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
             {
                 FileDownloadName = "users.xml"
             };
+        }
+
+        public Task<IActionResult> GetUsersToXML(List<int>? ids, ClaimsIdentity claimsIdentity)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task UpdateProfilePicture(int userId, IFormFile file)
@@ -80,6 +103,11 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
                     };
                 }
 
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateProfilePicture(IFormFile file, ClaimsIdentity claimsIdentity)
+        {
             throw new NotImplementedException();
         }
 
@@ -100,6 +128,9 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
 
         }
 
-
+        public Task UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto, ClaimsIdentity claimsIdentity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,11 +1,11 @@
-﻿using LinkedInWebApi.Core.Dto;
+﻿using LinkedInWebApi.Core;
 
 namespace LinkedInWebApi.Reposirotry.Commands
 {
-    internal interface IAdvertisementInserCommands
+    public interface IAdvertisementInserCommands
     {
 
-        Task<bool> CreateAdvertisement(AdvertisementDto advertisementDto);
+        Task<bool> CreateAdvertisement(CreateAdvertisementDto advertisementDto, int userId);
 
     }
 }

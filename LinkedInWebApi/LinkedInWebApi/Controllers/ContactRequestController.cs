@@ -11,49 +11,65 @@ namespace LinkedInWebApi.Controllers
     {
 
         private readonly IContactRequestHandler _contactRequestHandler;
+        private readonly ClaimsIdentity _identity;
 
-        public ContactRequestController(IContactRequestHandler contactRequestHandler)
+        public ContactRequestController(IContactRequestHandler contactRequestHandler, ClaimsIdentity identity)
         {
             _contactRequestHandler = contactRequestHandler;
-        }
-
-        [HttpPost("GetConnectedUsers")]
-        public async Task<ActionResult<List<UserDto>>> GetConnectedUsers()
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-            var nameIdentificationClaim = identity.FindFirst("NameIdentification")?.Value;
-
-            var result = await _contactRequestHandler.GetConnectedUsers(int.Parse(nameIdentificationClaim));
-            return Ok(result);
-        }
-
-        [HttpPost("GetConnectedContactsByStatus")]
-        public async Task<ActionResult<List<ContactRequestDto>>> GetConnectedContactsByStatus([FromBody] int statusId)
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-            var nameIdentificationClaim = identity.FindFirst("NameIdentification")?.Value;
-
-            var result = await _contactRequestHandler.GetConnectedContactsByStatus(int.Parse(nameIdentificationClaim), statusId);
-            return Ok(result);
+            _identity = identity;
         }
 
         [HttpPost("CreateContactRequest")]
-        public async Task<IActionResult> CreateContactRequest([FromBody] ContactRequestDto contactRequestDto)
+        public async Task<ActionResult<bool>> CreateContactRequest([FromBody] ContactRequestDto contactRequestDto)
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-            var nameIdentificationClaim = identity.FindFirst("NameIdentification")?.Value;
-
-            contactRequestDto.UserRequestId = int.Parse(nameIdentificationClaim);
-
-            var result = await _contactRequestHandler.CreateContactRequest(contactRequestDto);
-            if (result)
+            try
             {
-                return Ok();
+                return Ok(await _contactRequestHandler.CreateContactRequest(contactRequestDto, _identity));
             }
-            return BadRequest("Failed to create contact request.");
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
+
+        [HttpPost("ChangeStatusOfRequest")]
+        public async Task<ActionResult<bool>> ChangeStatusOfRequest([FromBody] ContactRequestChangeStatusDto contactRequestChangeStatusDto)
+        {
+            try
+            {
+                return Ok(await _contactRequestHandler.ChangeStatusOfRequest(contactRequestChangeStatusDto, _identity));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("GetConnectedUsers")]
+        public async Task<ActionResult<List<UserDto>>> GetConnectedUsers()
+        {
+            try
+            {
+                return Ok(await _contactRequestHandler.GetConnectedUsers(_identity));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("GetConnectedContactsByStatus/{statusId}")]
+        public async Task<ActionResult<List<ContactRequestDto>>> GetConnectedContactsByStatus(int statusId)
+        {
+            try
+            {
+                return Ok(await _contactRequestHandler.GetConnectedContactsByStatus(statusId, _identity));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

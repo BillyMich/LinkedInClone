@@ -9,9 +9,9 @@ public partial class Advertisement
 {
     public int Id { get; set; }
 
-    public string Title { get; set; }
-
     public int CreatorId { get; set; }
+
+    public string Title { get; set; }
 
     public string FreeTxt { get; set; }
 

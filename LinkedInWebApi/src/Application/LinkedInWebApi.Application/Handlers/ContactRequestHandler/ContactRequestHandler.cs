@@ -1,5 +1,6 @@
 ﻿using LinkedInWebApi.Application.Services;
 using LinkedInWebApi.Core;
+using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Handlers
 {
@@ -12,24 +13,24 @@ namespace LinkedInWebApi.Application.Handlers
             _contactRequestService = contactRequestService;
         }
 
-        public async Task<bool> ChangeStatusOfRequest(int requestId, bool status)
+        public async Task<bool> ChangeStatusOfRequest(ContactRequestChangeStatusDto contactRequestChangeStatusDto, ClaimsIdentity claimsIdentity)
         {
-            return await _contactRequestService.ChangeStatusOfRequest(requestId, status);
+            return await _contactRequestService.ChangeStatusOfRequest(contactRequestChangeStatusDto, claimsIdentity);
         }
 
-        public async Task<bool> CreateContactRequest(ContactRequestDto contactRequestDto)
+        public async Task<bool> CreateContactRequest(ContactRequestDto contactRequestDto, ClaimsIdentity claimsIdentity)
         {
-            return await _contactRequestService.CreateContactRequest(contactRequestDto);
+            return await _contactRequestService.CreateContactRequest(contactRequestDto, claimsIdentity);
         }
 
-        public async Task<List<ContactRequestDto>> GetConnectedContactsByStatus(int userId, int statusId)
+        public async Task<List<ContactRequestDto>> GetConnectedContactsByStatus(int statusId, ClaimsIdentity claimsIdentity)
         {
-            return await _contactRequestService.GetConnectedContactsByStatus(userId, statusId);
+            return await _contactRequestService.GetConnectedContactsByStatus(statusId, claimsIdentity);
         }
 
-        public async Task<List<UserDto>> GetConnectedUsers(int userId)
+        public async Task<List<UserDto>> GetConnectedUsers(ClaimsIdentity claimsIdentity)
         {
-            return await _contactRequestService.GetConnectedUsers(userId);
+            return await _contactRequestService.GetConnectedUsers(claimsIdentity);
         }
     }
 }

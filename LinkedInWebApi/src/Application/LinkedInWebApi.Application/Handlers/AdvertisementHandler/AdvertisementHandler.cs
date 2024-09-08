@@ -1,47 +1,52 @@
-﻿using LinkedInWebApi.Core.Dto;
+﻿using LinkedInWebApi.Application.Services;
+using LinkedInWebApi.Core;
+using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Handlers
 {
     public class AdvertisementHandler : IAdvertisementHandler
     {
-        public Task<int> CreateAdvertisment(AdvertisementDto advertisementDto)
+
+        private readonly IAdvertisementService _advertisementService;
+
+        public AdvertisementHandler(IAdvertisementService advertisementService)
         {
-            throw new NotImplementedException();
+            _advertisementService = advertisementService;
         }
 
-        public Task<bool> DeleteAdvertisment(int id)
+        public Task<bool> CreateAdvertisement(CreateAdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return _advertisementService.CreateAdvertisement(advertisementDto, claimsIdentity);
         }
 
-        public Task<AdvertisementDto?> GetAdvertisment(int id)
+        public Task<bool> DeleteAdvertisment(int id, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return _advertisementService.DeleteAdvertisment(id, claimsIdentity);
         }
 
-        public Task<List<AdvertisementDto>> GetAdvertisments()
+        public Task<AdvertisementDto?> GetAdvertisment(int id, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return _advertisementService.GetAdvertisment(id, claimsIdentity);
         }
 
-        public Task<List<AdvertisementDto>> GetAdvertismentsByCreator(int creatorId)
+        public Task<List<AdvertisementDto>> GetAdvertisments(ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return _advertisementService.GetAdvertisments(claimsIdentity);
         }
 
         public Task<List<AdvertisementDto>> GetAdvertismentsByProfessionalBranches(List<int> professionalBranches)
         {
-            throw new NotImplementedException();
+            return _advertisementService.GetAdvertismentsByProfessionalBranches(professionalBranches);
         }
 
-        public Task<List<AdvertisementDto>> GetAdvertismentsByStatus(byte status)
+        public Task<List<AdvertisementDto>> GetAdvertismentsOfUserByStatus(byte status, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return _advertisementService.GetAdvertismentsOfUserByStatus(status, claimsIdentity);
         }
 
-        public Task<bool> UpdateAdvertisment(AdvertisementDto advertisementDto)
+        public Task<bool> UpdateAdvertisment(AdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return _advertisementService.UpdateAdvertisment(advertisementDto, claimsIdentity);
         }
     }
 }

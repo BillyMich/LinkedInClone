@@ -19,7 +19,5 @@ public partial class ChatMessage
 
     public DateTimeOffset UpdatedAt { get; set; }
 
-    public virtual User Chat { get; set; }
-
-    public virtual User Sender { get; set; }
+    public virtual Chat Chat { get; set; }
 }

@@ -1,5 +1,4 @@
 ﻿using LinkedInWebApi.Application.Extensions;
-using LinkedInWebApi.Application.Services.ValidationServices;
 using LinkedInWebApi.Core;
 using LinkedInWebApi.Core.Dto;
 using LinkedInWebApi.Core.ExceptionHandler;

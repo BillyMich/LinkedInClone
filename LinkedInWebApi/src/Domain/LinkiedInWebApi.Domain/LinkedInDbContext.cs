@@ -109,15 +109,10 @@ public partial class LinkedInDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(200);
 
-            entity.HasOne(d => d.Chat).WithMany(p => p.ChatMessageChats)
+            entity.HasOne(d => d.Chat).WithMany(p => p.ChatMessages)
                 .HasForeignKey(d => d.ChatId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Message_User");
-
-            entity.HasOne(d => d.Sender).WithMany(p => p.ChatMessageSenders)
-                .HasForeignKey(d => d.SenderId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Message_User1");
+                .HasConstraintName("FK_ChatMessage_Chat");
         });
 
         modelBuilder.Entity<ContactRequest>(entity =>
@@ -143,9 +138,6 @@ public partial class LinkedInDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(1000)
                 .IsFixedLength();
-            entity.Property(e => e.MultimediaUrlPath)
-                .IsRequired()
-                .HasMaxLength(250);
             entity.Property(e => e.Title)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -181,7 +173,6 @@ public partial class LinkedInDbContext : DbContext
         {
             entity.ToTable("PostPhoto");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.DataOfFile).IsRequired();
             entity.Property(e => e.FileName)
                 .IsRequired()
@@ -196,8 +187,6 @@ public partial class LinkedInDbContext : DbContext
         modelBuilder.Entity<PostReaction>(entity =>
         {
             entity.ToTable("PostReaction");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.Post).WithMany(p => p.PostReactions)
                 .HasForeignKey(d => d.PostId)

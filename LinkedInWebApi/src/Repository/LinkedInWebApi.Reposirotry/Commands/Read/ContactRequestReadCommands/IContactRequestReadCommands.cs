@@ -1,5 +1,4 @@
 ﻿using LinkedInWebApi.Core;
-using LinkedInWebApi.Core.Dto;
 
 namespace LinkedInWebApi.Reposirotry.Commands
 {
@@ -8,6 +7,6 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
         Task<List<UserDto>> GetConnectedUsers(int userId);
 
-        Task<List<ContactRequestDto>> GetConnectedContactsByStatus(int userId, int statusId);
+        Task<List<ContactRequestDto>> GetConnectedContactsByStatus(int userId);
     }
 }

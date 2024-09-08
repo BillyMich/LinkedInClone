@@ -2,7 +2,7 @@
 using LinkedInWebApi.Core.ExceptionHandler;
 using LinkedInWebApi.Reposirotry.Commands;
 
-namespace LinkedInWebApi.Application.Services.ValidationServices
+namespace LinkedInWebApi.Application.Services
 {
     public class UserValidationsServices : IUserValidationServices
     {

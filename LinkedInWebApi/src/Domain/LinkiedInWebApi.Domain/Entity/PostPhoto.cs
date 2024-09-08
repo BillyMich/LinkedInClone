@@ -15,11 +15,11 @@ public partial class PostPhoto
 
     public byte[] DataOfFile { get; set; }
 
+    public bool IsActive { get; set; }
+
     public DateTimeOffset CreatedAt { get; set; }
 
     public DateTimeOffset UpdatedAt { get; set; }
-
-    public bool IsActive { get; set; }
 
     public virtual Post Post { get; set; }
 }

@@ -19,19 +19,15 @@ public partial class User
 
     public string Email { get; set; }
 
-    public bool IsActive { get; set; }
-
     public byte Role { get; set; }
+
+    public bool IsActive { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
 
     public DateTimeOffset UpdatedAt { get; set; }
 
     public virtual ICollection<Advertisement> Advertisements { get; set; } = new List<Advertisement>();
-
-    public virtual ICollection<ChatMessage> ChatMessageChats { get; set; } = new List<ChatMessage>();
-
-    public virtual ICollection<ChatMessage> ChatMessageSenders { get; set; } = new List<ChatMessage>();
 
     public virtual ICollection<Chat> ChatUserId1Navigations { get; set; } = new List<Chat>();
 

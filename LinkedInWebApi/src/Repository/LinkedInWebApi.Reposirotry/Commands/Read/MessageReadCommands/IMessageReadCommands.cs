@@ -1,4 +1,4 @@
-﻿using LinkedInWebApi.Core.Dto;
+﻿using LinkedInWebApi.Core;
 
 namespace LinkedInWebApi.Reposirotry.Commands
 {
@@ -7,7 +7,9 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
         Task<List<ChatDto>?> GetChatsOfUser(int userId);
 
-        Task<List<MessageDto>?> GetMessagesOfChat(int userId, int otherUserId);
+        Task<List<MessageDto>?> GetMessagesOfChat(int chatId);
+
+        Task<int> GetChatId(int userId, int otherUserId);
 
     }
 }

@@ -1,8 +1,10 @@
-﻿namespace LinkedInWebApi.Reposirotry.Commands
+﻿using LinkedInWebApi.Core;
+
+namespace LinkedInWebApi.Reposirotry.Commands
 {
     public interface IContactRequestUpdateCommands
     {
-        Task<bool> ChangeStatusOfRequest(int requestId, bool status);
+        Task<bool> ChangeStatusOfRequest(ContactRequestChangeStatusDto contactRequestChangeStatusDto, int userId);
 
     }
 }

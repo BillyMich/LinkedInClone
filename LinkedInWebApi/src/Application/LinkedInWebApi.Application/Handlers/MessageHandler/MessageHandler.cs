@@ -1,37 +1,31 @@
-﻿using LinkedInWebApi.Core.Dto;
-using LinkedInWebApi.Reposirotry.Commands;
+﻿using LinkedInWebApi.Application.Services;
+using LinkedInWebApi.Core;
+using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Handlers.MessageHandler
 {
     public class MessageHandler : IMessageHandler
     {
+        private readonly IMessageService _messageService;
 
-        private readonly IMessageReadCommands _messageReadCommands;
-        private readonly IMessageInsertCommands _messageInsertCommands;
-
-        public MessageHandler(IMessageReadCommands messageReadCommands, IMessageInsertCommands messageInsertCommands)
+        public MessageHandler(IMessageService messageService)
         {
-            _messageReadCommands = messageReadCommands;
-            _messageInsertCommands = messageInsertCommands;
+            _messageService = messageService;
         }
 
-        public Task<List<ChatDto>?> GetChatsOfUser(string userId)
+        public async Task<List<ChatDto>?> GetChatsOfUser(string userId, ClaimsIdentity claimsIdentity)
         {
-
-            return _messageReadCommands.GetChatsOfUser(int.Parse(userId));
-
+            return await _messageService.GetChatsOfUser(claimsIdentity);
         }
 
-
-        public async Task<bool> InsertMessage(NewMessageDto newMessage)
+        public async Task<List<MessageDto>> GetMessageOfChat(GetChatDto getChatDto, ClaimsIdentity claimsIdentity)
         {
-            return await _messageInsertCommands.InsertMessage(newMessage);
+            return await _messageService.GetMessageOfChat(getChatDto, claimsIdentity);
         }
 
-        public async Task<List<MessageDto>?> GetMessageOfChat(GetChatDto getChatDto)
+        public async Task<bool> InsertMessage(NewMessageDto newMessage, ClaimsIdentity claimsIdentity)
         {
-            return await _messageReadCommands.GetMessagesOfChat(getChatDto.SenderId, getChatDto.ReceiverId);
+            return await _messageService.InsertMessage(newMessage, claimsIdentity);
         }
-
     }
 }

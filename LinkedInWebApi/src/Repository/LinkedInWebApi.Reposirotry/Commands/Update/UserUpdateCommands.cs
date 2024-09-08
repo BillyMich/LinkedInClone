@@ -5,7 +5,7 @@ using LinkiedInWebApi.Domain;
 using LinkiedInWebApi.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace LinkedInWebApi.Reposirotry.Commands.Update
+namespace LinkedInWebApi.Reposirotry.Commands
 {
     public class UserUpdateCommands : IUserUpdateCommands
     {

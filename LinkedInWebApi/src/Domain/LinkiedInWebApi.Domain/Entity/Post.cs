@@ -9,21 +9,19 @@ public partial class Post
 {
     public int Id { get; set; }
 
+    public int CreatorId { get; set; }
+
     public string Title { get; set; }
 
     public string FreeTxt { get; set; }
+
+    public short Status { get; set; }
 
     public bool IsActive { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
 
     public DateTimeOffset UpdatedAt { get; set; }
-
-    public int CreatorId { get; set; }
-
-    public string MultimediaUrlPath { get; set; }
-
-    public byte Status { get; set; }
 
     public virtual User Creator { get; set; }
 

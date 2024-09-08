@@ -1,5 +1,5 @@
 ﻿using LinkedInWebApi.Core;
-using LinkedInWebApi.Core.Dto;
+using LinkedInWebApi.Reposirotry.Extensions;
 using LinkiedInWebApi.Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,30 +15,15 @@ namespace LinkedInWebApi.Reposirotry.Commands
             _linkedInDbContext = linkedInDbContext;
         }
 
-        public async Task<List<ContactRequestDto>> GetConnectedContactsByStatus(int userId, int statusId)
+        public async Task<List<ContactRequestDto>> GetConnectedContactsByStatus(int userId)
         {
             var contactRequest = await _linkedInDbContext.ContactRequests
                 .Where(x => x.UserRequestId == userId || x.UserResiverId == userId)
-                .Where(x => x.IsActive == true && x.IsAccepted == true)
-                .Select(x => new ContactRequestDto
-                {
-                    Id = x.Id,
-                    UserRequestId = x.UserRequestId,
-                    UserResiverId = x.UserResiverId,
-                    IsActive = x.IsActive,
-                    IsAccepted = x.IsAccepted,
-                    CreatedAt = x.CreatedAt,
-                    UpdatedAt = x.UpdatedAt
-                }).ToListAsync();
+                .Where(x => x.IsActive == true && x.IsAccepted == true).ToListAsync();
 
-            return contactRequest;
+            return contactRequest.ToContactRequestDto();
         }
 
-        /// <summary>
-        /// Getting all users that are connected to the user
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
         public Task<List<UserDto>> GetConnectedUsers(int userId)
         {
 
