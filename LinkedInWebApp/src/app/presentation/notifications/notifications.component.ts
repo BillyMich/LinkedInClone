@@ -32,18 +32,14 @@ export class NotificationsComponent implements OnInit {
   }
 
   acceptRequest(requestId: string) {
-    this.notificationsService
-      .acceptConnectionRequest(requestId)
-      .subscribe(() => {
-        this.loadNotifications();
-      });
+    this.notificationsService.acceptConnectionRequest(requestId).subscribe(() => {
+      this.loadNotifications();
+    });
   }
 
   rejectRequest(requestId: string) {
-    this.notificationsService
-      .rejectConnectionRequest(requestId)
-      .subscribe(() => {
-        this.loadNotifications();
-      });
+    this.notificationsService.rejectConnectionRequest(requestId).subscribe(() => {
+      this.loadNotifications();
+    });
   }
 }

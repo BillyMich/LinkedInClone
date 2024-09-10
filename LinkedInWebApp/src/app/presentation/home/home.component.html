@@ -1,55 +1,51 @@
 <div class="home-container content">
   <app-sidebar></app-sidebar>
   <div class="main-content">
-
-    <div class="post-creation">
-      <h2>Δημιουργία νέου άρθρου</h2>
-      <form (submit)="onPostSubmit()">
-        <textarea
-          [(ngModel)]="newPostContent"
-          placeholder="Γράψτε κάτι..."
-        ></textarea>
-        <input type="file" (change)="onFileChange($event)" multiple />
-        <button type="submit" class="primary-button">Δημοσίευση</button>
-      </form>
-    </div>
-
+    
+    <form (ngSubmit)="onPostSubmit()" #postForm="ngForm">
+      <textarea
+        [(ngModel)]="newPostContent"
+        name="newPostContent"
+        placeholder="Γράψτε κάτι..."
+        required
+      ></textarea>
+      <input type="file" (change)="onFileChange($event)" multiple />
+      <button type="submit" class="primary-button" [disabled]="!postForm.valid">
+        Δημοσίευση
+      </button>
+    </form>
+    
 
     <div class="timeline">
       <h2>Χρονολόγιο</h2>
       <div *ngFor="let post of posts" class="post">
+        
         <div class="post-header">
           <h3>{{ post.author }}</h3>
           <p class="timestamp">{{ post.timestamp | date: 'short' }}</p>
         </div>
+
         <p>{{ post.content }}</p>
+
         <div *ngIf="post.mediaUrls.length > 0" class="media-content">
           <div *ngFor="let mediaUrl of post.mediaUrls">
-            <img
-              *ngIf="mediaUrl.endsWith('.jpg') || mediaUrl.endsWith('.png')"
-              [src]="mediaUrl"
-              alt="Media"
-            />
-            <video
-              *ngIf="mediaUrl.endsWith('.mp4')"
-              [src]="mediaUrl"
-              controls
-            ></video>
-            <audio
-              *ngIf="mediaUrl.endsWith('.mp3')"
-              [src]="mediaUrl"
-              controls
-            ></audio>
+            <img *ngIf="mediaUrl.endsWith('.jpg') || mediaUrl.endsWith('.png')" [src]="mediaUrl" alt="Media" />
+            <video *ngIf="mediaUrl.endsWith('.mp4')" [src]="mediaUrl" controls></video>
+            <audio *ngIf="mediaUrl.endsWith('.mp3')" [src]="mediaUrl" controls></audio>
           </div>
         </div>
+
         <div class="post-actions">
           <button (click)="onLike(post.id)" class="secondary-button">Σημειώστε το ενδιαφέρον</button>
+          
           <form (submit)="onCommentSubmit(post.id)">
-            <input [(ngModel)]="newComment" placeholder="Γράψτε ένα σχόλιο..." />
+            <input [(ngModel)]="newComment" name="newComment" placeholder="Γράψτε ένα σχόλιο..." /> <!-- Added name attribute -->
             <button type="submit" class="secondary-button">Σχόλιο</button>
           </form>
         </div>
+
       </div>
     </div>
+
   </div>
 </div>

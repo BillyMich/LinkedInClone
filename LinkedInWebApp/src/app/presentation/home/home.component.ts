@@ -1,6 +1,5 @@
-// src/app/home/home.component.ts
 import { Component, OnInit } from '@angular/core';
-import { ArticleService } from '../../services/article.service';
+import { ArticleService } from '../../services/article.service'; // Using ArticleService
 
 @Component({
   selector: 'app-home',
@@ -25,21 +24,30 @@ export class HomeComponent implements OnInit {
   }
 
   onPostSubmit() {
+    console.log('Submitting post:', this.newPostContent); 
     if (this.newPostContent) {
       const newPost = {
         content: this.newPostContent,
-        mediaUrls: [], // media handling
+        mediaUrls: [], 
       };
-      this.articleService.createArticle(newPost).subscribe(() => {
-        this.fetchPosts();
-        this.newPostContent = '';
-      });
+      this.articleService.createArticle(newPost).subscribe(
+        () => {
+          this.fetchPosts(); 
+          this.newPostContent = '';
+        },
+        (error) => {
+          console.error('Error creating post:', error); 
+        }
+      );
     }
   }
-
+  
   onFileChange(event: any) {
-    // file handling
+    const files = event.target.files;
+    console.log('Selected files:', files); 
+   
   }
+  
 
   onLike(postId: string) {
     this.articleService.likeArticle(postId).subscribe(() => {
@@ -49,12 +57,10 @@ export class HomeComponent implements OnInit {
 
   onCommentSubmit(postId: string) {
     if (this.newComment) {
-      this.articleService
-        .commentArticle(postId, this.newComment)
-        .subscribe(() => {
-          this.fetchPosts();
-          this.newComment = '';
-        });
+      this.articleService.commentArticle(postId, this.newComment).subscribe(() => {
+        this.fetchPosts();
+        this.newComment = '';
+      });
     }
   }
 }
