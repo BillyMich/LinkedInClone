@@ -1,3 +1,4 @@
+// src/app/services/user.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -10,8 +11,21 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getAllUsers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/getUsers`, {});
+  getConnectedUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/GetConnectedUsers`);
+  }
+
+  createContactRequest(targetUserId: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/CreateContactRequest`, {
+      targetUserId,
+    });
+  }
+
+  changeRequestStatus(requestId: string, status: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/ChangeStatusOfRequest`, {
+      requestId,
+      status,
+    });
   }
 
   updateUser(id: string, user: any): Observable<any> {
@@ -19,8 +33,7 @@ export class UserService {
   }
 
   getUserById(id: string): Observable<any> {
-    const userId = parseInt(id, 10);
-    return this.http.get<any>(`${this.apiUrl}/getUser/${userId}`);
+    return this.http.get<any>(`${this.apiUrl}/getUser/${id}`);
   }
 
   exportUserData(ids: string[], format: string): Observable<Blob> {
@@ -33,10 +46,6 @@ export class UserService {
     return this.http.get(url, {
       responseType: 'blob',
     });
-  }
-  // eikonika pros to paron
-  getConnectedProfessionals(): Observable<any[]> {
-    return this.http.post<any[]>(`${this.apiUrl}/getUsers`, {});
   }
 
   searchProfessionals(query: string): Observable<any[]> {

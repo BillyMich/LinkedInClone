@@ -13,7 +13,7 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.userService.getAllUsers().subscribe({
+    this.userService.getConnectedUsers().subscribe({
       next: (data: any[]) => {
         this.users = data.map(user => ({ ...user, selected: false }));
         this.cdr.detectChanges();
@@ -28,13 +28,13 @@ export class UserListComponent implements OnInit {
     const selectedUserIds = this.users
       .filter(user => user.selected)
       .map(user => user.id);
-  
+
     if (selectedUserIds.length > 0) {
       this.userService.exportUserData(selectedUserIds, format).subscribe({
         next: (blob) => {
           const dataType = format === 'xml' ? 'application/xml' : 'application/json';
           const blobUrl = window.URL.createObjectURL(new Blob([blob], { type: dataType }));
-          
+
           const a = document.createElement('a');
           a.href = blobUrl;
           a.download = `users.${format}`;
