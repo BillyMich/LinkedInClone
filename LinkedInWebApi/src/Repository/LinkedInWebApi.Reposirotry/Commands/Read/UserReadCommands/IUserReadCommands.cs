@@ -16,5 +16,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
         Task<string> GetUsersToXMLAsync();
 
+        Task<FileDto> GetProfilePictureFromId(int id);
+
     }
 }

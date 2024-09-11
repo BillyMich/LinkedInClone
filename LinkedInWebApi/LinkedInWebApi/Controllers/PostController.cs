@@ -1,5 +1,6 @@
 ﻿using LinkedInWebApi.Application.Handlers;
 using LinkedInWebApi.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -12,13 +13,14 @@ namespace LinkedInWebApi.Controllers
         private readonly IPostHandler _postHandler;
         private readonly ClaimsIdentity _identity;
 
-        public PostController(IPostHandler postHandler, ClaimsIdentity identity)
+        public PostController(IPostHandler postHandler, IHttpContextAccessor httpContextAccessor)
         {
             _postHandler = postHandler;
-            _identity = identity;
+            _identity = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
         }
 
         [HttpPost("CreatePost")]
+        [Authorize]
         public async Task<ActionResult<PostDto>> CreatePost([FromBody] CreatePostDto createPostDto)
         {
             try
@@ -32,6 +34,8 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpPost("UpdatePost")]
+        [Authorize]
+
         public async Task<ActionResult<bool>> UpdatePost([FromBody] PostDto postDto)
         {
             try
@@ -45,6 +49,8 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpPost("DeletePost/{id}")]
+        [Authorize]
+
         public async Task<ActionResult<bool>> DeletePost(int id)
         {
             try
@@ -58,6 +64,8 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpGet("GetPost/{id}")]
+        [Authorize]
+
         public async Task<ActionResult<PostDto?>> GetPost(int id)
         {
             try
@@ -71,6 +79,8 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpGet("GetPosts")]
+        [Authorize]
+
         public async Task<ActionResult<List<PostDto>>?> GetPosts()
         {
             try
@@ -84,6 +94,8 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpPost("CreatePostComment")]
+        [Authorize]
+
         public async Task<ActionResult<bool>> CreatePostComment([FromBody] CreatePostCommentDto createPostCommentDto)
         {
             try
@@ -97,6 +109,7 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpPost("UpdatePostComment")]
+        [Authorize]
         public async Task<ActionResult<bool>> UpdatePostComment([FromBody] PostCommentDto postCommentDto)
         {
             try
@@ -110,6 +123,7 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpPost("DeletePostComment/{id}")]
+        [Authorize]
         public async Task<ActionResult<bool>> DeletePostComment(int id)
         {
             try

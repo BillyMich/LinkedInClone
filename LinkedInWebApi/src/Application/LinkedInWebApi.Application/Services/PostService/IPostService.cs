@@ -5,7 +5,7 @@ namespace LinkedInWebApi.Application.Services
 {
     public interface IPostService
     {
-        Task<int> CreatePost(CreatePostDto postDto, ClaimsIdentity claimsIdentity);
+        Task<bool> CreatePost(CreatePostDto postDto, ClaimsIdentity claimsIdentity);
 
         Task<bool> UpdatePost(PostDto postDto, ClaimsIdentity claimsIdentity);
 

@@ -31,5 +31,37 @@ namespace LinkedInWebApi.Reposirotry.Commands
             }
 
         }
+
+        public async Task<bool> UploadNewProfilePicture(FileDto fileDto, int userId)
+        {
+            try
+            {
+
+                // Retrieve all UserPhotoProfiles for the specified userId
+                var userPhotoProfiles = linkedInDbContext.UserPhotoProfiles
+                    .Where(photo => photo.UserId == userId && photo.IsActive)
+                    .ToList();
+
+                // Set IsActive to false for each of them
+                foreach (var photo in userPhotoProfiles)
+                {
+                    photo.IsActive = false;
+                }
+
+                // Save changes to the database
+                linkedInDbContext.UserPhotoProfiles.UpdateRange(userPhotoProfiles);
+                await linkedInDbContext.SaveChangesAsync();
+
+                // Add the new profile picture
+                var file = fileDto.ToUserPhotoProfile(userId);
+                await linkedInDbContext.UserPhotoProfiles.AddAsync(file);
+                await linkedInDbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

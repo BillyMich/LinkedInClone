@@ -1,13 +1,21 @@
-﻿using LinkedInWebApi.Core;
+﻿using LinkedInWebApi.Application.Services;
+using LinkedInWebApi.Core;
 using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Handlers
 {
     public class PostHandler : IPostHandler
     {
-        public Task<int> CreatePost(CreatePostDto postDto, ClaimsIdentity claimsIdentity)
+        private readonly IPostService _postService;
+
+        public PostHandler(IPostService postService)
         {
-            throw new NotImplementedException();
+            _postService = postService;
+        }
+
+        public async Task<bool> CreatePost(CreatePostDto postDto, ClaimsIdentity claimsIdentity)
+        {
+            return await _postService.CreatePost(postDto, claimsIdentity);
         }
 
         public Task<bool> CreatePostComment(CreatePostCommentDto postCommentDto, ClaimsIdentity claimsIdentity)
@@ -32,7 +40,7 @@ namespace LinkedInWebApi.Application.Handlers
 
         public Task<List<PostDto>> GetPosts(ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return _postService.GetPosts(claimsIdentity);
         }
 
         public Task<bool> UpdatePost(PostDto postDto, ClaimsIdentity claimsIdentity)
