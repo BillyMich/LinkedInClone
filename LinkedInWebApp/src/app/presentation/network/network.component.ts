@@ -1,3 +1,4 @@
+// src/app/network/network.component.ts
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
@@ -11,24 +12,24 @@ export class NetworkComponent implements OnInit {
   connectedProfessionals: any[] = [];
   searchResults: any[] = [];
   searchQuery: string = '';
+  selectedProfessional: any = null;
 
   constructor(private userService: UserService, private router: Router) {}
-  selectedProfessional: any = null;
+
   ngOnInit() {
     this.loadConnectedProfessionals();
   }
 
   loadConnectedProfessionals() {
-    this.userService.getAllUsers().subscribe({
+    this.userService.getConnectedUsers().subscribe({
       next: (data) => {
-        this.connectedProfessionals = data; 
+        this.connectedProfessionals = data;
       },
       error: (err) => {
         console.error('Error loading connected professionals:', err);
       },
     });
   }
-  
 
   searchProfessionals() {
     if (this.searchQuery) {
@@ -44,10 +45,23 @@ export class NetworkComponent implements OnInit {
       this.searchResults = [];
     }
   }
+
   viewProfile(professional: any) {
     this.selectedProfessional = professional;
   }
+
   startPrivateChat(professionalId: string) {
     this.router.navigate(['/discussions'], { queryParams: { id: professionalId } });
+  }
+  
+  sendFriendRequest(professionalId: string) {
+    this.userService.createContactRequest(professionalId).subscribe({
+      next: () => {
+        alert('Friend request sent!');
+      },
+      error: (err) => {
+        console.error('Error sending friend request:', err);
+      },
+    });
   }
 }

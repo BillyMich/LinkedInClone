@@ -15,7 +15,6 @@
       <button class="primary-button" (click)="searchProfessionals()">Αναζήτηση</button>
     </div>
 
-    <!-- Search Results -->
     <div *ngIf="searchResults.length > 0" class="search-results">
       <h2>Αποτελέσματα Αναζήτησης</h2>
       <ul>
@@ -27,7 +26,6 @@
       </ul>
     </div>
 
-    <!-- Professional Details -->
     <div *ngIf="selectedProfessional" class="professional-details">
       <img [src]="selectedProfessional.profilePictureUrl" alt="Profile Picture" class="profile-pic" />
       <h2>{{ selectedProfessional.fullName }}</h2>
@@ -37,4 +35,16 @@
       </div>
     </div>
   </div>
+
+  <div class="professional-details" *ngIf="selectedProfessional">
+    <img [src]="selectedProfessional.profilePictureUrl" alt="Profile Picture" class="profile-pic" />
+    <h2>{{ selectedProfessional.fullName }}</h2>
+    <p>{{ selectedProfessional.jobTitle }} at {{ selectedProfessional.employer }}</p>
+    
+    <div class="action-buttons">
+      <button class="primary-button" (click)="startPrivateChat(selectedProfessional.id)">Start Private Chat</button>
+      <button class="secondary-button" (click)="sendFriendRequest(selectedProfessional.id)">Add as Friend</button>
+    </div>
+  </div>
+  
 </div>

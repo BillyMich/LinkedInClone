@@ -6,20 +6,26 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class NotificationsService {
-  private apiUrl = 'http://localhost:4200/api';
+  private apiUrl = 'http://localhost:5152/api';
 
   constructor(private http: HttpClient) {}
 
   getConnectionRequests(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/notifications/connection-requests`);
+    return this.http.get<any[]>(`${this.apiUrl}/GetConnectedUsers`);
   }
 
   acceptConnectionRequest(requestId: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/notifications/connection-requests/${requestId}/accept`, {});
+    return this.http.post<any>(`${this.apiUrl}/ChangeStatusOfRequest`, {
+      requestId,
+      status: 'accepted',
+    });
   }
 
   rejectConnectionRequest(requestId: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/notifications/connection-requests/${requestId}/reject`, {});
+    return this.http.post<any>(`${this.apiUrl}/ChangeStatusOfRequest`, {
+      requestId,
+      status: 'rejected',
+    });
   }
 
   getInterestNotes(): Observable<any[]> {
