@@ -1,13 +1,26 @@
 ﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Helpers;
+using LinkedInWebApi.Reposirotry.Commands;
 using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Services
 {
     public class PostService : IPostService
     {
-        public Task<int> CreatePost(CreatePostDto postDto, ClaimsIdentity claimsIdentity)
+        private readonly IPostInsertCommands _postInsertCommands;
+        private readonly IPostReadCommands _postReadCommands;
+
+        public PostService(IPostInsertCommands postInsertCommands, IPostReadCommands postReadCommands)
         {
-            throw new NotImplementedException();
+            _postInsertCommands = postInsertCommands;
+            _postReadCommands = postReadCommands;
+        }
+
+        public Task<bool> CreatePost(CreatePostDto createPostDto, ClaimsIdentity claimsIdentity)
+        {
+            var curentUserId = ClaimsIdentityaHelper.GetUserId(claimsIdentity);
+
+            return _postInsertCommands.CreatePost(createPostDto, curentUserId);
         }
 
         public Task<bool> CreatePostComment(CreatePostCommentDto postCommentDto, ClaimsIdentity claimsIdentity)
@@ -30,9 +43,9 @@ namespace LinkedInWebApi.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<PostDto>> GetPosts(ClaimsIdentity claimsIdentity)
+        public async Task<List<PostDto>> GetPosts(ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return await _postReadCommands.GetPosts();
         }
 
         public Task<bool> UpdatePost(PostDto postDto, ClaimsIdentity claimsIdentity)

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../services/user.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -10,12 +10,15 @@ import { ChangeDetectorRef } from '@angular/core';
 export class UserListComponent implements OnInit {
   users: any[] = [];
 
-  constructor(private userService: UserService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private userService: UserService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
-    this.userService.getConnectedUsers().subscribe({
+    this.userService.getAllUsers().subscribe({
       next: (data: any[]) => {
-        this.users = data.map(user => ({ ...user, selected: false }));
+        this.users = data.map((user) => ({ ...user, selected: false }));
         this.cdr.detectChanges();
       },
       error: (err) => {
@@ -26,14 +29,17 @@ export class UserListComponent implements OnInit {
 
   exportSelectedUsers(format: string = 'json') {
     const selectedUserIds = this.users
-      .filter(user => user.selected)
-      .map(user => user.id);
+      .filter((user) => user.selected)
+      .map((user) => user.id);
 
     if (selectedUserIds.length > 0) {
       this.userService.exportUserData(selectedUserIds, format).subscribe({
         next: (blob) => {
-          const dataType = format === 'xml' ? 'application/xml' : 'application/json';
-          const blobUrl = window.URL.createObjectURL(new Blob([blob], { type: dataType }));
+          const dataType =
+            format === 'xml' ? 'application/xml' : 'application/json';
+          const blobUrl = window.URL.createObjectURL(
+            new Blob([blob], { type: dataType })
+          );
 
           const a = document.createElement('a');
           a.href = blobUrl;

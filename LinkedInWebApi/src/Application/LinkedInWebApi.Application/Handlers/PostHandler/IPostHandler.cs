@@ -5,7 +5,7 @@ namespace LinkedInWebApi.Application.Handlers
 {
     public interface IPostHandler
     {
-        Task<int> CreatePost(CreatePostDto postDto, ClaimsIdentity claimsIdentity);
+        Task<bool> CreatePost(CreatePostDto postDto, ClaimsIdentity claimsIdentity);
 
         Task<bool> UpdatePost(PostDto postDto, ClaimsIdentity claimsIdentity);
 

@@ -17,6 +17,16 @@ export class LocalStorageService {
     }
   }
 
+  getUserToken() {
+    if (isPlatformBrowser(this.platformId)) {
+      const user = window.sessionStorage.getItem(USER_KEY);
+      if (user) {
+        return user;
+      }
+    }
+    return null;
+  }
+
   getUser() {
     if (isPlatformBrowser(this.platformId)) {
       const user = window.sessionStorage.getItem(USER_KEY);

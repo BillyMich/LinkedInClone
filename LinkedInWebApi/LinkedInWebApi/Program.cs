@@ -93,6 +93,11 @@ builder.Services.AddScoped<IUserInsertCommands, UserInsertCommands>();
 builder.Services.AddScoped<IUserReadCommands, UserReadCommands>();
 builder.Services.AddScoped<IUserUpdateCommands, UserUpdateCommands>();
 
+builder.Services.AddScoped<IPostInsertCommands, PostInsertCommands>();
+builder.Services.AddScoped<IPostReadCommands, PostReadCommands>();
+
+builder.Services.AddHttpContextAccessor();
+
 
 builder.Services.AddCors();
 

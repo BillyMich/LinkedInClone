@@ -138,9 +138,6 @@ public partial class LinkedInDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(1000)
                 .IsFixedLength();
-            entity.Property(e => e.Title)
-                .IsRequired()
-                .HasMaxLength(50);
 
             entity.HasOne(d => d.Creator).WithMany(p => p.Posts)
                 .HasForeignKey(d => d.CreatorId)
@@ -327,11 +324,10 @@ public partial class LinkedInDbContext : DbContext
         {
             entity.ToTable("UserPhotoProfile");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.DataOfFile).IsRequired();
             entity.Property(e => e.FileName)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(1000);
 
             entity.HasOne(d => d.User).WithMany(p => p.UserPhotoProfiles)
                 .HasForeignKey(d => d.UserId)

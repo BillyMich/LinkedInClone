@@ -13,7 +13,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
             _linkedInDbContext = linkedInDbContext;
         }
 
-        public async Task<bool> CreatePost(CreatePostCommentDto createPostDto, int userId)
+        public async Task<bool> CreatePost(CreatePostDto createPostDto, int userId)
         {
             try
             {

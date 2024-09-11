@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth-service/auth.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { SettingsService } from './services/settings.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-settings',
@@ -10,31 +11,67 @@ import { Router } from '@angular/router';
 })
 export class SettingsComponent implements OnInit {
   settingsForm!: FormGroup;
+  emailPasswordForm!: FormGroup;
+  photoForm!: FormGroup;
+  profilePictureUrl: string | ArrayBuffer | null = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private settingsService: SettingsService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {
-    this.initForm();
+  ngOnInit(): void {
+    this.settingsForm = this.fb.group({
+      notification: [false],
+    });
+
+    this.emailPasswordForm = this.fb.group({
+      email: [''],
+      password: [''],
+    });
+
+    this.photoForm = this.fb.group({
+      photo: [null],
+    });
+
+    this.loadProfilePicture();
   }
 
-  initForm() {
-    this.settingsForm = new FormGroup({
-     
-      notification: new FormControl(true, Validators.required),
+  loadProfilePicture(): void {
+    const userId = 1; // Replace with the actual user ID
+    this.settingsService.getProfilePictureFromId(userId).subscribe((blob) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        this.profilePictureUrl = event.target!.result;
+      };
+      reader.readAsDataURL(blob);
     });
   }
 
-  onSubmit() {
-    if (this.settingsForm.valid) {
-    
-      console.log('Settings saved', this.settingsForm.value);
-    } else {
-      console.log('Form is not valid');
+  onSubmit(): void {
+    this.settingsService.updateSettings(this.settingsForm.value).subscribe();
+  }
+
+  onChangeEmailPassword(): void {
+    this.settingsService
+      .changeEmailPassword(this.emailPasswordForm.value)
+      .subscribe();
+  }
+
+  onUploadPhoto(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.settingsService.uploadPhoto(file).subscribe(() => {
+        this.loadProfilePicture(); // Reload the profile picture after upload
+      });
     }
   }
 
   onSignOut() {
-    this.authService.logout(); 
-    this.router.navigate(['/login']); 
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
