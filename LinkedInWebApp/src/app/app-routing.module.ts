@@ -8,8 +8,8 @@ import { WelcomeComponent } from './presentation/welcome/welcome.component';
 import { LoginComponent } from './presentation/authentication/login/login.component';
 import { RegisterComponent } from './presentation/authentication/register/register.component';
 import { AdminComponent } from './presentation/admin/admin.component';
-import { UserListComponent } from './presentation/admin/user-list/user-list.component';
-import { UserProfileComponent } from './presentation/admin/user-profile/user-profile.component';
+import { UserListComponent } from './presentation/admin/components/user-list/user-list.component';
+import { UserProfileComponent } from './presentation/admin/components/user-profile/user-profile.component';
 import { HomeComponent } from './presentation/home/home.component';
 import { SettingsComponent } from './presentation/settings/settings.component';
 import { ProfileComponent } from './presentation/profile/profile.component';
@@ -68,12 +68,12 @@ const routes: Routes = [
     component: NotificationsComponent,
     canActivate: [LogedInGuard],
   },
-  { 
-    path: 'network', 
-    component: NetworkComponent, 
-    canActivate: [LogedInGuard] 
+  {
+    path: 'network',
+    component: NetworkComponent,
+    canActivate: [LogedInGuard],
   },
-  { path: '**', redirectTo: '/home' }
+  { path: '**', redirectTo: '/home' },
 ];
 
 @NgModule({

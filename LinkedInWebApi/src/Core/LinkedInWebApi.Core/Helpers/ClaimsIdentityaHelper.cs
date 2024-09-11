@@ -1,11 +1,13 @@
-﻿namespace LinkedInWebApi.Core.Helpers
+﻿using System.Security.Claims;
+
+namespace LinkedInWebApi.Core.Helpers
 {
     public static class ClaimsIdentityaHelper
     {
 
         public static int GetUserId(this System.Security.Claims.ClaimsIdentity claimsIdentity)
         {
-            return int.Parse(claimsIdentity.FindFirst("UserId").Value);
+            return int.Parse(claimsIdentity?.FindFirst(ClaimTypes.NameIdentifier)?.Value);
         }
     }
 }

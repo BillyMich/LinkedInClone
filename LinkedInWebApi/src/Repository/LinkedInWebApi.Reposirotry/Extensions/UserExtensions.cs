@@ -97,5 +97,29 @@ namespace LinkedInWebApi.Reposirotry.Extensions
 
             return user;
         }
+
+        public static UserPhotoProfile ToUserPhotoProfile(this FileDto fileDto, int userId)
+        {
+            return new UserPhotoProfile
+            {
+                UserId = userId,
+                FileName = fileDto.FileName,
+                DataOfFile = fileDto.DataOfFile,
+                IsActive = true,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now,
+            };
+        }
+
+        public static FileDto ToFileDto(this UserPhotoProfile userPhotoProfiles)
+        {
+
+            return new FileDto
+            {
+                FileName = userPhotoProfiles.FileName,
+                DataOfFile = userPhotoProfiles.DataOfFile,
+
+            };
+        }
     }
 }

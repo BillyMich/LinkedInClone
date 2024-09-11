@@ -1,5 +1,6 @@
 ﻿using LinkedInWebApi.Core;
-using LinkedInWebApi.Core.Dto;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Services.UserService
@@ -10,10 +11,15 @@ namespace LinkedInWebApi.Application.Services.UserService
 
         Task<List<UserDto>> GetUsers();
 
-        Task<string> GetUsersToXML();
+        Task<IActionResult> GetUsersToXML(List<int>? ids);
 
-        Task<string> GetUsersToJson();
+        Task<IActionResult> GetUsersToJson(List<int>? ids);
 
         Task UpdateUserSettingsAsync(int id, UpdateUserSettingsDto updateUserSettingsDto);
+
+        Task UpdateProfilePicture(IFormFile file, ClaimsIdentity claimsIdentity);
+
+        Task<FileDto> GetProfilePictureFromId(int id);
+
     }
 }

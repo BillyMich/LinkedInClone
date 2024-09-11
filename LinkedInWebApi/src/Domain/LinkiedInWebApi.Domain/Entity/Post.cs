@@ -11,8 +11,6 @@ public partial class Post
 
     public int CreatorId { get; set; }
 
-    public string Title { get; set; }
-
     public string FreeTxt { get; set; }
 
     public short Status { get; set; }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../../services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,18 +9,18 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./user-profile.component.css'],
 })
 export class UserProfileComponent implements OnInit {
-  user: any = {};  
+  user: any = {};
   editMode = false;
   profileForm!: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
     const userId = this.route.snapshot.paramMap.get('id')!;
-    console.log('Fetching data for user ID:', userId);  
+    console.log('Fetching data for user ID:', userId);
     this.userService.getUserById(userId).subscribe({
       next: (data: any) => {
         if (data) {
@@ -35,9 +35,7 @@ export class UserProfileComponent implements OnInit {
         console.error('Error fetching user:', error);
       },
     });
-    
   }
-  
 
   initForm() {
     this.profileForm = new FormGroup({
@@ -69,16 +67,18 @@ export class UserProfileComponent implements OnInit {
 
   onSubmit() {
     if (this.profileForm.valid) {
-      this.userService.updateUser(this.user.id, this.profileForm.value).subscribe({
-        next: (response: any) => {
-          this.user = response;
-          this.editMode = false;
-          console.log('User profile updated successfully:', this.user);
-        },
-        error: (error: any) => {
-          console.error('Update failed', error);
-        },
-      });
+      this.userService
+        .updateUser(this.user.id, this.profileForm.value)
+        .subscribe({
+          next: (response: any) => {
+            this.user = response;
+            this.editMode = false;
+            console.log('User profile updated successfully:', this.user);
+          },
+          error: (error: any) => {
+            console.error('Update failed', error);
+          },
+        });
     } else {
       console.log('Form is not valid');
     }

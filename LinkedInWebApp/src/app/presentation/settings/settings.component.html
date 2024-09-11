@@ -4,9 +4,28 @@
   <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
     <label for="notification">Ειδοποιήσεις</label>
     <input id="notification" formControlName="notification" type="checkbox" />
-
     <button type="submit" class="primary-button">Save</button>
   </form>
+
+  <form [formGroup]="emailPasswordForm" (ngSubmit)="onChangeEmailPassword()">
+    <label for="email">Email</label>
+    <input id="email" formControlName="email" type="email" />
+    
+    <label for="password">Password</label>
+    <input id="password" formControlName="password" type="password" />
+    
+    <button type="submit" class="primary-button">Change Email/Password</button>
+  </form>
+
+  <form [formGroup]="photoForm">
+    <label for="photo">Upload Photo</label>
+    <input id="photo" formControlName="photo" type="file" (change)="onUploadPhoto($event)" />
+    <button type="button" class="primary-button" (click)="onUploadPhoto($event)">Upload Photo</button>
+  </form>
+
+  <div *ngIf="profilePictureUrl">
+    <img [src]="profilePictureUrl" alt="Profile Picture" />
+  </div>
 
   <button (click)="onSignOut()" class="signout-button">Sign Out</button>
 </div>

@@ -1,24 +1,43 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LocalStorageService } from './local-storage/local-storage.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DiscussionService {
-  private apiUrl = 'http://localhost:5152/api'; 
+  private apiUrl = 'http://localhost:5152/api/message';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private localStorageService: LocalStorageService
+  ) {}
+
+  private getHeaders(): HttpHeaders {
+    const token = this.localStorageService.getUserToken();
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
 
   getConversations(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/conversations`);
+    const headers = this.getHeaders();
+    return this.http.get<any[]>(`${this.apiUrl}/conversations`, { headers });
   }
 
   getMessages(conversationId: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/conversations/${conversationId}/messages`);
+    const headers = this.getHeaders();
+    return this.http.get<any[]>(
+      `${this.apiUrl}/conversations/${conversationId}/messages`,
+      { headers }
+    );
   }
 
   sendMessage(conversationId: string, content: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/conversations/${conversationId}/messages`, { content });
+    const headers = this.getHeaders();
+    return this.http.post<any>(
+      `${this.apiUrl}/conversations/${conversationId}/messages`,
+      { content },
+      { headers }
+    );
   }
 }

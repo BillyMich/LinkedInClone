@@ -40,6 +40,15 @@ namespace LinkedInWebApi.Reposirotry.Commands
             return user.ToUserDto();
         }
 
+        public async Task<FileDto> GetProfilePictureFromId(int id)
+        {
+            var photeProfile = await _linkedInDbContext.UserPhotoProfiles
+                .FirstOrDefaultAsync(x => x.IsActive && x.UserId == id);
+
+            return photeProfile.ToFileDto();
+
+        }
+
         public async Task<UserDto?> GetUserByEmailAsync(string email)
         {
 
