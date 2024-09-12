@@ -1,6 +1,5 @@
 ﻿using LinkedInWebApi.Application.Handlers.UserHandler;
 using LinkedInWebApi.Core;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -22,7 +21,6 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpGet("getUser/{id}")]
-        [Authorize]
         public async Task<IActionResult> GetUser(int id)
         {
             try
@@ -43,7 +41,6 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpGet("getUsers")]
-        [Authorize]
         public async Task<IActionResult> GetUsers()
         {
             try
@@ -59,7 +56,6 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpGet("getUsersToXML")]
-        [Authorize]
         public async Task<IActionResult> GetUsersToXML(List<int>? ids)
         {
             try
@@ -73,7 +69,6 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpGet("getUsersToJson")]
-        [Authorize]
         public async Task<IActionResult> GetUsersToJson(List<int>? ids)
         {
             try
@@ -87,7 +82,6 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpPost("updateUserSettings")]
-        [Authorize]
         public async Task<IActionResult> UpdateUserSettings([FromBody] UpdateUserSettingsDto updateUserSettingsDto)
         {
             try
@@ -102,7 +96,6 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpGet("getConectedUsers")]
-        [Authorize]
         public async Task<IActionResult> GetConectedUsers()
         {
             try
@@ -116,7 +109,6 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpPost("updateProfilePicture")]
-        [Authorize]
         public async Task<IActionResult> UpdateProfilePicture([FromForm] IFormFile file)
         {
             try
@@ -131,7 +123,6 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpGet("GetProfilePictureFromId/{id}")]
-        [Authorize]
         public async Task<IActionResult> GetProfilePictureFromId(int id)
         {
 
