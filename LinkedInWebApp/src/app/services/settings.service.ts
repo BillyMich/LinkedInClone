@@ -40,18 +40,17 @@ export class SettingsService {
     });
   }
 
-  getProfilePictureFromId(): Observable<Blob> {
+  getProfilePictureFromId(userId: number): Observable<Blob> {
     const headers = this.getHeaders();
-    const user = this.localStorageService.returnUser();
-    
-    if (user?.id) {
-      return this.http.get(`${this.apiUrl}/GetProfilePictureFromId/${user.id}`, {
+  
+    if (userId) {
+      return this.http.get(`${this.apiUrl}/GetProfilePictureFromId/${userId}`, {
         headers,
         responseType: 'blob',
       });
     } else {
-      throw new Error('User ID not found in localStorage.');
+      throw new Error('User ID is required.');
     }
   }
-
+  
 }

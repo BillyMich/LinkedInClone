@@ -3,12 +3,15 @@
     <h2>Users</h2>
     <ul>
       <li *ngFor="let professional of allUsers" (click)="viewProfile(professional)">
-        <img [src]="professional.profilePictureUrl || 'assets/default-profile.png'" alt="Profile Picture" />
-        <p>{{ professional.fullName }}</p>
+        <img 
+          [src]="profilePictures[professional.id] || 'assets/default-profile.png'" 
+          alt="Profile Picture" 
+          class="profile-pic" 
+        />
+        <p>{{ professional.name }} {{professional.surname}}</p>
       </li>
     </ul>
   </div>
-  
 
   <div class="profile-viewer">
     <div class="search-bar">
@@ -21,15 +24,15 @@
       <ul>
         <li *ngFor="let professional of searchResults">
           <a [routerLink]="['/profile', professional.id]">
-            {{ professional.fullName }} - {{ professional.jobTitle }} at {{ professional.employer }}
+            {{ professional.name }}  {{professional.surname}} - {{ professional.jobTitle }} at {{ professional.employer }}
           </a>
         </li>
       </ul>
     </div>
 
     <div *ngIf="selectedProfessional" class="professional-details">
-      <img [src]="selectedProfessional.profilePictureUrl" alt="Profile Picture" class="profile-pic" />
-      <h2>{{ selectedProfessional.fullName }}</h2>
+      <img [src]="profilePictures[selectedProfessional.id]" alt="Profile Picture" class="profile-pic" />
+      <h2>{{ selectedProfessional.name }}  {{selectedProfessional.surname}}</h2>
       <p>{{ selectedProfessional.jobTitle }} at {{ selectedProfessional.employer }}</p>
       <div class="action-buttons">
         <button class="primary-button" (click)="startPrivateChat(selectedProfessional.id)">Start Private Chat</button>
