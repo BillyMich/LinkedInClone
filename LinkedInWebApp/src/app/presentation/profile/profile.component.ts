@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth-service/auth.service';
 import { UserService } from '../../services/user.service';
+import { SettingsService } from '../../services/settings.service'; 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -12,19 +13,34 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class ProfileComponent implements OnInit {
   profileForm!: FormGroup;
   user: any;
+  profilePictureUrl: string | ArrayBuffer | null = null; 
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private settingsService: SettingsService, 
   ) {}
 
   ngOnInit() {
     const currentUser = this.authService.getCurrentUser();
-    this.userService.getUserById(currentUser.id).subscribe((data) => {
-      this.user = data;
-      this.initForm();
-    });
+  
+    if (currentUser && currentUser.id) {
+      this.userService.getUserById(Number(currentUser.id)).subscribe({
+        next: (data) => {
+          this.user = data;
+          this.initForm();
+        },
+        error: (error) => {
+          console.error('Error fetching user data:', error);
+        },
+      });
+    } else {
+      console.error('No valid user found');
+    }
+  
+    this.loadProfilePicture();
   }
+  
 
   initForm() {
     this.profileForm = new FormGroup({
@@ -38,6 +54,16 @@ export class ProfileComponent implements OnInit {
       ]),
       phone: new FormControl(this.user.phone, [Validators.required]),
       profilePicture: new FormControl(null),
+    });
+  }
+ 
+  loadProfilePicture(): void {
+    this.settingsService.getProfilePictureFromId().subscribe((blob) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        this.profilePictureUrl = event.target!.result; 
+      };
+      reader.readAsDataURL(blob); 
     });
   }
 

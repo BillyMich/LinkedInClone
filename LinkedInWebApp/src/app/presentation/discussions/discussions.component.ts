@@ -10,7 +10,7 @@ export class DiscussionsComponent implements OnInit {
   conversations: any[] = [];
   selectedConversation: any = null;
   messages: any[] = [];
-  newMessage: string = ''; // initialise a message
+  newMessage: string = ''; 
 
   constructor(private discussionService: DiscussionService) {}
 

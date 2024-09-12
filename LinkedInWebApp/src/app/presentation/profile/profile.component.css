@@ -55,3 +55,15 @@ input[type="file"] {
 .primary-button:hover {
   background-color: #005f91;
 }
+
+.profile-picture {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-picture img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #0073b1;
+}
