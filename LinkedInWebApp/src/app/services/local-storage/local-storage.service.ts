@@ -2,7 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { User } from '../../models/user.model';
 
-const USER_KEY = 'auth-user';
+const USER_KEY = 'currentUser';
 
 @Injectable({
   providedIn: 'root',
@@ -47,26 +47,28 @@ export class LocalStorageService {
     }
     return false;
   }
-
+  
   public returnUser(): User | null {
-    const token = this.getUser();
-
+    const token = this.getUserToken();
+  
     if (!token) {
       return null;
     }
-
-    const user: any = {
-      email: JSON.parse(window.atob(token.split('.')[1]))[
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
-      ],
-      name: JSON.parse(window.atob(token.split('.')[1]))[
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
-      ],
-      role: JSON.parse(window.atob(token.split('.')[1]))[
-        'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
-      ],
-    };
-
-    return user;
+  
+    try {
+      const payload = JSON.parse(window.atob(token.split('.')[1]));
+      const user: any = {
+        id: payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'], 
+        email: payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
+        name: payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'],
+        role: payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'],
+      };
+  
+      return user;
+    } catch (e) {
+      console.error('Error decoding token', e);
+      return null;
+    }
   }
+  
 }

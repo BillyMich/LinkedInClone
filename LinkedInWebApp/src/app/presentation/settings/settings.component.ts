@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { SettingsService } from './services/settings.service';
+import { SettingsService } from '../../services/settings.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth-service/auth.service';
 
 @Component({
   selector: 'app-settings',
@@ -40,8 +40,7 @@ export class SettingsComponent implements OnInit {
   }
 
   loadProfilePicture(): void {
-    const userId = 1; // Replace with the actual user ID
-    this.settingsService.getProfilePictureFromId(userId).subscribe((blob) => {
+    this.settingsService.getProfilePictureFromId().subscribe((blob) => {
       const reader = new FileReader();
       reader.onload = (event) => {
         this.profilePictureUrl = event.target!.result;

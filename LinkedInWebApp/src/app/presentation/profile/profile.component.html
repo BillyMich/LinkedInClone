@@ -1,6 +1,12 @@
 <!-- src/app/profile/profile.component.html -->
 <div class="profile-container content" *ngIf="user">
   <h1>Προσωπικά Στοιχεία</h1>
+
+  <!-- Display Profile Picture -->
+  <div *ngIf="profilePictureUrl" class="profile-picture">
+    <img [src]="profilePictureUrl" alt="Profile Picture" />
+  </div>
+
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
     <label for="fullName">Full Name</label>
     <input id="fullName" formControlName="fullName" type="text" />
@@ -22,3 +28,5 @@
     <button type="submit" class="primary-button">Save</button>
   </form>
 </div>
+
+

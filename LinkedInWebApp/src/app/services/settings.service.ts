@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
+import { LocalStorageService } from './local-storage/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SettingsService {
-  private apiUrl = 'http://localhost:5152/api/user'; // Replace with your actual API URL
+  private apiUrl = 'http://localhost:5152/api/user'; 
 
   constructor(
     private http: HttpClient,
@@ -40,11 +40,18 @@ export class SettingsService {
     });
   }
 
-  getProfilePictureFromId(id: number): Observable<Blob> {
+  getProfilePictureFromId(): Observable<Blob> {
     const headers = this.getHeaders();
-    return this.http.get(`${this.apiUrl}/GetProfilePictureFromId/${id}`, {
-      headers,
-      responseType: 'blob',
-    });
+    const user = this.localStorageService.returnUser();
+    
+    if (user?.id) {
+      return this.http.get(`${this.apiUrl}/GetProfilePictureFromId/${user.id}`, {
+        headers,
+        responseType: 'blob',
+      });
+    } else {
+      throw new Error('User ID not found in localStorage.');
+    }
   }
+
 }
