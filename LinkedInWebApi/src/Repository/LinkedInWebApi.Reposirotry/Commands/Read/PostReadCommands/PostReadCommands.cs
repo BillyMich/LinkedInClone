@@ -19,7 +19,10 @@ namespace LinkedInWebApi.Reposirotry.Commands
         {
             try
             {
-                var posts = await _linkedInDbContext.Posts.ToListAsync();
+                var posts = await _linkedInDbContext.Posts.
+                    Include(x => x.PostComments).
+                    Include(x => x.Creator).
+                    Include(x => x.PostPhotos).ToListAsync();
                 return posts.ToPostDto();
             }
             catch (Exception ex)

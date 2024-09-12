@@ -13,11 +13,15 @@ namespace LinkedInWebApi.Reposirotry.Commands
             _linkedInDbContext = linkedInDbContext;
         }
 
-        public async Task<bool> CreatePost(CreatePostDto createPostDto, int userId)
+        public async Task<bool> CreatePost(CreatePostDto createPostDto, FileDto fileDto, int userId)
         {
             try
             {
                 var post = createPostDto.ToPost(userId);
+                if (fileDto != null)
+                {
+                    post.PostPhotos.Add(fileDto.ToPostPhoto());
+                }
                 await _linkedInDbContext.Posts.AddAsync(post);
                 await _linkedInDbContext.SaveChangesAsync();
                 return true;
@@ -28,9 +32,19 @@ namespace LinkedInWebApi.Reposirotry.Commands
             }
         }
 
-        public Task<bool> CreatePostComment(CreatePostCommentDto postCommentDto, int userId)
+        public async Task<bool> CreatePostComment(CreatePostCommentDto postCommentDto, int userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var postComment = postCommentDto.ToPostComment(userId);
+                await _linkedInDbContext.PostComments.AddAsync(postComment);
+                await _linkedInDbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

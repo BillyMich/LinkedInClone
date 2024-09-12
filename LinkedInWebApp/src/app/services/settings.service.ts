@@ -7,7 +7,7 @@ import { LocalStorageService } from './local-storage/local-storage.service';
   providedIn: 'root',
 })
 export class SettingsService {
-  private apiUrl = 'http://localhost:5152/api/user'; 
+  private apiUrl = 'http://localhost:5152/api/user';
 
   constructor(
     private http: HttpClient,
@@ -43,15 +43,27 @@ export class SettingsService {
   getProfilePictureFromId(): Observable<Blob> {
     const headers = this.getHeaders();
     const user = this.localStorageService.returnUser();
-    
+
     if (user?.id) {
-      return this.http.get(`${this.apiUrl}/GetProfilePictureFromId/${user.id}`, {
-        headers,
-        responseType: 'blob',
-      });
+      return this.http.get(
+        `${this.apiUrl}/GetProfilePictureFromId/${user.id}`,
+        {
+          headers,
+          responseType: 'blob',
+        }
+      );
     } else {
       throw new Error('User ID not found in localStorage.');
     }
   }
 
+  getProfilePictureById(id: number): Observable<Blob> {
+    const headers = this.getHeaders();
+    const user = this.localStorageService.returnUser();
+
+    return this.http.get(`${this.apiUrl}/GetProfilePictureFromId/${id}`, {
+      headers,
+      responseType: 'blob',
+    });
+  }
 }
