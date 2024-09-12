@@ -75,14 +75,25 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  triggerFileInput() {
+    const fileInput = document.getElementById('file-input');
+    if (fileInput) {
+      fileInput.click();
+    }
+  }
+  
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.profileForm.patchValue({
         profilePicture: file,
       });
+      this.settingsService.uploadPhoto(file).subscribe(() => {
+        this.loadProfilePicture(); // Reload the profile picture after upload
+      });
     }
   }
+  
 
   onSubmit() {
     if (this.profileForm.valid) {

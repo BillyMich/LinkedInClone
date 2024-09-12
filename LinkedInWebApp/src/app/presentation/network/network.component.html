@@ -13,27 +13,25 @@
     </ul>
   </div>
 
-  <div class="profile-viewer">
-    <div class="search-bar">
-      <input type="text" placeholder="Αναζήτηση επαγγελματιών..." [(ngModel)]="searchQuery" />
-      <button class="primary-button" (click)="searchProfessionals()">Αναζήτηση</button>
-    </div>
-
-    <div *ngIf="searchResults.length > 0" class="search-results">
-      <h2>Αποτελέσματα Αναζήτησης</h2>
-      <ul>
-        <li *ngFor="let professional of searchResults">
-          <a [routerLink]="['/profile', professional.id]">
-            {{ professional.name }}  {{professional.surname}} - {{ professional.jobTitle }} at {{ professional.employer }}
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <div *ngIf="selectedProfessional" class="professional-details">
-      <img [src]="profilePictures[selectedProfessional.id]" alt="Profile Picture" class="profile-pic" />
+  <!-- Profile Viewer Section, shown only when a professional is selected -->
+  <div class="profile-viewer" *ngIf="selectedProfessional">
+    <div class="profile-details">
+      <!-- Display selected professional's profile picture -->
+      <img 
+        [src]="profilePictures[selectedProfessional.id] || 'assets/default-profile.png'" 
+        alt="Profile Picture" 
+        class="profile-pic-large"
+      />
       <h2>{{ selectedProfessional.name }}  {{selectedProfessional.surname}}</h2>
       <p>{{ selectedProfessional.jobTitle }} at {{ selectedProfessional.employer }}</p>
+
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        <p>Email: {{ selectedProfessional.email }}</p>
+        <p>Phone: {{ selectedProfessional.phone }}</p>
+      </div>
+
+      <!-- Action Buttons -->
       <div class="action-buttons">
         <button class="primary-button" (click)="startPrivateChat(selectedProfessional.id)">Start Private Chat</button>
         <button class="secondary-button" (click)="sendFriendRequest(selectedProfessional.id)">Add as Friend</button>

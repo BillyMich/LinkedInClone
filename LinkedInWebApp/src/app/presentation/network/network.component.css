@@ -4,7 +4,7 @@
   height: 100vh;
   box-sizing: border-box;
   position: relative; 
-  background-color: #f0f2f5; 
+  background-color: #f0f2f5;
 }
 
 .content {
@@ -76,87 +76,38 @@
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 500;
-  flex-grow: 1; 
+  flex-grow: 1;
 }
 
 .profile-viewer {
-  padding-left: 250px; 
+  padding-left: 0px;  
   flex-grow: 1;
-  padding-top: 20px; 
+  padding-top: 20px;
   overflow-y: auto;
   background-color: #ffffff;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
-.search-bar {
-  margin-bottom: 20px;
-  display: flex;
-  gap: 10px;
+.profile-details {
+  text-align: left;  
+  max-width: 6000px; 
+  margin: 0 auto;   
 }
 
-.search-bar input {
-  flex-grow: 1;
-  padding: 12px 15px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  transition: border-color 0.3s, box-shadow 0.3s; 
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
-}
-
-.search-bar input:focus {
-  border-color: #0073b1;
-  box-shadow: 0 0 8px rgba(0, 115, 177, 0.5); 
-  outline: none;
-}
-
-.search-results {
-  margin-bottom: 30px;
-}
-
-.search-results ul {
-  list-style: none;
-  padding: 0;
-}
-
-.search-results li {
-  margin-bottom: 12px;
-  font-size: 16px;
-}
-
-.search-results a {
-  text-decoration: none;
-  color: #0073b1;
-  font-weight: bold;
-}
-
-.search-results a:hover {
-  text-decoration: underline;
-}
-
-.professional-details {
-  text-align: center;
-}
-
-.professional-details h2 {
-  font-size: 2rem;
-  color: #0073b1;
-  margin-bottom: 20px;
-}
-
-.profile-pic {
+.profile-pic-large {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   margin-bottom: 20px;
-  border: 3px solid #0073b1; 
+  border: 3px solid #0073b1;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.professional-details p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  color: #666;
+.contact-info {
+  margin-top: 20px;
 }
 
 .primary-button, .secondary-button {
@@ -165,6 +116,7 @@
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.3s, transform 0.3s;
+  display: inline-block;
 }
 
 .primary-button {
