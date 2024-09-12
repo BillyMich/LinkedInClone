@@ -58,23 +58,42 @@ export class ProfileComponent implements OnInit {
   }
  
   loadProfilePicture(): void {
-    this.settingsService.getProfilePictureFromId().subscribe((blob) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        this.profilePictureUrl = event.target!.result; 
-      };
-      reader.readAsDataURL(blob); 
-    });
+    const currentUser = this.authService.getCurrentUser(); 
+    
+    if (currentUser && currentUser.id) { 
+      this.settingsService.getProfilePictureFromId(currentUser.id).subscribe((blob) => { 
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          this.profilePictureUrl = event.target!.result;
+        };
+        reader.readAsDataURL(blob);
+      }, (error) => {
+        console.error('Error loading profile picture:', error);
+      });
+    } else {
+      console.error('User not found or missing user ID');
+    }
   }
 
+  triggerFileInput() {
+    const fileInput = document.getElementById('file-input');
+    if (fileInput) {
+      fileInput.click();
+    }
+  }
+  
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.profileForm.patchValue({
         profilePicture: file,
       });
+      this.settingsService.uploadPhoto(file).subscribe(() => {
+        this.loadProfilePicture(); // Reload the profile picture after upload
+      });
     }
   }
+  
 
   onSubmit() {
     if (this.profileForm.valid) {
