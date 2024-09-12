@@ -62,10 +62,12 @@
 .friends-list img {
   width: 50px;
   height: 50px;
-  border-radius: 50%;
+  border-radius: 50%; 
   margin-right: 15px;
-  border: 2px solid #0073b1; 
+  border: 2px solid #0073b1;
+  object-fit: cover; 
 }
+
 
 .friends-list p {
   margin: 0;

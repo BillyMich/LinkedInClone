@@ -46,7 +46,7 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem('currentUser') || '{}');
+    return this.localStorageService.returnUser();
   }
   
 }
