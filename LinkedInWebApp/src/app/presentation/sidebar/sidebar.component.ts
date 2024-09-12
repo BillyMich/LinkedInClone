@@ -29,15 +29,21 @@ export class SidebarComponent implements OnInit {
   
 
   loadProfilePicture(): void {
-    this.settingsService.getProfilePictureFromId().subscribe((blob) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        this.profilePictureUrl = event.target!.result; 
-      };
-      reader.readAsDataURL(blob); 
-    });
+    const currentUser = this.authService.getCurrentUser(); 
+    
+    if (currentUser && currentUser.id) { 
+      this.settingsService.getProfilePictureFromId(currentUser.id).subscribe((blob) => { 
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          this.profilePictureUrl = event.target!.result;
+        };
+        reader.readAsDataURL(blob);
+      }, (error) => {
+        console.error('Error loading profile picture:', error);
+      });
+    } else {
+      console.error('User not found or missing user ID');
+    }
   }
-
-  
   
 }
