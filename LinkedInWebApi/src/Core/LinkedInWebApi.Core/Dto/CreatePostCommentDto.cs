@@ -2,8 +2,7 @@
 {
     public class CreatePostCommentDto
     {
-        public string Title { get; set; }
-
+        public int PostId { get; set; }
         public string FreeTxt { get; set; }
     }
 }

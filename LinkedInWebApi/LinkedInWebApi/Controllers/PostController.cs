@@ -21,16 +21,21 @@ namespace LinkedInWebApi.Controllers
 
         [HttpPost("CreatePost")]
         [Authorize]
-        public async Task<ActionResult<PostDto>> CreatePost([FromBody] CreatePostDto createPostDto)
+        public async Task<ActionResult<PostDto>> CreatePost([FromForm] string FreeTxt, [FromForm] IFormFile? file)
         {
             try
             {
-                return Ok(await _postHandler.CreatePost(createPostDto, _identity));
+                var createPostDto = new CreatePostDto
+                {
+                    FreeTxt = FreeTxt,
+                };
+                return Ok(await _postHandler.CreatePost(createPostDto, file, _identity));
             }
             catch (Exception)
             {
                 return BadRequest();
             }
+
         }
 
         [HttpPost("UpdatePost")]

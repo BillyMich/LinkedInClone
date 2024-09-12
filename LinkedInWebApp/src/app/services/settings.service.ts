@@ -7,7 +7,7 @@ import { LocalStorageService } from './local-storage/local-storage.service';
   providedIn: 'root',
 })
 export class SettingsService {
-  private apiUrl = 'http://localhost:5152/api/user'; 
+  private apiUrl = 'http://localhost:5152/api/user';
 
   constructor(
     private http: HttpClient,
