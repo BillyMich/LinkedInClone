@@ -40,17 +40,8 @@ export class SettingsService {
     });
   }
 
-  getProfilePictureFromId(userId: number): Observable<Blob> {
-    const headers = this.getHeaders();
-  
-    if (userId) {
-      return this.http.get(`${this.apiUrl}/GetProfilePictureFromId/${userId}`, {
-        headers,
-        responseType: 'blob',
-      });
-    } else {
-      throw new Error('User ID is required.');
-    }
+  // Update this method to return a direct URL for the profile picture
+  getProfilePictureUrl(userId: number): string {
+    return `${this.apiUrl}/GetProfilePictureFromId/${userId}`;
   }
-  
 }
