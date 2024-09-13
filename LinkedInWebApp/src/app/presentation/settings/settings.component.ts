@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingsService } from '../../services/settings.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service/auth.service';
@@ -11,9 +11,12 @@ import { AuthService } from '../../services/auth-service/auth.service';
 })
 export class SettingsComponent implements OnInit {
   settingsForm!: FormGroup;
-  emailPasswordForm!: FormGroup;
-  photoForm!: FormGroup;
+  emailForm!: FormGroup;
+  passwordForm!: FormGroup;
   profilePictureUrl: string | ArrayBuffer | null = null;
+  
+  showEmailModal: boolean = false;
+  showPasswordModal: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -27,53 +30,66 @@ export class SettingsComponent implements OnInit {
       notification: [false],
     });
 
-    this.emailPasswordForm = this.fb.group({
-      email: [''],
-      password: [''],
+    this.emailForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
     });
 
-    this.photoForm = this.fb.group({
-      photo: [null],
-    });
+    this.passwordForm = this.fb.group({
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', Validators.required],
+    }, { validators: this.passwordMatchValidator });
 
     this.loadProfilePicture();
   }
 
+  // Password match validator
+  passwordMatchValidator(group: FormGroup) {
+    return group.get('password')?.value === group.get('confirmPassword')?.value
+      ? null
+      : { mismatch: true };
+  }
+
   loadProfilePicture(): void {
-    const currentUser = this.authService.getCurrentUser(); 
+    const currentUser = this.authService.getCurrentUser();
     
     if (currentUser && currentUser.id) { 
-      this.settingsService.getProfilePictureFromId(currentUser.id).subscribe((blob) => { 
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          this.profilePictureUrl = event.target!.result;
-        };
-        reader.readAsDataURL(blob);
-      }, (error) => {
-        console.error('Error loading profile picture:', error);
-      });
+      this.profilePictureUrl = this.settingsService.getProfilePictureUrl(currentUser.id); 
     } else {
       console.error('User not found or missing user ID');
     }
   }
-  
 
   onSubmit(): void {
     this.settingsService.updateSettings(this.settingsForm.value).subscribe();
   }
 
-  onChangeEmailPassword(): void {
-    this.settingsService
-      .changeEmailPassword(this.emailPasswordForm.value)
-      .subscribe();
+  openEmailModal() {
+    this.showEmailModal = true;
   }
 
-  onUploadPhoto(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      this.settingsService.uploadPhoto(file).subscribe(() => {
-        this.loadProfilePicture(); // Reload the profile picture after upload
+  openPasswordModal() {
+    this.showPasswordModal = true;
+  }
+
+  closeModal() {
+    this.showEmailModal = false;
+    this.showPasswordModal = false;
+  }
+
+  onChangeEmail(): void {
+    if (this.emailForm.valid) {
+      this.settingsService.changeEmailPassword({ email: this.emailForm.value.email }).subscribe({
+        next: () => this.closeModal(),
+        error: (error) => console.error('Error changing email', error),
+      });
+    }
+  }
+
+  onChangePassword(): void {
+    if (this.passwordForm.valid) {
+      this.settingsService.changeEmailPassword({ password: this.passwordForm.value.password }).subscribe({
+        next: () => this.closeModal(),
+        error: (error) => console.error('Error changing password', error),
       });
     }
   }

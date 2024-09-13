@@ -1,31 +1,43 @@
-<!-- src/app/settings/settings.component.html -->
 <div class="settings-container content">
+  <app-sidebar></app-sidebar>
   <h1>Ρυθμίσεις</h1>
-  <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
-    <label for="notification">Ειδοποιήσεις</label>
-    <input id="notification" formControlName="notification" type="checkbox" />
-    <button type="submit" class="primary-button">Save</button>
-  </form>
 
-  <form [formGroup]="emailPasswordForm" (ngSubmit)="onChangeEmailPassword()">
-    <label for="email">Email</label>
-    <input id="email" formControlName="email" type="email" />
-    
-    <label for="password">Password</label>
-    <input id="password" formControlName="password" type="password" />
-    
-    <button type="submit" class="primary-button">Change Email/Password</button>
-  </form>
-
-  <form [formGroup]="photoForm">
-    <label for="photo">Upload Photo</label>
-    <input id="photo" formControlName="photo" type="file" (change)="onUploadPhoto($event)" />
-    <button type="button" class="primary-button" (click)="onUploadPhoto($event)">Upload Photo</button>
-  </form>
-
-  <div *ngIf="profilePictureUrl">
-    <img [src]="profilePictureUrl" alt="Profile Picture" />
+  <!-- Action Buttons -->
+  <div class="actions">
+    <button (click)="openEmailModal()">Change Email</button>
+    <button (click)="openPasswordModal()">Change Password</button>
   </div>
 
+  <!-- Email Change Modal -->
+  <div *ngIf="showEmailModal" class="modal">
+    <h2>Change Email</h2>
+    <form [formGroup]="emailForm" (ngSubmit)="onChangeEmail()">
+      <label for="email">New Email</label>
+      <input id="email" formControlName="email" type="email" placeholder="Enter new email" />
+      <button type="submit" [disabled]="emailForm.invalid">Save</button>
+      <button type="button" (click)="closeModal()">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Password Change Modal -->
+  <div *ngIf="showPasswordModal" class="modal">
+    <h2>Change Password</h2>
+    <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+      <label for="password">New Password</label>
+      <input id="password" formControlName="password" type="password" placeholder="Enter new password" />
+      
+      <label for="confirmPassword">Confirm Password</label>
+      <input id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="Confirm password" />
+
+      <div *ngIf="passwordForm.hasError('mismatch') && passwordForm.touched">
+        <small>Passwords do not match</small>
+      </div>
+
+      <button type="submit" [disabled]="passwordForm.invalid">Save</button>
+      <button type="button" (click)="closeModal()">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Sign Out Button -->
   <button (click)="onSignOut()" class="signout-button">Sign Out</button>
 </div>

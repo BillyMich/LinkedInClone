@@ -1,7 +1,7 @@
 <!-- src/app/sidebar/sidebar.component.html -->
 <div class="sidebar">
   <div class="profile-section" *ngIf="profilePictureUrl">
-    <img [src]="profilePictureUrl" alt="Profile Picture" class="profile-picture" />
+    <img [src]="profilePictureUrl || 'assets/default-profile.png'" alt="Profile Picture" loading="lazy" class="profile-picture" />
     <p class="user-name">{{ userName }}</p>
   </div>
   <ul>
