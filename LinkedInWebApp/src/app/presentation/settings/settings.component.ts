@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingsService } from '../../services/settings.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service/auth.service';
@@ -11,8 +11,12 @@ import { AuthService } from '../../services/auth-service/auth.service';
 })
 export class SettingsComponent implements OnInit {
   settingsForm!: FormGroup;
-  emailPasswordForm!: FormGroup;
+  emailForm!: FormGroup;
+  passwordForm!: FormGroup;
   profilePictureUrl: string | ArrayBuffer | null = null;
+  
+  showEmailModal: boolean = false;
+  showPasswordModal: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,12 +30,23 @@ export class SettingsComponent implements OnInit {
       notification: [false],
     });
 
-    this.emailPasswordForm = this.fb.group({
-      email: [''],
-      password: [''],
+    this.emailForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
     });
 
+    this.passwordForm = this.fb.group({
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', Validators.required],
+    }, { validators: this.passwordMatchValidator });
+
     this.loadProfilePicture();
+  }
+
+  // Password match validator
+  passwordMatchValidator(group: FormGroup) {
+    return group.get('password')?.value === group.get('confirmPassword')?.value
+      ? null
+      : { mismatch: true };
   }
 
   loadProfilePicture(): void {
@@ -48,8 +63,35 @@ export class SettingsComponent implements OnInit {
     this.settingsService.updateSettings(this.settingsForm.value).subscribe();
   }
 
-  onChangeEmailPassword(): void {
-    this.settingsService.changeEmailPassword(this.emailPasswordForm.value).subscribe();
+  openEmailModal() {
+    this.showEmailModal = true;
+  }
+
+  openPasswordModal() {
+    this.showPasswordModal = true;
+  }
+
+  closeModal() {
+    this.showEmailModal = false;
+    this.showPasswordModal = false;
+  }
+
+  onChangeEmail(): void {
+    if (this.emailForm.valid) {
+      this.settingsService.changeEmailPassword({ email: this.emailForm.value.email }).subscribe({
+        next: () => this.closeModal(),
+        error: (error) => console.error('Error changing email', error),
+      });
+    }
+  }
+
+  onChangePassword(): void {
+    if (this.passwordForm.valid) {
+      this.settingsService.changeEmailPassword({ password: this.passwordForm.value.password }).subscribe({
+        next: () => this.closeModal(),
+        error: (error) => console.error('Error changing password', error),
+      });
+    }
   }
 
   onSignOut() {
