@@ -34,15 +34,9 @@ export class NetworkComponent implements OnInit {
   }
   
   loadProfilePicture(userId: number) {
-    this.settingsService.getProfilePictureFromId(userId).subscribe((blob) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        this.profilePictures[userId] = event.target!.result; 
-      };
-      reader.readAsDataURL(blob);
-    });
+    this.profilePictures[userId] = this.settingsService.getProfilePictureUrl(userId);
   }
-
+  
   searchProfessionals() {
     if (this.searchQuery) {
       this.userService.searchProfessionals(this.searchQuery).subscribe({

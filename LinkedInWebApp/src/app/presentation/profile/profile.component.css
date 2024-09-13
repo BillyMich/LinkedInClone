@@ -1,77 +1,63 @@
-.profile-container {
-  max-width: 900px;
-  margin: 0 auto;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+.content {
+  padding-top: 120px; 
 }
-
 .profile-header {
-  position: relative;
-  margin-bottom: 40px;
-}
-
-.profile-banner {
-  background-color: #e0e0e0;
-  height: 150px;
-  border-radius: 8px 8px 0 0;
+  display: flex;
+  justify-content: left;
+  margin-bottom: 30px;
 }
 
 .profile-picture-container {
-  position: absolute;
-  bottom: -50px;
-  left: 20px;
+  margin-right: 20px;
 }
 
 .profile-picture {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  border: 3px solid #fff;
-  cursor: pointer;
   object-fit: cover;
+  cursor: pointer;
 }
 
-.profile-details {
-  margin-top: 60px;
-  text-align: center;
-}
-
-.user-name {
-  font-size: 28px;
-  font-weight: bold;
-  margin: 10px 0;
-}
-
-.user-title {
+.actions button {
+  background-color: #0073b1;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
   font-size: 16px;
-  color: #666;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
-.user-education {
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 20px;
+.actions button:hover {
+  background-color: #005f91;
 }
 
-.contact-info {
-  text-align: left;
-  margin-top: 40px;
+.modal {
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
 }
 
-.contact-info h2 {
-  font-size: 18px;
-  font-weight: bold;
+.modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal label {
+  margin-bottom: 5px;
+}
+
+.modal input {
   margin-bottom: 10px;
 }
 
-.contact-info p {
-  font-size: 16px;
-  margin: 5px 0;
-  color: #333;
-}
-
-input[type="file"] {
-  display: none;
+.modal button {
+  margin-right: 10px;
 }

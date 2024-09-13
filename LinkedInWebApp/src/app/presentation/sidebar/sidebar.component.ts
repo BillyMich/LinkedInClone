@@ -30,20 +30,12 @@ export class SidebarComponent implements OnInit {
 
   loadProfilePicture(): void {
     const currentUser = this.authService.getCurrentUser(); 
-    
-    if (currentUser && currentUser.id) { 
-      this.settingsService.getProfilePictureFromId(currentUser.id).subscribe((blob) => { 
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          this.profilePictureUrl = event.target!.result;
-        };
-        reader.readAsDataURL(blob);
-      }, (error) => {
-        console.error('Error loading profile picture:', error);
-      });
+    if (currentUser && currentUser.id) {
+      this.profilePictureUrl = this.settingsService.getProfilePictureUrl(currentUser.id);
     } else {
       console.error('User not found or missing user ID');
     }
   }
+  
   
 }
