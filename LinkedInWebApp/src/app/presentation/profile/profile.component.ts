@@ -1,9 +1,13 @@
-// src/app/profile/profile.component.ts
 import { Component, OnInit } from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormArray,
+} from '@angular/forms';
 import { AuthService } from '../../services/auth-service/auth.service';
 import { UserService } from '../../services/user.service';
-import { SettingsService } from '../../services/settings.service'; 
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,17 +17,21 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class ProfileComponent implements OnInit {
   profileForm!: FormGroup;
   user: any;
-  profilePictureUrl: string | ArrayBuffer | null = null; 
+  profilePictureUrl: string | ArrayBuffer | null = null;
+
+  showExperienceModal: boolean = false;
+  showEducationModal: boolean = false;
+  showSkillModal: boolean = false;
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private settingsService: SettingsService, 
+    private settingsService: SettingsService
   ) {}
 
   ngOnInit() {
     const currentUser = this.authService.getCurrentUser();
-  
+
     if (currentUser && currentUser.id) {
       this.userService.getUserById(Number(currentUser.id)).subscribe({
         next: (data) => {
@@ -37,10 +45,9 @@ export class ProfileComponent implements OnInit {
     } else {
       console.error('No valid user found');
     }
-  
+
     this.loadProfilePicture();
   }
-  
 
   initForm() {
     this.profileForm = new FormGroup({
@@ -53,20 +60,78 @@ export class ProfileComponent implements OnInit {
         Validators.email,
       ]),
       phone: new FormControl(this.user.phone, [Validators.required]),
-      profilePicture: new FormControl(null),
+      experience: new FormArray([]),
+      education: new FormArray([]),
+      skills: new FormArray([]),
     });
+
+    this.loadExistingDetails();
+  }
+
+  loadExistingDetails() {
+    if (this.user.experience) {
+      this.user.experience.forEach((exp: any) => {
+        this.addExperience(exp);
+      });
+    }
+
+    if (this.user.education) {
+      this.user.education.forEach((edu: any) => {
+        this.addEducation(edu);
+      });
+    }
+
+    if (this.user.skills) {
+      this.user.skills.forEach((skill: any) => {
+        this.addSkill(skill);
+      });
+    }
+  }
+
+  get experience(): FormArray {
+    return this.profileForm.get('experience') as FormArray;
+  }
+
+  get education(): FormArray {
+    return this.profileForm.get('education') as FormArray;
+  }
+
+  get skills(): FormArray {
+    return this.profileForm.get('skills') as FormArray;
+  }
+
+  addExperience(exp?: any) {
+    const experienceGroup = new FormGroup({
+      jobTitle: new FormControl(exp ? exp.jobTitle : '', Validators.required),
+      company: new FormControl(exp ? exp.company : '', Validators.required),
+    });
+    this.experience.push(experienceGroup);
+  }
+
+  addEducation(edu?: any) {
+    const educationGroup = new FormGroup({
+      degree: new FormControl(edu ? edu.degree : '', Validators.required),
+      institution: new FormControl(edu ? edu.institution : '', Validators.required),
+    });
+    this.education.push(educationGroup);
+  }
+
+  addSkill(skill?: any) {
+    const skillGroup = new FormGroup({
+      name: new FormControl(skill ? skill.name : '', Validators.required),
+    });
+    this.skills.push(skillGroup);
   }
 
   loadProfilePicture(): void {
     const currentUser = this.authService.getCurrentUser();
-    
-    if (currentUser && currentUser.id) { 
-      this.profilePictureUrl = this.settingsService.getProfilePictureUrl(currentUser.id); 
+
+    if (currentUser && currentUser.id) {
+      this.profilePictureUrl = this.settingsService.getProfilePictureUrl(currentUser.id);
     } else {
       console.error('User not found or missing user ID');
     }
   }
-  
 
   triggerFileInput() {
     const fileInput = document.getElementById('file-input');
@@ -74,7 +139,7 @@ export class ProfileComponent implements OnInit {
       fileInput.click();
     }
   }
-  
+
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -87,18 +152,35 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  openExperienceModal() {
+    this.showExperienceModal = true;
+  }
+
+  openEducationModal() {
+    this.showEducationModal = true;
+  }
+
+  openSkillModal() {
+    this.showSkillModal = true;
+  }
+
+  closeModal() {
+    this.showExperienceModal = false;
+    this.showEducationModal = false;
+    this.showSkillModal = false;
+  }
+
   onSubmit() {
     if (this.profileForm.valid) {
-      this.userService
-        .updateUser(this.user.id, this.profileForm.value)
-        .subscribe({
-          next: (response) => {
-            this.user = response;
-          },
-          error: (error) => {
-            console.error('Update failed', error);
-          },
-        });
+      this.userService.updateUser(this.user.id, this.profileForm.value).subscribe({
+        next: (response) => {
+          this.user = response;
+          this.closeModal();
+        },
+        error: (error) => {
+          console.error('Update failed', error);
+        },
+      });
     } else {
       console.log('Form is not valid');
     }

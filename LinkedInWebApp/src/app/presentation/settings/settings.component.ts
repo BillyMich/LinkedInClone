@@ -12,7 +12,6 @@ import { AuthService } from '../../services/auth-service/auth.service';
 export class SettingsComponent implements OnInit {
   settingsForm!: FormGroup;
   emailPasswordForm!: FormGroup;
-  photoForm!: FormGroup;
   profilePictureUrl: string | ArrayBuffer | null = null;
 
   constructor(
@@ -32,10 +31,6 @@ export class SettingsComponent implements OnInit {
       password: [''],
     });
 
-    this.photoForm = this.fb.group({
-      photo: [null],
-    });
-
     this.loadProfilePicture();
   }
 
@@ -48,27 +43,13 @@ export class SettingsComponent implements OnInit {
       console.error('User not found or missing user ID');
     }
   }
-  
-  
 
   onSubmit(): void {
     this.settingsService.updateSettings(this.settingsForm.value).subscribe();
   }
 
   onChangeEmailPassword(): void {
-    this.settingsService
-      .changeEmailPassword(this.emailPasswordForm.value)
-      .subscribe();
-  }
-
-  onUploadPhoto(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      this.settingsService.uploadPhoto(file).subscribe(() => {
-        this.loadProfilePicture(); // Reload the profile picture after upload
-      });
-    }
+    this.settingsService.changeEmailPassword(this.emailPasswordForm.value).subscribe();
   }
 
   onSignOut() {

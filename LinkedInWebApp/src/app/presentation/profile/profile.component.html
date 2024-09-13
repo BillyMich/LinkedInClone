@@ -1,7 +1,6 @@
 <div class="profile-container content" *ngIf="user">
   <!-- Profile Picture Section -->
   <div class="profile-header">
-    <div class="profile-banner"></div>
     <div class="profile-picture-container">
       <img
         [src]="profilePictureUrl || 'assets/default-profile.png'"
@@ -30,7 +29,46 @@
       <p>Email: {{ user.email }}</p>
       <p>Phone: {{ user.phone }}</p>
     </div>
-  </div>
 
-  <!-- Optionally add more sections like Experience, Skills, etc. -->
+    <div class="actions">
+      <button (click)="openExperienceModal()">Add Experience</button>
+      <button (click)="openEducationModal()">Add Education</button>
+      <button (click)="openSkillModal()">Add Skill</button>
+    </div>
+
+    <!-- Modals for Adding Data -->
+    <div *ngIf="showExperienceModal" class="modal">
+      <h2>Add Experience</h2>
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <label>Job Title</label>
+        <input formControlName="jobTitle" placeholder="Job Title" />
+        <label>Company</label>
+        <input formControlName="company" placeholder="Company" />
+        <button type="submit">Save</button>
+        <button type="button" (click)="closeModal()">Cancel</button>
+      </form>
+    </div>
+
+    <div *ngIf="showEducationModal" class="modal">
+      <h2>Add Education</h2>
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <label>Degree</label>
+        <input formControlName="degree" placeholder="Degree" />
+        <label>Institution</label>
+        <input formControlName="institution" placeholder="Institution" />
+        <button type="submit">Save</button>
+        <button type="button" (click)="closeModal()">Cancel</button>
+      </form>
+    </div>
+
+    <div *ngIf="showSkillModal" class="modal">
+      <h2>Add Skill</h2>
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <label>Skill</label>
+        <input formControlName="name" placeholder="Skill" />
+        <button type="submit">Save</button>
+        <button type="button" (click)="closeModal()">Cancel</button>
+      </form>
+    </div>
+  </div>
 </div>
