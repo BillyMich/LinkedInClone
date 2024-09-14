@@ -15,16 +15,18 @@ namespace LinkedInWebApi.Reposirotry.Commands
             _linkedInDbContext = linkedInDbContext;
         }
 
-        public async Task<List<ContactRequestDto>> GetConnectedContactsByStatus(int userId)
+        public async Task<List<ContactRequestDto>> GetPendingConnectContactsAsync(int userId)
         {
             var contactRequest = await _linkedInDbContext.ContactRequests
+                .Include(x => x.UserRequest)
+                .Include(x => x.UserResiver)
                 .Where(x => x.UserRequestId == userId || x.UserResiverId == userId)
-                .Where(x => x.IsActive == true && x.IsAccepted == true).ToListAsync();
+                .Where(x => x.IsActive == true && x.IsAccepted == false).ToListAsync();
 
-            return contactRequest.ToContactRequestDto();
+            return contactRequest.ToContactRequestDto(userId);
         }
 
-        public Task<List<UserDto>> GetConnectedUsers(int userId)
+        public Task<List<UserDto>> GetConnectedUsersAsync(int userId)
         {
 
             var connectedUsers = _linkedInDbContext.ContactRequests

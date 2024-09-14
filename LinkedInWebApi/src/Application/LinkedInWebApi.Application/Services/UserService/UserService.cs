@@ -73,7 +73,7 @@ namespace LinkedInWebApi.Application.Services.UserService
                 throw new ArgumentException("File is invalid");
             }
 
-            var curentUserId = ClaimsIdentityaHelper.GetUserId(claimsIdentity);
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
 
             var fileDto = file.ConvertToFileDto();
 

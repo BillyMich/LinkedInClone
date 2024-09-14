@@ -6,10 +6,10 @@ namespace LinkedInWebApi.Application.Services
     public interface IMessageService
     {
 
-        Task<bool> InsertMessage(NewMessageDto newMessage, ClaimsIdentity claimsIdentity);
+        Task<bool> InsertMessageAsync(NewMessageDto newMessage, ClaimsIdentity claimsIdentity);
 
-        Task<List<ChatDto>?> GetChatsOfUser(ClaimsIdentity claimsIdentity);
+        Task<List<ChatDto>?> GetChatsOfUserAsync(ClaimsIdentity claimsIdentity);
 
-        Task<List<MessageDto>> GetMessageOfChat(GetChatDto getChatDto, ClaimsIdentity claimsIdentity);
+        Task<List<MessageDto>> GetMessageOfChatAsync(GetChatDto getChatDto, ClaimsIdentity claimsIdentity);
     }
 }

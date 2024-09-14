@@ -111,13 +111,13 @@ namespace LinkedInWebApi.Reposirotry.Extensions
             };
         }
 
-        public static FileDto ToFileDto(this UserPhotoProfile userPhotoProfiles)
+        public static FileDto ToFileDto(this UserPhotoProfile? userPhotoProfiles)
         {
 
             return new FileDto
             {
-                FileName = userPhotoProfiles.FileName,
-                DataOfFile = userPhotoProfiles.DataOfFile,
+                FileName = userPhotoProfiles?.FileName,
+                DataOfFile = userPhotoProfiles?.DataOfFile,
 
             };
         }

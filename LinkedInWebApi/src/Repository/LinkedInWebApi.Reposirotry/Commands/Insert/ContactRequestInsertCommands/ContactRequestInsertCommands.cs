@@ -14,12 +14,12 @@ namespace LinkedInWebApi.Reposirotry.Commands
             _linkedInDbContext = linkedInDbContext;
         }
 
-        public async Task<bool> CreateContactRequest(ContactRequestDto ContactRequestDto, int userId)
+        public async Task<bool> CreateContactRequest(NewContactRequestDto ContactRequestDto, int userId)
         {
 
             try
             {
-                await _linkedInDbContext.ContactRequests.AddAsync(ContactRequestDto.ToContanctRequest(userId));
+                await _linkedInDbContext.ContactRequests.AddAsync(ContactRequestDto.ToNewContanctRequest(userId));
                 await _linkedInDbContext.SaveChangesAsync();
                 return true;
             }

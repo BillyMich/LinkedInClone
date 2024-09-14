@@ -13,14 +13,14 @@ namespace LinkedInWebApi.Controllers
         private readonly IContactRequestHandler _contactRequestHandler;
         private readonly ClaimsIdentity _identity;
 
-        public ContactRequestController(IContactRequestHandler contactRequestHandler, ClaimsIdentity identity)
+        public ContactRequestController(IContactRequestHandler contactRequestHandler, IHttpContextAccessor httpContextAccessor)
         {
             _contactRequestHandler = contactRequestHandler;
-            _identity = identity;
+            _identity = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
         }
 
         [HttpPost("CreateContactRequest")]
-        public async Task<ActionResult<bool>> CreateContactRequest([FromBody] ContactRequestDto contactRequestDto)
+        public async Task<ActionResult<bool>> CreateContactRequest([FromBody] NewContactRequestDto contactRequestDto)
         {
             try
             {
@@ -58,12 +58,25 @@ namespace LinkedInWebApi.Controllers
             }
         }
 
-        [HttpGet("GetConnectedContactsByStatus/{statusId}")]
-        public async Task<ActionResult<List<ContactRequestDto>>> GetConnectedContactsByStatus(int statusId)
+        [HttpGet("GetNonConnectedUsers")]
+        public async Task<ActionResult<List<UserDto>>> GetNonConnectedUsers()
         {
             try
             {
-                return Ok(await _contactRequestHandler.GetConnectedContactsByStatus(statusId, _identity));
+                return Ok(await _contactRequestHandler.GetConnectedUsers(_identity));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("GetPendingConnectContacts")]
+        public async Task<ActionResult<List<NewContactRequestDto>>> GetPendingConnectContacts()
+        {
+            try
+            {
+                return Ok(await _contactRequestHandler.GetPendingConnectContacts(_identity));
             }
             catch (Exception)
             {

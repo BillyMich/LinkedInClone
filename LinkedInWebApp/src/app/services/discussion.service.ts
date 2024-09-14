@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage/local-storage.service';
+import { GetChatDto, NewMessageDto } from '../models/message.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,23 +22,24 @@ export class DiscussionService {
 
   getConversations(): Observable<any[]> {
     const headers = this.getHeaders();
-    return this.http.get<any[]>(`${this.apiUrl}/conversations`, { headers });
+    return this.http.get<any[]>(`${this.apiUrl}/GetChatsOfUser`, { headers });
   }
 
-  getMessages(conversationId: string): Observable<any[]> {
+  getMessages(getChatDto: GetChatDto): Observable<any[]> {
     const headers = this.getHeaders();
-    return this.http.get<any[]>(
-      `${this.apiUrl}/conversations/${conversationId}/messages`,
-      { headers }
+    return this.http.post<any[]>(
+      `${this.apiUrl}/GetMessageOfChat`,
+      getChatDto,
+      {
+        headers,
+      }
     );
   }
 
-  sendMessage(conversationId: string, content: string): Observable<any> {
+  sendMessage(newMessageDto: NewMessageDto): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>(
-      `${this.apiUrl}/conversations/${conversationId}/messages`,
-      { content },
-      { headers }
-    );
+    return this.http.post<any>(`${this.apiUrl}/CreateMessage`, newMessageDto, {
+      headers,
+    });
   }
 }

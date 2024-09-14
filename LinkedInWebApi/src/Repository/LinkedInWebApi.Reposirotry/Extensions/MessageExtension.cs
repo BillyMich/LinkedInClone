@@ -8,11 +8,12 @@ namespace LinkedInWebApi.Reposirotry.Extensions
 
 
 
-        public static ChatMessage ToNewMessageDto(this NewMessageDto newMessage, int userId)
+        public static ChatMessage ToNewMessageDto(this NewMessageDto newMessage, int userId, int? chatId)
         {
 
             return new ChatMessage
             {
+                ChatId = (int)chatId,
                 SenderId = userId,
                 FreeTxt = newMessage.Message,
                 CreatedAt = DateTimeOffset.Now,
@@ -62,6 +63,18 @@ namespace LinkedInWebApi.Reposirotry.Extensions
             return messageDtos;
         }
 
+        public static Chat ToChat(this int userId1, int userId2)
+        {
+
+            return new Chat
+            {
+                UserId1 = userId1,
+                UserId2 = userId2,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now,
+                IsActive = true,
+            };
+        }
 
 
     }
