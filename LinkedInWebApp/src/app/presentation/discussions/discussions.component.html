@@ -2,19 +2,34 @@
   <div class="conversations-list">
     <h2>Ιδιωτικές Συζητήσεις</h2>
     <ul>
-      <li *ngFor="let conversation of conversations" (click)="selectConversation(conversation.userChatingId)"
-          [class.selected]="conversation === selectedConversation">
+      <li
+        *ngFor="let conversation of conversations"
+        (click)="selectConversation(conversation.userChatingId)"
+        [class.selected]="conversation === selectedConversation"
+      >
+        <img 
+          [src]="profilePictures[conversation.userChatingId] || 'assets/default-profile.png'" 
+          alt="Profile Picture" 
+          class="conversation-profile-pic"
+        />
         {{ conversation.name }}
       </li>
     </ul>
   </div>
-  <div class="messages-content" >
+
+  <div class="messages-content">
     <h2>Συζήτηση με {{ selectedConversation?.name }}</h2>
     <div class="messages">
-      <div *ngFor="let message of messages" 
-      [ngClass]="{'sent': !checkIfIsSender(message?.senderId), 'received': checkIfIsSender(message?.senderId)}" 
-      class="message">
+      <div
+        *ngFor="let message of messages"
+        [ngClass]="{
+          'sent': checkIfIsSender(message?.senderId),  
+          'received': !checkIfIsSender(message?.senderId) 
+        }"
+        class="message"
+      >
         <p>{{ message.freeTxt }}</p>
+        <small class="timestamp">{{ message.timestamp | date: 'short' }}</small>
       </div>
     </div>
     <div class="message-input">
