@@ -26,10 +26,10 @@ namespace LinkedInWebApi.Reposirotry.Commands
             return contactRequest.ToContactRequestDto(userId);
         }
 
-        public Task<List<UserDto>> GetConnectedUsersAsync(int userId)
+        public async Task<List<UserDto>> GetConnectedUsersAsync(int userId)
         {
 
-            var connectedUsers = _linkedInDbContext.ContactRequests
+            var connectedUsers = await _linkedInDbContext.ContactRequests
                 .Where(x => x.UserRequestId == userId || x.UserResiverId == userId)
                 .Where(x => x.IsActive == true && x.IsAccepted == true)
                 .Select(x => new UserDto

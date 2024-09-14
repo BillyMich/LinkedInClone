@@ -12,8 +12,20 @@
   margin-left: 0;
 }
 
+.NonConnected-list {
+  width: 80%;
+  background-color: #ffffff; 
+  padding: 20px;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.1); 
+  overflow-y: auto;
+  position: fixed; 
+  right:0; 
+  top: 70px; 
+  bottom: 0;
+}
+
 .friends-list {
-  width: 250px;
+  width: 20%;
   background-color: #ffffff; 
   padding: 20px;
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.1); 

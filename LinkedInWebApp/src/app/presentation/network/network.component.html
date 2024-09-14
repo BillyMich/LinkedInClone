@@ -1,8 +1,22 @@
 <div class="network-container content">
   <div class="friends-list">
-    <h2>Users</h2>
+    <h2>Connected Users</h2>
     <ul>
-      <li *ngFor="let professional of allUsers" (click)="viewProfile(professional)">
+      <li *ngFor="let professional of nonConnectedUsers" (click)="viewProfile(professional)">
+        <img 
+          [src]="profilePictures[professional.id] || 'assets/default-profile.png'" 
+          alt="Profile Picture" 
+          class="profile-pic" 
+        />
+        <p>{{ professional.name }} {{professional.surname}}</p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="NonConnected-list">
+    <h2>NonConnected Users</h2>
+    <ul>
+      <li *ngFor="let professional of nonConnectedUsers" (click)="viewProfile(professional)">
         <img 
           [src]="profilePictures[professional.id] || 'assets/default-profile.png'" 
           alt="Profile Picture" 

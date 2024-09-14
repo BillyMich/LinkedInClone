@@ -10,7 +10,8 @@ import { NewContactRequestDto } from '../../models/contactRequest.model';
   styleUrls: ['./network.component.css'],
 })
 export class NetworkComponent implements OnInit {
-  allUsers: any[] = [];
+  connectedUsers: any[] = [];
+  nonConnectedUsers: any[] = [];
   searchResults: any[] = [];
   searchQuery: string = '';
   selectedProfessional: any = null;
@@ -23,14 +24,29 @@ export class NetworkComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadAllUsers();
+    this.loadConnectedUsers();
+    this.loadNonConnectedUsers();
   }
 
-  loadAllUsers() {
-    this.userService.getAllUsers().subscribe({
+  loadConnectedUsers() {
+    this.userService.getConnectedUsers().subscribe({
       next: (data) => {
-        this.allUsers = data;
-        this.allUsers.forEach((user) => this.loadProfilePicture(user.id));
+        this.connectedUsers = data;
+        this.connectedUsers.forEach((user) => this.loadProfilePicture(user.id));
+      },
+      error: (err) => {
+        console.error('Error loading users:', err);
+      },
+    });
+  }
+
+  loadNonConnectedUsers() {
+    this.userService.getNonConnectedUsers().subscribe({
+      next: (data) => {
+        this.nonConnectedUsers = data;
+        this.nonConnectedUsers.forEach((user) =>
+          this.loadProfilePicture(user.id)
+        );
       },
       error: (err) => {
         console.error('Error loading users:', err);

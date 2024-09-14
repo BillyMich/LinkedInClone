@@ -70,7 +70,7 @@ namespace LinkedInWebApi.Application.Services
             var connectedUsers = await _contactRequestReadCommands.GetConnectedUsersAsync(curentUserId);
             var allUsers = await _userReadCommands.GetUsersAsync(null);
             var nonConnectedUsers = allUsers.Except(connectedUsers).ToList();
-
+            nonConnectedUsers.RemoveAll(x => x.Id == curentUserId);
             return nonConnectedUsers;
         }
     }

@@ -33,9 +33,9 @@ namespace LinkedInWebApi.Application.Handlers
             return await _contactRequestService.GetConnectedUsersAsync(claimsIdentity);
         }
 
-        public Task<List<UserDto>> GetNonConnectedUsers(ClaimsIdentity claimsIdentity)
+        public async Task<List<UserDto>> GetNonConnectedUsers(ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return await _contactRequestService.GetNonConnectedUsers(claimsIdentity);
         }
     }
 }

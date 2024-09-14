@@ -1,5 +1,6 @@
 ﻿using LinkedInWebApi.Application.Handlers;
 using LinkedInWebApi.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -20,6 +21,7 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpPost("CreateContactRequest")]
+        [Authorize]
         public async Task<ActionResult<bool>> CreateContactRequest([FromBody] NewContactRequestDto contactRequestDto)
         {
             try
@@ -33,6 +35,7 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpPost("ChangeStatusOfRequest")]
+        [Authorize]
         public async Task<ActionResult<bool>> ChangeStatusOfRequest([FromBody] ContactRequestChangeStatusDto contactRequestChangeStatusDto)
         {
             try
@@ -46,6 +49,7 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpGet("GetConnectedUsers")]
+        [Authorize]
         public async Task<ActionResult<List<UserDto>>> GetConnectedUsers()
         {
             try
@@ -59,11 +63,12 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpGet("GetNonConnectedUsers")]
+        [Authorize]
         public async Task<ActionResult<List<UserDto>>> GetNonConnectedUsers()
         {
             try
             {
-                return Ok(await _contactRequestHandler.GetConnectedUsers(_identity));
+                return Ok(await _contactRequestHandler.GetNonConnectedUsers(_identity));
             }
             catch (Exception)
             {
@@ -72,6 +77,7 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpGet("GetPendingConnectContacts")]
+        [Authorize]
         public async Task<ActionResult<List<NewContactRequestDto>>> GetPendingConnectContacts()
         {
             try

@@ -22,7 +22,19 @@ export class UserService {
   }
 
   getConnectedUsers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/user/GetConnectedUsers`);
+    const headers = this.getHeaders();
+
+    return this.http.get<any[]>(`${this.apiUrl}/GetConnectedUsers`, {
+      headers,
+    });
+  }
+
+  getNonConnectedUsers(): Observable<any[]> {
+    const headers = this.getHeaders();
+
+    return this.http.get<any[]>(`${this.apiUrl}/GetNonConnectedUsers`, {
+      headers,
+    });
   }
 
   createContactRequest(contactRequest: NewContactRequestDto): Observable<any> {
