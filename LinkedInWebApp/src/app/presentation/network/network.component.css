@@ -1,3 +1,7 @@
+.content {
+  padding-top: 70px; 
+}
+
 .network-container {
   display: flex;
   width: 100%; 
@@ -7,25 +11,8 @@
   background-color: #f0f2f5;
 }
 
-.content {
-  padding-top: 70px;
-  margin-left: 0;
-}
-
-.NonConnected-list {
-  width: 80%;
-  background-color: #ffffff; 
-  padding: 20px;
-  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.1); 
-  overflow-y: auto;
-  position: fixed; 
-  right:0; 
-  top: 70px; 
-  bottom: 0;
-}
-
-.friends-list {
-  width: 20%;
+.users-list {
+  width: 250px;
   background-color: #ffffff; 
   padding: 20px;
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.1); 
@@ -34,26 +21,27 @@
   left: 0; 
   top: 70px; 
   bottom: 0;
-  border-right:none;
+  border-right: none;
 }
 
-.friends-list h2 {
+.users-list h2 {
   margin-bottom: 20px;
   font-size: 1.6rem; 
   color: #0073b1; 
   font-weight: 600; 
+  text-align: center;
 }
 
-.friends-list ul {
+.users-list ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.friends-list li {
+.users-list li {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   margin-bottom: 15px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease; 
@@ -62,37 +50,30 @@
   background-color: #ffffff; 
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
 }
-.friends-list li.active {
-  background-color: #e6f7ff; 
-  transform: translateX(5px); 
-}
 
-.friends-list li:hover {
+.users-list li:hover {
   background-color: #f1f1f1; 
 }
 
-.friends-list img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 15px;
+.users-list img.profile-pic {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%; 
+  margin-bottom: 10px; 
   border: 2px solid #0073b1;
   object-fit: cover;
 }
 
-.friends-list p {
+.users-list p {
   margin: 0;
   font-size: 1rem;
   color: #333;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-align: center; 
   font-weight: 500;
-  flex-grow: 1;
 }
 
 .profile-viewer {
-  padding-left: 0px;  
+  padding-left: 0px;
   flex-grow: 1;
   padding-top: 20px;
   overflow-y: auto;
@@ -102,9 +83,7 @@
 }
 
 .profile-details {
-  text-align: left;  
-  max-width: 6000px; 
-  margin: 0 auto;   
+  text-align: center;
 }
 
 .profile-pic-large {
@@ -113,13 +92,6 @@
   border-radius: 50%;
   margin-bottom: 20px;
   border: 3px solid #0073b1;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.contact-info {
-  margin-top: 20px;
 }
 
 .primary-button, .secondary-button {
@@ -128,7 +100,6 @@
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.3s, transform 0.3s;
-  display: inline-block;
 }
 
 .primary-button {

@@ -1,5 +1,5 @@
 <div class="network-container content">
-  <div class="friends-list">
+  <div class="users-list">
     <h2>Connected Users</h2>
     <ul>
       <li *ngFor="let professional of connectedUsers" (click)="viewProfile(professional)">
@@ -11,10 +11,8 @@
         <p>{{ professional.name }} {{professional.surname}}</p>
       </li>
     </ul>
-  </div>
 
-  <div class="NonConnected-list">
-    <h2>NonConnected Users</h2>
+    <h2>Non-Connected Users</h2>
     <ul>
       <li *ngFor="let professional of nonConnectedUsers" (click)="viewProfile(professional)">
         <img 
@@ -27,10 +25,8 @@
     </ul>
   </div>
 
-  <!-- Profile Viewer Section, shown only when a professional is selected -->
   <div class="profile-viewer" *ngIf="selectedProfessional">
     <div class="profile-details">
-      <!-- Display selected professional's profile picture -->
       <img 
         [src]="profilePictures[selectedProfessional.id] || 'assets/default-profile.png'" 
         alt="Profile Picture" 
@@ -45,11 +41,17 @@
         <p>Phone: {{ selectedProfessional.phone }}</p>
       </div>
 
-      <!-- Action Buttons -->
       <div class="action-buttons">
         <button class="primary-button" (click)="startPrivateChat(selectedProfessional.id)">Start Private Chat</button>
-        <button class="secondary-button" (click)="sendFriendRequest(selectedProfessional.id)">Add as Friend</button>
+
+        <button *ngIf="isConnected(selectedProfessional.id)" class="secondary-button" (click)="deleteFriend(selectedProfessional.id)">
+          Delete Friend
+        </button>
+        <button *ngIf="!isConnected(selectedProfessional.id)" class="secondary-button" (click)="sendFriendRequest(selectedProfessional.id)">
+          Add as Friend
+        </button>
       </div>
     </div>
   </div>
+  
 </div>

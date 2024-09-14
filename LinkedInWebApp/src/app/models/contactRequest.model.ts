@@ -9,6 +9,7 @@ export class NewContactRequestDto {
 export class ContactRequestChangeStatusDto {
   contactRequestId: number;
   statusId: number;
+  
 
   constructor(contactRequestId: number, statusId: number) {
     this.contactRequestId = contactRequestId;
