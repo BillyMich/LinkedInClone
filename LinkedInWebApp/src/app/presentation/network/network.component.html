@@ -2,7 +2,7 @@
   <div class="friends-list">
     <h2>Connected Users</h2>
     <ul>
-      <li *ngFor="let professional of nonConnectedUsers" (click)="viewProfile(professional)">
+      <li *ngFor="let professional of connectedUsers" (click)="viewProfile(professional)">
         <img 
           [src]="profilePictures[professional.id] || 'assets/default-profile.png'" 
           alt="Profile Picture" 
