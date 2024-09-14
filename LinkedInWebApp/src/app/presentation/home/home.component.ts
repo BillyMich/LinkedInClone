@@ -103,15 +103,9 @@ export class HomeComponent implements OnInit {
     });
 
     this.idDictionary.forEach((entry) => {
-      this.settingsService
-        .getProfilePictureById(entry.userId)
-        .subscribe((blob) => {
-          const reader = new FileReader();
-          reader.onload = (event) => {
-            entry.ProfilePictureUrl = event.target!.result;
-          };
-          reader.readAsDataURL(blob);
-        });
+      entry.ProfilePictureUrl = this.settingsService.getProfilePictureUrl(
+        entry.userId
+      );
     });
   }
 

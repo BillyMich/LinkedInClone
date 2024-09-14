@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DiscussionService } from '../../services/discussion.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { GetChatDto, NewMessageDto } from '../../models/message.model';
 
 @Component({
   selector: 'app-discussions',
@@ -10,42 +13,62 @@ export class DiscussionsComponent implements OnInit {
   conversations: any[] = [];
   selectedConversation: any = null;
   messages: any[] = [];
-  newMessage: string = ''; 
+  newMessage: string = '';
+  userChatingWithId: number = 1;
 
-  constructor(private discussionService: DiscussionService) {}
-
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private discussionService: DiscussionService,
+    private router: Router
+  ) {}
   ngOnInit() {
     this.loadConversations();
+    this.route.queryParams.subscribe((params) => {
+      this.userChatingWithId = params['id'];
+      if (this.userChatingWithId) {
+        this.loadMessages();
+      }
+    });
   }
 
   loadConversations() {
     this.discussionService.getConversations().subscribe((data) => {
       this.conversations = data;
-      if (this.conversations.length > 0) {
-        this.selectConversation(this.conversations[0]);
-      }
+      // if (this.conversations.length > 0) {
+      //   this.selectConversation(this.conversations[0]);
+      // }
     });
   }
 
-  selectConversation(conversation: any) {
-    this.selectedConversation = conversation;
-    this.loadMessages(conversation.id);
+  selectConversation(id: number): void {
+    this.router.navigate(['/discussions'], {
+      queryParams: { id: id },
+    });
   }
 
-  loadMessages(conversationId: string) {
-    this.discussionService.getMessages(conversationId).subscribe((data) => {
+  loadMessages() {
+    const getChatDto = new GetChatDto(this.userChatingWithId);
+    this.discussionService.getMessages(getChatDto).subscribe((data) => {
       this.messages = data;
     });
   }
 
-  sendMessage() {
-    if (this.newMessage && this.selectedConversation) {
-      this.discussionService
-        .sendMessage(this.selectedConversation.id, this.newMessage)
-        .subscribe(() => {
-          this.newMessage = ''; // clear  input
-          this.loadMessages(this.selectedConversation.id);
-        });
+  checkIfIsSender(senderId: number): boolean {
+    return senderId === this.userChatingWithId;
+  }
+
+  sendMessage(): void {
+    if (this.newMessage) {
+      const newMessageDto = new NewMessageDto(
+        this.userChatingWithId,
+        this.newMessage
+      );
+
+      this.discussionService.sendMessage(newMessageDto).subscribe(() => {
+        this.newMessage = ''; // clear input
+        this.loadMessages();
+      });
     }
   }
 }

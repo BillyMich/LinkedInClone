@@ -5,11 +5,11 @@ namespace LinkedInWebApi.Reposirotry.Commands
     public interface IMessageReadCommands
     {
 
-        Task<List<ChatDto>?> GetChatsOfUser(int userId);
+        Task<List<ChatDto>?> GetChatsOfUserAsync(int userId);
 
-        Task<List<MessageDto>?> GetMessagesOfChat(int chatId);
+        Task<List<MessageDto>?> GetMessagesOfChatAsync(int? chatId);
 
-        Task<int> GetChatId(int userId, int otherUserId);
+        Task<int?> GetChatIdAsync(int userId, int otherUserId);
 
     }
 }

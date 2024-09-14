@@ -6,7 +6,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
     public static class ContactRequestExtensions
     {
 
-        public static ContactRequest ToContanctRequest(this ContactRequestDto contactRequestDto, int userId)
+        public static ContactRequest ToNewContanctRequest(this NewContactRequestDto contactRequestDto, int userId)
         {
             return new ContactRequest
             {
@@ -19,22 +19,21 @@ namespace LinkedInWebApi.Reposirotry.Extensions
             };
         }
 
-        public static ContactRequestDto ToContactRequestDto(this ContactRequest contactRequest)
+        public static ContactRequestDto ToContactRequestDto(this ContactRequest contactRequest, int userId)
         {
             return new ContactRequestDto
             {
                 Id = contactRequest.Id,
+                Name = contactRequest.UserRequestId == userId ? contactRequest.UserResiver.Name + " " + contactRequest.UserResiver.Surname :
+                contactRequest.UserRequest.Name + " " + contactRequest.UserRequest.Surname,
                 UserResiverId = contactRequest.UserResiverId,
-                IsActive = contactRequest.IsActive,
                 IsAccepted = contactRequest.IsAccepted,
-                CreatedAt = contactRequest.CreatedAt,
-                UpdatedAt = contactRequest.UpdatedAt
             };
         }
 
-        public static List<ContactRequestDto> ToContactRequestDto(this List<ContactRequest> contactRequests)
+        public static List<ContactRequestDto> ToContactRequestDto(this List<ContactRequest> contactRequests, int userId)
         {
-            return contactRequests.Select(x => x.ToContactRequestDto()).ToList();
+            return contactRequests.Select(x => x.ToContactRequestDto(userId)).ToList();
         }
     }
 }

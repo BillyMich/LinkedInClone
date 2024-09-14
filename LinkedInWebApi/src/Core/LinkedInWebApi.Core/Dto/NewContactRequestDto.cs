@@ -1,4 +1,4 @@
-﻿namespace LinkedInWebApi.Core.Dto
+﻿namespace LinkedInWebApi.Core
 {
     public class NewContactRequestDto
     {

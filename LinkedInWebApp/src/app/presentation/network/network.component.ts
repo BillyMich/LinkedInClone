@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-import { SettingsService } from '../../services/settings.service'; 
+import { SettingsService } from '../../services/settings.service';
+import { NewContactRequestDto } from '../../models/contactRequest.model';
 
 @Component({
   selector: 'app-network',
@@ -9,34 +10,55 @@ import { SettingsService } from '../../services/settings.service';
   styleUrls: ['./network.component.css'],
 })
 export class NetworkComponent implements OnInit {
-  allUsers: any[] = [];
+  connectedUsers: any[] = [];
+  nonConnectedUsers: any[] = [];
   searchResults: any[] = [];
   searchQuery: string = '';
   selectedProfessional: any = null;
-  profilePictures: { [userId: number]: string | ArrayBuffer | null } = {}; 
+  profilePictures: { [userId: number]: string | ArrayBuffer | null } = {};
 
-  constructor(private userService: UserService, private router: Router, private settingsService: SettingsService) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private settingsService: SettingsService
+  ) {}
 
   ngOnInit() {
-    this.loadAllUsers();
+    this.loadConnectedUsers();
+    this.loadNonConnectedUsers();
   }
 
-  loadAllUsers() {
-    this.userService.getAllUsers().subscribe({
+  loadConnectedUsers() {
+    this.userService.getConnectedUsers().subscribe({
       next: (data) => {
-        this.allUsers = data;
-        this.allUsers.forEach(user => this.loadProfilePicture(user.id));
+        this.connectedUsers = data;
+        this.connectedUsers.forEach((user) => this.loadProfilePicture(user.id));
       },
       error: (err) => {
         console.error('Error loading users:', err);
       },
     });
   }
-  
-  loadProfilePicture(userId: number) {
-    this.profilePictures[userId] = this.settingsService.getProfilePictureUrl(userId);
+
+  loadNonConnectedUsers() {
+    this.userService.getNonConnectedUsers().subscribe({
+      next: (data) => {
+        this.nonConnectedUsers = data;
+        this.nonConnectedUsers.forEach((user) =>
+          this.loadProfilePicture(user.id)
+        );
+      },
+      error: (err) => {
+        console.error('Error loading users:', err);
+      },
+    });
   }
-  
+
+  loadProfilePicture(userId: number) {
+    this.profilePictures[userId] =
+      this.settingsService.getProfilePictureUrl(userId);
+  }
+
   searchProfessionals() {
     if (this.searchQuery) {
       this.userService.searchProfessionals(this.searchQuery).subscribe({
@@ -57,11 +79,15 @@ export class NetworkComponent implements OnInit {
   }
 
   startPrivateChat(professionalId: string) {
-    this.router.navigate(['/discussions'], { queryParams: { id: professionalId } });
+    this.router.navigate(['/discussions'], {
+      queryParams: { id: professionalId },
+    });
   }
 
   sendFriendRequest(professionalId: number) {
-    this.userService.createContactRequest(professionalId.toString()).subscribe({
+    const contactRequest = new NewContactRequestDto(professionalId);
+
+    this.userService.createContactRequest(contactRequest).subscribe({
       next: () => {
         alert('Friend request sent successfully!');
       },

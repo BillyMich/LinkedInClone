@@ -20,7 +20,7 @@ namespace LinkedInWebApi.Application.Services
 
         public Task<bool> CreatePost(CreatePostDto createPostDto, IFormFile file, ClaimsIdentity claimsIdentity)
         {
-            var curentUserId = ClaimsIdentityaHelper.GetUserId(claimsIdentity);
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
 
             var fileDto = file != null ? file.ConvertToFileDto() : null;
 
@@ -29,7 +29,7 @@ namespace LinkedInWebApi.Application.Services
 
         public Task<bool> CreatePostComment(CreatePostCommentDto postCommentDto, ClaimsIdentity claimsIdentity)
         {
-            var curentUserId = ClaimsIdentityaHelper.GetUserId(claimsIdentity);
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
 
             return _postInsertCommands.CreatePostComment(postCommentDto, curentUserId);
         }

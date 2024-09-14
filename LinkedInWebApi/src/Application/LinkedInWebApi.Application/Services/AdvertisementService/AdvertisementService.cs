@@ -22,7 +22,7 @@ namespace LinkedInWebApi.Application.Services
         public async Task<bool> CreateAdvertisement(CreateAdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity)
         {
 
-            var curentUserId = ClaimsIdentityaHelper.GetUserId(claimsIdentity);
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
             var result = await _advertisemenInsertCommands.CreateAdvertisement(advertisementDto, curentUserId);
 
             if (!result)
@@ -36,7 +36,7 @@ namespace LinkedInWebApi.Application.Services
 
         public async Task<bool> DeleteAdvertisment(int id, ClaimsIdentity claimsIdentity)
         {
-            var curentUserId = ClaimsIdentityaHelper.GetUserId(claimsIdentity);
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
             var result = await _advertisemenUpdateCommands.DeleteAdvertisement(id, curentUserId);
 
             if (!result)
@@ -68,7 +68,7 @@ namespace LinkedInWebApi.Application.Services
 
         public async Task<bool> UpdateAdvertisment(AdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity)
         {
-            var curentUserId = ClaimsIdentityaHelper.GetUserId(claimsIdentity);
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
             var result = await _advertisemenUpdateCommands.UpdateAdvertisement(advertisementDto, curentUserId);
 
             if (!result)

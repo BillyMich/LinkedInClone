@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage/local-storage.service';
+import { ContactRequestChangeStatusDto } from '../models/contactRequest.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,25 +22,18 @@ export class NotificationsService {
 
   getConnectionRequests(): Observable<any[]> {
     const headers = this.getHeaders();
-    return this.http.get<any[]>(`${this.apiUrl}/GetConnectedUsers`, {
+    return this.http.get<any[]>(`${this.apiUrl}/GetPendingConnectContacts`, {
       headers,
     });
   }
 
-  acceptConnectionRequest(requestId: string): Observable<any> {
+  acceptConnectionRequest(
+    changeStatusRequest: ContactRequestChangeStatusDto
+  ): Observable<any> {
     const headers = this.getHeaders();
     return this.http.post<any>(
       `${this.apiUrl}/ChangeStatusOfRequest`,
-      { requestId, status: 'accepted' },
-      { headers }
-    );
-  }
-
-  rejectConnectionRequest(requestId: string): Observable<any> {
-    const headers = this.getHeaders();
-    return this.http.post<any>(
-      `${this.apiUrl}/ChangeStatusOfRequest`,
-      { requestId, status: 'rejected' },
+      changeStatusRequest,
       { headers }
     );
   }

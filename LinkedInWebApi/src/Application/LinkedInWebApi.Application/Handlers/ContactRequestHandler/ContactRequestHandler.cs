@@ -18,19 +18,24 @@ namespace LinkedInWebApi.Application.Handlers
             return await _contactRequestService.ChangeStatusOfRequest(contactRequestChangeStatusDto, claimsIdentity);
         }
 
-        public async Task<bool> CreateContactRequest(ContactRequestDto contactRequestDto, ClaimsIdentity claimsIdentity)
+        public async Task<bool> CreateContactRequest(NewContactRequestDto contactRequestDto, ClaimsIdentity claimsIdentity)
         {
             return await _contactRequestService.CreateContactRequest(contactRequestDto, claimsIdentity);
         }
 
-        public async Task<List<ContactRequestDto>> GetConnectedContactsByStatus(int statusId, ClaimsIdentity claimsIdentity)
+        public async Task<List<ContactRequestDto>> GetPendingConnectContacts(ClaimsIdentity claimsIdentity)
         {
-            return await _contactRequestService.GetConnectedContactsByStatus(statusId, claimsIdentity);
+            return await _contactRequestService.GetPendingConnectContactsAsync(claimsIdentity);
         }
 
         public async Task<List<UserDto>> GetConnectedUsers(ClaimsIdentity claimsIdentity)
         {
-            return await _contactRequestService.GetConnectedUsers(claimsIdentity);
+            return await _contactRequestService.GetConnectedUsersAsync(claimsIdentity);
+        }
+
+        public async Task<List<UserDto>> GetNonConnectedUsers(ClaimsIdentity claimsIdentity)
+        {
+            return await _contactRequestService.GetNonConnectedUsers(claimsIdentity);
         }
     }
 }
