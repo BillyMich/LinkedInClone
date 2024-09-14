@@ -9,10 +9,12 @@ import { IdDictionary } from '../../models/profilePictureDictionary.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
+// Inside your HomeComponent
+
 export class HomeComponent implements OnInit {
   posts: Post[] = [];
   newPostContent: string = '';
-  newComment: string = '';
+  newComments: { [postId: number]: string } = {}; // A dictionary to track new comments per post
   idDictionary: IdDictionary[] = [];
   commentsToShow: { [postId: number]: number } = {}; // Track comments to show for each post
   file: any;
@@ -28,33 +30,27 @@ export class HomeComponent implements OnInit {
 
   fetchPosts() {
     this.articleService.getArticles().subscribe((data: Post[]) => {
-      this.posts = data;
+      this.posts = data.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
       this.posts.forEach((post) => {
-        this.commentsToShow[post.id] = 3; // Initialize to show 5 comments for each post
+        this.commentsToShow[post.id] = 3;
       });
       this.loadProfilePictureOfPostAndComments(this.posts);
     });
   }
 
   loadMoreComments(postId: number) {
-    this.commentsToShow[postId] += 3; // Increase the number of comments to show by 5
+    this.commentsToShow[postId] += 3;
   }
 
   onPostSubmit() {
-    console.log('Submitting post:', this.newPostContent);
     if (this.newPostContent) {
       const createPostDto = {
         freeTxt: this.newPostContent,
       };
-      this.articleService.createArticle(createPostDto, this.file).subscribe(
-        () => {
-          this.fetchPosts();
-          this.newPostContent = '';
-        },
-        (error) => {
-          console.error('Error creating post:', error);
-        }
-      );
+      this.articleService.createArticle(createPostDto, this.file).subscribe(() => {
+        this.fetchPosts();
+        this.newPostContent = '';
+      });
     }
   }
 
@@ -69,31 +65,24 @@ export class HomeComponent implements OnInit {
   }
 
   onCommentSubmit(postId: number) {
-    if (this.newComment) {
-      this.articleService
-        .commentArticle(postId, this.newComment)
-        .subscribe(() => {
-          this.fetchPosts();
-          this.newComment = '';
-        });
+    if (this.newComments[postId]) {
+      this.articleService.commentArticle(postId, this.newComments[postId]).subscribe(() => {
+        this.fetchPosts();
+        this.newComments[postId] = ''; // Clear the comment after submission
+      });
     }
   }
 
   loadProfilePictureOfPostAndComments(posts: Post[]): void {
     posts.forEach((post) => {
-      // Add post creator ID to dictionary if not already present
       if (!this.idDictionary.some((entry) => entry.userId === post.creatorId)) {
         this.idDictionary.push({
           userId: post.creatorId,
           ProfilePictureUrl: null,
         });
       }
-
-      // Add comment creator IDs to dictionary if not already present
       post.comments.forEach((comment) => {
-        if (
-          !this.idDictionary.some((entry) => entry.userId === comment.creatorId)
-        ) {
+        if (!this.idDictionary.some((entry) => entry.userId === comment.creatorId)) {
           this.idDictionary.push({
             userId: comment.creatorId,
             ProfilePictureUrl: null,
@@ -103,9 +92,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.idDictionary.forEach((entry) => {
-      entry.ProfilePictureUrl = this.settingsService.getProfilePictureUrl(
-        entry.userId
-      );
+      entry.ProfilePictureUrl = this.settingsService.getProfilePictureUrl(entry.userId);
     });
   }
 
@@ -113,4 +100,5 @@ export class HomeComponent implements OnInit {
     const entry = this.idDictionary.find((entry) => entry.userId === userId);
     return entry ? entry.ProfilePictureUrl : null;
   }
+
 }
