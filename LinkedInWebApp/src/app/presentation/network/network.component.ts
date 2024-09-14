@@ -43,16 +43,15 @@ export class NetworkComponent implements OnInit {
   loadNonConnectedUsers() {
     this.userService.getNonConnectedUsers().subscribe({
       next: (data) => {
-        this.nonConnectedUsers = data;
-        this.nonConnectedUsers.forEach((user) =>
-          this.loadProfilePicture(user.id)
-        );
+        this.nonConnectedUsers = data.filter(user => !this.isConnected(user.id));
+        this.nonConnectedUsers.forEach((user) => this.loadProfilePicture(user.id));
       },
       error: (err) => {
         console.error('Error loading non-connected users:', err);
       },
     });
   }
+  
 
   loadProfilePicture(userId: number) {
     this.profilePictures[userId] = this.settingsService.getProfilePictureUrl(userId);
@@ -94,4 +93,24 @@ export class NetworkComponent implements OnInit {
       },
     });
   }
+  isConnected(professionalId: number): boolean {
+    return this.connectedUsers.some(user => user.id === professionalId);
+  }
+
+  deleteFriend(professionalId: number) { // enable when delete is possible
+   /* this.userService.deleteContact(professionalId).subscribe({
+      next: () => {
+        alert('Friend removed successfully!');
+        // Refresh connected and non-connected users
+        this.loadConnectedUsers();
+        this.loadNonConnectedUsers();
+      },
+      error: (err) => {
+        console.error('Error deleting friend:', err);
+        alert('Failed to remove friend. Please try again.');
+      },
+    });
+    */
+  }
+  
 }

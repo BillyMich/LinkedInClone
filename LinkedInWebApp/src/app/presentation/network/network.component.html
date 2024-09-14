@@ -43,8 +43,15 @@
 
       <div class="action-buttons">
         <button class="primary-button" (click)="startPrivateChat(selectedProfessional.id)">Start Private Chat</button>
-        <button class="secondary-button" (click)="sendFriendRequest(selectedProfessional.id)">Add as Friend</button>
+
+        <button *ngIf="isConnected(selectedProfessional.id)" class="secondary-button" (click)="deleteFriend(selectedProfessional.id)">
+          Delete Friend
+        </button>
+        <button *ngIf="!isConnected(selectedProfessional.id)" class="secondary-button" (click)="sendFriendRequest(selectedProfessional.id)">
+          Add as Friend
+        </button>
       </div>
     </div>
   </div>
+  
 </div>
