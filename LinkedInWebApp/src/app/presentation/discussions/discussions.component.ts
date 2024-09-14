@@ -61,9 +61,8 @@ export class DiscussionsComponent implements OnInit {
     });
   }
 
-  // Correct method to load profile pictures
   loadProfilePicture(userId: number) {
-    this.profilePictures[userId] = this.settingsService.getProfilePictureUrl(userId);  // Direct assignment of profile picture
+    this.profilePictures[userId] = this.settingsService.getProfilePictureUrl(userId);  
   }
 
   selectConversation(id: number): void {
@@ -80,21 +79,19 @@ export class DiscussionsComponent implements OnInit {
   }
 
   checkIfIsSender(senderId: number): boolean {
-    // Check if the senderId matches the current user ID
-    return senderId === this.currentUserId;
+    return senderId == this.currentUserId;
   }
 
   sendMessage(): void {
     if (this.newMessage) {
       const newMessageDto = new NewMessageDto(this.userChatingWithId, this.newMessage);
       this.discussionService.sendMessage(newMessageDto).subscribe(() => {
-        this.newMessage = ''; // Clear input
+        this.newMessage = '';
         this.loadMessages();
       });
     }
   }
 
-  // Capture the Enter key to send messages
   @HostListener('document:keydown.enter', ['$event'])
   handleEnterKey(event: KeyboardEvent) {
     this.sendMessage();

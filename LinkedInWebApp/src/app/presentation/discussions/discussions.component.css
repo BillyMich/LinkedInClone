@@ -136,7 +136,7 @@
   align-self: flex-end;
   border-top-right-radius: 0;
   margin-left: auto;
-  max-width: 70%; 
+  max-width: 70%;
 }
 
 .message.received {
