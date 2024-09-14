@@ -6,11 +6,11 @@ namespace LinkedInWebApi.Application.Handlers.MessageHandler
     public interface IMessageHandler
     {
 
-        Task<bool> InsertMessage(NewMessageDto newMessage, ClaimsIdentity claimsIdentity);
+        Task<bool> InsertMessageAsync(NewMessageDto newMessage, ClaimsIdentity claimsIdentity);
 
-        Task<List<ChatDto>?> GetChatsOfUser(string userId, ClaimsIdentity claimsIdentity);
+        Task<List<ChatDto>?> GetChatsOfUserAsync(ClaimsIdentity claimsIdentity);
 
-        Task<List<MessageDto>> GetMessageOfChat(GetChatDto getChatDto, ClaimsIdentity claimsIdentity);
+        Task<List<MessageDto>> GetMessageOfChatAsync(GetChatDto getChatDto, ClaimsIdentity claimsIdentity);
 
     }
 }

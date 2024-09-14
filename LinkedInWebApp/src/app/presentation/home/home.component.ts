@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../../services/article.service'; // Using ArticleService
+import { SettingsService } from '../../services/settings.service';
+import { Post, Comment } from '../../models/post.model';
+import { IdDictionary } from '../../models/profilePictureDictionary.model';
 
 @Component({
   selector: 'app-home',
@@ -7,20 +10,34 @@ import { ArticleService } from '../../services/article.service'; // Using Articl
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  posts: any[] = [];
+  posts: Post[] = [];
   newPostContent: string = '';
   newComment: string = '';
+  idDictionary: IdDictionary[] = [];
+  commentsToShow: { [postId: number]: number } = {}; // Track comments to show for each post
+  file: any;
 
-  constructor(private articleService: ArticleService) {}
+  constructor(
+    private articleService: ArticleService,
+    private settingsService: SettingsService
+  ) {}
 
   ngOnInit() {
     this.fetchPosts();
   }
 
   fetchPosts() {
-    this.articleService.getArticles().subscribe((data: any[]) => {
+    this.articleService.getArticles().subscribe((data: Post[]) => {
       this.posts = data;
+      this.posts.forEach((post) => {
+        this.commentsToShow[post.id] = 3; // Initialize to show 5 comments for each post
+      });
+      this.loadProfilePictureOfPostAndComments(this.posts);
     });
+  }
+
+  loadMoreComments(postId: number) {
+    this.commentsToShow[postId] += 3; // Increase the number of comments to show by 5
   }
 
   onPostSubmit() {
@@ -28,9 +45,8 @@ export class HomeComponent implements OnInit {
     if (this.newPostContent) {
       const createPostDto = {
         freeTxt: this.newPostContent,
-        mediaUrls: [],
       };
-      this.articleService.createArticle(createPostDto).subscribe(
+      this.articleService.createArticle(createPostDto, this.file).subscribe(
         () => {
           this.fetchPosts();
           this.newPostContent = '';
@@ -43,17 +59,16 @@ export class HomeComponent implements OnInit {
   }
 
   onFileChange(event: any) {
-    const files = event.target.files;
-    console.log('Selected files:', files);
+    this.file = event.target.files[0];
   }
 
-  onLike(postId: string) {
+  onLike(postId: number) {
     this.articleService.likeArticle(postId).subscribe(() => {
       this.fetchPosts();
     });
   }
 
-  onCommentSubmit(postId: string) {
+  onCommentSubmit(postId: number) {
     if (this.newComment) {
       this.articleService
         .commentArticle(postId, this.newComment)
@@ -62,5 +77,40 @@ export class HomeComponent implements OnInit {
           this.newComment = '';
         });
     }
+  }
+
+  loadProfilePictureOfPostAndComments(posts: Post[]): void {
+    posts.forEach((post) => {
+      // Add post creator ID to dictionary if not already present
+      if (!this.idDictionary.some((entry) => entry.userId === post.creatorId)) {
+        this.idDictionary.push({
+          userId: post.creatorId,
+          ProfilePictureUrl: null,
+        });
+      }
+
+      // Add comment creator IDs to dictionary if not already present
+      post.comments.forEach((comment) => {
+        if (
+          !this.idDictionary.some((entry) => entry.userId === comment.creatorId)
+        ) {
+          this.idDictionary.push({
+            userId: comment.creatorId,
+            ProfilePictureUrl: null,
+          });
+        }
+      });
+    });
+
+    this.idDictionary.forEach((entry) => {
+      entry.ProfilePictureUrl = this.settingsService.getProfilePictureUrl(
+        entry.userId
+      );
+    });
+  }
+
+  getProfilePictureUrlById(userId: number): string | null {
+    const entry = this.idDictionary.find((entry) => entry.userId === userId);
+    return entry ? entry.ProfilePictureUrl : null;
   }
 }

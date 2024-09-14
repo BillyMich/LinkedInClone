@@ -1,6 +1,8 @@
-﻿using LinkedInWebApi.Core;
+﻿using LinkedInWebApi.Application.Extensions;
+using LinkedInWebApi.Core;
 using LinkedInWebApi.Core.Helpers;
 using LinkedInWebApi.Reposirotry.Commands;
+using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Services
@@ -16,16 +18,20 @@ namespace LinkedInWebApi.Application.Services
             _postReadCommands = postReadCommands;
         }
 
-        public Task<bool> CreatePost(CreatePostDto createPostDto, ClaimsIdentity claimsIdentity)
+        public Task<bool> CreatePost(CreatePostDto createPostDto, IFormFile file, ClaimsIdentity claimsIdentity)
         {
-            var curentUserId = ClaimsIdentityaHelper.GetUserId(claimsIdentity);
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
 
-            return _postInsertCommands.CreatePost(createPostDto, curentUserId);
+            var fileDto = file != null ? file.ConvertToFileDto() : null;
+
+            return _postInsertCommands.CreatePost(createPostDto, fileDto, curentUserId);
         }
 
         public Task<bool> CreatePostComment(CreatePostCommentDto postCommentDto, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
+
+            return _postInsertCommands.CreatePostComment(postCommentDto, curentUserId);
         }
 
         public Task<bool> DeletePost(int id, ClaimsIdentity claimsIdentity)

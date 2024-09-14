@@ -57,15 +57,13 @@
 }
 
 .messages-content {
-  flex-grow: 1;
-  margin-left: 270px; 
   background-color: #ffffff;
   padding: 20px; 
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  overflow-y: auto; 
+  width: 100vh; 
 }
 
 .messages {
@@ -123,16 +121,25 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
 }
 
+.message-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .message.sent {
   background-color: #dcf8c6;
   align-self: flex-end;
   border-top-right-radius: 0;
+  margin-left: auto;
+  max-width: 50%; /* Increased width */
 }
 
 .message.received {
   background-color: #f1f0f0;
   align-self: flex-start;
   border-top-left-radius: 0;
+  margin-right: auto;
+  max-width: 50%; /* Increased width */
 }
 
 .message p {

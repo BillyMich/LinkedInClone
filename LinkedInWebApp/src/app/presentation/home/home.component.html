@@ -21,12 +21,15 @@
       <div *ngFor="let post of posts" class="post">
         
         <div class="post-header">
-          <h3>{{ post.author }}</h3>
-          <p class="timestamp">{{ post.timestamp | date: 'short' }}</p>
+          <h3>{{ post.creatorName }}</h3>
+          <img *ngIf="getProfilePictureUrlById(post.creatorId)" [src]="getProfilePictureUrlById(post.creatorId)" alt="Profile Picture" class="profile-picture" />
+          <p class="timestamp">{{ post.createdAt | date: 'short' }}</p>
         </div>
-
-        <p>{{ post.content }}</p>
-
+    
+        <p>{{ post.freeTxt }}</p>
+    
+        <!-- Uncomment and use this block if media URLs are available -->
+        <!--
         <div *ngIf="post.mediaUrls.length > 0" class="media-content">
           <div *ngFor="let mediaUrl of post.mediaUrls">
             <img *ngIf="mediaUrl.endsWith('.jpg') || mediaUrl.endsWith('.png')" [src]="mediaUrl" alt="Media" />
@@ -34,16 +37,27 @@
             <audio *ngIf="mediaUrl.endsWith('.mp3')" [src]="mediaUrl" controls></audio>
           </div>
         </div>
-
+        -->
+    
         <div class="post-actions">
           <button (click)="onLike(post.id)" class="secondary-button">Σημειώστε το ενδιαφέρον</button>
           
           <form (submit)="onCommentSubmit(post.id)">
-            <input [(ngModel)]="newComment" name="newComment" placeholder="Γράψτε ένα σχόλιο..." /> <!-- Added name attribute -->
+            <input [(ngModel)]="newComment" name="newComment" placeholder="Γράψτε ένα σχόλιο..." />
             <button type="submit" class="secondary-button">Σχόλιο</button>
           </form>
         </div>
-
+    
+        <div class="comments-section">
+          <div *ngFor="let comment of post.comments | slice:0:commentsToShow[post.id]">
+            <div class="comment">
+              <img *ngIf="getProfilePictureUrlById(comment.creatorId)" [src]="getProfilePictureUrlById(comment.creatorId)" alt="Profile Picture" class="profile-picture" />
+              <p>{{ comment.freeTxt }}</p>
+            </div>
+          </div>
+          <button *ngIf="commentsToShow[post.id] < post.comments.length" (click)="loadMoreComments(post.id)" class="secondary-button">Load More Comments</button>
+        </div>
+    
       </div>
     </div>
 

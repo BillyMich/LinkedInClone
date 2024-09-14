@@ -1,11 +1,12 @@
 ﻿using LinkedInWebApi.Core;
+using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Services
 {
     public interface IPostService
     {
-        Task<bool> CreatePost(CreatePostDto postDto, ClaimsIdentity claimsIdentity);
+        Task<bool> CreatePost(CreatePostDto postDto, IFormFile file, ClaimsIdentity claimsIdentity);
 
         Task<bool> UpdatePost(PostDto postDto, ClaimsIdentity claimsIdentity);
 

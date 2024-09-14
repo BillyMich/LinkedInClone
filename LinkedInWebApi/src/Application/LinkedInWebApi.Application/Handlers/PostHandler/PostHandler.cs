@@ -1,5 +1,6 @@
 ﻿using LinkedInWebApi.Application.Services;
 using LinkedInWebApi.Core;
+using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
 namespace LinkedInWebApi.Application.Handlers
@@ -13,14 +14,14 @@ namespace LinkedInWebApi.Application.Handlers
             _postService = postService;
         }
 
-        public async Task<bool> CreatePost(CreatePostDto postDto, ClaimsIdentity claimsIdentity)
+        public async Task<bool> CreatePost(CreatePostDto postDto, IFormFile? file, ClaimsIdentity claimsIdentity)
         {
-            return await _postService.CreatePost(postDto, claimsIdentity);
+            return await _postService.CreatePost(postDto, file, claimsIdentity);
         }
 
-        public Task<bool> CreatePostComment(CreatePostCommentDto postCommentDto, ClaimsIdentity claimsIdentity)
+        public async Task<bool> CreatePostComment(CreatePostCommentDto postCommentDto, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return await _postService.CreatePostComment(postCommentDto, claimsIdentity);
         }
 
         public Task<bool> DeletePost(int id, ClaimsIdentity claimsIdentity)

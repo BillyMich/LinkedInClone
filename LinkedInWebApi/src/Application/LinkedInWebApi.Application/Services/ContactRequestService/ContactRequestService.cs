@@ -11,18 +11,19 @@ namespace LinkedInWebApi.Application.Services
         private readonly IContactRequestInsertCommands _contactRequestInsertCommands;
         private readonly IContactRequestUpdateCommands _contactRequestUpdateCommands;
         private readonly IContactRequestReadCommands _contactRequestReadCommands;
+        private readonly IUserReadCommands _userReadCommands;
 
-
-        public ContactRequestService(IContactRequestInsertCommands contactRequestInsertCommands, IContactRequestUpdateCommands contactRequestUpdateCommands, IContactRequestReadCommands contactRequestReadCommands)
+        public ContactRequestService(IContactRequestInsertCommands contactRequestInsertCommands, IContactRequestUpdateCommands contactRequestUpdateCommands, IContactRequestReadCommands contactRequestReadCommands, IUserReadCommands userReadCommands)
         {
             _contactRequestInsertCommands = contactRequestInsertCommands;
             _contactRequestUpdateCommands = contactRequestUpdateCommands;
             _contactRequestReadCommands = contactRequestReadCommands;
+            _userReadCommands = userReadCommands;
         }
 
         public async Task<bool> ChangeStatusOfRequest(ContactRequestChangeStatusDto contactRequestChangeStatusDto, ClaimsIdentity claimsIdentity)
         {
-            var curentUserId = ClaimsIdentityaHelper.GetUserId(claimsIdentity);
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
             var result = await _contactRequestUpdateCommands.ChangeStatusOfRequest(contactRequestChangeStatusDto, curentUserId);
 
             if (!result)
@@ -33,32 +34,44 @@ namespace LinkedInWebApi.Application.Services
             return true;
         }
 
-        public async Task<bool> CreateContactRequest(ContactRequestDto contactRequestDto, ClaimsIdentity claimsIdentity)
+        public async Task<bool> CreateContactRequest(NewContactRequestDto contactRequestDto, ClaimsIdentity claimsIdentity)
         {
-            var curentUserId = ClaimsIdentityaHelper.GetUserId(claimsIdentity);
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
 
             var result = await _contactRequestInsertCommands.CreateContactRequest(contactRequestDto, curentUserId);
 
-            if (!result)
-            {
-                throw ErrorException.UnexpectedBehaviorException;
-            }
+            return result;
 
-            return true;
         }
 
-        public Task<List<ContactRequestDto>> GetConnectedContactsByStatus(int statusId, ClaimsIdentity claimsIdentity)
+        public Task<List<ContactRequestDto>> GetPendingConnectContactsAsync(ClaimsIdentity claimsIdentity)
         {
-            var curentUserId = ClaimsIdentityaHelper.GetUserId(claimsIdentity);
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
 
-            return _contactRequestReadCommands.GetConnectedContactsByStatus(curentUserId);
+            return _contactRequestReadCommands.GetPendingConnectContactsAsync(curentUserId);
         }
 
-        public Task<List<UserDto>> GetConnectedUsers(ClaimsIdentity claimsIdentity)
+        public Task<List<UserDto>> GetConnectedUsersAsync(ClaimsIdentity claimsIdentity)
         {
-            var curentUserId = ClaimsIdentityaHelper.GetUserId(claimsIdentity);
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
 
-            return _contactRequestReadCommands.GetConnectedUsers(curentUserId);
+            return _contactRequestReadCommands.GetConnectedUsersAsync(curentUserId);
+        }
+
+        public async Task<List<UserDto>> GetNonConnectedUsers(ClaimsIdentity claimsIdentity)
+        {
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
+
+            return await GetNonConnectedUsers(curentUserId);
+        }
+
+        internal async Task<List<UserDto>> GetNonConnectedUsers(int curentUserId)
+        {
+            var connectedUsers = await _contactRequestReadCommands.GetConnectedUsersAsync(curentUserId);
+            var allUsers = await _userReadCommands.GetUsersAsync(null);
+            var nonConnectedUsers = allUsers.Except(connectedUsers).ToList();
+            nonConnectedUsers.RemoveAll(x => x.Id == curentUserId);
+            return nonConnectedUsers;
         }
     }
 }

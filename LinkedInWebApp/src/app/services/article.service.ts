@@ -24,14 +24,20 @@ export class ArticleService {
     return this.http.get<any[]>(`${this.apiUrl}/GetPosts`, { headers });
   }
 
-  createArticle(article: any): Observable<any> {
+  createArticle(article: any, file: any): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>(`${this.apiUrl}/CreatePost`, article, {
+
+    // Create FormData object
+    const formData: FormData = new FormData();
+    formData.append('FreeTxt', article?.freeTxt);
+    formData.append('file', file);
+
+    return this.http.post<any>(`${this.apiUrl}/CreatePost`, formData, {
       headers,
     });
   }
 
-  likeArticle(articleId: string): Observable<any> {
+  likeArticle(articleId: number): Observable<any> {
     const headers = this.getHeaders();
     return this.http.post<any>(
       `${this.apiUrl}/UpdatePost`,
@@ -40,15 +46,19 @@ export class ArticleService {
     );
   }
 
-  commentArticle(articleId: string, comment: string): Observable<any> {
+  commentArticle(articleId: number, comment: string): Observable<any> {
     const headers = this.getHeaders();
-    const commentDto = {
+    const createPostCommentDto = {
       postId: articleId,
-      content: comment,
+      freeTxt: comment,
     };
-    return this.http.post<any>(`${this.apiUrl}/CreatePostComment`, commentDto, {
-      headers,
-    });
+    return this.http.post<any>(
+      `${this.apiUrl}/CreatePostComment`,
+      createPostCommentDto,
+      {
+        headers,
+      }
+    );
   }
 
   deleteArticle(articleId: string): Observable<any> {

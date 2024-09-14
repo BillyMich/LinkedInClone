@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationsService } from '../../services/notifications.service';
+import { ContactRequestChangeStatusDto } from '../../models/contactRequest.model';
 
 @Component({
   selector: 'app-notifications',
@@ -31,15 +32,31 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
-  acceptRequest(requestId: string) {
-    this.notificationsService.acceptConnectionRequest(requestId).subscribe(() => {
-      this.loadNotifications();
-    });
+  acceptRequest(requestId: number) {
+    const statusId = 1; // Assuming 1 represents the accepted status
+    const changeStatusRequest = new ContactRequestChangeStatusDto(
+      requestId,
+      statusId
+    );
+
+    this.notificationsService
+      .acceptConnectionRequest(changeStatusRequest)
+      .subscribe(() => {
+        this.loadNotifications();
+      });
   }
 
-  rejectRequest(requestId: string) {
-    this.notificationsService.rejectConnectionRequest(requestId).subscribe(() => {
-      this.loadNotifications();
-    });
+  rejectRequest(requestId: number) {
+    const statusId = 0; // Assuming 0 represents the accepted status
+    const changeStatusRequest = new ContactRequestChangeStatusDto(
+      requestId,
+      statusId
+    );
+
+    this.notificationsService
+      .acceptConnectionRequest(changeStatusRequest)
+      .subscribe(() => {
+        this.loadNotifications();
+      });
   }
 }

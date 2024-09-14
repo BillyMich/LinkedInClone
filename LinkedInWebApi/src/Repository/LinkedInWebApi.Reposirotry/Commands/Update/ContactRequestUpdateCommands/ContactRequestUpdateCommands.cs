@@ -18,7 +18,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
         {
 
             var contactRequest = await _linkedInDbContext.ContactRequests.FirstOrDefaultAsync(x =>
-            x.Id == contactRequestChangeStatusDto.ConctactRequestId && x.UserResiverId == userId);
+            x.Id == contactRequestChangeStatusDto.ContactRequestId && x.UserResiverId == userId);
 
             if (contactRequest == null)
             {

@@ -8,9 +8,11 @@ namespace LinkedInWebApi.Application.Handlers
 
         Task<List<UserDto>> GetConnectedUsers(ClaimsIdentity claimsIdentity);
 
-        Task<List<ContactRequestDto>> GetConnectedContactsByStatus(int statusId, ClaimsIdentity claimsIdentity);
+        Task<List<UserDto>> GetNonConnectedUsers(ClaimsIdentity claimsIdentity);
 
-        Task<bool> CreateContactRequest(ContactRequestDto contactRequestDto, ClaimsIdentity claimsIdentity);
+        Task<List<ContactRequestDto>> GetPendingConnectContacts(ClaimsIdentity claimsIdentity);
+
+        Task<bool> CreateContactRequest(NewContactRequestDto contactRequestDto, ClaimsIdentity claimsIdentity);
 
         Task<bool> ChangeStatusOfRequest(ContactRequestChangeStatusDto contactRequestChangeStatusDto, ClaimsIdentity claimsIdentity);
     }

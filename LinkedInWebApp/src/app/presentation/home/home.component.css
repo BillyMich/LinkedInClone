@@ -143,3 +143,9 @@ textarea {
   border: 1px solid #ccc;
   font-size: 1rem;
 }
+
+.profile-picture {
+  height: 50px;
+  width: 50px;
+  object-fit: cover; /* Optional: Ensures the image covers the specified dimensions */
+}

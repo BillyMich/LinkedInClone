@@ -7,7 +7,7 @@ import { LocalStorageService } from './local-storage/local-storage.service';
   providedIn: 'root',
 })
 export class SettingsService {
-  private apiUrl = 'http://localhost:5152/api/user'; 
+  private apiUrl = 'http://localhost:5152/api/user';
 
   constructor(
     private http: HttpClient,
@@ -40,17 +40,8 @@ export class SettingsService {
     });
   }
 
-  getProfilePictureFromId(userId: number): Observable<Blob> {
-    const headers = this.getHeaders();
-  
-    if (userId) {
-      return this.http.get(`${this.apiUrl}/GetProfilePictureFromId/${userId}`, {
-        headers,
-        responseType: 'blob',
-      });
-    } else {
-      throw new Error('User ID is required.');
-    }
+  // Update this method to return a direct URL for the profile picture
+  getProfilePictureUrl(userId: number): string {
+    return `${this.apiUrl}/GetProfilePictureFromId/${userId}`;
   }
-  
 }
