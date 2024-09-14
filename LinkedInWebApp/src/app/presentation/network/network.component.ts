@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { SettingsService } from '../../services/settings.service';
-import { NewContactRequestDto } from '../../models/contactRequest.model';
+import { NewContactRequestDto } from '../../models/contactRequest.model'; 
 
 @Component({
   selector: 'app-network',
@@ -35,7 +35,7 @@ export class NetworkComponent implements OnInit {
         this.connectedUsers.forEach((user) => this.loadProfilePicture(user.id));
       },
       error: (err) => {
-        console.error('Error loading users:', err);
+        console.error('Error loading connected users:', err);
       },
     });
   }
@@ -49,14 +49,13 @@ export class NetworkComponent implements OnInit {
         );
       },
       error: (err) => {
-        console.error('Error loading users:', err);
+        console.error('Error loading non-connected users:', err);
       },
     });
   }
 
   loadProfilePicture(userId: number) {
-    this.profilePictures[userId] =
-      this.settingsService.getProfilePictureUrl(userId);
+    this.profilePictures[userId] = this.settingsService.getProfilePictureUrl(userId);
   }
 
   searchProfessionals() {
@@ -85,9 +84,7 @@ export class NetworkComponent implements OnInit {
   }
 
   sendFriendRequest(professionalId: number) {
-    const contactRequest = new NewContactRequestDto(professionalId);
-
-    this.userService.createContactRequest(contactRequest).subscribe({
+    this.userService.createContactRequest(new NewContactRequestDto(professionalId)).subscribe({
       next: () => {
         alert('Friend request sent successfully!');
       },
