@@ -1,4 +1,4 @@
-﻿using LinkedInWebApi.Core.Dto;
+﻿using LinkedInWebApi.Core;
 
 namespace LinkedInWebApi.Application.Services
 {

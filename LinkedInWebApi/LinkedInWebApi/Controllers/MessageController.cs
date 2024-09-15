@@ -27,11 +27,12 @@ namespace LinkedInWebApi.Controllers
         /// <returns>A boolean indicating whether the message was successfully inserted.</returns>
         [HttpPost("CreateMessage")]
         [Authorize]
-        public async Task<ActionResult<bool>> InsertMessage([FromBody] NewMessageDto newMessage)
+        public async Task<ActionResult> InsertMessage([FromBody] NewMessageDto newMessage)
         {
             try
             {
-                return Ok(await _messageHandler.InsertMessageAsync(newMessage, _identity));
+                await _messageHandler.InsertMessageAsync(newMessage, _identity);
+                return NoContent();
             }
             catch (Exception)
             {

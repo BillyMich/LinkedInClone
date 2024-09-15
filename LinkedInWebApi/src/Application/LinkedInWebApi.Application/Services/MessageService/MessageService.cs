@@ -57,7 +57,7 @@ namespace LinkedInWebApi.Application.Services
         /// <param name="newMessage">The DTO containing the new message details.</param>
         /// <param name="claimsIdentity">The claims identity of the user.</param>
         /// <returns>True if the message was inserted successfully, false otherwise.</returns>
-        public async Task<bool> InsertMessageAsync(NewMessageDto newMessage, ClaimsIdentity claimsIdentity)
+        public async Task InsertMessageAsync(NewMessageDto newMessage, ClaimsIdentity claimsIdentity)
         {
             var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
 
@@ -68,7 +68,7 @@ namespace LinkedInWebApi.Application.Services
                 chatId = await _messageWriteCommands.CreateChatAsync(curentUserId, newMessage.ReceiverId);
             }
 
-            return await _messageWriteCommands.InsertMessageAsync(newMessage, curentUserId, chatId);
+            await _messageWriteCommands.InsertMessageAsync(newMessage, curentUserId, chatId);
         }
     }
 }
