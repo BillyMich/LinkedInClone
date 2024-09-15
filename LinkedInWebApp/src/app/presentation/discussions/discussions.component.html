@@ -23,7 +23,7 @@
       <div
         *ngFor="let message of messages"
         [ngClass]="{
-          'sent': checkIfIsSender(message?.senderId),  
+          'sent': checkIfIsSender(message?.senderId), 
           'received': !checkIfIsSender(message?.senderId) 
         }"
         class="message"
@@ -37,4 +37,5 @@
       <button (click)="sendMessage()">Αποστολή</button>
     </div>
   </div>
+  
 </div>

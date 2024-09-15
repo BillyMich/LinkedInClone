@@ -7,7 +7,7 @@ import { LocalStorageService } from './local-storage/local-storage.service';
   providedIn: 'root',
 })
 export class JobService {
-  private apiUrl = 'http://localhost:5152/api';
+  private apiUrl = 'http://localhost:5152/api'; 
 
   constructor(
     private http: HttpClient,
@@ -21,7 +21,7 @@ export class JobService {
 
   getJobListings(): Observable<any[]> {
     const headers = this.getHeaders();
-    return this.http.get<any[]>(`${this.apiUrl}/jobs`, { headers });
+    return this.http.get<any[]>(`${this.apiUrl}/GetAdvertisements`, { headers });
   }
 
   applyForJob(jobId: string): Observable<any> {
@@ -35,6 +35,43 @@ export class JobService {
 
   postJob(job: any): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>(`${this.apiUrl}/jobs`, job, { headers });
+    return this.http.post<any>(`${this.apiUrl}/CreateAdvertisement`, job, {
+      headers,
+    });
+  }
+
+  getJobListingsByProfessionalBranches(branchIds: number[]): Observable<any[]> {
+    const headers = this.getHeaders();
+    return this.http.post<any[]>(
+      `${this.apiUrl}/GetAdvertisementsByProfessionalBranches`,
+      branchIds,
+      { headers }
+    );
+  }
+
+  getJobListingsOfUserByStatus(status: number): Observable<any[]> {
+    const headers = this.getHeaders();
+    return this.http.get<any[]>(
+      `${this.apiUrl}/GetAdvertisementsOfUserByStatus/${status}`,
+      { headers }
+    );
+  }
+
+  updateJob(job: any): Observable<boolean> {
+    const headers = this.getHeaders();
+    return this.http.post<boolean>(
+      `${this.apiUrl}/UpdateAdvertisement`,
+      job,
+      { headers }
+    );
+  }
+
+  deleteJob(jobId: number): Observable<boolean> {
+    const headers = this.getHeaders();
+    return this.http.post<boolean>(
+      `${this.apiUrl}/DeleteAdvertisement/${jobId}`,
+      {},
+      { headers }
+    );
   }
 }
