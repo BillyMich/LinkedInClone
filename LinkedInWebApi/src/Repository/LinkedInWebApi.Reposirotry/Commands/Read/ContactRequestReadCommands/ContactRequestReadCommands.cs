@@ -5,9 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LinkedInWebApi.Reposirotry.Commands
 {
+    /// <summary>
+    /// This class provides read operations for contact requests.
+    /// </summary>
     public class ContactRequestReadCommands : IContactRequestReadCommands
     {
-
         private readonly LinkedInDbContext _linkedInDbContext;
 
         public ContactRequestReadCommands(LinkedInDbContext linkedInDbContext)
@@ -15,20 +17,30 @@ namespace LinkedInWebApi.Reposirotry.Commands
             _linkedInDbContext = linkedInDbContext;
         }
 
+        /// <summary>
+        /// Retrieves a list of pending connect contacts for a given user.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <returns>A list of contact requests as ContactRequestDto.</returns>
         public async Task<List<ContactRequestDto>> GetPendingConnectContactsAsync(int userId)
         {
-            var contactRequest = await _linkedInDbContext.ContactRequests
+            var contactRequests = await _linkedInDbContext.ContactRequests
                 .Include(x => x.UserRequest)
                 .Include(x => x.UserResiver)
                 .Where(x => x.UserRequestId == userId || x.UserResiverId == userId)
-                .Where(x => x.IsActive == true && x.IsAccepted == false).ToListAsync();
+                .Where(x => x.IsActive == true && x.IsAccepted == false)
+                .ToListAsync();
 
-            return contactRequest.ToContactRequestDto(userId);
+            return contactRequests.ToContactRequestDto(userId);
         }
 
+        /// <summary>
+        /// Retrieves a list of connected users for a given user.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <returns>A list of connected users as UserDto.</returns>
         public async Task<List<UserDto>> GetConnectedUsersAsync(int userId)
         {
-
             var connectedUsers = await _linkedInDbContext.ContactRequests
                 .Where(x => x.UserRequestId == userId || x.UserResiverId == userId)
                 .Where(x => x.IsActive == true && x.IsAccepted == true)
@@ -40,7 +52,8 @@ namespace LinkedInWebApi.Reposirotry.Commands
                     Email = x.UserRequestId == userId ? x.UserResiver.Email : x.UserRequest.Email,
                     CreatedAt = x.CreatedAt,
                     UpdatedAt = x.UpdatedAt
-                }).ToListAsync();
+                })
+                .ToListAsync();
 
             return connectedUsers;
         }

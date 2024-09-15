@@ -1,4 +1,4 @@
-﻿using LinkedInWebApi.Core.Dto;
+﻿using LinkedInWebApi.Core;
 using LinkiedInWebApi.Domain.Entity;
 
 namespace LinkedInWebApi.Reposirotry.Extensions
