@@ -1,79 +1,78 @@
 .content {
   padding-top: 70px; 
 }
-
 .network-container {
   display: flex;
-  width: 100%; 
-  height: 100vh;
-  box-sizing: border-box;
-  position: relative; 
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  position: fixed; /* Keep the container fixed in place */
+  top: 0;
+  left: 0;
   background-color: #f0f2f5;
+  overflow: hidden; /* Prevent the entire viewport from scrolling */
 }
 
 .users-list {
-  width: 250px;
-  background-color: #ffffff; 
+  background-color: #ffffff;
   padding: 20px;
-  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.1); 
-  overflow-y: auto;
-  position: fixed; 
-  left: 0; 
-  top: 70px; 
-  bottom: 0;
-  border-right: none;
+  flex-grow: 1;
+  overflow-y: auto; /* Enable vertical scrolling inside the users list */
+  height: 100%; /* Make sure the height fills the fixed container */
+  box-sizing: border-box; /* Ensure padding does not affect the overall size */
 }
 
-.users-list h2 {
-  margin-bottom: 20px;
-  font-size: 1.6rem; 
-  color: #0073b1; 
-  font-weight: 600; 
-  text-align: center;
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid layout */
+  gap: 20px;
+  padding: 20px;
 }
 
-.users-list ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.users-list li {
+.grid-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 15px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease; 
+  background-color: #ffffff;
   padding: 10px;
   border-radius: 8px;
-  background-color: #ffffff; 
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.users-list li:hover {
-  background-color: #f1f1f1; 
+.grid-item:hover {
+  background-color: #f1f1f1;
 }
 
-.users-list img.profile-pic {
+
+.profile-pic {
   width: 70px;
   height: 70px;
-  border-radius: 50%; 
-  margin-bottom: 10px; 
-  border: 2px solid #0073b1;
+  border-radius: 50%;
+  margin-bottom: 10px;
   object-fit: cover;
+  border: 2px solid #0073b1;
 }
 
-.users-list p {
-  margin: 0;
-  font-size: 1rem;
+.professional-info p {
+  margin: 5px 0;
+  font-size: 0.9rem;
   color: #333;
-  text-align: center; 
-  font-weight: 500;
 }
+
+
+.profile-pic {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  object-fit: cover;
+  border: 2px solid #0073b1;
+}
+
 
 .profile-viewer {
-  padding-left: 0px;
+  padding-left: 0;
   flex-grow: 1;
   padding-top: 20px;
   overflow-y: auto;
@@ -94,7 +93,38 @@
   border: 3px solid #0073b1;
 }
 
-.primary-button, .secondary-button {
+.profile-viewer-modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Background with transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  text-align: center;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.primary-button,
+.secondary-button {
   padding: 10px 20px;
   border-radius: 8px;
   cursor: pointer;
