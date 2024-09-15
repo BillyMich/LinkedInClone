@@ -9,7 +9,7 @@ namespace LinkedInWebApi.Application.Services
 
         Task<List<UserDto>> GetNonConnectedUsers(ClaimsIdentity claimsIdentity);
 
-        Task<List<ContactRequestDto>> GetPendingConnectContactsAsync(ClaimsIdentity claimsIdentity);
+        Task<ContactRequestOfUserDto> GetPendingConnectContactsAsync(ClaimsIdentity claimsIdentity);
 
         Task<bool> CreateContactRequest(NewContactRequestDto contactRequestDto, ClaimsIdentity claimsIdentity);
 

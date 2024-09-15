@@ -6,7 +6,7 @@ namespace LinkedInWebApi.Application.Handlers.MessageHandler
     public interface IMessageHandler
     {
 
-        Task<bool> InsertMessageAsync(NewMessageDto newMessage, ClaimsIdentity claimsIdentity);
+        Task InsertMessageAsync(NewMessageDto newMessage, ClaimsIdentity claimsIdentity);
 
         Task<List<ChatDto>?> GetChatsOfUserAsync(ClaimsIdentity claimsIdentity);
 

@@ -47,9 +47,9 @@ namespace LinkedInWebApi.Application.Handlers.MessageHandler
         /// <param name="newMessage">The DTO containing information about the new message.</param>
         /// <param name="claimsIdentity">The claims identity of the user.</param>
         /// <returns>True if the message is inserted successfully, otherwise false.</returns>
-        public async Task<bool> InsertMessageAsync(NewMessageDto newMessage, ClaimsIdentity claimsIdentity)
+        public async Task InsertMessageAsync(NewMessageDto newMessage, ClaimsIdentity claimsIdentity)
         {
-            return await _messageService.InsertMessageAsync(newMessage, claimsIdentity);
+            await _messageService.InsertMessageAsync(newMessage, claimsIdentity);
         }
     }
 }
