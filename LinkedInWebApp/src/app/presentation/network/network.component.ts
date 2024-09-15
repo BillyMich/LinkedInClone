@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { SettingsService } from '../../services/settings.service';
@@ -97,6 +97,10 @@ export class NetworkComponent implements OnInit {
     return this.connectedUsers.some(user => user.id === professionalId);
   }
 
+  closeProfileViewer() {
+    this.selectedProfessional = null;
+  }
+  
   deleteFriend(professionalId: number) { // enable when delete is possible
    /* this.userService.deleteContact(professionalId).subscribe({
       next: () => {
@@ -112,5 +116,9 @@ export class NetworkComponent implements OnInit {
     });
     */
   }
-  
+  @HostListener('document:keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.closeProfileViewer();
+    }
+  }
 }
