@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { JobService } from '../../services/job.service';
 import { AuthService } from '../../services/auth-service/auth.service';
 
@@ -36,7 +36,6 @@ export class JobsComponent implements OnInit {
   applyForJob(jobId: string) {
     this.jobService.applyForJob(jobId).subscribe((response) => {
       console.log('Applied for job', response);
-      // Optionally refresh the job listings or update the UI
     });
   }
 
@@ -50,8 +49,15 @@ export class JobsComponent implements OnInit {
         console.log('Job posted', response);
         this.loadJobListings();
         this.newJob = { title: '', description: '', skillsRequired: '' };
-        this.showJobForm = false;
+        this.showJobForm = false; 
       });
+    }
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Escape' && this.showJobForm) {
+      this.showJobForm = false;
     }
   }
 }
