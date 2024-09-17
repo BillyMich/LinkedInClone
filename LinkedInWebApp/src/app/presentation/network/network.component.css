@@ -23,7 +23,7 @@
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
   padding: 20px;
 }
@@ -33,17 +33,30 @@
   flex-direction: column;
   align-items: center;
   background-color: #ffffff;
-  padding: 10px;
+  padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
+.grid-item img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.grid-item p {
+  margin: 5px 0;
+  font-size: 14px;
+  text-align: center;
+  color: #333;
+}
+
 .grid-item:hover {
   background-color: #f1f1f1;
 }
-
 
 .profile-pic {
   width: 70px;
@@ -92,7 +105,6 @@
   margin-bottom: 20px;
   border: 3px solid #0073b1;
 }
-
 .profile-viewer-modal {
   position: fixed;
   z-index: 1000;
@@ -113,6 +125,7 @@
   width: 400px;
   max-width: 90%;
   text-align: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2); 
 }
 
 .close-button {
@@ -123,19 +136,25 @@
   cursor: pointer;
 }
 
-.primary-button,
-.secondary-button {
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s, transform 0.3s;
+.profile-details h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 .primary-button {
   background-color: #0073b1;
   color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
   border: none;
+  transition: background-color 0.3s ease;
 }
 
 .primary-button:hover {
@@ -144,13 +163,17 @@
 
 .secondary-button {
   background-color: #f1f1f1;
-  color: #333;
-  border: 1px solid #ccc;
+  color: #0073b1;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid #0073b1;
 }
 
 .secondary-button:hover {
   background-color: #e1e1e1;
 }
+
 
 .search-bar {
   display: flex;
@@ -175,4 +198,43 @@
 .search-input:focus {
   border-color: #0073b1;
   box-shadow: 0 0 5px rgba(0, 115, 177, 0.5);
+}
+.search-results {
+  margin-top: 20px;
+  padding: 0 20px;
+  max-width: 80%; 
+  margin-left: auto;
+  margin-right: auto;
+  list-style-type: none;
+}
+
+.search-results li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+  cursor: pointer; 
+}
+
+.search-results li:hover {
+  background-color: #f1f1f1;
+}
+
+
+.search-results img.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.search-results p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
 }
