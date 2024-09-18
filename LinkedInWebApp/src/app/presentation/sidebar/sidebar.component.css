@@ -1,14 +1,15 @@
 .sidebar {
-  background-color: #fdfdf2;
+  background-color: #fefef9;
   padding: 20px;
   width: 200px;
+  height: auto; 
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 70px;
+  position: fixed; 
+  top: 120px;
   left: 0;
-  height: calc(100vh - 70px);
+  border-radius: 15px;
   overflow-y: auto;
-  border-radius: 0;
+  max-height: calc(100vh - 70px);
 }
 
 .profile-section {
@@ -23,13 +24,6 @@
   border: 2px solid #0073b1;
   object-fit: cover;  
   margin-bottom: 10px;
-}
-
-img.profile-picture {
-  max-width: 100%;     
-  max-height: 100%;    
-  border-radius: 50%;  
-  object-fit: cover;  
 }
 
 .user-name {
