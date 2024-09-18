@@ -8,12 +8,13 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #f0f2f5;
+  background-color: #fdfdf2;
+
   overflow: hidden; 
 }
 
 .users-list {
-  background-color: #ffffff;
+  background-color: #fdfdf2;
   padding: 20px;
   flex-grow: 1;
   overflow-y: auto;
@@ -179,7 +180,7 @@
   display: flex;
   justify-content: center;
   padding: 20px;
-  background-color: #ffffff;
+  background-color: #fdfdf2;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }

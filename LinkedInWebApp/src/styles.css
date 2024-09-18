@@ -1,5 +1,6 @@
 html {
   overflow-y: scroll; 
+  background-color: #fdfdf2;
 }
 
 body {
@@ -8,4 +9,5 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   padding: 0;
   box-sizing: border-box;
+  background-color: #fdfdf2;
 }
