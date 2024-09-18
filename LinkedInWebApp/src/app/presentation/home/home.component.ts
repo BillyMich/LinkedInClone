@@ -3,7 +3,7 @@ import { ArticleService } from '../../services/article.service'; // Using Articl
 import { SettingsService } from '../../services/settings.service';
 import { Post, Comment } from '../../models/post.model';
 import { IdDictionary } from '../../models/profilePictureDictionary.model';
-
+import { AuthService } from '../../services/auth-service/auth.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,17 +14,28 @@ import { IdDictionary } from '../../models/profilePictureDictionary.model';
 export class HomeComponent implements OnInit {
   posts: Post[] = [];
   newPostContent: string = '';
-  newComments: { [postId: number]: string } = {}; // A dictionary to track new comments per post
+  newComments: { [postId: number]: string } = {}; 
   idDictionary: IdDictionary[] = [];
-  commentsToShow: { [postId: number]: number } = {}; // Track comments to show for each post
+  commentsToShow: { [postId: number]: number } = {}; 
   file: any;
+  profilePictureUrl: string | ArrayBuffer | null = null; 
+  userName: string | null = '';
 
   constructor(
     private articleService: ArticleService,
+    private authService: AuthService,
     private settingsService: SettingsService
   ) {}
 
   ngOnInit() {
+    const currentUser = this.authService.getCurrentUser();
+  
+    if (currentUser && currentUser.name) {
+      this.userName = currentUser.name;
+      this.loadProfilePicture();
+    } else {
+      console.error('User is not logged in or invalid user data');
+    }
     this.fetchPosts();
   }
 
@@ -101,4 +112,12 @@ export class HomeComponent implements OnInit {
     return entry ? entry.ProfilePictureUrl : null;
   }
 
+  loadProfilePicture(): void {
+    const currentUser = this.authService.getCurrentUser(); 
+    if (currentUser && currentUser.id) {
+      this.profilePictureUrl = this.settingsService.getProfilePictureUrl(currentUser.id);
+    } else {
+      console.error('User not found or missing user ID');
+    }
+  }
 }

@@ -6,6 +6,9 @@
 <div class="home-container content">
   <app-sidebar></app-sidebar>
   <div class="main-content">
+    <div class="profile-section" *ngIf="profilePictureUrl">
+      <img [src]="profilePictureUrl || 'assets/default-profile.png'" alt="Profile Picture" loading="lazy" class="profile-picture" />
+    </div>
     <div class="form">
     <form (ngSubmit)="onPostSubmit()" #postForm="ngForm">
       <textarea
