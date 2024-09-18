@@ -1,10 +1,14 @@
 .content {
   padding-top: 120px; 
 }
+.profile-container{
+  background-color: #fdfdf2;
+}
 .profile-header {
   display: flex;
   justify-content: left;
   margin-bottom: 30px;
+  background-color: #fdfdf2;
 }
 
 .profile-picture-container {
@@ -17,6 +21,7 @@
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
+  background-color: #fdfdf2;
 }
 
 .actions button {
@@ -35,7 +40,7 @@
 }
 
 .modal {
-  background-color: white;
+  background-color: #fdfdf2;
   position: fixed;
   top: 50%;
   left: 50%;

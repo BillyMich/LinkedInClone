@@ -58,14 +58,10 @@ export class NetworkComponent implements OnInit {
   }
 
   searchProfessionals() {
-    if (this.searchQuery) {
-      this.userService.searchProfessionals(this.searchQuery).subscribe({
-        next: (data) => {
-          this.searchResults = data;
-        },
-        error: (err) => {
-          console.error('Error searching professionals:', err);
-        },
+    if (this.searchQuery.trim()) {
+      this.searchResults = this.nonConnectedUsers.filter(user => {
+        const fullName = `${user.name} ${user.surname}`.toLowerCase();
+        return fullName.includes(this.searchQuery.toLowerCase());
       });
     } else {
       this.searchResults = [];
@@ -93,6 +89,7 @@ export class NetworkComponent implements OnInit {
       },
     });
   }
+
   isConnected(professionalId: number): boolean {
     return this.connectedUsers.some(user => user.id === professionalId);
   }
@@ -100,7 +97,6 @@ export class NetworkComponent implements OnInit {
   closeProfileViewer() {
     this.selectedProfessional = null;
   }
-  
   deleteFriend(professionalId: number) { // enable when delete is possible
    /* this.userService.deleteContact(professionalId).subscribe({
       next: () => {
@@ -122,3 +118,4 @@ export class NetworkComponent implements OnInit {
     }
   }
 }
+

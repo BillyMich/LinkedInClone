@@ -33,7 +33,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   acceptRequest(requestId: number) {
-    const statusId = 1; // Assuming 1 represents the accepted status
+    const statusId = 1; 
     const changeStatusRequest = new ContactRequestChangeStatusDto(
       requestId,
       statusId
@@ -47,7 +47,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   rejectRequest(requestId: number) {
-    const statusId = 0; // Assuming 0 represents the accepted status
+    const statusId = 0;
     const changeStatusRequest = new ContactRequestChangeStatusDto(
       requestId,
       statusId
