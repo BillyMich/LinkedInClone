@@ -152,12 +152,12 @@ export class ProfileComponent implements OnInit {
   }
 
   openExperienceModal() {
-    this.showEducationModal = false;
+    this.closeModal();
     this.showExperienceModal = true;
   }
 
   openEducationModal() {
-    this.showExperienceModal = false;
+    this.closeModal();
     this.showEducationModal = true;
   }
 
@@ -166,21 +166,5 @@ export class ProfileComponent implements OnInit {
     this.showEducationModal = false;
   }
 
-  onSubmit() {
-    if (this.profileForm.valid) {
-      this.userService
-        .updateUser(this.user.id, this.profileForm.value)
-        .subscribe({
-          next: (response) => {
-            this.user = response;
-            this.closeModal();
-          },
-          error: (error) => {
-            console.error('Update failed', error);
-          },
-        });
-    } else {
-      console.log('Form is not valid');
-    }
-  }
+  onSubmit() {}
 }
