@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormArray,
-} from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { AuthService } from '../../services/auth-service/auth.service';
 import { UserService } from '../../services/user.service';
 import { SettingsService } from '../../services/settings.service';
@@ -21,7 +16,6 @@ export class ProfileComponent implements OnInit {
 
   showExperienceModal: boolean = false;
   showEducationModal: boolean = false;
-  showSkillModal: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -111,7 +105,10 @@ export class ProfileComponent implements OnInit {
   addEducation(edu?: any) {
     const educationGroup = new FormGroup({
       degree: new FormControl(edu ? edu.degree : '', Validators.required),
-      institution: new FormControl(edu ? edu.institution : '', Validators.required),
+      institution: new FormControl(
+        edu ? edu.institution : '',
+        Validators.required
+      ),
     });
     this.education.push(educationGroup);
   }
@@ -127,7 +124,9 @@ export class ProfileComponent implements OnInit {
     const currentUser = this.authService.getCurrentUser();
 
     if (currentUser && currentUser.id) {
-      this.profilePictureUrl = this.settingsService.getProfilePictureUrl(currentUser.id);
+      this.profilePictureUrl = this.settingsService.getProfilePictureUrl(
+        currentUser.id
+      );
     } else {
       console.error('User not found or missing user ID');
     }
@@ -153,34 +152,33 @@ export class ProfileComponent implements OnInit {
   }
 
   openExperienceModal() {
+    this.showEducationModal = false;
     this.showExperienceModal = true;
   }
 
   openEducationModal() {
+    this.showExperienceModal = false;
     this.showEducationModal = true;
-  }
-
-  openSkillModal() {
-    this.showSkillModal = true;
   }
 
   closeModal() {
     this.showExperienceModal = false;
     this.showEducationModal = false;
-    this.showSkillModal = false;
   }
 
   onSubmit() {
     if (this.profileForm.valid) {
-      this.userService.updateUser(this.user.id, this.profileForm.value).subscribe({
-        next: (response) => {
-          this.user = response;
-          this.closeModal();
-        },
-        error: (error) => {
-          console.error('Update failed', error);
-        },
-      });
+      this.userService
+        .updateUser(this.user.id, this.profileForm.value)
+        .subscribe({
+          next: (response) => {
+            this.user = response;
+            this.closeModal();
+          },
+          error: (error) => {
+            console.error('Update failed', error);
+          },
+        });
     } else {
       console.log('Form is not valid');
     }
