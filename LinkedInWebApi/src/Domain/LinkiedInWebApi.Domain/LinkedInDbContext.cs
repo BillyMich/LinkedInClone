@@ -2,9 +2,10 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using LinkiedInWebApi.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace LinkiedInWebApi.Domain.Entity;
+namespace LinkiedInWebApi.Domain;
 
 public partial class LinkedInDbContext : DbContext
 {
@@ -31,7 +32,7 @@ public partial class LinkedInDbContext : DbContext
 
     public virtual DbSet<PostComment> PostComments { get; set; }
 
-    public virtual DbSet<PostMultimedium> PostMultimedia { get; set; }
+    public virtual DbSet<PostMultimedia> PostMultimedia { get; set; }
 
     public virtual DbSet<PostReaction> PostReactions { get; set; }
 
@@ -208,7 +209,7 @@ public partial class LinkedInDbContext : DbContext
                 .HasConstraintName("FK_Comment_Post");
         });
 
-        modelBuilder.Entity<PostMultimedium>(entity =>
+        modelBuilder.Entity<PostMultimedia>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_PostPhoto");
 

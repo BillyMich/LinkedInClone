@@ -46,7 +46,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 CreatedAt = post.CreatedAt,
                 UpdatedAt = post.UpdatedAt,
                 Comments = post.PostComments.ToList().ToCommentDto(),
-                FileDto = post.PostPhotos.FirstOrDefault()?.ToPostPhotoDto()
+                FileDto = post.PostMultimedia.FirstOrDefault()?.ToPostPhotoDto()
 
             };
         }
@@ -76,9 +76,9 @@ namespace LinkedInWebApi.Reposirotry.Extensions
         }
 
 
-        public static PostPhoto ToPostPhoto(this FileDto postPhotoDto)
+        public static PostMultimedia ToPostMultimedia(this FileDto postPhotoDto)
         {
-            return new PostPhoto
+            return new PostMultimedia
             {
                 FileName = postPhotoDto.FileName,
                 DataOfFile = postPhotoDto.DataOfFile,
@@ -88,7 +88,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
             };
         }
 
-        public static FileDto ToPostPhotoDto(this PostPhoto postPhoto)
+        public static FileDto ToPostPhotoDto(this PostMultimedia postPhoto)
         {
             return new FileDto
             {

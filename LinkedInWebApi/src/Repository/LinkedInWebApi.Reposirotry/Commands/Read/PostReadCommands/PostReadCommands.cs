@@ -22,7 +22,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
                 var posts = await _linkedInDbContext.Posts.
                     Include(x => x.PostComments).
                     Include(x => x.Creator).
-                    Include(x => x.PostPhotos).ToListAsync();
+                    Include(x => x.PostMultimedia).ToListAsync();
                 return posts.ToPostDto();
             }
             catch (Exception ex)
