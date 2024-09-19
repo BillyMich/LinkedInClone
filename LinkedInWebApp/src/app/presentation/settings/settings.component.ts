@@ -14,7 +14,7 @@ export class SettingsComponent implements OnInit {
   emailForm!: FormGroup;
   passwordForm!: FormGroup;
   profilePictureUrl: string | ArrayBuffer | null = null;
-  
+
   showEmailModal: boolean = false;
   showPasswordModal: boolean = false;
 
@@ -34,10 +34,13 @@ export class SettingsComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
     });
 
-    this.passwordForm = this.fb.group({
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', Validators.required],
-    }, { validators: this.passwordMatchValidator });
+    this.passwordForm = this.fb.group(
+      {
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', Validators.required],
+      },
+      { validators: this.passwordMatchValidator }
+    );
 
     this.loadProfilePicture();
   }
@@ -51,9 +54,10 @@ export class SettingsComponent implements OnInit {
 
   loadProfilePicture(): void {
     const currentUser = this.authService.getCurrentUser();
-    
-    if (currentUser && currentUser.id) { 
-      this.profilePictureUrl = this.settingsService.getProfilePictureUrl(currentUser.id); 
+    if (currentUser && currentUser.id) {
+      this.profilePictureUrl = this.settingsService.getProfilePictureUrl(
+        currentUser.id
+      );
     } else {
       console.error('User not found or missing user ID');
     }
@@ -64,10 +68,12 @@ export class SettingsComponent implements OnInit {
   }
 
   openEmailModal() {
+    this.showPasswordModal = false;
     this.showEmailModal = true;
   }
 
   openPasswordModal() {
+    this.showEmailModal = false;
     this.showPasswordModal = true;
   }
 
@@ -78,19 +84,23 @@ export class SettingsComponent implements OnInit {
 
   onChangeEmail(): void {
     if (this.emailForm.valid) {
-      this.settingsService.changeEmailPassword({ email: this.emailForm.value.email }).subscribe({
-        next: () => this.closeModal(),
-        error: (error) => console.error('Error changing email', error),
-      });
+      this.settingsService
+        .changeEmailPassword({ email: this.emailForm.value.email })
+        .subscribe({
+          next: () => this.closeModal(),
+          error: (error) => console.error('Error changing email', error),
+        });
     }
   }
 
   onChangePassword(): void {
     if (this.passwordForm.valid) {
-      this.settingsService.changeEmailPassword({ password: this.passwordForm.value.password }).subscribe({
-        next: () => this.closeModal(),
-        error: (error) => console.error('Error changing password', error),
-      });
+      this.settingsService
+        .changeEmailPassword({ password: this.passwordForm.value.password })
+        .subscribe({
+          next: () => this.closeModal(),
+          error: (error) => console.error('Error changing password', error),
+        });
     }
   }
 

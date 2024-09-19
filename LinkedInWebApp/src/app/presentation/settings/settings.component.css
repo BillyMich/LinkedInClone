@@ -48,14 +48,20 @@ label {
 
 
 .modal {
-  background-color: #fdfdf2;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  background-color: #fefefe;
+  margin: auto;
   padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Increase the width */
+  max-width: 1200px; /* Set a maximum width */
+  height: 80%; /* Increase the height */
+  max-height: 800px; /* Set a maximum height */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  
 }
 
 .modal form {
@@ -72,7 +78,12 @@ label {
 }
 
 .modal button {
-  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .primary-button {
