@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingsService } from '../../services/settings.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service/auth.service';
+import { UpdateUserSettingsDto } from '../../models/updateUserSettingsDto.model';
 
 @Component({
   selector: 'app-settings',
@@ -17,6 +18,8 @@ export class SettingsComponent implements OnInit {
 
   showEmailModal: boolean = false;
   showPasswordModal: boolean = false;
+  showChangeProfilePictureModal: boolean = false;
+  selectedFile: File | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -63,44 +66,73 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
-    this.settingsService.updateSettings(this.settingsForm.value).subscribe();
-  }
-
   openEmailModal() {
-    this.showPasswordModal = false;
+    this.closeModal();
     this.showEmailModal = true;
   }
 
   openPasswordModal() {
-    this.showEmailModal = false;
+    this.closeModal();
     this.showPasswordModal = true;
+  }
+
+  openChangeProfilePictureModal() {
+    this.closeModal();
+    this.showChangeProfilePictureModal = true;
   }
 
   closeModal() {
     this.showEmailModal = false;
     this.showPasswordModal = false;
+    this.showChangeProfilePictureModal = false;
   }
 
   onChangeEmail(): void {
     if (this.emailForm.valid) {
-      this.settingsService
-        .changeEmailPassword({ email: this.emailForm.value.email })
-        .subscribe({
-          next: () => this.closeModal(),
-          error: (error) => console.error('Error changing email', error),
-        });
+      const updateUserSettings: UpdateUserSettingsDto = {
+        email: this.emailForm.value.email,
+        oldPassword: undefined,
+        password: undefined,
+      };
+
+      this.settingsService.changeEmailPassword(updateUserSettings).subscribe({
+        next: () => this.closeModal(),
+        error: (error) => console.error('Error changing email', error),
+      });
     }
   }
 
   onChangePassword(): void {
     if (this.passwordForm.valid) {
-      this.settingsService
-        .changeEmailPassword({ password: this.passwordForm.value.password })
-        .subscribe({
-          next: () => this.closeModal(),
-          error: (error) => console.error('Error changing password', error),
-        });
+      const updateUserSettings: UpdateUserSettingsDto = {
+        email: undefined,
+        oldPassword: this.passwordForm.value.oldPassword,
+        password: this.passwordForm.value.password,
+      };
+
+      this.settingsService.changeEmailPassword(updateUserSettings).subscribe({
+        next: () => this.closeModal(),
+        error: (error) => console.error('Error changing password', error),
+      });
+    }
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  onSubmitProfilePicture() {
+    if (this.selectedFile) {
+      this.settingsService.uploadPhoto(this.selectedFile).subscribe({
+        next: (response) => {
+          console.log('File uploaded successfully', response);
+          this.closeModal();
+        },
+        error: (error) => {
+          console.error('Error uploading file', error);
+        },
+      });
+      this.closeModal();
     }
   }
 
