@@ -8,7 +8,7 @@ namespace LinkedInWebApi.Controllers
     /// <summary>
     /// Controller for managing professional branches.
     /// </summary>
-    [Route("api/professional-branch/")]
+    [Route("api/global-constants/")]
     [ApiController]
     public class GlobalConstantsController : Controller
     {
