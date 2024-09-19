@@ -1,6 +1,5 @@
 ﻿using LinkedInWebApi.Application.Extensions;
 using LinkedInWebApi.Core;
-using LinkedInWebApi.Core.ExceptionHandler;
 using LinkedInWebApi.Core.Extensions;
 using LinkedInWebApi.Core.Helpers;
 using LinkedInWebApi.Reposirotry.Commands;
@@ -82,19 +81,33 @@ namespace LinkedInWebApi.Application.Services.UserService
 
         }
 
-        public async Task UpdateUserSettingsAsync(int id, UpdateUserSettingsDto updateUserSettingsDto)
+        public async Task UpdateUserSettingsAsync(UpdateUserSettingsDto updateUserSettingsDto, ClaimsIdentity claimsIdentity)
         {
-            var userToUpdate = await _userReadCommands.GetUserByEmailAsync(updateUserSettingsDto.Email);
+            var userId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
+
+            var userToUpdate = await _userReadCommands.GetUserByIdWithPasswordAsync(userId);
 
             if (userToUpdate == null)
             {
-                throw ErrorException.UnexpectedBehaviorException;
+                throw new ArgumentException("User not found");
             }
 
-            userToUpdate.Email = updateUserSettingsDto.Email;
-            userToUpdate.Password = updateUserSettingsDto.Password;
+            if (userToUpdate.Password != updateUserSettingsDto.OldPassword)
+            {
+                throw new ArgumentException("Old password is invalid");
+            }
 
-            await _userUpdateCommands.UpdateUserAsync(userToUpdate);
+            if (updateUserSettingsDto.Email != null)
+            {
+                await _userUpdateCommands.UpdateUserEmailAsync(userId, updateUserSettingsDto.Email);
+            }
+
+            if (updateUserSettingsDto.Password != null)
+            {
+
+                await _userUpdateCommands.UpdateUserPasswordAsync(userId, updateUserSettingsDto.Password);
+            }
+
         }
     }
 }

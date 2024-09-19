@@ -34,6 +34,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 IsActive = user.IsActive,
                 CreatedAt = user.CreatedAt,
                 UpdatedAt = user.UpdatedAt,
+                Password = user.UserPasswords?.Single(x => x.IsActive)?.Password
             };
         }
 
@@ -58,17 +59,19 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 IsActive = userDto.IsActive,
                 CreatedAt = DateTimeOffset.Now,
                 UpdatedAt = DateTimeOffset.Now,
-                UserPasswords = new List<UserPassword>()
-                {
-                    new UserPassword
-                    {
-                        Password = userDto.Password,
-                        CreatedAt = DateTimeOffset.Now,
-                        UpdatedAt = DateTimeOffset.Now,
-                        IsActive = true
+                UserPasswords = new List<UserPassword> { userDto.Password.ToUserPassword() }
+            };
+        }
 
-                    }
-                }
+        private static UserPassword ToUserPassword(this string password)
+        {
+            return new UserPassword
+            {
+                Password = password,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now,
+                IsActive = true
+
             };
         }
 

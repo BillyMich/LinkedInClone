@@ -63,10 +63,10 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
         }
 
-        public async Task<UserDto> GetUserByIdAsync(int id)
+        public async Task<UserDto> GetUserByIdAsync(int userId)
         {
 
-            var user = await _linkedInDbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var user = await _linkedInDbContext.Users.SingleAsync(x => x.Id == userId && x.IsActive);
 
             if (user == null)
             {
@@ -74,6 +74,14 @@ namespace LinkedInWebApi.Reposirotry.Commands
             }
             return user.ToUserDto();
 
+        }
+
+        public async Task<UserDto> GetUserByIdWithPasswordAsync(int userId)
+        {
+            var user = await _linkedInDbContext.Users.Include(x => x.UserPasswords)
+                .SingleAsync(x => x.Id == userId && x.IsActive);
+
+            return user.ToUserDto();
         }
 
         public async Task<List<UserDto>> GetUsersAsync(List<int>? ids)

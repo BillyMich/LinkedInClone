@@ -21,5 +21,6 @@ namespace LinkedInWebApi.Application.Services.UserService
 
         Task<FileDto> GetProfilePictureFromId(int id);
 
+        Task UpdateUserSettingsAsync(UpdateUserSettingsDto updateUserSettingsDto, ClaimsIdentity claimsIdentity);
     }
 }
