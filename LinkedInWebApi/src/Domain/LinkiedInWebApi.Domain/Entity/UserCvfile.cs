@@ -5,21 +5,17 @@ using System.Collections.Generic;
 
 namespace LinkiedInWebApi.Domain.Entity;
 
-public partial class UserEducationProfessionalBranch
+public partial class UserCvfile
 {
     public int Id { get; set; }
 
-    public int UserEducationId { get; set; }
+    public int UserCvid { get; set; }
 
-    public int ProfessionalBranchId { get; set; }
+    public byte[] DateOfFile { get; set; }
 
     public bool IsActive { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
 
     public DateTimeOffset UpdatedAt { get; set; }
-
-    public virtual RfdtProfessionalBranch ProfessionalBranch { get; set; }
-
-    public virtual UserEducation UserEducation { get; set; }
 }

@@ -21,5 +21,5 @@ public partial class AdvertismentProfessionalBranch
 
     public virtual Advertisement Advertisment { get; set; }
 
-    public virtual ProfessionalBranch ProfessionalBranch { get; set; }
+    public virtual RfdtProfessionalBranch ProfessionalBranch { get; set; }
 }

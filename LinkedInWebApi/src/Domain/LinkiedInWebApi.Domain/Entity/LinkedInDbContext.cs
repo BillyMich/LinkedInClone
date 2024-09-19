@@ -2,10 +2,9 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using LinkiedInWebApi.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace LinkiedInWebApi.Domain;
+namespace LinkiedInWebApi.Domain.Entity;
 
 public partial class LinkedInDbContext : DbContext
 {
@@ -16,7 +15,11 @@ public partial class LinkedInDbContext : DbContext
 
     public virtual DbSet<Advertisement> Advertisements { get; set; }
 
+    public virtual DbSet<AdvertisementJobType> AdvertisementJobTypes { get; set; }
+
     public virtual DbSet<AdvertismentProfessionalBranch> AdvertismentProfessionalBranches { get; set; }
+
+    public virtual DbSet<AdvertismentWorkingLocation> AdvertismentWorkingLocations { get; set; }
 
     public virtual DbSet<Chat> Chats { get; set; }
 
@@ -28,21 +31,35 @@ public partial class LinkedInDbContext : DbContext
 
     public virtual DbSet<PostComment> PostComments { get; set; }
 
-    public virtual DbSet<PostPhoto> PostPhotos { get; set; }
+    public virtual DbSet<PostMultimedium> PostMultimedia { get; set; }
 
     public virtual DbSet<PostReaction> PostReactions { get; set; }
 
-    public virtual DbSet<ProfessionalBranch> ProfessionalBranches { get; set; }
+    public virtual DbSet<RfdtEducationType> RfdtEducationTypes { get; set; }
+
+    public virtual DbSet<RfdtJobType> RfdtJobTypes { get; set; }
+
+    public virtual DbSet<RfdtProfessionalBranch> RfdtProfessionalBranches { get; set; }
+
+    public virtual DbSet<RfdtReaction> RfdtReactions { get; set; }
+
+    public virtual DbSet<RfdtWorkingLocation> RfdtWorkingLocations { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserCv> UserCvs { get; set; }
+
+    public virtual DbSet<UserCvfile> UserCvfiles { get; set; }
 
     public virtual DbSet<UserEducation> UserEducations { get; set; }
 
     public virtual DbSet<UserEducationProfessionalBranch> UserEducationProfessionalBranches { get; set; }
 
     public virtual DbSet<UserExperience> UserExperiences { get; set; }
+
+    public virtual DbSet<UserExperienceJobType> UserExperienceJobTypes { get; set; }
+
+    public virtual DbSet<UserExperienceWorkingLocation> UserExperienceWorkingLocations { get; set; }
 
     public virtual DbSet<UserExpirienceProfessionalBranch> UserExpirienceProfessionalBranches { get; set; }
 
@@ -58,7 +75,7 @@ public partial class LinkedInDbContext : DbContext
 
             entity.Property(e => e.FreeTxt)
                 .IsRequired()
-                .HasMaxLength(1000);
+                .HasMaxLength(4000);
             entity.Property(e => e.Title)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -67,6 +84,16 @@ public partial class LinkedInDbContext : DbContext
                 .HasForeignKey(d => d.CreatorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Advertisement_User");
+        });
+
+        modelBuilder.Entity<AdvertisementJobType>(entity =>
+        {
+            entity.ToTable("AdvertisementJobType");
+
+            entity.HasOne(d => d.JobType).WithMany(p => p.AdvertisementJobTypes)
+                .HasForeignKey(d => d.JobTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AdvertisementJobType_RFDT_JobType");
         });
 
         modelBuilder.Entity<AdvertismentProfessionalBranch>(entity =>
@@ -82,6 +109,21 @@ public partial class LinkedInDbContext : DbContext
                 .HasForeignKey(d => d.ProfessionalBranchId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_AdvertismentProfessionalBranch_ProfessionalBranch");
+        });
+
+        modelBuilder.Entity<AdvertismentWorkingLocation>(entity =>
+        {
+            entity.ToTable("AdvertismentWorkingLocation");
+
+            entity.HasOne(d => d.WorkingLocation).WithMany(p => p.AdvertismentWorkingLocations)
+                .HasForeignKey(d => d.WorkingLocationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AdvertismentWorkingLocation_Advertisement");
+
+            entity.HasOne(d => d.WorkingLocationNavigation).WithMany(p => p.AdvertismentWorkingLocations)
+                .HasForeignKey(d => d.WorkingLocationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AdvertismentWorkingLocation_RFDT_WorkingLocation");
         });
 
         modelBuilder.Entity<Chat>(entity =>
@@ -166,16 +208,16 @@ public partial class LinkedInDbContext : DbContext
                 .HasConstraintName("FK_Comment_Post");
         });
 
-        modelBuilder.Entity<PostPhoto>(entity =>
+        modelBuilder.Entity<PostMultimedium>(entity =>
         {
-            entity.ToTable("PostPhoto");
+            entity.HasKey(e => e.Id).HasName("PK_PostPhoto");
 
             entity.Property(e => e.DataOfFile).IsRequired();
             entity.Property(e => e.FileName)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(1000);
 
-            entity.HasOne(d => d.Post).WithMany(p => p.PostPhotos)
+            entity.HasOne(d => d.Post).WithMany(p => p.PostMultimedia)
                 .HasForeignKey(d => d.PostId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PostPhoto_Post");
@@ -189,13 +231,66 @@ public partial class LinkedInDbContext : DbContext
                 .HasForeignKey(d => d.PostId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PostReaction_Post");
+
+            entity.HasOne(d => d.Reaction).WithMany(p => p.PostReactions)
+                .HasForeignKey(d => d.ReactionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PostReaction_RFDT_Reaction");
         });
 
-        modelBuilder.Entity<ProfessionalBranch>(entity =>
+        modelBuilder.Entity<RfdtEducationType>(entity =>
         {
-            entity.ToTable("ProfessionalBranch");
+            entity.ToTable("RFDT_EducationType");
 
-            entity.Property(e => e.Name).HasMaxLength(50);
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<RfdtJobType>(entity =>
+        {
+            entity.ToTable("RFDT_JobType");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<RfdtProfessionalBranch>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_ProfessionalBranch");
+
+            entity.ToTable("RFDT_ProfessionalBranch");
+
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<RfdtReaction>(entity =>
+        {
+            entity.ToTable("RFDT_Reaction");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.DataOfFile).IsRequired();
+            entity.Property(e => e.FileName)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<RfdtWorkingLocation>(entity =>
+        {
+            entity.ToTable("RFDT_WorkingLocation");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(50);
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -236,6 +331,15 @@ public partial class LinkedInDbContext : DbContext
                 .HasConstraintName("FK_CV_User");
         });
 
+        modelBuilder.Entity<UserCvfile>(entity =>
+        {
+            entity.ToTable("UserCVFile");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.DateOfFile).IsRequired();
+            entity.Property(e => e.UserCvid).HasColumnName("UserCVId");
+        });
+
         modelBuilder.Entity<UserEducation>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_Education");
@@ -248,6 +352,11 @@ public partial class LinkedInDbContext : DbContext
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50);
+
+            entity.HasOne(d => d.EducationType).WithMany(p => p.UserEducations)
+                .HasForeignKey(d => d.EducationTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserEducation_RFDT_EducationType");
 
             entity.HasOne(d => d.User).WithMany(p => p.UserEducations)
                 .HasForeignKey(d => d.UserId)
@@ -276,10 +385,10 @@ public partial class LinkedInDbContext : DbContext
 
             entity.ToTable("UserExperience");
 
-            entity.Property(e => e.Description)
+            entity.Property(e => e.FreeTxt)
                 .IsRequired()
                 .HasMaxLength(200);
-            entity.Property(e => e.Name)
+            entity.Property(e => e.Title)
                 .IsRequired()
                 .HasMaxLength(50);
 
@@ -289,14 +398,39 @@ public partial class LinkedInDbContext : DbContext
                 .HasConstraintName("FK_Experience_User");
         });
 
+        modelBuilder.Entity<UserExperienceJobType>(entity =>
+        {
+            entity.ToTable("UserExperienceJobType");
+
+            entity.HasOne(d => d.JobType).WithMany(p => p.UserExperienceJobTypes)
+                .HasForeignKey(d => d.JobTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserExperienceJobType_RFDT_JobType");
+
+            entity.HasOne(d => d.UserExpirience).WithMany(p => p.UserExperienceJobTypes)
+                .HasForeignKey(d => d.UserExpirienceId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserExperienceJobType_UserExperience");
+        });
+
+        modelBuilder.Entity<UserExperienceWorkingLocation>(entity =>
+        {
+            entity.ToTable("UserExperienceWorkingLocation");
+
+            entity.HasOne(d => d.UserExperience).WithMany(p => p.UserExperienceWorkingLocations)
+                .HasForeignKey(d => d.UserExperienceId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserExperienceWorkingLocation_UserExperience");
+
+            entity.HasOne(d => d.WorkingLocation).WithMany(p => p.UserExperienceWorkingLocations)
+                .HasForeignKey(d => d.WorkingLocationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserExperienceWorkingLocation_RFDT_WorkingLocation");
+        });
+
         modelBuilder.Entity<UserExpirienceProfessionalBranch>(entity =>
         {
             entity.ToTable("UserExpirienceProfessionalBranch");
-
-            entity.HasOne(d => d.ProfessionalBranch).WithMany(p => p.UserExpirienceProfessionalBranches)
-                .HasForeignKey(d => d.ProfessionalBranchId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserExpirienceProfessionalBranch_ProfessionalBranch");
 
             entity.HasOne(d => d.UserExperience).WithMany(p => p.UserExpirienceProfessionalBranches)
                 .HasForeignKey(d => d.UserExperienceId)

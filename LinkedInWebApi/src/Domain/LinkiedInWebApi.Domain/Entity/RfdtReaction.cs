@@ -5,13 +5,15 @@ using System.Collections.Generic;
 
 namespace LinkiedInWebApi.Domain.Entity;
 
-public partial class UserEducationProfessionalBranch
+public partial class RfdtReaction
 {
     public int Id { get; set; }
 
-    public int UserEducationId { get; set; }
+    public string Name { get; set; }
 
-    public int ProfessionalBranchId { get; set; }
+    public string FileName { get; set; }
+
+    public byte[] DataOfFile { get; set; }
 
     public bool IsActive { get; set; }
 
@@ -19,7 +21,5 @@ public partial class UserEducationProfessionalBranch
 
     public DateTimeOffset UpdatedAt { get; set; }
 
-    public virtual RfdtProfessionalBranch ProfessionalBranch { get; set; }
-
-    public virtual UserEducation UserEducation { get; set; }
+    public virtual ICollection<PostReaction> PostReactions { get; set; } = new List<PostReaction>();
 }

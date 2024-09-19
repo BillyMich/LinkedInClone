@@ -5,13 +5,11 @@ using System.Collections.Generic;
 
 namespace LinkiedInWebApi.Domain.Entity;
 
-public partial class UserEducationProfessionalBranch
+public partial class RfdtJobType
 {
     public int Id { get; set; }
 
-    public int UserEducationId { get; set; }
-
-    public int ProfessionalBranchId { get; set; }
+    public string Name { get; set; }
 
     public bool IsActive { get; set; }
 
@@ -19,7 +17,7 @@ public partial class UserEducationProfessionalBranch
 
     public DateTimeOffset UpdatedAt { get; set; }
 
-    public virtual RfdtProfessionalBranch ProfessionalBranch { get; set; }
+    public virtual ICollection<AdvertisementJobType> AdvertisementJobTypes { get; set; } = new List<AdvertisementJobType>();
 
-    public virtual UserEducation UserEducation { get; set; }
+    public virtual ICollection<UserExperienceJobType> UserExperienceJobTypes { get; set; } = new List<UserExperienceJobType>();
 }

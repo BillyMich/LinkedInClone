@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace LinkiedInWebApi.Domain.Entity;
 
-public partial class UserEducationProfessionalBranch
+public partial class AdvertismentWorkingLocation
 {
     public int Id { get; set; }
 
-    public int UserEducationId { get; set; }
+    public int WorkingLocationId { get; set; }
 
-    public int ProfessionalBranchId { get; set; }
+    public int AdvertisementId { get; set; }
 
     public bool IsActive { get; set; }
 
@@ -19,7 +19,7 @@ public partial class UserEducationProfessionalBranch
 
     public DateTimeOffset UpdatedAt { get; set; }
 
-    public virtual RfdtProfessionalBranch ProfessionalBranch { get; set; }
+    public virtual Advertisement WorkingLocation { get; set; }
 
-    public virtual UserEducation UserEducation { get; set; }
+    public virtual RfdtWorkingLocation WorkingLocationNavigation { get; set; }
 }

@@ -19,7 +19,5 @@ public partial class UserExpirienceProfessionalBranch
 
     public DateTimeOffset UpdateAt { get; set; }
 
-    public virtual ProfessionalBranch ProfessionalBranch { get; set; }
-
     public virtual UserExperience UserExperience { get; set; }
 }
