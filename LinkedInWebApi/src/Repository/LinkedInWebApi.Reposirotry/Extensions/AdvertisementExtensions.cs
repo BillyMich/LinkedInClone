@@ -10,13 +10,23 @@ namespace LinkedInWebApi.Reposirotry.Extensions
         {
             return new Advertisement
             {
+                CreatorId = creatorId,
                 Title = advertisementDto.Title,
                 FreeTxt = advertisementDto.FreeTxt,
+                AdvertismentProfessionalBranches = advertisementDto.ProfessionalBranche.ToRFDT<AdvertismentProfessionalBranch>(),
+                AdvertismentWorkingLocations = advertisementDto.WorkingLocation.ToRFDT<AdvertismentWorkingLocation>(),
+                AdvertisementJobTypes = advertisementDto.JobType.ToRFDT<AdvertisementJobType>(),
                 CreatedAt = DateTimeOffset.Now,
                 UpdatedAt = DateTimeOffset.Now,
-                CreatorId = creatorId
             };
         }
+
+        private static List<T> ToRFDT<T>(this int value) where T : IAdvertismentDetail, new()
+        {
+
+            return new List<T> { new() { Id = value, IsActive = true, CreatedAt = DateTimeOffset.Now, UpdatedAt = DateTimeOffset.Now } };
+        }
+
 
         public static AdvertisementDto ToAdvertisementDto(this Advertisement? advertisement)
         {

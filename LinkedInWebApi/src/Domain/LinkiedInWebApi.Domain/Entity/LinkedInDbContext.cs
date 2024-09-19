@@ -2,10 +2,9 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using LinkiedInWebApi.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace LinkiedInWebApi.Domain;
+namespace LinkiedInWebApi.Domain.Entity;
 
 public partial class LinkedInDbContext : DbContext
 {
@@ -32,7 +31,7 @@ public partial class LinkedInDbContext : DbContext
 
     public virtual DbSet<PostComment> PostComments { get; set; }
 
-    public virtual DbSet<PostMultimedia> PostMultimedia { get; set; }
+    public virtual DbSet<PostMultimedium> PostMultimedia { get; set; }
 
     public virtual DbSet<PostReaction> PostReactions { get; set; }
 
@@ -90,6 +89,11 @@ public partial class LinkedInDbContext : DbContext
             entity.ToTable("AdvertisementJobType");
 
             entity.HasOne(d => d.JobType).WithMany(p => p.AdvertisementJobTypes)
+                .HasForeignKey(d => d.JobTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AdvertisementJobType_Advertisement");
+
+            entity.HasOne(d => d.JobTypeNavigation).WithMany(p => p.AdvertisementJobTypes)
                 .HasForeignKey(d => d.JobTypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_AdvertisementJobType_RFDT_JobType");
@@ -207,7 +211,7 @@ public partial class LinkedInDbContext : DbContext
                 .HasConstraintName("FK_Comment_Post");
         });
 
-        modelBuilder.Entity<PostMultimedia>(entity =>
+        modelBuilder.Entity<PostMultimedium>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_PostPhoto");
 
@@ -251,7 +255,6 @@ public partial class LinkedInDbContext : DbContext
         {
             entity.ToTable("RFDT_JobType");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -286,7 +289,6 @@ public partial class LinkedInDbContext : DbContext
         {
             entity.ToTable("RFDT_WorkingLocation");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -328,15 +330,6 @@ public partial class LinkedInDbContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_CV_User");
-        });
-
-        modelBuilder.Entity<UserCvfile>(entity =>
-        {
-            entity.ToTable("UserCVFile");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.DateOfFile).IsRequired();
-            entity.Property(e => e.UserCvid).HasColumnName("UserCVId");
         });
 
         modelBuilder.Entity<UserEducation>(entity =>

@@ -12,10 +12,10 @@ namespace LinkedInWebApi.Controllers
         private readonly IAdvertisementHandler _advertisementHandler;
         private readonly ClaimsIdentity _identity;
 
-        public AdvertisementController(IAdvertisementHandler advertisementHandler, ClaimsIdentity identity)
+        public AdvertisementController(IAdvertisementHandler advertisementHandler, IHttpContextAccessor httpContextAccessor)
         {
             _advertisementHandler = advertisementHandler;
-            _identity = identity;
+            _identity = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
         }
 
         [HttpPost("CreateAdvertisement")]

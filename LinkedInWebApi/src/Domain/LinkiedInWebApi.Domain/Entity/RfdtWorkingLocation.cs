@@ -13,7 +13,7 @@ public partial class RfdtWorkingLocation
 
     public bool IsActive { get; set; }
 
-    public DateTimeOffset CretedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
 
     public DateTimeOffset UpdatedAt { get; set; }
 

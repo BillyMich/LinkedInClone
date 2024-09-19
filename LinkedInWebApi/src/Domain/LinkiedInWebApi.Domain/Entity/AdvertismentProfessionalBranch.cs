@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LinkiedInWebApi.Domain.Entity;
 
-public partial class AdvertismentProfessionalBranch
+public partial class AdvertismentProfessionalBranch : IAdvertismentDetail
 {
     public int Id { get; set; }
 

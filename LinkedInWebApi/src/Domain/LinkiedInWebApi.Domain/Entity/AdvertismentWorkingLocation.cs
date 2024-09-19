@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LinkiedInWebApi.Domain.Entity;
 
-public partial class AdvertismentWorkingLocation
+public partial class AdvertismentWorkingLocation : IAdvertismentDetail
 {
     public int Id { get; set; }
 

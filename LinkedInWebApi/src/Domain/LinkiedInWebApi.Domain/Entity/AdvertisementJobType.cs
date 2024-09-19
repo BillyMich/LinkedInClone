@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LinkiedInWebApi.Domain.Entity;
 
-public partial class AdvertisementJobType
+public partial class AdvertisementJobType : IAdvertismentDetail
 {
     public int Id { get; set; }
 
@@ -19,5 +19,7 @@ public partial class AdvertisementJobType
 
     public DateTimeOffset UpdatedAt { get; set; }
 
-    public virtual RfdtJobType JobType { get; set; }
+    public virtual Advertisement JobType { get; set; }
+
+    public virtual RfdtJobType JobTypeNavigation { get; set; }
 }
