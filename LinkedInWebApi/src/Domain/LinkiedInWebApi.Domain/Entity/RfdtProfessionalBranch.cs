@@ -20,4 +20,6 @@ public partial class RfdtProfessionalBranch
     public virtual ICollection<AdvertismentProfessionalBranch> AdvertismentProfessionalBranches { get; set; } = new List<AdvertismentProfessionalBranch>();
 
     public virtual ICollection<UserEducationProfessionalBranch> UserEducationProfessionalBranches { get; set; } = new List<UserEducationProfessionalBranch>();
+
+    public virtual ICollection<UserExpirienceProfessionalBranch> UserExpirienceProfessionalBranches { get; set; } = new List<UserExpirienceProfessionalBranch>();
 }

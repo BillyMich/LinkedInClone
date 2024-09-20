@@ -24,13 +24,13 @@
               </div>
           
               <div>
-                <label for="description">Job Description</label>
-                <textarea id="description" formControlName="description" required></textarea>
+                <label for="freeTxt">Job Description</label>
+                <textarea id="freeTxt" formControlName="freeTxt" required></textarea>
               </div>
           
               <div>
-                <label for="profesionalBranche">profesionalBranche</label>
-                <select id="profesionalBranche" formControlName="profesionalBranche" required>
+                <label for="professionalBranche">profesionalBranche</label>
+                <select id="professionalBranche" formControlName="professionalBranche" required>
                   <option *ngFor="let profesionalBranche of profesionalBranches" [value]="profesionalBranche.id">{{ profesionalBranche.name }}</option>
                 </select>
               </div>

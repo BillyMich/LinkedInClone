@@ -9,7 +9,7 @@ public partial class UserExperienceWorkingLocation
 {
     public int Id { get; set; }
 
-    public int WorkingLocationId { get; set; }
+    public int TypeId { get; set; }
 
     public int UserExperienceId { get; set; }
 
@@ -19,7 +19,7 @@ public partial class UserExperienceWorkingLocation
 
     public DateTimeOffset UpdateAt { get; set; }
 
-    public virtual UserExperience UserExperience { get; set; }
+    public virtual RfdtWorkingLocation Type { get; set; }
 
-    public virtual RfdtWorkingLocation WorkingLocation { get; set; }
+    public virtual UserExperience UserExperience { get; set; }
 }

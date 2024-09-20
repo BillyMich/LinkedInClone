@@ -89,15 +89,15 @@ public partial class LinkedInDbContext : DbContext
         {
             entity.ToTable("AdvertisementJobType");
 
+            entity.HasOne(d => d.Advertisement).WithMany(p => p.AdvertisementJobTypes)
+                .HasForeignKey(d => d.AdvertisementId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AdvertisementJobType_Advertisement1");
+
             entity.HasOne(d => d.Type).WithMany(p => p.AdvertisementJobTypes)
                 .HasForeignKey(d => d.TypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_AdvertisementJobType_Advertisement");
-
-            entity.HasOne(d => d.TypeNavigation).WithMany(p => p.AdvertisementJobTypes)
-                .HasForeignKey(d => d.TypeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_AdvertisementJobType_RFDT_JobType");
+                .HasConstraintName("FK_AdvertisementJobType_RFDT_JobType1");
         });
 
         modelBuilder.Entity<AdvertismentProfessionalBranch>(entity =>
@@ -107,27 +107,27 @@ public partial class LinkedInDbContext : DbContext
             entity.HasOne(d => d.Advertisment).WithMany(p => p.AdvertismentProfessionalBranches)
                 .HasForeignKey(d => d.AdvertismentId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_AdvertismentProfessionalBranch_Advertisement");
+                .HasConstraintName("FK_AdvertismentProfessionalBranch_Advertisement1");
 
             entity.HasOne(d => d.Type).WithMany(p => p.AdvertismentProfessionalBranches)
                 .HasForeignKey(d => d.TypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_AdvertismentProfessionalBranch_ProfessionalBranch");
+                .HasConstraintName("FK_AdvertismentProfessionalBranch_RFDT_ProfessionalBranch");
         });
 
         modelBuilder.Entity<AdvertismentWorkingLocation>(entity =>
         {
             entity.ToTable("AdvertismentWorkingLocation");
 
+            entity.HasOne(d => d.Advertisement).WithMany(p => p.AdvertismentWorkingLocations)
+                .HasForeignKey(d => d.AdvertisementId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AdvertismentWorkingLocation_Advertisement1");
+
             entity.HasOne(d => d.Type).WithMany(p => p.AdvertismentWorkingLocations)
                 .HasForeignKey(d => d.TypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_AdvertismentWorkingLocation_Advertisement");
-
-            entity.HasOne(d => d.TypeNavigation).WithMany(p => p.AdvertismentWorkingLocations)
-                .HasForeignKey(d => d.TypeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_AdvertismentWorkingLocation_RFDT_WorkingLocation");
+                .HasConstraintName("FK_AdvertismentWorkingLocation_RFDT_WorkingLocation1");
         });
 
         modelBuilder.Entity<Chat>(entity =>
@@ -410,25 +410,30 @@ public partial class LinkedInDbContext : DbContext
         {
             entity.ToTable("UserExperienceWorkingLocation");
 
+            entity.HasOne(d => d.Type).WithMany(p => p.UserExperienceWorkingLocations)
+                .HasForeignKey(d => d.TypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserExperienceWorkingLocation_RFDT_WorkingLocation1");
+
             entity.HasOne(d => d.UserExperience).WithMany(p => p.UserExperienceWorkingLocations)
                 .HasForeignKey(d => d.UserExperienceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserExperienceWorkingLocation_UserExperience");
-
-            entity.HasOne(d => d.WorkingLocation).WithMany(p => p.UserExperienceWorkingLocations)
-                .HasForeignKey(d => d.WorkingLocationId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserExperienceWorkingLocation_RFDT_WorkingLocation");
+                .HasConstraintName("FK_UserExperienceWorkingLocation_UserExperience1");
         });
 
         modelBuilder.Entity<UserExpirienceProfessionalBranch>(entity =>
         {
             entity.ToTable("UserExpirienceProfessionalBranch");
 
+            entity.HasOne(d => d.Type).WithMany(p => p.UserExpirienceProfessionalBranches)
+                .HasForeignKey(d => d.TypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserExpirienceProfessionalBranch_RFDT_ProfessionalBranch");
+
             entity.HasOne(d => d.UserExperience).WithMany(p => p.UserExpirienceProfessionalBranches)
                 .HasForeignKey(d => d.UserExperienceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserExpirienceProfessionalBranch_UserExperience");
+                .HasConstraintName("FK_UserExpirienceProfessionalBranch_UserExperience1");
         });
 
         modelBuilder.Entity<UserPassword>(entity =>

@@ -19,7 +19,7 @@ public partial class AdvertismentWorkingLocation : IAdvertismentDetail
 
     public DateTimeOffset UpdatedAt { get; set; }
 
-    public virtual Advertisement Type { get; set; }
+    public virtual Advertisement Advertisement { get; set; }
 
-    public virtual RfdtWorkingLocation TypeNavigation { get; set; }
+    public virtual RfdtWorkingLocation Type { get; set; }
 }

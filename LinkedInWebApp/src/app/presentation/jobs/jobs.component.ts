@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth-service/auth.service';
 import { GlobalConstantsService } from '../../services/global-constants.service';
 import { GennericGlobalConstantDto } from '../../models/gennericGlobalConstan.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NewAdvertisement } from '../../models/advertisement.model';
 
 @Component({
   selector: 'app-jobs',
@@ -27,8 +28,8 @@ export class JobsComponent implements OnInit {
   ) {
     this.newJobForm = this.fb.group({
       title: ['', Validators.required],
-      description: ['', Validators.required],
-      profesionalBranche: ['', Validators.required],
+      freeTxt: ['', Validators.required],
+      professionalBranche: ['', Validators.required],
       jobType: ['', Validators.required],
       workingLocation: ['', Validators.required],
     });
@@ -72,28 +73,18 @@ export class JobsComponent implements OnInit {
     this.showJobForm = !this.showJobForm;
   }
 
-  postJob() {
-    // if (this.newJob.title && this.newJob.description) {
-    //   this.jobService.postJob(this.newJob).subscribe((response) => {
-    //     console.log('Job posted', response);
-    //     this.loadJobListings();
-    //     this.newJob = { title: '', description: '', skillsRequired: '' };
-    //     this.showJobForm = false;
-    //   });
-    // }
-  }
-
   onSubmitNewJob() {
-    // if (this.newJobForm.valid) {
-    //   this.jobService.addJob(this.newJobForm.value).subscribe({
-    //     next: (response) => {
-    //       console.log('Job added successfully', response);
-    //       this.loadJobListings();
-    //       this.toggleJobForm();
-    //     },
-    //     error: (error) => console.error('Error adding job', error),
-    //   });
-    // }
+    if (this.newJobForm.valid) {
+      const newAdvertisement: NewAdvertisement = this.newJobForm.value;
+      this.jobService.postJob(newAdvertisement).subscribe({
+        next: (response) => {
+          console.log('Advertisement added successfully', response);
+          this.loadJobListings();
+          this.toggleJobForm();
+        },
+        error: (error) => console.error('Error adding advertisement', error),
+      });
+    }
   }
 
   @HostListener('document:keydown', ['$event'])

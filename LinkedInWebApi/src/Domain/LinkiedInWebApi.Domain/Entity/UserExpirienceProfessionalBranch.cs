@@ -11,13 +11,15 @@ public partial class UserExpirienceProfessionalBranch
 
     public int UserExperienceId { get; set; }
 
-    public int ProfessionalBranchId { get; set; }
+    public int TypeId { get; set; }
 
     public bool IsActive { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
 
     public DateTimeOffset UpdateAt { get; set; }
+
+    public virtual RfdtProfessionalBranch Type { get; set; }
 
     public virtual UserExperience UserExperience { get; set; }
 }
