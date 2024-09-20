@@ -19,7 +19,7 @@ public partial class UserEducationProfessionalBranch
 
     public DateTimeOffset UpdatedAt { get; set; }
 
-    public virtual ProfessionalBranch ProfessionalBranch { get; set; }
+    public virtual RfdtProfessionalBranch ProfessionalBranch { get; set; }
 
     public virtual UserEducation UserEducation { get; set; }
 }

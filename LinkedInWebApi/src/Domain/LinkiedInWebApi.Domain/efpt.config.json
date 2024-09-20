@@ -19,7 +19,15 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[AdvertisementJobType]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[AdvertismentProfessionalBranch]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AdvertismentWorkingLocation]",
          "ObjectType": 0
       },
       {
@@ -43,7 +51,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[PostPhoto]",
+         "Name": "[dbo].[PostMultimedia]",
          "ObjectType": 0
       },
       {
@@ -51,7 +59,23 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[ProfessionalBranch]",
+         "Name": "[dbo].[RFDT_EducationType]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RFDT_JobType]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RFDT_ProfessionalBranch]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RFDT_Reaction]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RFDT_WorkingLocation]",
          "ObjectType": 0
       },
       {
@@ -72,6 +96,14 @@
       },
       {
          "Name": "[dbo].[UserExperience]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserExperienceJobType]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserExperienceWorkingLocation]",
          "ObjectType": 0
       },
       {

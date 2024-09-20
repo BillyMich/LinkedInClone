@@ -20,7 +20,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
                 var post = createPostDto.ToPost(userId);
                 if (fileDto != null)
                 {
-                    post.PostPhotos.Add(fileDto.ToPostPhoto());
+                    post.PostMultimedia.Add(fileDto.ToPostMultimedia());
                 }
                 await _linkedInDbContext.Posts.AddAsync(post);
                 await _linkedInDbContext.SaveChangesAsync();

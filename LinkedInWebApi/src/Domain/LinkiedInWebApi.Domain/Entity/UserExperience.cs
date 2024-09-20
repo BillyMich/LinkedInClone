@@ -11,9 +11,9 @@ public partial class UserExperience
 
     public int UserId { get; set; }
 
-    public string Name { get; set; }
+    public string Title { get; set; }
 
-    public string Description { get; set; }
+    public string FreeTxt { get; set; }
 
     public bool IsPublic { get; set; }
 
@@ -23,7 +23,15 @@ public partial class UserExperience
 
     public DateTimeOffset UpdatedAt { get; set; }
 
+    public DateOnly StartedAt { get; set; }
+
+    public DateOnly EndedAt { get; set; }
+
     public virtual User User { get; set; }
+
+    public virtual ICollection<UserExperienceJobType> UserExperienceJobTypes { get; set; } = new List<UserExperienceJobType>();
+
+    public virtual ICollection<UserExperienceWorkingLocation> UserExperienceWorkingLocations { get; set; } = new List<UserExperienceWorkingLocation>();
 
     public virtual ICollection<UserExpirienceProfessionalBranch> UserExpirienceProfessionalBranches { get; set; } = new List<UserExpirienceProfessionalBranch>();
 }

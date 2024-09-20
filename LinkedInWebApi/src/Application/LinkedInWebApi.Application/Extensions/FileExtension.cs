@@ -3,8 +3,16 @@ using Microsoft.AspNetCore.Http;
 
 namespace LinkedInWebApi.Application.Extensions
 {
+    /// <summary>
+    /// Extension methods for working with files.
+    /// </summary>
     public static class FileExtension
     {
+        /// <summary>
+        /// Converts the given <see cref="IFormFile"/> to a byte array.
+        /// </summary>
+        /// <param name="file">The <see cref="IFormFile"/> to convert.</param>
+        /// <returns>The byte array representation of the file.</returns>
         public static byte[] ConvertToByteArray(this IFormFile file)
         {
             using (var memoryStream = new MemoryStream())
@@ -14,6 +22,11 @@ namespace LinkedInWebApi.Application.Extensions
             }
         }
 
+        /// <summary>
+        /// Converts the given <see cref="IFormFile"/> to a <see cref="FileDto"/> object.
+        /// </summary>
+        /// <param name="file">The <see cref="IFormFile"/> to convert.</param>
+        /// <returns>The converted <see cref="FileDto"/> object.</returns>
         public static FileDto ConvertToFileDto(this IFormFile file)
         {
             return new FileDto
@@ -23,6 +36,5 @@ namespace LinkedInWebApi.Application.Extensions
                 DataOfFile = file.ConvertToByteArray()
             };
         }
-
     }
 }

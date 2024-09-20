@@ -43,9 +43,9 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
         }
 
 
-        public Task UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto, ClaimsIdentity claimsIdentity)
+        public async Task UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            await _userService.UpdateUserSettingsAsync(updateUserSettingsDto, claimsIdentity);
         }
 
         public async Task<FileDto> GetProfilePictureFromId(int id)

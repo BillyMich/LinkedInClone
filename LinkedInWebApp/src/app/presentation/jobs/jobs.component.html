@@ -11,24 +11,56 @@
     <div *ngIf="showJobForm" class="job-form-modal">
       <div class="job-form-content">
         <h2>Νέα Αγγελία</h2>
-        <form (ngSubmit)="postJob()">
-          <div class="form-group">
-            <label for="title">Τίτλος</label>
-            <input id="title" [(ngModel)]="newJob.title" name="title" placeholder="Τίτλος Αγγελίας" required />
-          </div>
+        <div class="job-form-container">
+          <button class="toggle-button primary-button" (click)="toggleJobForm()">
+            Δημοσίευση Αγγελίας
+          </button>
+      
+          <div *ngIf="showJobForm">
+            <form [formGroup]="newJobForm" (ngSubmit)="onSubmitNewJob()">
+              <div>
+                <label for="title">Job Title</label>
+                <input id="title" formControlName="title" required />
+              </div>
+          
+              <div>
+                <label for="freeTxt">Job Description</label>
+                <textarea id="freeTxt" formControlName="freeTxt" required></textarea>
+              </div>
+          
+              <div>
+                <label for="professionalBranche">profesionalBranche</label>
+                <select id="professionalBranche" formControlName="professionalBranche" required>
+                  <option *ngFor="let profesionalBranche of profesionalBranches" [value]="profesionalBranche.id">{{ profesionalBranche.name }}</option>
+                </select>
+              </div>
+          
+              <div>
+                <label for="jobType">Job Type</label>
+                <select id="jobType" formControlName="jobType" required>
+                  <option *ngFor="let jobType of jobTypes" [value]="jobType.id">{{ jobType.name }}</option>
+                </select>
+              </div>
+          
+              <div>
+                <label for="workingLocation">Working Location</label>
+                <select id="workingLocation" formControlName="workingLocation" required>
+                  <option *ngFor="let workingLocation of workingLocations" [value]="workingLocation.id">{{ workingLocation.name }}</option>
+                </select>
+              </div>
 
-          <div class="form-group">
-            <label for="description">Περιγραφή</label>
-            <textarea id="description" [(ngModel)]="newJob.description" name="description" placeholder="Περιγραφή Αγγελίας" required></textarea>
+              <div>
+                <label for="status">Status</label>
+                <select id="status" formControlName="status" required>
+                  <option value="1">Draft</option>
+                  <option value="2">Submit</option>
+                </select>
+              </div>
+          
+              <button type="submit">Submit</button>
+            </form>
           </div>
-
-          <div class="form-group">
-            <label for="skillsRequired">Απαιτούμενες Δεξιότητες</label>
-            <input id="skillsRequired" [(ngModel)]="newJob.skillsRequired" name="skillsRequired" placeholder="Δεξιότητες" required />
-          </div>
-
-          <button type="submit" class="submit-button primary-button">Δημοσίευση</button>
-        </form>
+        </div>
       </div>
     </div>
   </div>
