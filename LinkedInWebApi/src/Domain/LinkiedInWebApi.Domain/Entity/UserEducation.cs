@@ -23,6 +23,10 @@ public partial class UserEducation
 
     public DateTimeOffset UpdatedAt { get; set; }
 
+    public int EducationTypeId { get; set; }
+
+    public virtual RfdtEducationType EducationType { get; set; }
+
     public virtual User User { get; set; }
 
     public virtual ICollection<UserEducationProfessionalBranch> UserEducationProfessionalBranches { get; set; } = new List<UserEducationProfessionalBranch>();

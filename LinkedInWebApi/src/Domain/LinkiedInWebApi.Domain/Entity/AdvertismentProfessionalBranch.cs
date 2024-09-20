@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace LinkiedInWebApi.Domain.Entity;
 
-public partial class AdvertismentProfessionalBranch
+public partial class AdvertismentProfessionalBranch : IAdvertismentDetail
 {
     public int Id { get; set; }
 
-    public int AdvertismentId { get; set; }
+    public int TypeId { get; set; }
 
-    public int ProfessionalBranchId { get; set; }
+    public int AdvertismentId { get; set; }
 
     public bool IsActive { get; set; }
 
@@ -21,5 +21,5 @@ public partial class AdvertismentProfessionalBranch
 
     public virtual Advertisement Advertisment { get; set; }
 
-    public virtual ProfessionalBranch ProfessionalBranch { get; set; }
+    public virtual RfdtProfessionalBranch Type { get; set; }
 }

@@ -66,6 +66,7 @@ builder.Services.AddScoped<IContactRequestHandler, ContactRequestHandler>();
 builder.Services.AddScoped<IMessageHandler, MessageHandler>();
 builder.Services.AddScoped<IPostHandler, PostHandler>();
 builder.Services.AddScoped<IUserHandler, UserHandler>();
+builder.Services.AddScoped<IGlobalConstantsHandler, GlobalConstantsHandler>();
 
 //Services
 builder.Services.AddScoped<IAdvertisementService, AdvertisementService>();
@@ -75,6 +76,7 @@ builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserValidationServices, UserValidationsServices>();
+builder.Services.AddScoped<IGlobalConstantsServices, GlobalConstantsServices>();
 
 
 //Commands
@@ -92,6 +94,7 @@ builder.Services.AddScoped<IContactRequestUpdateCommands, ContactRequestUpdateCo
 builder.Services.AddScoped<IUserInsertCommands, UserInsertCommands>();
 builder.Services.AddScoped<IUserReadCommands, UserReadCommands>();
 builder.Services.AddScoped<IUserUpdateCommands, UserUpdateCommands>();
+builder.Services.AddScoped<IGlobalConstantsReadCommands, GlobalConstantsReadCommands>();
 
 builder.Services.AddScoped<IPostInsertCommands, PostInsertCommands>();
 builder.Services.AddScoped<IPostReadCommands, PostReadCommands>();

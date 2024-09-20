@@ -9,9 +9,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
 {
     public class UserUpdateCommands : IUserUpdateCommands
     {
-
         private readonly LinkedInDbContext _linkedInDbContext;
-
 
         public UserUpdateCommands(LinkedInDbContext linkedInDbContext)
         {
@@ -23,7 +21,6 @@ namespace LinkedInWebApi.Reposirotry.Commands
             var findExistingUserProfilePicture = await _linkedInDbContext.UserPhotoProfiles.FirstOrDefaultAsync(x => x.UserId == userId);
 
             findExistingUserProfilePicture.IsActive = false;
-
 
             await _linkedInDbContext.UserPhotoProfiles.AddAsync(new UserPhotoProfile
             {
@@ -37,19 +34,16 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
             await _linkedInDbContext.SaveChangesAsync();
             return true;
-
         }
 
         public async Task<bool> UpdateUserAsync(UserDto userDto)
         {
-
             var user = await _linkedInDbContext.Users.FirstOrDefaultAsync(x => x.Id == userDto.Id);
 
             if (user == null)
             {
                 //throw new ErrorException.NoUserFountWithGivenIdException();
             }
-
 
             user.UpdateUserFromDto(userDto);
 
@@ -62,6 +56,29 @@ namespace LinkedInWebApi.Reposirotry.Commands
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public async Task<bool> UpdateUserEmailAsync(int userId, string email)
+        {
+            var user = await _linkedInDbContext.Users.SingleAsync(x => x.Id == userId && x.IsActive);
+            user.Email = email;
+            _linkedInDbContext.Update(user);
+            await _linkedInDbContext.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateUserPasswordAsync(int userId, string password)
+        {
+            var user = await _linkedInDbContext.Users.Include(x => x.UserPasswords)
+                .SingleAsync(x => x.Id == userId && x.IsActive);
+
+            user.UserPasswords.Single(x => x.IsActive).IsActive = false;
+            var userPassword = password.ToUserPassword();
+            user.UserPasswords.Add(userPassword);
+
+            _linkedInDbContext.Update(user);
+            await _linkedInDbContext.SaveChangesAsync();
+            return true;
         }
     }
 }

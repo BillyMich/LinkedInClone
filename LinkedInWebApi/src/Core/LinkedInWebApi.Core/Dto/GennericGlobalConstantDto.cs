@@ -1,6 +1,6 @@
 ﻿namespace LinkedInWebApi.Core
 {
-    public class ProfessionalBranchDto
+    public class GennericGlobalConstantDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

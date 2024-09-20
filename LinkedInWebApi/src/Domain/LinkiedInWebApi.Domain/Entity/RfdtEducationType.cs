@@ -5,15 +5,11 @@ using System.Collections.Generic;
 
 namespace LinkiedInWebApi.Domain.Entity;
 
-public partial class PostPhoto
+public partial class RfdtEducationType
 {
     public int Id { get; set; }
 
-    public int PostId { get; set; }
-
-    public string FileName { get; set; }
-
-    public byte[] DataOfFile { get; set; }
+    public string Name { get; set; }
 
     public bool IsActive { get; set; }
 
@@ -21,5 +17,5 @@ public partial class PostPhoto
 
     public DateTimeOffset UpdatedAt { get; set; }
 
-    public virtual Post Post { get; set; }
+    public virtual ICollection<UserEducation> UserEducations { get; set; } = new List<UserEducation>();
 }

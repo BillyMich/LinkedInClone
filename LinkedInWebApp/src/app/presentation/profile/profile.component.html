@@ -33,7 +33,6 @@
     <div class="actions">
       <button (click)="openExperienceModal()">Add Experience</button>
       <button (click)="openEducationModal()">Add Education</button>
-      <button (click)="openSkillModal()">Add Skill</button>
     </div>
 
     <!-- Modals for Adding Data -->
@@ -42,8 +41,12 @@
       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <label>Job Title</label>
         <input formControlName="jobTitle" placeholder="Job Title" />
-        <label>Company</label>
+        <label>Company name</label>
         <input formControlName="company" placeholder="Company" />
+        <label>Working location</label>
+        <input formControlName="company" placeholder="WorkingLocation" />
+        <label>Job type</label>
+        <input formControlName="company" placeholder="JobType" />
         <button type="submit">Save</button>
         <button type="button" (click)="closeModal()">Cancel</button>
       </form>
@@ -61,14 +64,5 @@
       </form>
     </div>
 
-    <div *ngIf="showSkillModal" class="modal">
-      <h2>Add Skill</h2>
-      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-        <label>Skill</label>
-        <input formControlName="name" placeholder="Skill" />
-        <button type="submit">Save</button>
-        <button type="button" (click)="closeModal()">Cancel</button>
-      </form>
-    </div>
   </div>
 </div>

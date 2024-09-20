@@ -6,19 +6,19 @@ namespace LinkedInWebApi.Application.Handlers
     public interface IAdvertisementHandler
     {
 
-        Task<bool> CreateAdvertisement(CreateAdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity);
+        Task<bool> CreateAdvertisementAsync(CreateAdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity);
 
-        Task<bool> UpdateAdvertisment(AdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity);
+        Task<bool> UpdateAdvertismentAsync(UpdateAdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity);
 
         Task<bool> DeleteAdvertisment(int id, ClaimsIdentity claimsIdentity);
 
-        Task<AdvertisementDto?> GetAdvertisment(int id, ClaimsIdentity claimsIdentity);
+        Task<AdvertisementDto?> GetAdvertismentAsync(int id, ClaimsIdentity claimsIdentity);
 
-        Task<List<AdvertisementDto>> GetAdvertisments(ClaimsIdentity claimsIdentity);
+        Task<List<AdvertisementDto>> GetAdvertismentsAsync(ClaimsIdentity claimsIdentity);
 
-        Task<List<AdvertisementDto>> GetAdvertismentsByProfessionalBranches(List<int> professionalBranches);
+        Task<List<AdvertisementDto>> GetAdvertismentsByProfessionalBranchesAsync(List<int> professionalBranches);
 
-        Task<List<AdvertisementDto>> GetAdvertismentsOfUserByStatus(byte status, ClaimsIdentity claimsIdentity);
+        Task<List<AdvertisementDto>> GetAdvertismentsOfUserByStatusAsync(byte status, ClaimsIdentity claimsIdentity);
 
     }
 }

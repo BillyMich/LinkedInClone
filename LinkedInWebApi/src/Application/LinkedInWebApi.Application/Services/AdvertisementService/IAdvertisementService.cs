@@ -7,7 +7,7 @@ namespace LinkedInWebApi.Application.Services
     {
         Task<bool> CreateAdvertisement(CreateAdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity);
 
-        Task<bool> UpdateAdvertisment(AdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity);
+        Task<bool> UpdateAdvertismentAsync(UpdateAdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity);
 
         Task<bool> DeleteAdvertisment(int id, ClaimsIdentity claimsIdentity);
 
@@ -17,6 +17,6 @@ namespace LinkedInWebApi.Application.Services
 
         Task<List<AdvertisementDto>> GetAdvertismentsByProfessionalBranches(List<int> professionalBranches);
 
-        Task<List<AdvertisementDto>> GetAdvertismentsOfUserByStatus(byte status, ClaimsIdentity claimsIdentity);
+        Task<List<AdvertisementDto>> GetAdvertismentsOfUserByStatusAsync(byte status, ClaimsIdentity claimsIdentity);
     }
 }

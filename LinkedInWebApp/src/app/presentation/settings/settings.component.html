@@ -7,6 +7,7 @@
   <div class="actions">
     <button (click)="openEmailModal()">Change Email</button>
     <button (click)="openPasswordModal()">Change Password</button>
+    <button (click)="openChangeProfilePictureModal()">Change Profile Picture</button>
   </div>
 
   <!-- Email Change Modal -->
@@ -39,6 +40,16 @@
     </form>
   </div>
 
+  <!-- Change profile Picture -->
+  <div *ngIf="showChangeProfilePictureModal" class="modal">
+    <h2>Change Profile Picture</h2>
+    <form (ngSubmit)="onSubmitProfilePicture()">
+      <label for="profilePicture">Upload New Profile Picture</label>
+      <input id="profilePicture" type="file" (change)="onFileSelected($event)" />
+      <button type="submit" [disabled]="!selectedFile">Save</button>
+      <button type="button" (click)="closeModal()">Cancel</button>
+    </form>
+  </div>
   <!-- Sign Out Button -->
   <button (click)="onSignOut()" class="signout-button">Sign Out</button>
 </div>

@@ -3,21 +3,39 @@ using LinkiedInWebApi.Domain.Entity;
 
 namespace LinkedInWebApi.Reposirotry.Extensions
 {
+    /// <summary>
+    /// Extension methods for the Advertisement class.
+    /// </summary>
     public static class AdvertisementExtensions
     {
-
+        /// <summary>
+        /// Converts a CreateAdvertisementDto object to an Advertisement object.
+        /// </summary>
+        /// <param name="advertisementDto">The CreateAdvertisementDto object.</param>
+        /// <param name="creatorId">The creator ID.</param>
+        /// <returns>The converted Advertisement object.</returns>
         public static Advertisement ToAdvertisement(this CreateAdvertisementDto advertisementDto, int creatorId)
         {
             return new Advertisement
             {
+                CreatorId = creatorId,
                 Title = advertisementDto.Title,
                 FreeTxt = advertisementDto.FreeTxt,
+                Status = advertisementDto.Status,
+                IsActive = true,
+                AdvertismentProfessionalBranches = advertisementDto.ProfessionalBranche.ToRFDT<AdvertismentProfessionalBranch>(),
+                AdvertismentWorkingLocations = advertisementDto.WorkingLocation.ToRFDT<AdvertismentWorkingLocation>(),
+                AdvertisementJobTypes = advertisementDto.JobType.ToRFDT<AdvertisementJobType>(),
                 CreatedAt = DateTimeOffset.Now,
                 UpdatedAt = DateTimeOffset.Now,
-                CreatorId = creatorId
             };
         }
 
+        /// <summary>
+        /// Converts an Advertisement object to an AdvertisementDto object.
+        /// </summary>
+        /// <param name="advertisement">The Advertisement object.</param>
+        /// <returns>The converted AdvertisementDto object.</returns>
         public static AdvertisementDto ToAdvertisementDto(this Advertisement? advertisement)
         {
             return new AdvertisementDto
@@ -25,39 +43,62 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 Id = advertisement.Id,
                 Title = advertisement.Title,
                 FreeTxt = advertisement.FreeTxt,
+                ProfessionalBranche = advertisement.AdvertismentProfessionalBranches.FirstOrDefault()?.TypeId.ToString(),
+                WorkingLocation = advertisement.AdvertismentWorkingLocations.FirstOrDefault()?.TypeId.ToString(),
+                JobType = advertisement.AdvertisementJobTypes.FirstOrDefault()?.TypeId.ToString(),
                 CreatedAt = advertisement.CreatedAt.DateTime,
                 UpdatedAt = advertisement.UpdatedAt.DateTime,
-                ProfessionalBranches = advertisement.AdvertismentProfessionalBranches.Select(x => x.ProfessionalBranchId).ToList()
-
             };
         }
 
-        public static Advertisement ToAdvertisement(this AdvertisementDto advertisementDto)
-        {
-            return new Advertisement
-            {
-                Id = advertisementDto.Id,
-                Title = advertisementDto.Title,
-                FreeTxt = advertisementDto.FreeTxt,
-                CreatedAt = advertisementDto.CreatedAt,
-                UpdatedAt = advertisementDto.UpdatedAt,
-                AdvertismentProfessionalBranches = advertisementDto.ProfessionalBranches.Select(x => new AdvertismentProfessionalBranch { ProfessionalBranchId = x }).ToList()
-            };
-        }
-
+        /// <summary>
+        /// Converts a list of Advertisement objects to a list of AdvertisementDto objects.
+        /// </summary>
+        /// <param name="advertisements">The list of Advertisement objects.</param>
+        /// <returns>The converted list of AdvertisementDto objects.</returns>
         public static List<AdvertisementDto> ToAdvertisementDtos(this List<Advertisement> advertisements)
         {
             return advertisements.Select(x => x.ToAdvertisementDto()).ToList();
         }
 
-        public static Advertisement ToUpdateAdvertisement(this Advertisement advertisement, AdvertisementDto advertisementDto)
+        /// <summary>
+        /// Updates an Advertisement object with the values from an UpdateAdvertisementDto object.
+        /// </summary>
+        /// <param name="advertisement">The Advertisement object to update.</param>
+        /// <param name="advertisementDto">The UpdateAdvertisementDto object.</param>
+        /// <returns>The updated Advertisement object.</returns>
+        public static Advertisement ToUpdateAdvertisement(this Advertisement advertisement, UpdateAdvertisementDto advertisementDto)
         {
+            advertisement.InActivateTypesBeforeUpdate();
             advertisement.Title = advertisementDto.Title;
             advertisement.FreeTxt = advertisementDto.FreeTxt;
             advertisement.UpdatedAt = DateTimeOffset.Now;
-
+            advertisement.AdvertismentProfessionalBranches = advertisementDto.ProfessionalBranche.ToRFDT<AdvertismentProfessionalBranch>();
+            advertisement.AdvertismentWorkingLocations = advertisementDto.WorkingLocation.ToRFDT<AdvertismentWorkingLocation>();
+            advertisement.AdvertisementJobTypes = advertisementDto.JobType.ToRFDT<AdvertisementJobType>();
             return advertisement;
         }
 
+        /// <summary>
+        /// Inactivates the types of the Advertisement object before updating.
+        /// </summary>
+        /// <param name="advertisement">The Advertisement object.</param>
+        private static void InActivateTypesBeforeUpdate(this Advertisement advertisement)
+        {
+            advertisement.AdvertisementJobTypes.Select(x => x.IsActive = false);
+            advertisement.AdvertismentProfessionalBranches.Select(x => x.IsActive = false);
+            advertisement.AdvertismentWorkingLocations.Select(x => x.IsActive = false);
+        }
+
+        /// <summary>
+        /// Converts an integer value to a list of T objects.
+        /// </summary>
+        /// <typeparam name="T">The type of the objects in the list.</typeparam>
+        /// <param name="value">The integer value.</param>
+        /// <returns>The list of T objects.</returns>
+        private static List<T> ToRFDT<T>(this int value) where T : IAdvertismentDetail, new()
+        {
+            return new List<T> { new() { TypeId = value, IsActive = true, CreatedAt = DateTimeOffset.Now, UpdatedAt = DateTimeOffset.Now } };
+        }
     }
 }

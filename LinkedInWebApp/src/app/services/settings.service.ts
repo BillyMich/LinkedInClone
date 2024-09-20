@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage/local-storage.service';
+import { UpdateUserSettingsDto } from '../models/updateUserSettingsDto.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,14 +20,9 @@ export class SettingsService {
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
-  updateSettings(settings: any): Observable<any> {
+  changeEmailPassword(data: UpdateUserSettingsDto): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post(`${this.apiUrl}/update`, settings, { headers });
-  }
-
-  changeEmailPassword(data: any): Observable<any> {
-    const headers = this.getHeaders();
-    return this.http.post(`${this.apiUrl}/change-email-password`, data, {
+    return this.http.post(`${this.apiUrl}/updateUserSettings`, data, {
       headers,
     });
   }
