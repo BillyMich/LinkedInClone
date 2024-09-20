@@ -9,7 +9,7 @@ public partial class AdvertismentWorkingLocation : IAdvertismentDetail
 {
     public int Id { get; set; }
 
-    public int WorkingLocationId { get; set; }
+    public int TypeId { get; set; }
 
     public int AdvertisementId { get; set; }
 
@@ -19,7 +19,7 @@ public partial class AdvertismentWorkingLocation : IAdvertismentDetail
 
     public DateTimeOffset UpdatedAt { get; set; }
 
-    public virtual Advertisement WorkingLocation { get; set; }
+    public virtual Advertisement Type { get; set; }
 
-    public virtual RfdtWorkingLocation WorkingLocationNavigation { get; set; }
+    public virtual RfdtWorkingLocation TypeNavigation { get; set; }
 }

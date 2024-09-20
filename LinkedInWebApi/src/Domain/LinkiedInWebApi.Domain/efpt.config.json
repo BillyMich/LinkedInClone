@@ -87,10 +87,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[UserCVFile]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[UserEducation]",
          "ObjectType": 0
       },

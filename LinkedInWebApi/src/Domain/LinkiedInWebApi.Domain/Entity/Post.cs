@@ -25,7 +25,7 @@ public partial class Post
 
     public virtual ICollection<PostComment> PostComments { get; set; } = new List<PostComment>();
 
-    public virtual ICollection<PostMultimedium> PostMultimedia { get; set; } = new List<PostMultimedium>();
+    public virtual ICollection<PostMultimedia> PostMultimedia { get; set; } = new List<PostMultimedia>();
 
     public virtual ICollection<PostReaction> PostReactions { get; set; } = new List<PostReaction>();
 }

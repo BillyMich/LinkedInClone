@@ -3,7 +3,7 @@ namespace LinkiedInWebApi.Domain.Entity
 {
     public interface IAdvertismentDetail
     {
-        int Id { get; set; }
+        int TypeId { get; set; }
         bool IsActive { get; set; }
         DateTimeOffset CreatedAt { get; set; }
         DateTimeOffset UpdatedAt { get; set; }

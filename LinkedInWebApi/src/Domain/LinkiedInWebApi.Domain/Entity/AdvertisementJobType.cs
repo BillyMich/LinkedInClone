@@ -9,7 +9,7 @@ public partial class AdvertisementJobType : IAdvertismentDetail
 {
     public int Id { get; set; }
 
-    public int JobTypeId { get; set; }
+    public int TypeId { get; set; }
 
     public int AdvertisementId { get; set; }
 
@@ -19,7 +19,7 @@ public partial class AdvertisementJobType : IAdvertismentDetail
 
     public DateTimeOffset UpdatedAt { get; set; }
 
-    public virtual Advertisement JobType { get; set; }
+    public virtual Advertisement Type { get; set; }
 
-    public virtual RfdtJobType JobTypeNavigation { get; set; }
+    public virtual RfdtJobType TypeNavigation { get; set; }
 }

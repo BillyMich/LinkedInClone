@@ -24,7 +24,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
         private static List<T> ToRFDT<T>(this int value) where T : IAdvertismentDetail, new()
         {
 
-            return new List<T> { new() { Id = value, IsActive = true, CreatedAt = DateTimeOffset.Now, UpdatedAt = DateTimeOffset.Now } };
+            return new List<T> { new() { TypeId = value, IsActive = true, CreatedAt = DateTimeOffset.Now, UpdatedAt = DateTimeOffset.Now } };
         }
 
 
@@ -37,7 +37,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 FreeTxt = advertisement.FreeTxt,
                 CreatedAt = advertisement.CreatedAt.DateTime,
                 UpdatedAt = advertisement.UpdatedAt.DateTime,
-                ProfessionalBranches = advertisement.AdvertismentProfessionalBranches.Select(x => x.ProfessionalBranchId).ToList()
+                //ProfessionalBranches = advertisement.AdvertismentProfessionalBranches.Select(x => x.ProfessionalBranchId).ToList()
 
             };
         }
@@ -51,7 +51,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 FreeTxt = advertisementDto.FreeTxt,
                 CreatedAt = advertisementDto.CreatedAt,
                 UpdatedAt = advertisementDto.UpdatedAt,
-                AdvertismentProfessionalBranches = advertisementDto.ProfessionalBranches.Select(x => new AdvertismentProfessionalBranch { ProfessionalBranchId = x }).ToList()
+                //AdvertismentProfessionalBranches = advertisementDto.ProfessionalBranches.Select(x => new AdvertismentProfessionalBranch { ProfessionalBranchId = x }).ToList()
             };
         }
 

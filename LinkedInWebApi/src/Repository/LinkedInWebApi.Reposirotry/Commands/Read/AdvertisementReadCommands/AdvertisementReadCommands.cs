@@ -61,7 +61,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
         {
             var advertisement = await _linkedInDbContext.Advertisements
                 .Include(u => u.AdvertismentProfessionalBranches)
-                .Where(x => professionalBranches.HaveCommonElements<int>(x.AdvertismentProfessionalBranches.Select(x => x.ProfessionalBranchId).ToList()))
+                //.Where(x => professionalBranches.HaveCommonElements<int>(x.AdvertismentProfessionalBranches.Select(x => x.ProfessionalBranchId).ToList()))
                 .ToListAsync();
 
             if (advertisement == null)

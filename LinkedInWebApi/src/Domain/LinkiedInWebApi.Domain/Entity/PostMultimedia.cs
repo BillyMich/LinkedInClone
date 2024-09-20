@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LinkiedInWebApi.Domain.Entity;
 
-public partial class PostMultimedium
+public partial class PostMultimedia
 {
     public int Id { get; set; }
 

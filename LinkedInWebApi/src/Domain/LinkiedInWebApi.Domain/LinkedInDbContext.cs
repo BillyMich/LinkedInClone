@@ -89,8 +89,13 @@ public partial class LinkedInDbContext : DbContext
         {
             entity.ToTable("AdvertisementJobType");
 
-            entity.HasOne(d => d.JobType).WithMany(p => p.AdvertisementJobTypes)
-                .HasForeignKey(d => d.JobTypeId)
+            entity.HasOne(d => d.Type).WithMany(p => p.AdvertisementJobTypes)
+                .HasForeignKey(d => d.TypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AdvertisementJobType_Advertisement");
+
+            entity.HasOne(d => d.TypeNavigation).WithMany(p => p.AdvertisementJobTypes)
+                .HasForeignKey(d => d.TypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_AdvertisementJobType_RFDT_JobType");
         });
@@ -104,8 +109,8 @@ public partial class LinkedInDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_AdvertismentProfessionalBranch_Advertisement");
 
-            entity.HasOne(d => d.ProfessionalBranch).WithMany(p => p.AdvertismentProfessionalBranches)
-                .HasForeignKey(d => d.ProfessionalBranchId)
+            entity.HasOne(d => d.Type).WithMany(p => p.AdvertismentProfessionalBranches)
+                .HasForeignKey(d => d.TypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_AdvertismentProfessionalBranch_ProfessionalBranch");
         });
@@ -114,13 +119,13 @@ public partial class LinkedInDbContext : DbContext
         {
             entity.ToTable("AdvertismentWorkingLocation");
 
-            entity.HasOne(d => d.WorkingLocation).WithMany(p => p.AdvertismentWorkingLocations)
-                .HasForeignKey(d => d.WorkingLocationId)
+            entity.HasOne(d => d.Type).WithMany(p => p.AdvertismentWorkingLocations)
+                .HasForeignKey(d => d.TypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_AdvertismentWorkingLocation_Advertisement");
 
-            entity.HasOne(d => d.WorkingLocationNavigation).WithMany(p => p.AdvertismentWorkingLocations)
-                .HasForeignKey(d => d.WorkingLocationId)
+            entity.HasOne(d => d.TypeNavigation).WithMany(p => p.AdvertismentWorkingLocations)
+                .HasForeignKey(d => d.TypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_AdvertismentWorkingLocation_RFDT_WorkingLocation");
         });
@@ -251,7 +256,6 @@ public partial class LinkedInDbContext : DbContext
         {
             entity.ToTable("RFDT_JobType");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -286,7 +290,6 @@ public partial class LinkedInDbContext : DbContext
         {
             entity.ToTable("RFDT_WorkingLocation");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -328,15 +331,6 @@ public partial class LinkedInDbContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_CV_User");
-        });
-
-        modelBuilder.Entity<UserCvfile>(entity =>
-        {
-            entity.ToTable("UserCVFile");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.DateOfFile).IsRequired();
-            entity.Property(e => e.UserCvid).HasColumnName("UserCVId");
         });
 
         modelBuilder.Entity<UserEducation>(entity =>
