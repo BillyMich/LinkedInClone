@@ -32,6 +32,7 @@ export class JobsComponent implements OnInit {
       professionalBranche: ['', Validators.required],
       jobType: ['', Validators.required],
       workingLocation: ['', Validators.required],
+      status: ['', Validators.required],
     });
   }
 

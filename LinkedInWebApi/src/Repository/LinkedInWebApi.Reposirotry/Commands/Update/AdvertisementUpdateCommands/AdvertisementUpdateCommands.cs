@@ -37,7 +37,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
             }
         }
 
-        public async Task<bool> UpdateAdvertisement(AdvertisementDto advertisementDto, int creatorId)
+        public async Task<bool> UpdateAdvertisementAsync(UpdateAdvertisementDto advertisementDto, int creatorId)
         {
 
             try

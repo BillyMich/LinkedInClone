@@ -61,15 +61,15 @@ namespace LinkedInWebApi.Application.Services
             return _advertisemenReadCommands.GetAdvertismentsByProfessionalBranches(professionalBranches);
         }
 
-        public Task<List<AdvertisementDto>> GetAdvertismentsOfUserByStatus(byte status, ClaimsIdentity claimsIdentity)
+        public Task<List<AdvertisementDto>> GetAdvertismentsOfUserByStatusAsync(byte status, ClaimsIdentity claimsIdentity)
         {
             return _advertisemenReadCommands.GetAdvertismentsByStatus(status);
         }
 
-        public async Task<bool> UpdateAdvertisment(AdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity)
+        public async Task<bool> UpdateAdvertismentAsync(UpdateAdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity)
         {
             var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
-            var result = await _advertisemenUpdateCommands.UpdateAdvertisement(advertisementDto, curentUserId);
+            var result = await _advertisemenUpdateCommands.UpdateAdvertisementAsync(advertisementDto, curentUserId);
 
             if (!result)
             {

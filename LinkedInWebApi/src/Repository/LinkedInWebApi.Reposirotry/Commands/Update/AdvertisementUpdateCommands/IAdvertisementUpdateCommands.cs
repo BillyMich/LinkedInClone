@@ -4,7 +4,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
 {
     public interface IAdvertisementUpdateCommands
     {
-        Task<bool> UpdateAdvertisement(AdvertisementDto advertisementDto, int creatorId);
+        Task<bool> UpdateAdvertisementAsync(UpdateAdvertisementDto advertisementDto, int creatorId);
 
         Task<bool> DeleteAdvertisement(int id, int userId);
     }

@@ -48,6 +48,14 @@
                   <option *ngFor="let workingLocation of workingLocations" [value]="workingLocation.id">{{ workingLocation.name }}</option>
                 </select>
               </div>
+
+              <div>
+                <label for="status">Status</label>
+                <select id="status" formControlName="status" required>
+                  <option value="1">Draft</option>
+                  <option value="2">Submit</option>
+                </select>
+              </div>
           
               <button type="submit">Submit</button>
             </form>

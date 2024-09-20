@@ -19,7 +19,9 @@ namespace LinkedInWebApi.Reposirotry.Commands
         {
             var advertisement = await _linkedInDbContext.Advertisements
                 .Include(u => u.AdvertismentProfessionalBranches)
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .Include(u => u.AdvertisementJobTypes)
+                .Include(u => u.AdvertismentWorkingLocations)
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsActive);
 
             if (advertisement == null)
             {
@@ -32,7 +34,11 @@ namespace LinkedInWebApi.Reposirotry.Commands
         public async Task<List<AdvertisementDto>> GetAdvertisments()
         {
             var advertisement = await _linkedInDbContext.Advertisements
-                .Include(u => u.AdvertismentProfessionalBranches).ToListAsync();
+                .Include(u => u.AdvertismentProfessionalBranches)
+                .Include(u => u.AdvertisementJobTypes)
+                .Include(u => u.AdvertismentWorkingLocations)
+                .Where(x => x.IsActive)
+                .ToListAsync();
 
             if (advertisement == null)
             {
@@ -46,6 +52,9 @@ namespace LinkedInWebApi.Reposirotry.Commands
         {
             var advertisement = await _linkedInDbContext.Advertisements
                 .Include(u => u.AdvertismentProfessionalBranches)
+                .Include(u => u.AdvertisementJobTypes)
+                .Include(u => u.AdvertismentWorkingLocations)
+                .Where(x => x.IsActive)
                 .Where(x => x.CreatorId == creatorId)
                 .ToListAsync();
 
@@ -61,8 +70,10 @@ namespace LinkedInWebApi.Reposirotry.Commands
         {
             var advertisement = await _linkedInDbContext.Advertisements
                 .Include(u => u.AdvertismentProfessionalBranches)
-                //.Where(x => professionalBranches.HaveCommonElements<int>(x.AdvertismentProfessionalBranches.Select(x => x.ProfessionalBranchId).ToList()))
-                .ToListAsync();
+                .Include(u => u.AdvertismentProfessionalBranches)
+                .Include(u => u.AdvertisementJobTypes)
+                .Include(u => u.AdvertismentWorkingLocations)
+                .Where(x => x.IsActive).ToListAsync();
 
             if (advertisement == null)
             {
@@ -76,6 +87,9 @@ namespace LinkedInWebApi.Reposirotry.Commands
         {
             var advertisement = await _linkedInDbContext.Advertisements
                 .Include(u => u.AdvertismentProfessionalBranches)
+                .Include(u => u.AdvertisementJobTypes)
+                .Include(u => u.AdvertismentWorkingLocations)
+                .Where(x => x.IsActive)
                 .Where(x => x.Status == status)
                 .ToListAsync();
 
@@ -86,5 +100,6 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
             return advertisement.ToAdvertisementDtos();
         }
+
     }
 }

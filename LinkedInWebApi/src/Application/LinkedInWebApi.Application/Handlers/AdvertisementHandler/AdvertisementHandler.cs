@@ -14,7 +14,7 @@ namespace LinkedInWebApi.Application.Handlers
             _advertisementService = advertisementService;
         }
 
-        public Task<bool> CreateAdvertisement(CreateAdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity)
+        public Task<bool> CreateAdvertisementAsync(CreateAdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity)
         {
             return _advertisementService.CreateAdvertisement(advertisementDto, claimsIdentity);
         }
@@ -24,29 +24,29 @@ namespace LinkedInWebApi.Application.Handlers
             return _advertisementService.DeleteAdvertisment(id, claimsIdentity);
         }
 
-        public Task<AdvertisementDto?> GetAdvertisment(int id, ClaimsIdentity claimsIdentity)
+        public Task<AdvertisementDto?> GetAdvertismentAsync(int id, ClaimsIdentity claimsIdentity)
         {
             return _advertisementService.GetAdvertisment(id, claimsIdentity);
         }
 
-        public Task<List<AdvertisementDto>> GetAdvertisments(ClaimsIdentity claimsIdentity)
+        public Task<List<AdvertisementDto>> GetAdvertismentsAsync(ClaimsIdentity claimsIdentity)
         {
             return _advertisementService.GetAdvertisments(claimsIdentity);
         }
 
-        public Task<List<AdvertisementDto>> GetAdvertismentsByProfessionalBranches(List<int> professionalBranches)
+        public Task<List<AdvertisementDto>> GetAdvertismentsByProfessionalBranchesAsync(List<int> professionalBranches)
         {
             return _advertisementService.GetAdvertismentsByProfessionalBranches(professionalBranches);
         }
 
-        public Task<List<AdvertisementDto>> GetAdvertismentsOfUserByStatus(byte status, ClaimsIdentity claimsIdentity)
+        public Task<List<AdvertisementDto>> GetAdvertismentsOfUserByStatusAsync(byte status, ClaimsIdentity claimsIdentity)
         {
-            return _advertisementService.GetAdvertismentsOfUserByStatus(status, claimsIdentity);
+            return _advertisementService.GetAdvertismentsOfUserByStatusAsync(status, claimsIdentity);
         }
 
-        public Task<bool> UpdateAdvertisment(AdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity)
+        public Task<bool> UpdateAdvertismentAsync(UpdateAdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity)
         {
-            return _advertisementService.UpdateAdvertisment(advertisementDto, claimsIdentity);
+            return _advertisementService.UpdateAdvertismentAsync(advertisementDto, claimsIdentity);
         }
     }
 }

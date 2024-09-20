@@ -18,12 +18,17 @@ namespace LinkedInWebApi.Controllers
             _identity = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
         }
 
+        /// <summary>
+        /// Creates a new advertisement.
+        /// </summary>
+        /// <param name="createAdvertisementDto">The data for creating the advertisement.</param>
+        /// <returns>The created advertisement.</returns>
         [HttpPost("CreateAdvertisement")]
         public async Task<ActionResult<AdvertisementDto>> CreateAdvertisement([FromBody] CreateAdvertisementDto createAdvertisementDto)
         {
             try
             {
-                return Ok(await _advertisementHandler.CreateAdvertisement(createAdvertisementDto, _identity));
+                return Ok(await _advertisementHandler.CreateAdvertisementAsync(createAdvertisementDto, _identity));
             }
             catch (Exception)
             {
@@ -31,12 +36,17 @@ namespace LinkedInWebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates an existing advertisement.
+        /// </summary>
+        /// <param name="advertisementDto">The data for updating the advertisement.</param>
+        /// <returns>True if the advertisement was updated successfully, otherwise false.</returns>
         [HttpPost("UpdateAdvertisement")]
-        public async Task<ActionResult<bool>> UpdateAdvertisement([FromBody] AdvertisementDto advertisementDto)
+        public async Task<ActionResult<bool>> UpdateAdvertisement([FromBody] UpdateAdvertisementDto advertisementDto)
         {
             try
             {
-                return Ok(await _advertisementHandler.UpdateAdvertisment(advertisementDto, _identity));
+                return Ok(await _advertisementHandler.UpdateAdvertismentAsync(advertisementDto, _identity));
             }
             catch (Exception)
             {
@@ -44,6 +54,11 @@ namespace LinkedInWebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes an advertisement by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the advertisement to delete.</param>
+        /// <returns>True if the advertisement was deleted successfully, otherwise false.</returns>
         [HttpPost("DeleteAdvertisement/{id}")]
         public async Task<ActionResult<bool>> DeleteAdvertisement(int id)
         {
@@ -57,12 +72,17 @@ namespace LinkedInWebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets an advertisement by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the advertisement to get.</param>
+        /// <returns>The advertisement with the specified ID.</returns>
         [HttpGet("GetAdvertisement/{id}")]
         public async Task<ActionResult<AdvertisementDto>> GetAdvertisement(int id)
         {
             try
             {
-                return Ok(await _advertisementHandler.GetAdvertisment(id, _identity));
+                return Ok(await _advertisementHandler.GetAdvertismentAsync(id, _identity));
             }
             catch (Exception)
             {
@@ -70,12 +90,16 @@ namespace LinkedInWebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all advertisements.
+        /// </summary>
+        /// <returns>A list of all advertisements.</returns>
         [HttpGet("GetAdvertisements")]
         public async Task<ActionResult<List<AdvertisementDto>>> GetAdvertisements()
         {
             try
             {
-                return Ok(await _advertisementHandler.GetAdvertisments(_identity));
+                return Ok(await _advertisementHandler.GetAdvertismentsAsync(_identity));
             }
             catch (Exception)
             {
@@ -83,12 +107,17 @@ namespace LinkedInWebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets advertisements by professional branches.
+        /// </summary>
+        /// <param name="professionalBranches">The list of professional branches.</param>
+        /// <returns>A list of advertisements filtered by professional branches.</returns>
         [HttpGet("GetAdvertisementsByProfessionalBranches")]
         public async Task<ActionResult<List<AdvertisementDto>>> GetAdvertisementsByProfessionalBranches([FromBody] List<int> professionalBranches)
         {
             try
             {
-                return Ok(await _advertisementHandler.GetAdvertismentsByProfessionalBranches(professionalBranches));
+                return Ok(await _advertisementHandler.GetAdvertismentsByProfessionalBranchesAsync(professionalBranches));
             }
             catch (Exception)
             {
@@ -96,12 +125,17 @@ namespace LinkedInWebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets advertisements of a user by status.
+        /// </summary>
+        /// <param name="status">The status of the advertisements.</param>
+        /// <returns>A list of advertisements of the user filtered by status.</returns>
         [HttpGet("GetAdvertisementsOfUserByStatus/{status}")]
         public async Task<ActionResult<List<AdvertisementDto>>> GetAdvertisementsOfUserByStatus(byte status)
         {
             try
             {
-                return Ok(await _advertisementHandler.GetAdvertismentsOfUserByStatus(status, _identity));
+                return Ok(await _advertisementHandler.GetAdvertismentsOfUserByStatusAsync(status, _identity));
             }
             catch (Exception)
             {

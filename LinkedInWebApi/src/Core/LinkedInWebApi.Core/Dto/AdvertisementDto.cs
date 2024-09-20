@@ -7,9 +7,11 @@
         public string FreeTxt { get; set; }
         public int CreatorId { get; set; }
         public byte Status { get; set; }
+        public string ProfessionalBranche { get; set; }
+        public string WorkingLocation { get; set; }
+        public string JobType { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public List<int> ProfessionalBranches { get; set; }
 
     }
 }
