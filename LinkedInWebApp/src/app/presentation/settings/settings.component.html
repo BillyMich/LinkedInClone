@@ -1,55 +1,51 @@
-<link rel="stylesheet" type="text/css" href="settings.component.css">
 <div class="settings-container content">
   <app-sidebar></app-sidebar>
-  <h1>Ρυθμίσεις</h1>
+  <h1>Settings</h1>
 
-  <!-- Action Buttons -->
   <div class="actions">
     <button (click)="openEmailModal()">Change Email</button>
     <button (click)="openPasswordModal()">Change Password</button>
     <button (click)="openChangeProfilePictureModal()">Change Profile Picture</button>
   </div>
 
-  <!-- Email Change Modal -->
-  <div *ngIf="showEmailModal" class="modal">
-    <h2>Change Email</h2>
-    <form [formGroup]="emailForm" (ngSubmit)="onChangeEmail()">
-      <label for="email">New Email</label>
-      <input id="email" formControlName="email" type="email" placeholder="Enter new email" />
-      <button type="submit" [disabled]="emailForm.invalid">Save</button>
-      <button type="button" (click)="closeModal()">Cancel</button>
-    </form>
+  <div *ngIf="showEmailModal || showPasswordModal || showChangeProfilePictureModal" class="modal-overlay">
+    <div *ngIf="showEmailModal" class="modal">
+      <h2>Change Email</h2>
+      <form [formGroup]="emailForm" (ngSubmit)="onChangeEmail()">
+        <label for="email">New Email</label>
+        <input id="email" formControlName="email" type="email" placeholder="Enter new email" />
+        <button type="submit" [disabled]="emailForm.invalid">Save</button>
+        <button type="button" (click)="closeModal()">Cancel</button>
+      </form>
+    </div>
+
+    <div *ngIf="showPasswordModal" class="modal">
+      <h2>Change Password</h2>
+      <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+        <label for="password">New Password</label>
+        <input id="password" formControlName="password" type="password" placeholder="Enter new password" />
+        
+        <label for="confirmPassword">Confirm Password</label>
+        <input id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="Confirm password" />
+        
+        <div *ngIf="passwordForm.hasError('mismatch') && passwordForm.touched">
+          <small>Passwords do not match</small>
+        </div>
+        
+        <button type="submit" [disabled]="passwordForm.invalid">Save</button>
+        <button type="button" (click)="closeModal()">Cancel</button>
+      </form>
+    </div>
+
+    <div *ngIf="showChangeProfilePictureModal" class="modal">
+      <h2>Change Profile Picture</h2>
+      <form (ngSubmit)="onSubmitProfilePicture()">
+        <label for="profilePicture">Upload New Profile Picture</label>
+        <input id="profilePicture" type="file" (change)="onFileSelected($event)" />
+        <button type="submit" [disabled]="!selectedFile">Save</button>
+        <button type="button" (click)="closeModal()">Cancel</button>
+      </form>
+    </div>
   </div>
-
-  <!-- Password Change Modal -->
-  <div *ngIf="showPasswordModal" class="modal">
-    <h2>Change Password</h2>
-    <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
-      <label for="password">New Password</label>
-      <input id="password" formControlName="password" type="password" placeholder="Enter new password" />
-      
-      <label for="confirmPassword">Confirm Password</label>
-      <input id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="Confirm password" />
-
-      <div *ngIf="passwordForm.hasError('mismatch') && passwordForm.touched">
-        <small>Passwords do not match</small>
-      </div>
-
-      <button type="submit" [disabled]="passwordForm.invalid">Save</button>
-      <button type="button" (click)="closeModal()">Cancel</button>
-    </form>
-  </div>
-
-  <!-- Change profile Picture -->
-  <div *ngIf="showChangeProfilePictureModal" class="modal">
-    <h2>Change Profile Picture</h2>
-    <form (ngSubmit)="onSubmitProfilePicture()">
-      <label for="profilePicture">Upload New Profile Picture</label>
-      <input id="profilePicture" type="file" (change)="onFileSelected($event)" />
-      <button type="submit" [disabled]="!selectedFile">Save</button>
-      <button type="button" (click)="closeModal()">Cancel</button>
-    </form>
-  </div>
-  <!-- Sign Out Button -->
   <button (click)="onSignOut()" class="signout-button">Sign Out</button>
 </div>
