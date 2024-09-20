@@ -1,71 +1,60 @@
-<!-- src/app/jobs/jobs.component.html -->
 <div class="jobs-container content">
   <app-sidebar></app-sidebar>
   <h1 class="title">Αγγελίες</h1>
 
   <div class="job-form-container">
-    <button class="toggle-button primary-button" (click)="toggleJobForm()">
-      Δημοσίευση Αγγελίας
-    </button>
+    <button class="toggle-button primary-button" (click)="toggleJobForm()">Δημοσίευση Αγγελίας</button>
 
     <div *ngIf="showJobForm" class="job-form-modal">
       <div class="job-form-content">
         <h2>Νέα Αγγελία</h2>
-        <div class="job-form-container">
-          <button class="toggle-button primary-button" (click)="toggleJobForm()">
-            Δημοσίευση Αγγελίας
-          </button>
-      
-          <div *ngIf="showJobForm">
-            <form [formGroup]="newJobForm" (ngSubmit)="onSubmitNewJob()">
-              <div>
-                <label for="title">Job Title</label>
-                <input id="title" formControlName="title" required />
-              </div>
-          
-              <div>
-                <label for="freeTxt">Job Description</label>
-                <textarea id="freeTxt" formControlName="freeTxt" required></textarea>
-              </div>
-          
-              <div>
-                <label for="professionalBranche">profesionalBranche</label>
-                <select id="professionalBranche" formControlName="professionalBranche" required>
-                  <option *ngFor="let profesionalBranche of profesionalBranches" [value]="profesionalBranche.id">{{ profesionalBranche.name }}</option>
-                </select>
-              </div>
-          
-              <div>
-                <label for="jobType">Job Type</label>
-                <select id="jobType" formControlName="jobType" required>
-                  <option *ngFor="let jobType of jobTypes" [value]="jobType.id">{{ jobType.name }}</option>
-                </select>
-              </div>
-          
-              <div>
-                <label for="workingLocation">Working Location</label>
-                <select id="workingLocation" formControlName="workingLocation" required>
-                  <option *ngFor="let workingLocation of workingLocations" [value]="workingLocation.id">{{ workingLocation.name }}</option>
-                </select>
-              </div>
-
-              <div>
-                <label for="status">Status</label>
-                <select id="status" formControlName="status" required>
-                  <option value="1">Draft</option>
-                  <option value="2">Submit</option>
-                </select>
-              </div>
-          
-              <button type="submit">Submit</button>
-            </form>
+        <form [formGroup]="newJobForm" (ngSubmit)="onSubmitNewJob()">
+          <div class="form-group">
+            <label for="title">Job Title</label>
+            <input id="title" formControlName="title" required />
           </div>
-        </div>
+
+          <div class="form-group">
+            <label for="freeTxt">Job Description</label>
+            <textarea id="freeTxt" formControlName="freeTxt" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="professionalBranche">Professional Branche</label>
+            <select id="professionalBranche" formControlName="professionalBranche" required>
+              <option *ngFor="let profesionalBranche of profesionalBranches" [value]="profesionalBranche.id">{{ profesionalBranche.name }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="jobType">Job Type</label>
+            <select id="jobType" formControlName="jobType" required>
+              <option *ngFor="let jobType of jobTypes" [value]="jobType.id">{{ jobType.name }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="workingLocation">Working Location</label>
+            <select id="workingLocation" formControlName="workingLocation" required>
+              <option *ngFor="let workingLocation of workingLocations" [value]="workingLocation.id">{{ workingLocation.name }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" formControlName="status" required>
+              <option value="1">Draft</option>
+              <option value="2">Submit</option>
+            </select>
+          </div>
+
+          <button type="submit" class="primary-button">Submit</button>
+          <button type="button" class="secondary-button" (click)="toggleJobForm()">Cancel</button>
+        </form>
       </div>
     </div>
   </div>
 
-  <!-- Job Listings -->
   <div class="job-listings">
     <h2 class="section-title">Διαθέσιμες Αγγελίες</h2>
     <div *ngFor="let job of jobListings" class="job-listing">
