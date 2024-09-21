@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { SettingsService } from '../../services/settings.service';
-import { NewContactRequestDto } from '../../models/contactRequest.model'; 
+import { NewContactRequestDto } from '../../models/contactRequest.model';
 
 @Component({
   selector: 'app-network',
@@ -28,38 +28,9 @@ export class NetworkComponent implements OnInit {
     this.loadNonConnectedUsers();
   }
 
-  loadConnectedUsers() {
-    this.userService.getConnectedUsers().subscribe({
-      next: (data) => {
-        this.connectedUsers = data;
-        this.connectedUsers.forEach((user) => this.loadProfilePicture(user.id));
-      },
-      error: (err) => {
-        console.error('Error loading connected users:', err);
-      },
-    });
-  }
-
-  loadNonConnectedUsers() {
-    this.userService.getNonConnectedUsers().subscribe({
-      next: (data) => {
-        this.nonConnectedUsers = data.filter(user => !this.isConnected(user.id));
-        this.nonConnectedUsers.forEach((user) => this.loadProfilePicture(user.id));
-      },
-      error: (err) => {
-        console.error('Error loading non-connected users:', err);
-      },
-    });
-  }
-  
-
-  loadProfilePicture(userId: number) {
-    this.profilePictures[userId] = this.settingsService.getProfilePictureUrl(userId);
-  }
-
   searchProfessionals() {
     if (this.searchQuery.trim()) {
-      this.searchResults = this.nonConnectedUsers.filter(user => {
+      this.searchResults = this.nonConnectedUsers.filter((user) => {
         const fullName = `${user.name} ${user.surname}`.toLowerCase();
         return fullName.includes(this.searchQuery.toLowerCase());
       });
@@ -79,26 +50,26 @@ export class NetworkComponent implements OnInit {
   }
 
   sendFriendRequest(professionalId: number) {
-    this.userService.createContactRequest(new NewContactRequestDto(professionalId)).subscribe({
-      next: () => {
-        alert('Friend request sent successfully!');
-      },
-      error: (err) => {
-        console.error('Error sending friend request:', err);
-        alert('Failed to send friend request. Please try again.');
-      },
-    });
+    this.userService
+      .createContactRequest(new NewContactRequestDto(professionalId))
+      .subscribe({
+        next: () => {
+          alert('Friend request sent successfully!');
+        },
+        error: (err) => {
+          console.error('Error sending friend request:', err);
+          alert('Failed to send friend request. Please try again.');
+        },
+      });
   }
 
   isConnected(professionalId: number): boolean {
-    return this.connectedUsers.some(user => user.id === professionalId);
+    return this.connectedUsers.some((user) => user.id === professionalId);
   }
 
-  closeProfileViewer() {
-    this.selectedProfessional = null;
-  }
-  deleteFriend(professionalId: number) { // enable when delete is possible
-   /* this.userService.deleteContact(professionalId).subscribe({
+  deleteFriend(professionalId: number) {
+    // enable when delete is possible
+    /* this.userService.deleteContact(professionalId).subscribe({
       next: () => {
         alert('Friend removed successfully!');
         // Refresh connected and non-connected users
@@ -112,10 +83,49 @@ export class NetworkComponent implements OnInit {
     });
     */
   }
-  @HostListener('document:keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
+
+  closeProfileViewer() {
+    this.selectedProfessional = null;
+  }
+
+  @HostListener('document:keydown', ['$event']) onKeyDown(
+    event: KeyboardEvent
+  ) {
     if (event.key === 'Escape') {
       this.closeProfileViewer();
     }
   }
-}
 
+  private loadProfilePicture(userId: number) {
+    this.profilePictures[userId] =
+      this.settingsService.getProfilePictureUrl(userId);
+  }
+
+  private loadConnectedUsers() {
+    this.userService.getConnectedUsers().subscribe({
+      next: (data) => {
+        this.connectedUsers = data;
+        this.connectedUsers.forEach((user) => this.loadProfilePicture(user.id));
+      },
+      error: (err) => {
+        console.error('Error loading connected users:', err);
+      },
+    });
+  }
+
+  private loadNonConnectedUsers() {
+    this.userService.getNonConnectedUsers().subscribe({
+      next: (data) => {
+        this.nonConnectedUsers = data.filter(
+          (user) => !this.isConnected(user.id)
+        );
+        this.nonConnectedUsers.forEach((user) =>
+          this.loadProfilePicture(user.id)
+        );
+      },
+      error: (err) => {
+        console.error('Error loading non-connected users:', err);
+      },
+    });
+  }
+}

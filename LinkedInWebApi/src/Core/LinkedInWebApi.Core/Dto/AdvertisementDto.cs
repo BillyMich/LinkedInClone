@@ -33,17 +33,17 @@
         /// <summary>
         /// Gets or sets the professional branch of the advertisement.
         /// </summary>
-        public string ProfessionalBranche { get; set; }
+        public int ProfessionalBranche { get; set; }
 
         /// <summary>
         /// Gets or sets the working location of the advertisement.
         /// </summary>
-        public string WorkingLocation { get; set; }
+        public int WorkingLocation { get; set; }
 
         /// <summary>
         /// Gets or sets the job type of the advertisement.
         /// </summary>
-        public string JobType { get; set; }
+        public int JobType { get; set; }
 
         /// <summary>
         /// Gets or sets the creation date and time of the advertisement.

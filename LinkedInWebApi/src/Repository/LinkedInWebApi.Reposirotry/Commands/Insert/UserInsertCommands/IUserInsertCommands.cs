@@ -6,8 +6,8 @@ namespace LinkedInWebApi.Reposirotry.Commands
     {
 
         Task<bool> RegisterUserAsync(UserDto registerDto);
-
-        Task<bool> UploadNewProfilePicture(FileDto fileDto, int userId);
+        Task<bool> UploadNewCVAsync(FileDto fileDto, int curentUserId);
+        Task<bool> UploadNewProfilePictureAsync(FileDto fileDto, int userId);
 
     }
 }

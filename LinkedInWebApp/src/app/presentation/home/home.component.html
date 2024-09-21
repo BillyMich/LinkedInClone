@@ -34,7 +34,10 @@
           </div>
           <p class="timestamp">{{ post.createdAt | date: 'short' }}</p>
         </div>
-
+        <div *ngIf="post.Multimedia">
+          <img *ngIf="isImage(post.MultimediaType)" [src]="post.Multimedia" alt="Multimedia Content" class="multimedia-content" />
+          <video *ngIf="isVideo(post.MultimediaType)" [src]="post.Multimedia" controls class="multimedia-content"></video>
+        </div>
         <p>{{ post.freeTxt }}</p>
     
         <div class="post-actions">

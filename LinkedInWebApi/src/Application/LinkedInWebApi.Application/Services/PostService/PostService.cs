@@ -49,6 +49,11 @@ namespace LinkedInWebApi.Application.Services
             throw new NotImplementedException();
         }
 
+        public async Task<FileDto> GetPostMultimedia(int id, ClaimsIdentity identity)
+        {
+            return await _postReadCommands.GetPostMultimedia(id);
+        }
+
         public async Task<List<PostDto>> GetPosts(ClaimsIdentity claimsIdentity)
         {
             return await _postReadCommands.GetPosts();

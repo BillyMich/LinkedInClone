@@ -24,19 +24,24 @@ namespace LinkedInWebApi.Application.Handlers
             return await _postService.CreatePostComment(postCommentDto, claimsIdentity);
         }
 
-        public Task<bool> DeletePost(int id, ClaimsIdentity claimsIdentity)
+        public async Task<bool> DeletePost(int id, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return await _postService.DeletePost(id, claimsIdentity);
         }
 
-        public Task<bool> DeletePostComment(int id, ClaimsIdentity claimsIdentity)
+        public async Task<bool> DeletePostComment(int id, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return await _postService.DeletePostComment(id, claimsIdentity);
         }
 
         public Task<PostDto?> GetPost(int id, ClaimsIdentity claimsIdentity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<FileDto> GetPostMultimedia(int id, ClaimsIdentity identity)
+        {
+            return await _postService.GetPostMultimedia(id, identity);
         }
 
         public Task<List<PostDto>> GetPosts(ClaimsIdentity claimsIdentity)
@@ -46,12 +51,12 @@ namespace LinkedInWebApi.Application.Handlers
 
         public Task<bool> UpdatePost(PostDto postDto, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return _postService.UpdatePost(postDto, claimsIdentity);
         }
 
         public Task<bool> UpdatePostComment(PostCommentDto postCommentDto, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return _postService.UpdatePostComment(postCommentDto, claimsIdentity);
         }
     }
 }
