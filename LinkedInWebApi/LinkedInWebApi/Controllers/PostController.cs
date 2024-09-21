@@ -143,7 +143,7 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpGet("GetPostMultimedia/{id}")]
-        //[Authorize]
+        [Authorize]
         public async Task<ActionResult> GetPostMultimedia(int id)
         {
             try

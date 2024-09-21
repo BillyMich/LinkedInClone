@@ -43,9 +43,9 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 Id = advertisement.Id,
                 Title = advertisement.Title,
                 FreeTxt = advertisement.FreeTxt,
-                ProfessionalBranche = advertisement.AdvertismentProfessionalBranches.FirstOrDefault()?.TypeId.ToString(),
-                WorkingLocation = advertisement.AdvertismentWorkingLocations.FirstOrDefault()?.TypeId.ToString(),
-                JobType = advertisement.AdvertisementJobTypes.FirstOrDefault()?.TypeId.ToString(),
+                ProfessionalBranche = advertisement?.AdvertismentProfessionalBranches.FirstOrDefault()?.TypeId ?? 0,
+                WorkingLocation = advertisement?.AdvertismentWorkingLocations.FirstOrDefault()?.TypeId ?? 0,
+                JobType = advertisement?.AdvertisementJobTypes.FirstOrDefault()?.TypeId ?? 0,
                 CreatedAt = advertisement.CreatedAt.DateTime,
                 UpdatedAt = advertisement.UpdatedAt.DateTime,
             };

@@ -4,7 +4,10 @@ import { AuthService } from '../../services/auth-service/auth.service';
 import { GlobalConstantsService } from '../../services/global-constants.service';
 import { GennericGlobalConstantDto } from '../../models/gennericGlobalConstan.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NewAdvertisement } from '../../models/advertisement.model';
+import {
+  AdvertisementDto,
+  NewAdvertisement,
+} from '../../models/advertisement.model';
 
 @Component({
   selector: 'app-jobs',
@@ -12,7 +15,7 @@ import { NewAdvertisement } from '../../models/advertisement.model';
   styleUrls: ['./jobs.component.css'],
 })
 export class JobsComponent implements OnInit {
-  jobListings: any[] = [];
+  jobListings: AdvertisementDto[] = [];
   user: any;
   newJobForm: FormGroup;
   showJobForm: boolean = false;
@@ -36,16 +39,35 @@ export class JobsComponent implements OnInit {
     });
   }
 
+  getBranchNameById(branchId: number): string {
+    const branch = this.profesionalBranches.find(
+      (branch) => branch.id === branchId
+    );
+    return branch ? branch.name : '';
+  }
+
+  getJobTypeById(jobTypeId: number): string {
+    const jobType = this.jobTypes.find((jobType) => jobType.id === jobTypeId);
+    return jobType ? jobType.name : '';
+  }
+
+  getWorkingLocationById(workingLocationId: number): string {
+    const workingLocation = this.workingLocations.find(
+      (workingLocation) => workingLocation.id === workingLocationId
+    );
+    return workingLocation ? workingLocation.name : '';
+  }
+
   ngOnInit() {
     this.user = this.authService.getCurrentUser();
     this.InitPage();
   }
 
   InitPage() {
-    this.loadJobListings();
     this.loadJobTypes();
     this.loadWorkingLocations();
     this.loadProfesionalBranches();
+    this.loadJobListings();
   }
 
   loadWorkingLocations() {
@@ -64,10 +86,10 @@ export class JobsComponent implements OnInit {
     });
   }
 
-  applyForJob(jobId: string) {
-    this.jobService.applyForJob(jobId).subscribe((response) => {
-      console.log('Applied for job', response);
-    });
+  applyForJob(jobId: number) {
+    // this.jobService.applyForJob(jobId).subscribe((response) => {
+    //   console.log('Applied for job', response);
+    // });
   }
 
   toggleJobForm() {
@@ -97,7 +119,16 @@ export class JobsComponent implements OnInit {
 
   private loadJobListings() {
     this.jobService.getJobListings().subscribe({
-      next: (data) => (this.jobListings = data),
+      next: (data) => {
+        console.log('Job listings', data, this.profesionalBranches);
+        const AdvertisementRequest = data;
+        this.jobListings = AdvertisementRequest.map((job) => ({
+          ...job,
+          professionalBranche: this.getBranchNameById(job.professionalBranche),
+          jobType: this.getJobTypeById(job.jobType),
+          workingLocation: this.getWorkingLocationById(job.workingLocation),
+        }));
+      },
       error: (error) => console.error('Error fetching job listings', error),
     });
   }
