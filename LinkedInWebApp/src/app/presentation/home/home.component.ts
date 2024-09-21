@@ -10,15 +10,14 @@ import { AuthService } from '../../services/auth-service/auth.service';
   styleUrls: ['./home.component.css'],
 })
 // Inside your HomeComponent
-
 export class HomeComponent implements OnInit {
   posts: Post[] = [];
   newPostContent: string = '';
-  newComments: { [postId: number]: string } = {}; 
+  newComments: { [postId: number]: string } = {};
   idDictionary: IdDictionary[] = [];
-  commentsToShow: { [postId: number]: number } = {}; 
+  commentsToShow: { [postId: number]: number } = {};
   file: any;
-  profilePictureUrl: string | ArrayBuffer | null = null; 
+  profilePictureUrl: string | ArrayBuffer | null = null;
   userName: string | null = '';
 
   constructor(
@@ -29,7 +28,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     const currentUser = this.authService.getCurrentUser();
-  
+
     if (currentUser && currentUser.name) {
       this.userName = currentUser.name;
       this.loadProfilePicture();
@@ -41,10 +40,15 @@ export class HomeComponent implements OnInit {
 
   fetchPosts() {
     this.articleService.getArticles().subscribe((data: Post[]) => {
-      this.posts = data.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      this.posts = data.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
       this.posts.forEach((post) => {
         this.commentsToShow[post.id] = 3;
+        this.loadMultimediaForPost(post);
       });
+
       this.loadProfilePictureOfPostAndComments(this.posts);
     });
   }
@@ -58,10 +62,12 @@ export class HomeComponent implements OnInit {
       const createPostDto = {
         freeTxt: this.newPostContent,
       };
-      this.articleService.createArticle(createPostDto, this.file).subscribe(() => {
-        this.fetchPosts();
-        this.newPostContent = '';
-      });
+      this.articleService
+        .createArticle(createPostDto, this.file)
+        .subscribe(() => {
+          this.fetchPosts();
+          this.newPostContent = '';
+        });
     }
   }
 
@@ -77,10 +83,12 @@ export class HomeComponent implements OnInit {
 
   onCommentSubmit(postId: number) {
     if (this.newComments[postId]) {
-      this.articleService.commentArticle(postId, this.newComments[postId]).subscribe(() => {
-        this.fetchPosts();
-        this.newComments[postId] = ''; // Clear the comment after submission
-      });
+      this.articleService
+        .commentArticle(postId, this.newComments[postId])
+        .subscribe(() => {
+          this.fetchPosts();
+          this.newComments[postId] = ''; // Clear the comment after submission
+        });
     }
   }
 
@@ -93,7 +101,9 @@ export class HomeComponent implements OnInit {
         });
       }
       post.comments.forEach((comment) => {
-        if (!this.idDictionary.some((entry) => entry.userId === comment.creatorId)) {
+        if (
+          !this.idDictionary.some((entry) => entry.userId === comment.creatorId)
+        ) {
           this.idDictionary.push({
             userId: comment.creatorId,
             ProfilePictureUrl: null,
@@ -103,7 +113,9 @@ export class HomeComponent implements OnInit {
     });
 
     this.idDictionary.forEach((entry) => {
-      entry.ProfilePictureUrl = this.settingsService.getProfilePictureUrl(entry.userId);
+      entry.ProfilePictureUrl = this.settingsService.getProfilePictureUrl(
+        entry.userId
+      );
     });
   }
 
@@ -113,11 +125,38 @@ export class HomeComponent implements OnInit {
   }
 
   loadProfilePicture(): void {
-    const currentUser = this.authService.getCurrentUser(); 
+    const currentUser = this.authService.getCurrentUser();
     if (currentUser && currentUser.id) {
-      this.profilePictureUrl = this.settingsService.getProfilePictureUrl(currentUser.id);
+      this.profilePictureUrl = this.settingsService.getProfilePictureUrl(
+        currentUser.id
+      );
     } else {
       console.error('User not found or missing user ID');
     }
+  }
+
+  loadMultimediaForPost(post: Post) {
+    this.articleService.getPostMultimedia(post.id).subscribe(
+      (blob) => {
+        if (!blob) {
+          return;
+        }
+        const url = window.URL.createObjectURL(blob);
+        console.log('Multimedia loaded for post', post.id, url, blob);
+        post.MultimediaType = blob.type;
+        post.Multimedia = url; // Assuming the Post model has a multimediaUrl property
+      },
+      (error) => {
+        console.error('Error loading multimedia for post', error);
+      }
+    );
+  }
+
+  isImage(mimeType: string): boolean {
+    return mimeType.startsWith('image/');
+  }
+
+  isVideo(mimeType: string): boolean {
+    return mimeType.startsWith('video/');
   }
 }

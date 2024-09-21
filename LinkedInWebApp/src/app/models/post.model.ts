@@ -19,10 +19,6 @@ export interface Post {
   isActive: boolean;
   status: number;
   comments: Comment[];
-  fileDto: FileDto;
-}
-
-export interface FileDto {
-  dataOfFile: any;
-  fileName: string;
+  Multimedia: any;
+  MultimediaType: string;
 }

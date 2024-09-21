@@ -67,4 +67,12 @@ export class ArticleService {
       headers,
     });
   }
+
+  getPostMultimedia(articleId: number): Observable<Blob> {
+    const headers = this.getHeaders();
+    return this.http.get(`${this.apiUrl}/GetPostMultimedia/${articleId}`, {
+      headers,
+      responseType: 'blob', // Ensure the response is treated as a binary file
+    });
+  }
 }
