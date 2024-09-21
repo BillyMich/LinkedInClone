@@ -8,18 +8,19 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
     public interface IUserHandler
     {
 
-        Task<UserDto?> GetUserHandler(int id, ClaimsIdentity claimsIdentity);
+        Task<UserDto?> GetUserHandlerAsync(int id, ClaimsIdentity claimsIdentity);
 
-        Task<List<UserDto>> GetUsersHandler(ClaimsIdentity claimsIdentity);
+        Task<List<UserDto>> GetUsersHandlerAsync(ClaimsIdentity claimsIdentity);
 
-        Task<IActionResult> GetUsersToXML(List<int>? ids, ClaimsIdentity claimsIdentity);
+        Task<IActionResult> GetUsersToXMLAsync(List<int>? ids, ClaimsIdentity claimsIdentity);
 
         Task<IActionResult> GetUsersToJson(List<int>? ids, ClaimsIdentity claimsIdentity);
 
-        Task UpdateUserSettings(UpdateUserSettingsDto updateUserSettingsDto, ClaimsIdentity claimsIdentity);
+        Task UpdateUserSettingsAsync(UpdateUserSettingsDto updateUserSettingsDto, ClaimsIdentity claimsIdentity);
 
-        Task UpdateProfilePicture(IFormFile file, ClaimsIdentity claimsIdentity);
+        Task UpdateProfilePictureAsync(IFormFile file, ClaimsIdentity claimsIdentity);
 
-        Task<FileDto> GetProfilePictureFromId(int id);
+        Task<FileDto> GetProfilePictureFromIdAsync(int id);
+        Task UpdateUserCVAsync(IFormFile file, ClaimsIdentity identity);
     }
 }

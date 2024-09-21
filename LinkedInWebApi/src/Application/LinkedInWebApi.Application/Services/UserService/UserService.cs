@@ -65,7 +65,7 @@ namespace LinkedInWebApi.Application.Services.UserService
             };
         }
 
-        public async Task UpdateProfilePicture(IFormFile file, ClaimsIdentity claimsIdentity)
+        public async Task UpdateProfilePictureAsync(IFormFile file, ClaimsIdentity claimsIdentity)
         {
             if (file == null || file.Length == 0)
             {
@@ -76,8 +76,23 @@ namespace LinkedInWebApi.Application.Services.UserService
 
             var fileDto = file.ConvertToFileDto();
 
-            await _userInsertCommands.UploadNewProfilePicture(fileDto, curentUserId);
+            await _userInsertCommands.UploadNewProfilePictureAsync(fileDto, curentUserId);
 
+
+        }
+
+        public async Task UpdateUserCVAsync(IFormFile file, ClaimsIdentity claimsIdentity)
+        {
+            if (file == null || file.Length == 0)
+            {
+                throw new ArgumentException("File is invalid");
+            }
+
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
+
+            var fileDto = file.ConvertToFileDto();
+
+            await _userInsertCommands.UploadNewCVAsync(fileDto, curentUserId);
 
         }
 

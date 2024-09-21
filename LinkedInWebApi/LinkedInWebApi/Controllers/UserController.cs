@@ -25,7 +25,7 @@ namespace LinkedInWebApi.Controllers
         {
             try
             {
-                var user = await _userHandler.GetUserHandler(id, _identity);
+                var user = await _userHandler.GetUserHandlerAsync(id, _identity);
                 if (user == null)
                 {
                     return NotFound();
@@ -45,7 +45,7 @@ namespace LinkedInWebApi.Controllers
         {
             try
             {
-                return Ok(await _userHandler.GetUsersHandler(_identity));
+                return Ok(await _userHandler.GetUsersHandlerAsync(_identity));
             }
             catch (Exception)
             {
@@ -60,7 +60,7 @@ namespace LinkedInWebApi.Controllers
         {
             try
             {
-                return await _userHandler.GetUsersToXML(ids, _identity);
+                return await _userHandler.GetUsersToXMLAsync(ids, _identity);
             }
             catch (Exception)
             {
@@ -86,7 +86,7 @@ namespace LinkedInWebApi.Controllers
         {
             try
             {
-                await _userHandler.UpdateUserSettings(updateUserSettingsDto, _identity);
+                await _userHandler.UpdateUserSettingsAsync(updateUserSettingsDto, _identity);
                 return Ok();
             }
             catch (Exception)
@@ -100,7 +100,7 @@ namespace LinkedInWebApi.Controllers
         {
             try
             {
-                return Ok(await _userHandler.GetUsersHandler(_identity));
+                return Ok(await _userHandler.GetUsersHandlerAsync(_identity));
             }
             catch (Exception)
             {
@@ -113,7 +113,7 @@ namespace LinkedInWebApi.Controllers
         {
             try
             {
-                await _userHandler.UpdateProfilePicture(file, _identity);
+                await _userHandler.UpdateProfilePictureAsync(file, _identity);
                 return Ok();
             }
             catch (Exception)
@@ -126,12 +126,26 @@ namespace LinkedInWebApi.Controllers
         public async Task<IActionResult> GetProfilePictureFromId(int id)
         {
 
-            var fileDto = await _userHandler.GetProfilePictureFromId(id);
+            var fileDto = await _userHandler.GetProfilePictureFromIdAsync(id);
 
             return new FileContentResult(fileDto.DataOfFile, "image/jpeg")
             {
                 FileDownloadName = fileDto.FileName
             };
+        }
+
+        [HttpPost("updateUserCV")]
+        public async Task<IActionResult> updateUserCV([FromForm] IFormFile file)
+        {
+            try
+            {
+                await _userHandler.UpdateUserCVAsync(file, _identity);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
     }

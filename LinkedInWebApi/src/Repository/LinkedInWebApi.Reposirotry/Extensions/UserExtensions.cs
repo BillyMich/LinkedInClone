@@ -124,5 +124,18 @@ namespace LinkedInWebApi.Reposirotry.Extensions
 
             };
         }
+
+        public static UserCv ToUserCV(this FileDto fileDto, int userId)
+        {
+            return new UserCv
+            {
+                UserId = userId,
+                FileName = fileDto.FileName,
+                DataOfFile = fileDto.DataOfFile,
+                IsActive = true,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now,
+            };
+        }
     }
 }
