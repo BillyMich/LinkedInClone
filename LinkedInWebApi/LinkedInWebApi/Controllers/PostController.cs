@@ -2,6 +2,7 @@
 using LinkedInWebApi.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using System.Security.Claims;
 
 namespace LinkedInWebApi.Controllers
@@ -134,6 +135,36 @@ namespace LinkedInWebApi.Controllers
             try
             {
                 return Ok(await _postHandler.DeletePostComment(id, _identity));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("GetPostMultimedia/{id}")]
+        [Authorize]
+        public async Task<ActionResult> GetPostMultimedia(int id)
+        {
+            try
+            {
+                var fileDto = await _postHandler.GetPostMultimedia(id, _identity);
+
+                if (fileDto == null)
+                {
+                    return NoContent();
+                }
+
+                var provider = new FileExtensionContentTypeProvider();
+                if (!provider.TryGetContentType(fileDto.FileName, out var contentType))
+                {
+                    contentType = "application/octet-stream"; // Default to binary stream if MIME type is not found
+                }
+
+                return new FileContentResult(fileDto.DataOfFile, contentType)
+                {
+                    FileDownloadName = fileDto.FileName
+                };
             }
             catch (Exception)
             {

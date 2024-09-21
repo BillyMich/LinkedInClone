@@ -21,5 +21,6 @@ namespace LinkedInWebApi.Application.Handlers
         Task<bool> UpdatePostComment(PostCommentDto postCommentDto, ClaimsIdentity claimsIdentity);
 
         Task<bool> DeletePostComment(int id, ClaimsIdentity claimsIdentity);
+        Task<FileDto> GetPostMultimedia(int id, ClaimsIdentity identity);
     }
 }

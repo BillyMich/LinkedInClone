@@ -8,17 +8,17 @@ import { SettingsService } from '../../services/settings.service';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit {
-  profilePictureUrl: string | ArrayBuffer | null = null; 
+  profilePictureUrl: string | ArrayBuffer | null = null;
   userName: string | null = '';
 
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private settingsService: SettingsService
   ) {}
 
   ngOnInit() {
     const currentUser = this.authService.getCurrentUser();
-  
+
     if (currentUser && currentUser.name) {
       this.userName = currentUser.name;
       this.loadProfilePicture();
@@ -26,16 +26,15 @@ export class SidebarComponent implements OnInit {
       console.error('User is not logged in or invalid user data');
     }
   }
-  
 
-  loadProfilePicture(): void {
-    const currentUser = this.authService.getCurrentUser(); 
+  private loadProfilePicture(): void {
+    const currentUser = this.authService.getCurrentUser();
     if (currentUser && currentUser.id) {
-      this.profilePictureUrl = this.settingsService.getProfilePictureUrl(currentUser.id);
+      this.profilePictureUrl = this.settingsService.getProfilePictureUrl(
+        currentUser.id
+      );
     } else {
       console.error('User not found or missing user ID');
     }
   }
-  
-  
 }

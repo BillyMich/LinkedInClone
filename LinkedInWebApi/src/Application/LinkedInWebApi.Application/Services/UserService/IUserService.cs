@@ -15,10 +15,11 @@ namespace LinkedInWebApi.Application.Services.UserService
 
         Task<IActionResult> GetUsersToJson(List<int>? ids);
 
-        Task UpdateProfilePicture(IFormFile file, ClaimsIdentity claimsIdentity);
+        Task UpdateProfilePictureAsync(IFormFile file, ClaimsIdentity claimsIdentity);
 
         Task<FileDto> GetProfilePictureFromId(int id);
 
         Task UpdateUserSettingsAsync(UpdateUserSettingsDto updateUserSettingsDto, ClaimsIdentity claimsIdentity);
+        Task UpdateUserCVAsync(IFormFile file, ClaimsIdentity identity);
     }
 }

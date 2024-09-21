@@ -15,6 +15,21 @@ namespace LinkedInWebApi.Reposirotry.Commands
             _linkedInDbContext = linkedInDbContext;
         }
 
+        public async Task<FileDto?> GetPostMultimedia(int id)
+        {
+            try
+            {
+                var postMultimedia = await _linkedInDbContext.PostMultimedia.FirstOrDefaultAsync(x => x.PostId == id);
+                if (postMultimedia == null) { return null; }
+                return postMultimedia.ToPostPhotoDto();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
         public async Task<List<PostDto>> GetPosts()
         {
             try
@@ -30,5 +45,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
                 throw ex;
             }
         }
+
     }
+
 }
