@@ -16,7 +16,7 @@ import { ProfileComponent } from './presentation/profile/profile.component';
 import { LogedInGuard } from './services/guards/loged-in.guard';
 import { AlreadyLoggedInGuard } from './services/guards/already-logged-in.guard';
 import { NetworkComponent } from './presentation/network/network.component';
-
+import { ViewProfileComponent } from './presentation/view-profile/view-profile.component';
 const routes: Routes = [
   {
     path: '',
@@ -73,7 +73,8 @@ const routes: Routes = [
     component: NetworkComponent,
     canActivate: [LogedInGuard],
   },
-  { path: '**', redirectTo: '/home' },
+  { path: 'view-profile/:id', component: ViewProfileComponent },
+  { path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({

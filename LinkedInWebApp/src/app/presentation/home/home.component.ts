@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth-service/auth.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-// Inside your HomeComponent
+
 export class HomeComponent implements OnInit {
   posts: Post[] = [];
   newPostContent: string = '';
@@ -87,7 +87,7 @@ export class HomeComponent implements OnInit {
         .commentArticle(postId, this.newComments[postId])
         .subscribe(() => {
           this.fetchPosts();
-          this.newComments[postId] = ''; // Clear the comment after submission
+          this.newComments[postId] = '';
         });
     }
   }
@@ -144,7 +144,7 @@ export class HomeComponent implements OnInit {
         const url = window.URL.createObjectURL(blob);
         console.log('Multimedia loaded for post', post.id, url, blob);
         post.MultimediaType = blob.type;
-        post.Multimedia = url; // Assuming the Post model has a multimediaUrl property
+        post.Multimedia = url;
       },
       (error) => {
         console.error('Error loading multimedia for post', error);
@@ -158,5 +158,8 @@ export class HomeComponent implements OnInit {
 
   isVideo(mimeType: string): boolean {
     return mimeType.startsWith('video/');
+  }
+  onImageError(event: any) {
+    event.target.src = '../../../assets/user-profile-picture.png';
   }
 }

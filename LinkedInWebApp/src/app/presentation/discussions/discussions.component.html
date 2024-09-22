@@ -8,9 +8,10 @@
         [class.selected]="conversation === selectedConversation"
       >
         <img 
-          [src]="profilePictures[conversation.userChatingId] || 'assets/default-profile.png'" 
+          [src]="profilePictures[conversation.userChatingId] || '../../../assets/user-profile-picture.jpg'" 
           alt="Profile Picture" 
           class="conversation-profile-pic"
+          (error)="onImageError($event)"
         />
         {{ conversation.name }}
       </li>

@@ -14,7 +14,7 @@
 }
 
 h2 {
-  color: #0073b1; 
+  color: #51008f;
   margin-bottom: 20px;
   font-size: 20px;
   font-weight: 600; 
@@ -64,12 +64,12 @@ li p {
 }
 
 .primary-button {
-  background-color: #0073b1;
+  background-color: #51008f;
   color: #fff;
 }
 
 .primary-button:hover {
-  background-color: #005f91;
+  background-color: #410073;
   transform: translateY(-2px); 
 }
 
