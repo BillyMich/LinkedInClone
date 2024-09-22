@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationsService } from '../../services/notifications.service';
-import { ContactRequestChangeStatusDto } from '../../models/contactRequest.model';
+import { ContactRequestChangeStatusDto } from '../network/models/network.model';
 
 @Component({
   selector: 'app-notifications',
@@ -33,7 +33,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   acceptRequest(requestId: number) {
-    const statusId = 1; 
+    const statusId = 1;
     const changeStatusRequest = new ContactRequestChangeStatusDto(
       requestId,
       statusId

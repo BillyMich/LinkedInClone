@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { SettingsService } from '../../services/settings.service';
-import { NewContactRequestDto } from '../../models/contactRequest.model';
+import { NewContactRequestDto } from '../network/models/network.model';
 
 @Component({
   selector: 'app-view-profile',
@@ -36,7 +36,9 @@ export class ViewProfileComponent implements OnInit {
   }
 
   loadProfilePicture(userId: string) {
-    this.profilePictureUrl = this.settingsService.getProfilePictureUrl(Number(userId));
+    this.profilePictureUrl = this.settingsService.getProfilePictureUrl(
+      Number(userId)
+    );
   }
   startPrivateChat(professionalId: string) {
     this.router.navigate(['/discussions'], {

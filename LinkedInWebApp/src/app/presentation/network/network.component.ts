@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { SettingsService } from '../../services/settings.service';
-import { NewContactRequestDto } from '../../models/contactRequest.model';
+import { NewContactRequestDto } from './models/network.model';
 
 @Component({
   selector: 'app-network',
@@ -98,10 +98,10 @@ export class NetworkComponent implements OnInit {
 
   private loadProfilePicture(userId: number) {
     const profilePictureUrl = this.settingsService.getProfilePictureUrl(userId);
-    
-    this.profilePictures[userId] = profilePictureUrl || '../../../assets/user-profile-picture.jpg';
+
+    this.profilePictures[userId] =
+      profilePictureUrl || '../../../assets/user-profile-picture.jpg';
   }
-  
 
   private loadConnectedUsers() {
     this.userService.getConnectedUsers().subscribe({
