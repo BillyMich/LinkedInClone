@@ -1,0 +1,30 @@
+<div class="view-profile-container content" *ngIf="user">
+    <div class="profile-header">
+      <div class="profile-picture-container">
+        <img
+          [src]="profilePictureUrl || '../../../assets/user-profile-picture.jpg'"
+          alt="Profile Picture"
+          class="profile-picture"
+          (error)="onImageError($event)"
+        />
+      </div>
+      <div class="profile-details">
+        <h1>{{ user.name }} {{ user.surname }}</h1>
+        <p class="user-job">{{ user.jobTitle }}</p>
+        <p class="user-company">{{ user.company }}</p>
+        <p class="user-university">{{ user.university }}</p>
+      </div>
+    </div>
+  
+    <div class="contact-info">
+      <h2>Contact Information</h2>
+      <p>Email: {{ user.email }}</p>
+      <p>Phone: {{ user.phone }}</p>
+    </div>
+  
+    <div class="action-buttons">
+      <button class="primary-button" (click)="startPrivateChat(user.id)">Start Private Chat</button>
+      <button class="secondary-button" (click)="sendFriendRequest(user.id)">Add as Friend</button>
+    </div>
+  </div>
+  

@@ -87,6 +87,7 @@
           <button *ngIf="isConnected(selectedProfessional.id)" class="secondary-button" (click)="deleteFriend(selectedProfessional.id)">
             Delete Friend
           </button>
+          <button (click)="navigateToProfile(selectedProfessional.id)" class="primary-button">View Profile</button>
           <button *ngIf="!isConnected(selectedProfessional.id)" class="secondary-button" (click)="sendFriendRequest(selectedProfessional.id)">
             Add as Friend
           </button>

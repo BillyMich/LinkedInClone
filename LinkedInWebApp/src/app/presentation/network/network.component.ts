@@ -133,4 +133,7 @@ export class NetworkComponent implements OnInit {
   onImageError(event: any) {
     event.target.src = '../../../assets/user-profile-picture.jpg';
   }
+  navigateToProfile(professionalId: number) {
+    this.router.navigate(['/view-profile', professionalId]);
+  }
 }
