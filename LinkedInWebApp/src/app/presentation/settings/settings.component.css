@@ -27,7 +27,7 @@ label {
 }
 
 .actions button {
-  background-color: #0073b1;
+  background-color: #51008f;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -43,7 +43,7 @@ label {
 }
 
 .actions button:hover {
-  background-color: #005f91;
+  background-color: #430275;
 }
 
 
@@ -131,7 +131,7 @@ label {
 }
 
 .modal button {
-  background-color: #0073b1;
+  background-color: #51008f;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -142,7 +142,7 @@ label {
 }
 
 .modal button:hover {
-  background-color: #005f91;
+  background-color: #51008f;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -171,7 +171,7 @@ label {
 }
 
 .primary-button {
-  background-color: #0073b1;
+  background-color: #51008f;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -185,7 +185,7 @@ label {
 }
 
 .signout-button {
-  background-color: #ff4d4d;
+  background-color: hsl(14, 100%, 65%);
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -196,7 +196,7 @@ label {
 }
 
 .signout-button:hover {
-  background-color: #cc0000;
+  background-color: hsl(14, 100%, 62%);
 }
 
 html, body {

@@ -167,4 +167,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit() {}
+  onImageError(event: any) {
+    event.target.src = '../../../assets/user-profile-picture.jpg';
+  }
 }

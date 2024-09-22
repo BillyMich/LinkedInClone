@@ -3,10 +3,11 @@
   <div class="profile-header">
     <div class="profile-picture-container">
       <img
-        [src]="profilePictureUrl || 'assets/default-profile.png'"
+        [src]="profilePictureUrl || '../../../assets/user-profile-picture.jpg'"
         alt="Profile Picture"
         class="profile-picture"
         (click)="triggerFileInput()"
+        (error)="onImageError($event)"
       />
       <input
         type="file"
