@@ -149,19 +149,17 @@
 }
 
 .primary-button {
-  background-color: #0073b1;
-  color: white;
+  background-color: #f1f1f1;
+  color: #0073b1;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  border: none;
-  transition: background-color 0.3s ease;
+  border: 1px solid #0073b1;
 }
 
 .primary-button:hover {
-  background-color: #005f91;
+  background-color: #e1e1e1;
 }
-
 .secondary-button {
   background-color: #f1f1f1;
   color: #0073b1;
@@ -175,6 +173,18 @@
   background-color: #e1e1e1;
 }
 
+.third-button {
+  background-color: #f1f1f1;
+  color: #0073b1;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid #0073b1;
+}
+
+.third-button:hover {
+  background-color: #e1e1e1;
+}
 
 .search-bar {
   display: flex;
