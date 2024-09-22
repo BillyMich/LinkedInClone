@@ -1,10 +1,9 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { DiscussionService } from '../../services/discussion.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { GetChatDto, NewMessageDto } from './models/message.model';
 import { SettingsService } from '../../services/settings.service';
 import { AuthService } from '../../services/auth-service/auth.service';
+import { DiscussionService } from './services/discussion.service';
 
 @Component({
   selector: 'app-discussions',
@@ -22,7 +21,6 @@ export class DiscussionsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient,
     private discussionService: DiscussionService,
     private settingsService: SettingsService,
     private authService: AuthService,
@@ -30,41 +28,7 @@ export class DiscussionsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const currentUser = this.authService.getCurrentUser();
-
-    if (currentUser) {
-      this.currentUserId = currentUser.id;
-    } else {
-      console.error('User is not logged in.');
-    }
-
-    this.loadConversations();
-
-    this.route.queryParams.subscribe((params) => {
-      this.userChatingWithId = params['id'];
-      if (this.userChatingWithId) {
-        this.loadMessages();
-      }
-    });
-  }
-
-  loadConversations() {
-    this.discussionService.getConversations().subscribe({
-      next: (data) => {
-        this.conversations = data;
-        this.conversations.forEach((conversation) =>
-          this.loadProfilePicture(conversation.userChatingId)
-        );
-      },
-      error: (err) => {
-        console.error('Error loading conversations:', err);
-      },
-    });
-  }
-
-  loadProfilePicture(userId: number) {
-    this.profilePictures[userId] =
-      this.settingsService.getProfilePictureUrl(userId);
+    this.Init();
   }
 
   selectConversation(id: number): void {
@@ -101,7 +65,48 @@ export class DiscussionsComponent implements OnInit {
   handleEnterKey(event: KeyboardEvent) {
     this.sendMessage();
   }
+
   onImageError(event: any) {
     event.target.src = '../../../assets/user-profile-picture.jpg';
+  }
+
+  private loadCurrentUser() {
+    const currentUser = this.authService.getCurrentUser();
+
+    if (currentUser) {
+      this.currentUserId = currentUser.id;
+    } else {
+      console.error('User is not logged in.');
+    }
+  }
+
+  private Init() {
+    this.loadCurrentUser();
+    this.loadConversations();
+    this.route.queryParams.subscribe((params) => {
+      this.userChatingWithId = params['id'];
+      if (this.userChatingWithId) {
+        this.loadMessages();
+      }
+    });
+  }
+
+  private loadConversations() {
+    this.discussionService.getConversations().subscribe({
+      next: (data) => {
+        this.conversations = data;
+        this.conversations.forEach((conversation) =>
+          this.loadProfilePicture(conversation.userChatingId)
+        );
+      },
+      error: (err) => {
+        console.error('Error loading conversations:', err);
+      },
+    });
+  }
+
+  private loadProfilePicture(userId: number) {
+    this.profilePictures[userId] =
+      this.settingsService.getProfilePictureUrl(userId);
   }
 }
