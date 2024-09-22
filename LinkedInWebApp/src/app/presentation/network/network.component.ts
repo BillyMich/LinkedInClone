@@ -97,9 +97,11 @@ export class NetworkComponent implements OnInit {
   }
 
   private loadProfilePicture(userId: number) {
-    this.profilePictures[userId] =
-      this.settingsService.getProfilePictureUrl(userId);
+    const profilePictureUrl = this.settingsService.getProfilePictureUrl(userId);
+    
+    this.profilePictures[userId] = profilePictureUrl || '../../../assets/user-profile-picture.jpg';
   }
+  
 
   private loadConnectedUsers() {
     this.userService.getConnectedUsers().subscribe({
@@ -127,5 +129,8 @@ export class NetworkComponent implements OnInit {
         console.error('Error loading non-connected users:', err);
       },
     });
+  }
+  onImageError(event: any) {
+    event.target.src = '../../../assets/user-profile-picture.jpg';
   }
 }

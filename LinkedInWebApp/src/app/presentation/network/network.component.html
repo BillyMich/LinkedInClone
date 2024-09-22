@@ -16,9 +16,10 @@
       <ul>
         <li *ngFor="let professional of searchResults" (click)="viewProfile(professional)">
           <img 
-            [src]="profilePictures[professional.id] || 'assets/default-profile.png'" 
+            [src]="profilePictures[professional.id] || '../../../assets/user-profile-picture.jpg'" 
             alt="Profile Picture" 
             class="profile-pic"
+            (error)="onImageError($event)"
           />
           <p>{{ professional.name }} {{professional.surname}}</p>
         </li>
@@ -31,9 +32,10 @@
     <div class="grid-container">
       <div *ngFor="let professional of connectedUsers" class="grid-item" (click)="viewProfile(professional)">
         <img 
-          [src]="profilePictures[professional.id] || 'assets/default-profile.png'" 
+          [src]="profilePictures[professional.id] || '../../../assets/user-profile-picture.jpg'" 
           alt="Profile Picture" 
           class="profile-pic" 
+          (error)="onImageError($event)"
         />
         <div class="professional-info">
           <p>{{ professional.name }} {{professional.surname}}</p>
@@ -47,9 +49,10 @@
     <div class="grid-container">
       <div *ngFor="let professional of nonConnectedUsers" class="grid-item" (click)="viewProfile(professional)">
         <img 
-          [src]="profilePictures[professional.id] || 'assets/default-profile.png'" 
+          [src]="profilePictures[professional.id] || '../../../assets/user-profile-picture.jpg'" 
           alt="Profile Picture" 
           class="profile-pic" 
+          (error)="onImageError($event)"
         />
         <div class="professional-info">
           <p>{{ professional.name }} {{professional.surname}}</p>
@@ -65,9 +68,10 @@
       <span class="close-button" (click)="closeProfileViewer()">&times;</span>
       <div class="profile-details">
         <img 
-          [src]="profilePictures[selectedProfessional.id] || 'assets/default-profile.png'" 
+          [src]="profilePictures[selectedProfessional.id] || '../../../assets/user-profile-picture.jpg'" 
           alt="Profile Picture" 
           class="profile-pic-large"
+          (error)="onImageError($event)"
         />
         <h2>{{ selectedProfessional.name }} {{selectedProfessional.surname}}</h2>
         <p>{{ selectedProfessional.jobTitle }} at {{ selectedProfessional.employer }}</p>

@@ -7,7 +7,9 @@
   <app-sidebar></app-sidebar>
   <div class="main-content">
     <div class="profile-section" *ngIf="profilePictureUrl">
-      <img [src]="profilePictureUrl || 'assets/default-profile.png'" alt="Profile Picture" loading="lazy" class="profile-picture" />
+      <img [src]="profilePictureUrl || '../../../assets/user-profile-picture.jpg'" alt="Profile Picture" loading="lazy" class="profile-picture"
+      (error)="onImageError($event)"
+       />
     </div>
     <div class="form">
     <form (ngSubmit)="onPostSubmit()" #postForm="ngForm">
@@ -41,7 +43,7 @@
             <video *ngIf="isVideo(post.MultimediaType)" [src]="post.Multimedia" controls class="multimedia-content"></video>
           </div>
         </div>
-        
+
         <p>{{ post.freeTxt }}</p>
     
         <div class="post-actions">

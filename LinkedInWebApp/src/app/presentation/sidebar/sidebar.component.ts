@@ -37,4 +37,7 @@ export class SidebarComponent implements OnInit {
       console.error('User not found or missing user ID');
     }
   }
+  onImageError(event: any) {
+    event.target.src = '../../../assets/user-profile-picture.jpg';
+  }
 }

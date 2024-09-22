@@ -159,4 +159,7 @@ export class HomeComponent implements OnInit {
   isVideo(mimeType: string): boolean {
     return mimeType.startsWith('video/');
   }
+  onImageError(event: any) {
+    event.target.src = '../../../assets/user-profile-picture.png';
+  }
 }

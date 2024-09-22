@@ -96,4 +96,7 @@ export class DiscussionsComponent implements OnInit {
   handleEnterKey(event: KeyboardEvent) {
     this.sendMessage();
   }
+  onImageError(event: any) {
+    event.target.src = '../../../assets/user-profile-picture.jpg';
+  }
 }
