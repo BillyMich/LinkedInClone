@@ -84,6 +84,11 @@ namespace LinkedInWebApi.Application.Handlers
             return _advertisementService.GetAdvertismentsOfUserByStatusAsync(status, claimsIdentity);
         }
 
+        public async Task<List<AdvertisementDto>> GetMyAdvertisementAsync(ClaimsIdentity identity)
+        {
+            return await _advertisementService.GetMyAdvertisementAsync(identity);
+        }
+
         /// <summary>
         /// Updates an advertisement asynchronously.
         /// </summary>

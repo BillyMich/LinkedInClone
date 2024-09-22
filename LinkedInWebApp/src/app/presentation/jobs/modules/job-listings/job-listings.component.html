@@ -1,0 +1,6 @@
+<div class="job-listings">
+    <h2 class="section-title">Διαθέσιμες Αγγελίες</h2>
+    <div *ngFor="let job of jobListings" class="job-listing">
+      <app-advertisement-detail [advertisement]="job"></app-advertisement-detail>
+    </div>
+  </div>

@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage/local-storage.service';
-import { GetChatDto, NewMessageDto } from '../models/message.model';
+import {
+  GetChatDto,
+  NewMessageDto,
+} from '../presentation/discussions/models/message.model';
 
 @Injectable({
   providedIn: 'root',

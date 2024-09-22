@@ -1,0 +1,11 @@
+<div class="my-advertisements">
+    <h2>My Advertisements</h2>
+    <div *ngIf="advertisements.length > 0; else noAdvertisements">
+      <div *ngFor="let advertisement of advertisements" class="advertisement-item">
+        <app-advertisement-detail [advertisement]="advertisement" [IsEditor]=true></app-advertisement-detail>
+      </div>
+    </div>
+    <ng-template #noAdvertisements>
+      <p>No advertisements found.</p>
+    </ng-template>
+  </div>

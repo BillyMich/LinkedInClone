@@ -3,12 +3,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage/local-storage.service';
 import { UpdateUserSettingsDto } from '../models/updateUserSettingsDto.model';
+import { AppConfig } from '../config/app-config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SettingsService {
-  private apiUrl = 'http://localhost:5152/api/user';
+  private apiUrl = `${AppConfig.apiUrl}/user`;
+  private readonly updateUserSettings = `${this.apiUrl}/updateUserSettings`;
+  private readonly updateProfilePicture = `${this.apiUrl}/updateProfilePicture`;
+  private readonly getProfilePictureFromId = `${this.apiUrl}/GetProfilePictureFromId`;
 
   constructor(
     private http: HttpClient,
@@ -22,7 +26,7 @@ export class SettingsService {
 
   changeEmailPassword(data: UpdateUserSettingsDto): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post(`${this.apiUrl}/updateUserSettings`, data, {
+    return this.http.post(this.updateUserSettings, data, {
       headers,
     });
   }
@@ -31,13 +35,12 @@ export class SettingsService {
     const headers = this.getHeaders();
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post(`${this.apiUrl}/updateProfilePicture`, formData, {
+    return this.http.post(this.updateProfilePicture, formData, {
       headers,
     });
   }
 
-  // Update this method to return a direct URL for the profile picture
   getProfilePictureUrl(userId: number): string {
-    return `${this.apiUrl}/GetProfilePictureFromId/${userId}`;
+    return `${this.getProfilePictureFromId}/${userId}`;
   }
 }

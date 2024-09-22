@@ -19,6 +19,6 @@ namespace LinkedInWebApi.Application.Handlers
         Task<List<AdvertisementDto>> GetAdvertismentsByProfessionalBranchesAsync(List<int> professionalBranches);
 
         Task<List<AdvertisementDto>> GetAdvertismentsOfUserByStatusAsync(byte status, ClaimsIdentity claimsIdentity);
-
+        Task<List<AdvertisementDto>> GetMyAdvertisementAsync(ClaimsIdentity identity);
     }
 }

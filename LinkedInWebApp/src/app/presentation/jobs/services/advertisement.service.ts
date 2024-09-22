@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { LocalStorageService } from './local-storage/local-storage.service';
+import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
+import {
+  AdvertisementRequest,
+  NewAdvertisement,
+} from '../models/advertisement.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class JobService {
+export class AdvertisementService {
   private apiUrl = 'http://localhost:5152/api';
 
   constructor(
@@ -26,7 +30,7 @@ export class JobService {
     });
   }
 
-  applyForJob(jobId: string): Observable<any> {
+  applyForJob(jobId: number): Observable<any> {
     const headers = this.getHeaders();
     return this.http.post<any>(
       `${this.apiUrl}/jobs/${jobId}/apply`,
@@ -35,7 +39,7 @@ export class JobService {
     );
   }
 
-  postJob(job: any): Observable<any> {
+  postJob(job: NewAdvertisement): Observable<any> {
     const headers = this.getHeaders();
     return this.http.post<any>(`${this.apiUrl}/CreateAdvertisement`, job, {
       headers,
@@ -59,7 +63,7 @@ export class JobService {
     );
   }
 
-  updateJob(job: any): Observable<boolean> {
+  updateJob(job: AdvertisementRequest): Observable<boolean> {
     const headers = this.getHeaders();
     return this.http.post<boolean>(`${this.apiUrl}/UpdateAdvertisement`, job, {
       headers,
@@ -73,5 +77,19 @@ export class JobService {
       {},
       { headers }
     );
+  }
+
+  getJobById(jobId: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(`${this.apiUrl}/GetAdvertisement/${jobId}`, {
+      headers,
+    });
+  }
+
+  getMyAdvertisement(): Observable<any[]> {
+    const headers = this.getHeaders();
+    return this.http.get<any[]>(`${this.apiUrl}/GetMyAdvertisements`, {
+      headers,
+    });
   }
 }

@@ -1,43 +1,30 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { JobService } from '../../services/job.service';
-import { AuthService } from '../../services/auth-service/auth.service';
-import { GlobalConstantsService } from '../../services/global-constants.service';
-import { GennericGlobalConstantDto } from '../../models/gennericGlobalConstan.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  AdvertisementDto,
-  NewAdvertisement,
-} from '../../models/advertisement.model';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { AdvertisementDto } from '../../models/advertisement.model';
+import { GennericGlobalConstantDto } from '../../../../models/gennericGlobalConstan.model';
+import { AdvertisementService } from '../../services/advertisement.service';
+import { AuthService } from '../../../../services/auth-service/auth.service';
+import { GlobalConstantsService } from '../../../../services/global-constants.service';
 
 @Component({
-  selector: 'app-jobs',
-  templateUrl: './jobs.component.html',
-  styleUrls: ['./jobs.component.css'],
+  selector: 'app-job-listings',
+  templateUrl: './job-listings.component.html',
+  styleUrls: ['./job-listings.component.css'],
 })
-export class JobsComponent implements OnInit {
+export class JobListingsComponent {
   jobListings: AdvertisementDto[] = [];
   user: any;
-  newJobForm: FormGroup;
   showJobForm: boolean = false;
   jobTypes: GennericGlobalConstantDto[] = [];
   workingLocations: GennericGlobalConstantDto[] = [];
   profesionalBranches: GennericGlobalConstantDto[] = [];
 
   constructor(
-    private jobService: JobService,
+    private advertisementService: AdvertisementService,
     private authService: AuthService,
     private genericConstantService: GlobalConstantsService,
-    private fb: FormBuilder
-  ) {
-    this.newJobForm = this.fb.group({
-      title: ['', Validators.required],
-      freeTxt: ['', Validators.required],
-      professionalBranche: ['', Validators.required],
-      jobType: ['', Validators.required],
-      workingLocation: ['', Validators.required],
-      status: ['', Validators.required],
-    });
-  }
+    private router: Router
+  ) {}
 
   getBranchNameById(branchId: number): string {
     const branch = this.profesionalBranches.find(
@@ -86,39 +73,14 @@ export class JobsComponent implements OnInit {
     });
   }
 
-  applyForJob(jobId: number) {
-    // this.jobService.applyForJob(jobId).subscribe((response) => {
-    //   console.log('Applied for job', response);
-    // });
-  }
+  viewJob(jobId: number) {}
 
   toggleJobForm() {
     this.showJobForm = !this.showJobForm;
   }
 
-  onSubmitNewJob() {
-    if (this.newJobForm.valid) {
-      const newAdvertisement: NewAdvertisement = this.newJobForm.value;
-      this.jobService.postJob(newAdvertisement).subscribe({
-        next: (response) => {
-          console.log('Advertisement added successfully', response);
-          this.loadJobListings();
-          this.toggleJobForm();
-        },
-        error: (error) => console.error('Error adding advertisement', error),
-      });
-    }
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  handleKeyDown(event: KeyboardEvent) {
-    if (event.key === 'Escape' && this.showJobForm) {
-      this.showJobForm = false;
-    }
-  }
-
   private loadJobListings() {
-    this.jobService.getJobListings().subscribe({
+    this.advertisementService.getJobListings().subscribe({
       next: (data) => {
         console.log('Job listings', data, this.profesionalBranches);
         const AdvertisementRequest = data;

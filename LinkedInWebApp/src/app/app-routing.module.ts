@@ -1,7 +1,6 @@
 // src/app/app-routing.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { JobsComponent } from './presentation/jobs/jobs.component';
 import { DiscussionsComponent } from './presentation/discussions/discussions.component';
 import { NotificationsComponent } from './presentation/notifications/notifications.component';
 import { WelcomeComponent } from './presentation/welcome/welcome.component';
@@ -17,6 +16,11 @@ import { LogedInGuard } from './services/guards/loged-in.guard';
 import { AlreadyLoggedInGuard } from './services/guards/already-logged-in.guard';
 import { NetworkComponent } from './presentation/network/network.component';
 import { ViewProfileComponent } from './presentation/view-profile/view-profile.component';
+import { AdvertisementUpdateComponent } from './presentation/jobs/modules/advertisement-update/advertisement-update.component';
+import { AdvertisementComponent } from './presentation/jobs/advertisement.component';
+import { MyAdvertisementsComponent } from './presentation/jobs/modules/my-advertisements/my-advertisements.component';
+import { JobListingsComponent } from './presentation/jobs/modules/job-listings/job-listings.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -57,7 +61,20 @@ const routes: Routes = [
     component: SettingsComponent,
     canActivate: [LogedInGuard],
   },
-  { path: 'jobs', component: JobsComponent, canActivate: [LogedInGuard] },
+  {
+    path: 'jobs',
+    component: AdvertisementComponent,
+    canActivate: [LogedInGuard],
+    children: [
+      { path: 'advertisements', component: AdvertisementUpdateComponent },
+      {
+        path: 'advertisements/update/:id',
+        component: AdvertisementUpdateComponent,
+      },
+      { path: 'my-advertisements', component: MyAdvertisementsComponent },
+      { path: 'advertisemtns', component: JobListingsComponent },
+    ],
+  },
   {
     path: 'discussions',
     component: DiscussionsComponent,
@@ -74,7 +91,7 @@ const routes: Routes = [
     canActivate: [LogedInGuard],
   },
   { path: 'view-profile/:id', component: ViewProfileComponent },
-  { path: '**', redirectTo: '/home' }
+  { path: '**', redirectTo: '/home' },
 ];
 
 @NgModule({

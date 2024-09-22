@@ -3,6 +3,7 @@
 
   <div class="job-form-container">
     <button class="toggle-button primary-button" (click)="toggleJobForm()">Δημοσίευση Αγγελίας</button>
+    <button class="toggle-button secondary-button" (click)="navigateToMyAdvertisments()">Οι Αγγελίες Μου</button>
     <div *ngIf="showJobForm" class="job-form-modal">
       <div class="job-form-content">
         <h2>Νέα Αγγελία</h2>
@@ -53,14 +54,5 @@
     </div>
   </div>
 
-  <div class="job-listings">
-    <h2 class="section-title">Διαθέσιμες Αγγελίες</h2>
-    <div *ngFor="let job of jobListings" class="job-listing">
-      <h3>{{ job.title }}</h3>
-      <p>Professional Branche: {{ job.professionalBranche }}</p>
-      <p>working Location: {{job.workingLocation }}</p>
-      <p>Job Type: {{ job.jobType }}</p>
-      <button (click)="applyForJob(job.id)" class="apply-button secondary-button">Κάντε Αίτηση</button>
-    </div>
-  </div>
+  <router-outlet></router-outlet>
 </div>
