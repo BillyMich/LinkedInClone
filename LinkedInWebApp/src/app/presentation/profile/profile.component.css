@@ -39,7 +39,7 @@ body {
 }
 
 .actions button {
-  background-color: #0073b1;
+  background-color: #51008f;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -51,7 +51,7 @@ body {
 }
 
 .actions button:hover {
-  background-color: #005f91;
+  background-color: #440178;
 }
 
 .modal-overlay {

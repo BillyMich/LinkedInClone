@@ -28,7 +28,7 @@
 .conversations-list h2 {
   margin-bottom: 20px;
   font-size: 1.4rem;
-  color: #0073b1;
+  color: #51008f;
   font-weight: 600;
   text-align: center;
 }
@@ -57,7 +57,7 @@
 }
 
 .conversations-list li.selected {
-  background-color: #0073b1;
+  background-color: #51008f;
   color: #fff;
 }
 
@@ -95,7 +95,7 @@
 }
 
 .message-input input:focus {
-  border-color: #0073b1;
+  border-color: #51008f;
   box-shadow: 0 0 5px rgba(0, 115, 177, 0.5);
 }
 
