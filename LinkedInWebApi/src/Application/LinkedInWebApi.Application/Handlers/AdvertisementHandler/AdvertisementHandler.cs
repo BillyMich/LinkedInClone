@@ -20,6 +20,11 @@ namespace LinkedInWebApi.Application.Handlers
             _advertisementService = advertisementService;
         }
 
+        public Task<bool> ApplyForAdvertismentAsync(ApplyForAdvertismentDto applyForAdvertismentDto, ClaimsIdentity identity)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Creates a new advertisement asynchronously.
         /// </summary>

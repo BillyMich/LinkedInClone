@@ -22,5 +22,7 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
 
         Task<FileDto> GetProfilePictureFromIdAsync(int id);
         Task UpdateUserCVAsync(IFormFile file, ClaimsIdentity identity);
+        Task UpdateUserExperienceAsync(CreateUserExperience createUserExperience, ClaimsIdentity identity);
+        Task UpdateUserEducationAsync(CreateUserEducation createUserEducation, ClaimsIdentity identity);
     }
 }

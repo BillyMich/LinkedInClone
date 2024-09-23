@@ -15,6 +15,15 @@ namespace LinkedInWebApi.Reposirotry.Commands
             this.linkedInDbContext = linkedInDbContext;
         }
 
+        public Task<bool> InsertUserEducationAsync(CreateUserEducation createUserEducation, int curentUserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> InsertUserExperienceAsync(CreateUserExperience createUserExperience, int curentUserId)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<bool> RegisterUserAsync(UserDto userDto)
         {

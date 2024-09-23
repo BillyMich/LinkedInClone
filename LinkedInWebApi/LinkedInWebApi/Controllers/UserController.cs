@@ -55,32 +55,6 @@ namespace LinkedInWebApi.Controllers
 
         }
 
-        [HttpGet("getUsersToXML")]
-        public async Task<IActionResult> GetUsersToXML(List<int>? ids)
-        {
-            try
-            {
-                return await _userHandler.GetUsersToXMLAsync(ids, _identity);
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
-
-        [HttpGet("getUsersToJson")]
-        public async Task<IActionResult> GetUsersToJson(List<int>? ids)
-        {
-            try
-            {
-                return await _userHandler.GetUsersToJson(ids, _identity);
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
-
         [HttpPost("updateUserSettings")]
         public async Task<IActionResult> UpdateUserSettings([FromBody] UpdateUserSettingsDto updateUserSettingsDto)
         {
@@ -135,11 +109,39 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpPost("updateUserCV")]
-        public async Task<IActionResult> updateUserCV([FromForm] IFormFile file)
+        public async Task<IActionResult> UpdateUserCV([FromForm] IFormFile file)
         {
             try
             {
                 await _userHandler.UpdateUserCVAsync(file, _identity);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("updateUserExperience")]
+        public async Task<IActionResult> UpdateUserExperience([FromBody] CreateUserExperience createUserExperience)
+        {
+            try
+            {
+                await _userHandler.UpdateUserExperienceAsync(createUserExperience, _identity);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("updateUserEducation")]
+        public async Task<IActionResult> UpdateUserEducation([FromBody] CreateUserEducation createUserEducation)
+        {
+            try
+            {
+                await _userHandler.UpdateUserEducationAsync(createUserEducation, _identity);
                 return Ok();
             }
             catch (Exception)
