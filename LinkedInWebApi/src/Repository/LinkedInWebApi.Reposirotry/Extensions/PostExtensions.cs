@@ -46,7 +46,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 CreatedAt = post.CreatedAt,
                 UpdatedAt = post.UpdatedAt,
                 Comments = post.PostComments.ToList().ToCommentDto(),
-                //FileDto = post.PostMultimedia.FirstOrDefault()?.ToPostPhotoDto()
+                FileDto = post.PostMultimedia.FirstOrDefault()?.ToPostPhotoDto()
 
             };
         }
