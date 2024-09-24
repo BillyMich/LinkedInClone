@@ -5,6 +5,7 @@ export class User {
   password: string;
   role: string;
   id: number;
+  skills:string[];
 
   constructor() {
     this.name = '';
@@ -13,5 +14,6 @@ export class User {
     this.password = '';
     this.role = '';
     this.id = 0;
+    this.skills = [];
   }
 }

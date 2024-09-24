@@ -3,10 +3,7 @@ import { AuthService } from '../../services/auth-service/auth.service';
 import { GlobalConstantsService } from '../../services/global-constants.service';
 import { GennericGlobalConstantDto } from '../../models/gennericGlobalConstan.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  AdvertisementDto,
-  NewAdvertisement,
-} from './models/advertisement.model';
+import { AdvertisementDto, NewAdvertisement } from './models/advertisement.model';
 import { AdvertisementService } from './services/advertisement.service';
 import { Router } from '@angular/router';
 
@@ -42,9 +39,7 @@ export class AdvertisementComponent implements OnInit {
   }
 
   getBranchNameById(branchId: number): string {
-    const branch = this.profesionalBranches.find(
-      (branch) => branch.id === branchId
-    );
+    const branch = this.profesionalBranches.find((branch) => branch.id === branchId);
     return branch ? branch.name : '';
   }
 
@@ -54,9 +49,7 @@ export class AdvertisementComponent implements OnInit {
   }
 
   getWorkingLocationById(workingLocationId: number): string {
-    const workingLocation = this.workingLocations.find(
-      (workingLocation) => workingLocation.id === workingLocationId
-    );
+    const workingLocation = this.workingLocations.find((workingLocation) => workingLocation.id === workingLocationId);
     return workingLocation ? workingLocation.name : '';
   }
 
@@ -69,29 +62,27 @@ export class AdvertisementComponent implements OnInit {
     this.loadJobTypes();
     this.loadWorkingLocations();
     this.loadProfesionalBranches();
-    this.loadJobListings();
   }
 
-  loadWorkingLocations() {
+  private loadJobTypes() {
+    this.genericConstantService.getJobTypes().subscribe({
+      next: (data) => (this.jobTypes = data),
+      error: (error) => console.error('Error fetching job types', error),
+    });
+  }
+
+  private loadWorkingLocations() {
     this.genericConstantService.getWorkingLocations().subscribe({
       next: (data) => (this.workingLocations = data),
-      error: (error) =>
-        console.error('Error fetching working locations', error),
+      error: (error) => console.error('Error fetching working locations', error),
     });
   }
 
-  loadProfesionalBranches() {
+  private loadProfesionalBranches() {
     this.genericConstantService.getProfessionalBranches().subscribe({
       next: (data) => (this.profesionalBranches = data),
-      error: (error) =>
-        console.error('Error fetching working locations', error),
+      error: (error) => console.error('Error fetching branches', error),
     });
-  }
-
-  viewJob(jobId: number) {
-    // this.jobService.applyForJob(jobId).subscribe((response) => {
-    //   console.log('Applied for job', response);
-    // });
   }
 
   toggleJobForm() {
@@ -104,7 +95,7 @@ export class AdvertisementComponent implements OnInit {
       this.advertisementService.postJob(newAdvertisement).subscribe({
         next: (response) => {
           console.log('Advertisement added successfully', response);
-          this.loadJobListings();
+          this.loadJobListings();  
           this.toggleJobForm();
         },
         error: (error) => console.error('Error adding advertisement', error),
@@ -112,7 +103,7 @@ export class AdvertisementComponent implements OnInit {
     }
   }
 
-  navigateToMyAdvertisments(): void {
+  navigateToMyAdvertisements(): void {
     this.router.navigate(['/jobs/my-advertisements']);
   }
 
@@ -126,9 +117,8 @@ export class AdvertisementComponent implements OnInit {
   private loadJobListings() {
     this.advertisementService.getJobListings().subscribe({
       next: (data) => {
-        console.log('Job listings', data, this.profesionalBranches);
-        const AdvertisementRequest = data;
-        this.jobListings = AdvertisementRequest.map((job) => ({
+        console.log('Job listings', data);
+        this.jobListings = data.map((job) => ({
           ...job,
           professionalBranche: this.getBranchNameById(job.professionalBranche),
           jobType: this.getJobTypeById(job.jobType),
@@ -136,13 +126,6 @@ export class AdvertisementComponent implements OnInit {
         }));
       },
       error: (error) => console.error('Error fetching job listings', error),
-    });
-  }
-
-  private loadJobTypes() {
-    this.genericConstantService.getJobTypes().subscribe({
-      next: (data) => (this.jobTypes = data),
-      error: (error) => console.error('Error fetching job types', error),
     });
   }
 }

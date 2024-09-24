@@ -1,3 +1,4 @@
+//advertisement.models.ts
 export interface NewAdvertisement {
   title: string;
   freeTxt: string;
