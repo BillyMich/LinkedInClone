@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingsService } from '../../services/settings.service';
 import { Router } from '@angular/router';
@@ -35,10 +35,12 @@ export class SettingsComponent implements OnInit {
 
     this.emailForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
+      oldPassword: ['', Validators.required], 
     });
 
     this.passwordForm = this.fb.group(
       {
+        oldPassword: ['', [Validators.required]],
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', Validators.required],
       },
@@ -46,9 +48,19 @@ export class SettingsComponent implements OnInit {
     );
 
     this.loadProfilePicture();
+    window.addEventListener('keydown', this.handleEscapeKeyPress.bind(this));
   }
 
-  // Password match validator
+  ngOnDestroy(): void {
+
+    window.removeEventListener('keydown', this.handleEscapeKeyPress.bind(this));
+  }
+
+  handleEscapeKeyPress(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.closeModal();
+    }
+  }
   passwordMatchValidator(group: FormGroup) {
     return group.get('password')?.value === group.get('confirmPassword')?.value
       ? null
@@ -91,12 +103,15 @@ export class SettingsComponent implements OnInit {
     if (this.emailForm.valid) {
       const updateUserSettings: UpdateUserSettingsDto = {
         email: this.emailForm.value.email,
-        oldPassword: undefined,
+        oldPassword: this.emailForm.value.oldPassword,
         password: undefined,
       };
 
       this.settingsService.changeEmailPassword(updateUserSettings).subscribe({
-        next: () => this.closeModal(),
+        next: () => {
+          this.authService.logout(); 
+          this.router.navigate(['/login']); 
+        },
         error: (error) => console.error('Error changing email', error),
       });
     }
@@ -111,7 +126,10 @@ export class SettingsComponent implements OnInit {
       };
 
       this.settingsService.changeEmailPassword(updateUserSettings).subscribe({
-        next: () => this.closeModal(),
+        next: () => {
+          this.authService.logout(); 
+          this.router.navigate(['/login']); 
+        },
         error: (error) => console.error('Error changing password', error),
       });
     }
@@ -140,4 +158,6 @@ export class SettingsComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
+  
 }

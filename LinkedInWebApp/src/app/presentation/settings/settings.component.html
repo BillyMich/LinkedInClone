@@ -12,8 +12,12 @@
     <div *ngIf="showEmailModal" class="modal">
       <h2>Change Email</h2>
       <form [formGroup]="emailForm" (ngSubmit)="onChangeEmail()">
+        <label for="oldPassword">Old Password</label>
+        <input id="oldPassword" formControlName="oldPassword" type="password" placeholder="Enter old password" />
+
         <label for="email">New Email</label>
         <input id="email" formControlName="email" type="email" placeholder="Enter new email" />
+
         <button type="submit" [disabled]="emailForm.invalid">Save</button>
         <button type="button" (click)="closeModal()">Cancel</button>
       </form>
@@ -22,16 +26,19 @@
     <div *ngIf="showPasswordModal" class="modal">
       <h2>Change Password</h2>
       <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+        <label for="oldPassword">Old Password</label>
+        <input id="oldPassword" formControlName="oldPassword" type="password" placeholder="Enter old password" />
+
         <label for="password">New Password</label>
         <input id="password" formControlName="password" type="password" placeholder="Enter new password" />
-        
+
         <label for="confirmPassword">Confirm Password</label>
         <input id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="Confirm password" />
-        
+
         <div *ngIf="passwordForm.hasError('mismatch') && passwordForm.touched">
           <small>Passwords do not match</small>
         </div>
-        
+
         <button type="submit" [disabled]="passwordForm.invalid">Save</button>
         <button type="button" (click)="closeModal()">Cancel</button>
       </form>
