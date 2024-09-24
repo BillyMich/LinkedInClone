@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { NewContactRequestDto } from '../models/contactRequest.model';
+import { NewContactRequestDto } from '../presentation/network/models/network.model';
 import { LocalStorageService } from './local-storage/local-storage.service';
 
 @Injectable({

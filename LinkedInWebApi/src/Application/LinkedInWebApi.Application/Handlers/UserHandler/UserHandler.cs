@@ -57,5 +57,15 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
         {
             await _userService.UpdateUserCVAsync(file, identity);
         }
+
+        public async Task UpdateUserExperienceAsync(CreateUserExperience createUserExperience, ClaimsIdentity identity)
+        {
+            await _userService.UpdateUserExperienceAsync(createUserExperience, identity);
+        }
+
+        public async Task UpdateUserEducationAsync(CreateUserEducation createUserEducation, ClaimsIdentity identity)
+        {
+            await _userService.UpdateUserEducationAsync(createUserEducation, identity);
+        }
     }
 }

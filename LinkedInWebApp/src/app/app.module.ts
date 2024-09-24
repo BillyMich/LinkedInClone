@@ -21,11 +21,14 @@ import { NavigationBarComponent } from './presentation/navigation-bar/navigation
 import { SidebarComponent } from './presentation/sidebar/sidebar.component';
 import { ProfileComponent } from './presentation/profile/profile.component';
 import { SettingsComponent } from './presentation/settings/settings.component';
-import { JobsComponent } from './presentation/jobs/jobs.component';
 import { DiscussionsComponent } from './presentation/discussions/discussions.component';
 import { NotificationsComponent } from './presentation/notifications/notifications.component';
 import { NetworkComponent } from './presentation/network/network.component';
-import { ViewProfileComponent } from './presentation/view-profile/view-profile.component';
+import { AdvertisementDetailComponent } from './presentation/jobs/modules/advertisement-detail/advertisement-detail.component';
+import { AdvertisementUpdateComponent } from './presentation/jobs/modules/advertisement-update/advertisement-update.component';
+import { AdvertisementComponent } from './presentation/jobs/advertisement.component';
+import { MyAdvertisementsComponent } from './presentation/jobs/modules/my-advertisements/my-advertisements.component';
+import { JobListingsComponent } from './presentation/jobs/modules/job-listings/job-listings.component';
 
 @NgModule({
   declarations: [
@@ -41,11 +44,14 @@ import { ViewProfileComponent } from './presentation/view-profile/view-profile.c
     SidebarComponent,
     ProfileComponent,
     SettingsComponent,
-    JobsComponent,
     DiscussionsComponent,
     NotificationsComponent,
     NetworkComponent,
-    ViewProfileComponent,
+    AdvertisementDetailComponent,
+    AdvertisementUpdateComponent,
+    AdvertisementComponent,
+    MyAdvertisementsComponent,
+    JobListingsComponent,
   ],
   imports: [
     BrowserModule,

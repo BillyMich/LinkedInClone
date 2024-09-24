@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { UserLoginDto } from '../../models/login-request.model';
+import { UserLoginDto } from '../../presentation/authentication/models/login-request.model';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 
 const apiUrl = environment.apiPath;
@@ -17,9 +17,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private localStorageService: LocalStorageService,
+    private localStorageService: LocalStorageService
   ) {}
-
 
   login(email: string, password: string): Observable<any> {
     const loginRequest = new UserLoginDto(email, password);
@@ -32,7 +31,7 @@ export class AuthService {
         console.log('Login response', response);
         this.localStorageService.saveToken(response.access_token);
         return response;
-      }),
+      })
     );
   }
 
@@ -42,11 +41,10 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('currentUser');
-    this.localStorageService.logout(); 
+    this.localStorageService.logout();
   }
 
   getCurrentUser() {
     return this.localStorageService.returnUser();
   }
-  
 }

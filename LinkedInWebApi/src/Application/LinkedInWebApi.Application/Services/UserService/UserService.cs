@@ -96,6 +96,21 @@ namespace LinkedInWebApi.Application.Services.UserService
 
         }
 
+        public async Task UpdateUserEducationAsync(CreateUserEducation createUserEducation, ClaimsIdentity claimsIdentity)
+        {
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
+
+            await _userInsertCommands.InsertUserEducationAsync(createUserEducation, curentUserId);
+        }
+
+        public async Task UpdateUserExperienceAsync(CreateUserExperience createUserExperience, ClaimsIdentity claimsIdentity)
+        {
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
+
+            await _userInsertCommands.InsertUserExperienceAsync(createUserExperience, curentUserId);
+
+        }
+
         public async Task UpdateUserSettingsAsync(UpdateUserSettingsDto updateUserSettingsDto, ClaimsIdentity claimsIdentity)
         {
             var userId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);

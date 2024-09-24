@@ -20,8 +20,8 @@ namespace LinkedInWebApi.Reposirotry.Commands
             var advertisement = await _linkedInDbContext.Advertisements
                 .Include(u => u.AdvertismentProfessionalBranches)
                 .Include(u => u.AdvertisementJobTypes)
-                .Include(u => u.AdvertismentWorkingLocations)
-                .FirstOrDefaultAsync(x => x.Id == id && x.IsActive);
+                .Include(u => u.AdvertismentWorkingLocations) // Todo make enums
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsActive && x.Status == 2);
 
             if (advertisement == null)
             {
@@ -37,7 +37,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
                 .Include(u => u.AdvertismentProfessionalBranches)
                 .Include(u => u.AdvertisementJobTypes)
                 .Include(u => u.AdvertismentWorkingLocations)
-                .Where(x => x.IsActive)
+                .Where(x => x.IsActive && x.Status == 2)
                 .ToListAsync();
 
             if (advertisement == null)
@@ -101,5 +101,23 @@ namespace LinkedInWebApi.Reposirotry.Commands
             return advertisement.ToAdvertisementDtos();
         }
 
+        public async Task<List<AdvertisementDto>> GetMyAdvertisments(int curentUserId)
+        {
+            var advertisement = await _linkedInDbContext.Advertisements
+                .Include(u => u.AdvertismentProfessionalBranches)
+                .Include(u => u.AdvertisementJobTypes)
+                .Include(u => u.AdvertismentWorkingLocations)
+                .Where(x => x.IsActive)
+                .Where(x => x.CreatorId == curentUserId)
+                .ToListAsync();
+
+            if (advertisement == null)
+            {
+                return null;
+            }
+
+            return advertisement.ToAdvertisementDtos();
+
+        }
     }
 }

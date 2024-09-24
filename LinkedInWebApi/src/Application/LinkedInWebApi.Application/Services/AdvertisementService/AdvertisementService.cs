@@ -99,6 +99,13 @@ namespace LinkedInWebApi.Application.Services
             return _advertisemenReadCommands.GetAdvertismentsByStatus(status);
         }
 
+        public Task<List<AdvertisementDto>> GetMyAdvertisementAsync(ClaimsIdentity claimsIdentity)
+        {
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
+
+            return _advertisemenReadCommands.GetMyAdvertisments(curentUserId);
+        }
+
         /// <summary>
         /// Updates an advertisement.
         /// </summary>

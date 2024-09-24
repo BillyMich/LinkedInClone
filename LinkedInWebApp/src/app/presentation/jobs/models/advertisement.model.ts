@@ -21,7 +21,7 @@ export interface AdvertisementDto {
   id: number;
   title: string;
   freeTxt: string;
-  status: number;
+  status: string;
   professionalBranche: string;
   workingLocation: string;
   jobType: string;

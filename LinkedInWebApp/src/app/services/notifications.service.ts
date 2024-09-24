@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage/local-storage.service';
-import { ContactRequestChangeStatusDto } from '../models/contactRequest.model';
+import { ContactRequestChangeStatusDto } from '../presentation/network/models/network.model';
 
 @Injectable({
   providedIn: 'root',

@@ -143,5 +143,31 @@ namespace LinkedInWebApi.Controllers
             }
         }
 
+        [HttpGet("GetMyAdvertisements")]
+        public async Task<ActionResult<List<AdvertisementDto>>> GetMyAdvertisements()
+        {
+            try
+            {
+                return Ok(await _advertisementHandler.GetMyAdvertisementAsync(_identity));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("ApplyForAdvertisment")]
+        public async Task<ActionResult<bool>> ApplyForAdvertisment([FromBody] ApplyForAdvertismentDto applyForAdvertismentDto)
+        {
+            try
+            {
+                return Ok(await _advertisementHandler.ApplyForAdvertismentAsync(applyForAdvertismentDto, _identity));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

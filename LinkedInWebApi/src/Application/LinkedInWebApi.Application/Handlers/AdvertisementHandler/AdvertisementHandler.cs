@@ -20,6 +20,11 @@ namespace LinkedInWebApi.Application.Handlers
             _advertisementService = advertisementService;
         }
 
+        public Task<bool> ApplyForAdvertismentAsync(ApplyForAdvertismentDto applyForAdvertismentDto, ClaimsIdentity identity)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Creates a new advertisement asynchronously.
         /// </summary>
@@ -82,6 +87,11 @@ namespace LinkedInWebApi.Application.Handlers
         public Task<List<AdvertisementDto>> GetAdvertismentsOfUserByStatusAsync(byte status, ClaimsIdentity claimsIdentity)
         {
             return _advertisementService.GetAdvertismentsOfUserByStatusAsync(status, claimsIdentity);
+        }
+
+        public async Task<List<AdvertisementDto>> GetMyAdvertisementAsync(ClaimsIdentity identity)
+        {
+            return await _advertisementService.GetMyAdvertisementAsync(identity);
         }
 
         /// <summary>
