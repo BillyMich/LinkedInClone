@@ -1,30 +1,36 @@
-<div class="job-listings-container">
-  <div class="job-listings-column">
-    <h2 class="section-title">Αγγελίες από συνδεδεμένους επαγγελματίες</h2>
-    <div *ngFor="let job of connectedJobListings" class="job-listing" (click)="onAdvertisementSelect(job)">
-      <app-advertisement-detail
-        [advertisement]="job"
-        [creatorProfilePicture]="profilePictures[job.creatorId]" 
-        [IsEditor]="true">
-      </app-advertisement-detail>
-    </div>
+<div class="page-container">
+  <app-sidebar></app-sidebar>
 
-    <h2 class="section-title">Αγγελίες από μη συνδεδεμένους επαγγελματίες</h2>
-    <div *ngFor="let job of nonConnectedJobListings" class="job-listing" (click)="onAdvertisementSelect(job)">
-      <app-advertisement-detail
-        [advertisement]="job"
-        [creatorProfilePicture]="profilePictures[job.creatorId]"
-        [IsEditor]="false">
-      </app-advertisement-detail>
-    </div>
-  </div>
+  <div class="main-content">
+    <div class="jobs-section">
+      <div class="job-listings-column">
+        <h2 class="section-title">Αγγελίες από συνδεδεμένους επαγγελματίες</h2>
+        <div *ngFor="let job of connectedJobListings" class="job-listing" (click)="onAdvertisementSelect(job)">
+          <app-advertisement-detail
+            [advertisement]="job"
+            [creatorProfilePicture]="profilePictures[job.creatorId]" 
+            [IsEditor]="true">
+          </app-advertisement-detail>
+        </div>
 
-  <div class="advertisement-details-column" *ngIf="selectedAdvertisement">
-    <h2>{{ selectedAdvertisement.title }}</h2>
-    <p><strong>Description:</strong> {{ selectedAdvertisement.freeTxt }}</p>
-    <p><strong>Professional Branch:</strong> {{ selectedAdvertisement.professionalBranche }}</p>
-    <p><strong>Job Type:</strong> {{ selectedAdvertisement.jobType }}</p>
-    <p><strong>Working Location:</strong> {{ selectedAdvertisement.workingLocation }}</p>
-    <p><strong>Status:</strong> {{ selectedAdvertisement.status }}</p>
+        <h2 class="section-title">Αγγελίες από μη συνδεδεμένους επαγγελματίες</h2>
+        <div *ngFor="let job of nonConnectedJobListings" class="job-listing" (click)="onAdvertisementSelect(job)">
+          <app-advertisement-detail
+            [advertisement]="job"
+            [creatorProfilePicture]="profilePictures[job.creatorId]"
+            [IsEditor]="false">
+          </app-advertisement-detail>
+        </div>
+      </div>
+
+      <div class="advertisement-details-column" *ngIf="selectedAdvertisement">
+        <h2>{{ selectedAdvertisement.title }}</h2>
+        <p><strong>Description:</strong> {{ selectedAdvertisement.freeTxt }}</p>
+        <p><strong>Professional Branch:</strong> {{ selectedAdvertisement.professionalBranche }}</p>
+        <p><strong>Job Type:</strong> {{ selectedAdvertisement.jobType }}</p>
+        <p><strong>Working Location:</strong> {{ selectedAdvertisement.workingLocation }}</p>
+        <p><strong>Status:</strong> {{ selectedAdvertisement.status }}</p>
+      </div>
+    </div>
   </div>
 </div>

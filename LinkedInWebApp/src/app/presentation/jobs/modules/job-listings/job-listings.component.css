@@ -1,30 +1,56 @@
-* {
-    box-sizing: border-box;
-  }
-
-  .job-listings-container {
+.page-container {
     display: flex;
-    gap: 20px;
-    height: calc(100vh - 100px); 
-    overflow: hidden; 
-    width: 100%; 
+    flex-direction: row;
+    height: 100vh; 
+    width: 100vw; 
   }
   
-  .job-listings-column, .advertisement-details-column {
-    flex: 0 0 50%; 
-    height: 100%; 
-    overflow-y: auto; 
+  app-sidebar {
+    width: 250px;
+    height: 100%;
+    background-color: #fdfdf2; 
+  }
+  
+  .main-content {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    overflow: hidden; 
+  }
+  
+  .jobs-section {
+    display: flex;
+    flex-direction: row; 
+    flex: 1;
+    gap: 20px;
+    height: 100%;
   }
   
   .job-listings-column {
+    flex: 1; 
+    max-width: 40%; 
+    min-width: 30%;
+    overflow-y: auto; 
     border-right: 1px solid #ccc;
-    padding-right: 10px;
+    padding-right: 20px;
+    padding-left: 10%;
+  }
+  
+  .advertisement-details-column {
+    flex: 1;
+    max-width: 50%;
+    padding-left: 20px;
+    overflow-y: auto;
   }
   
   .job-listing {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    padding: 10px;
-    border-bottom: 1px solid #e0e0e0;
   }
   
   .job-listing:hover {
@@ -38,37 +64,21 @@
     max-width: 100%;
   }
   
-  .section-title {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .advertisement-details-column {
-    padding-left: 10px;
-  }
-  
   .advertisement-details-column h2 {
     font-size: 1.8rem;
     margin-bottom: 15px;
-    white-space: normal; 
-    word-wrap: break-word; 
   }
   
   .advertisement-details-column p {
     font-size: 1rem;
     margin-bottom: 10px;
-    word-wrap: break-word; 
   }
   
-  .advertisement-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: space-between;
-  }
-  
-  .advertisement-content p {
-    word-wrap: break-word; 
+  .section-title {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px; 
   }
   
