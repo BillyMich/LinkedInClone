@@ -1,11 +1,16 @@
 <div class="job-listings">
-      <h2 class="section-title">Αγγελίες από συνδεδεμένους επαγγελματίες</h2>
-      <div *ngFor="let job of connectedJobListings" class="job-listing">
-        <app-advertisement-detail [advertisement]="job"></app-advertisement-detail>
-      </div>
-    
-      <h2 class="section-title">Αγγελίες από μη συνδεδεμένους επαγγελματίες</h2>
-      <div *ngFor="let job of nonConnectedJobListings" class="job-listing">
-        <app-advertisement-detail [advertisement]="job"></app-advertisement-detail>
-      </div>
+  <h2 class="section-title">Αγγελίες από συνδεδεμένους επαγγελματίες</h2>
+  <div *ngFor="let job of connectedJobListings" class="job-listing">
+    <app-advertisement-detail
+      [advertisement]="job"
+      [creatorProfilePicture]="profilePictures[job.id]" 
+      [IsEditor]="true">
+    </app-advertisement-detail>
+  </div>
+
+  <h2 class="section-title">Αγγελίες από μη συνδεδεμένους επαγγελματίες</h2>
+  <div *ngFor="let job of nonConnectedJobListings" class="job-listing">
+    <app-advertisement-detail [advertisement]="job" [creatorProfilePicture]="profilePictures[job.id]" [IsEditor]="false">
+    </app-advertisement-detail>
+  </div>
 </div>

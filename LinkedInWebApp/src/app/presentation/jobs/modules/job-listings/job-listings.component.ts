@@ -7,6 +7,8 @@ import { AdvertisementService } from '../../services/advertisement.service';
 import { AuthService } from '../../../../services/auth-service/auth.service';
 import { GlobalConstantsService } from '../../../../services/global-constants.service';
 import { UserService } from '../../../../services/user.service';
+import { SettingsService } from '../../../../services/settings.service';
+
 @Component({
   selector: 'app-job-listings',
   templateUrl: './job-listings.component.html',
@@ -22,12 +24,14 @@ export class JobListingsComponent {
   connectedJobListings: AdvertisementDto[] = [];
   nonConnectedJobListings: AdvertisementDto[] = [];
   connectedUsers: any[] = [];
+  profilePictures: { [creatorId: number]: string | null } = {};
 
   constructor(
     private advertisementService: AdvertisementService,
     private authService: AuthService,
     private genericConstantService: GlobalConstantsService,
     private router: Router,
+    private settingsService: SettingsService,
     private userService: UserService
   ) {}
 
@@ -74,6 +78,7 @@ export class JobListingsComponent {
   }
 
 
+
   InitPage() {
     this.loadJobTypes();
     this.loadWorkingLocations();
@@ -108,13 +113,22 @@ export class JobListingsComponent {
     this.showJobForm = !this.showJobForm;
   }
 
+  private loadProfilePicture(creatorId: number) {
+    const profilePictureUrl = this.settingsService.getProfilePictureUrl(creatorId);
+    this.profilePictures[creatorId] = profilePictureUrl || '../../../assets/user-profile-picture.jpg'; 
+  }
+
   private loadJobListings() {
     this.advertisementService.getJobListings().subscribe({
       next: (data) => {
         console.log('Job listings', data);
   
-        const connectedListings = data.filter(job => this.isConnectedUser(job.userId));
-        const nonConnectedListings = data.filter(job => !this.isConnectedUser(job.userId));
+        const connectedListings = data.filter((job) => this.isConnectedUser(job.id));
+        const nonConnectedListings = data.filter((job) => !this.isConnectedUser(job.id));
+  
+        data.forEach((job) => {
+          this.loadProfilePicture(job.id);
+        });
   
         this.connectedJobListings = connectedListings.map((job) => ({
           ...job,
@@ -136,6 +150,7 @@ export class JobListingsComponent {
       error: (error) => console.error('Error fetching job listings', error),
     });
   }
+  
 
   /*
   private loadCollaborativeFilteringJobs() {

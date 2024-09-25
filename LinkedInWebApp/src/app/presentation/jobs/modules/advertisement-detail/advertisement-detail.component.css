@@ -103,11 +103,32 @@
     font-size: 14px;
   }
   
-  /* Section Title */
   .section-title {
     margin-bottom: 20px;
     font-size: 24px;
     color: #333;
     text-align: center;
+  }
+  .profile-title-box {
+    display: flex;
+    align-items: center;
+    background-color: #cdcdae;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .profile-title-box img.profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+  }
+  
+  .profile-title-box h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #333;
   }
   

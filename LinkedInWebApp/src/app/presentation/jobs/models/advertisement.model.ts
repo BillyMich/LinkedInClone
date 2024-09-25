@@ -26,4 +26,5 @@ export interface AdvertisementDto {
   professionalBranche: string;
   workingLocation: string;
   jobType: string;
+  creatorProfilePicture?: string;
 }

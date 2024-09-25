@@ -1,11 +1,17 @@
 <div class="job-listing" *ngIf="advertisement">
+  <div class="profile-title-box">
+    <img
+      *ngIf="creatorProfilePicture"
+      [src]="creatorProfilePicture || '../../../assets/user-profile-picture.jpg'"
+      alt="Profile Picture"
+      class="profile-picture"
+      (error)="onImageError($event)"
+    />
     <h2>{{ advertisement.title }}</h2>
-    <p><strong>Professional Branch:</strong> {{advertisement.professionalBranche }}</p>
-    <p><strong>Job Type:</strong> {{ advertisement.jobType }}</p>
-    <p><strong>Working Location:</strong> {{ advertisement.workingLocation }}</p>
-    <p *IsEditor><strong>Status:</strong> {{ advertisement.status }}</p>
-    <!-- <button (click)="editAdvertisement(advertisement.id)" class="btn btn-primary">Edit</button> 
-    <button (click)="deleteAdvertisement(advertisement.id)" class="btn btn-danger">Delete</button> 
-    <button (click)="viewJob(job.id)" class="apply-button secondary-button">Κάντε Αίτηση</button>
-    -->
   </div>
+  
+  <p><strong>Professional Branch:</strong> {{advertisement.professionalBranche }}</p>
+  <p><strong>Job Type:</strong> {{ advertisement.jobType }}</p>
+  <p><strong>Working Location:</strong> {{ advertisement.workingLocation }}</p>
+  <p *IsEditor><strong>Status:</strong> {{ advertisement.status }}</p>
+</div>
