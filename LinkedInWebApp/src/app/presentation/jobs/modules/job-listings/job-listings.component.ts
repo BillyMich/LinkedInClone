@@ -25,6 +25,7 @@ export class JobListingsComponent {
   nonConnectedJobListings: AdvertisementDto[] = [];
   connectedUsers: any[] = [];
   profilePictures: { [creatorId: number]: string | null } = {};
+  selectedAdvertisement: AdvertisementDto | null = null;
 
   constructor(
     private advertisementService: AdvertisementService,
@@ -123,11 +124,11 @@ export class JobListingsComponent {
       next: (data) => {
         console.log('Job listings', data);
   
-        const connectedListings = data.filter((job) => this.isConnectedUser(job.id));
-        const nonConnectedListings = data.filter((job) => !this.isConnectedUser(job.id));
+        const connectedListings = data.filter((job) => this.isConnectedUser(job.creatorId));
+        const nonConnectedListings = data.filter((job) => !this.isConnectedUser(job.creatorId));
   
         data.forEach((job) => {
-          this.loadProfilePicture(job.id);
+          this.loadProfilePicture(job.creatorId);
         });
   
         this.connectedJobListings = connectedListings.map((job) => ({
@@ -146,9 +147,19 @@ export class JobListingsComponent {
   
         console.log('Connected Job Listings:', this.connectedJobListings);
         console.log('Non-Connected Job Listings:', this.nonConnectedJobListings);
+
+        if (this.connectedJobListings.length > 0) {
+          this.selectedAdvertisement = this.connectedJobListings[0];
+        } else if (this.nonConnectedJobListings.length > 0) {
+          this.selectedAdvertisement = this.nonConnectedJobListings[0];
+        }
       },
       error: (error) => console.error('Error fetching job listings', error),
     });
+  }
+  
+  onAdvertisementSelect(advertisement: AdvertisementDto) {
+    this.selectedAdvertisement = advertisement;
   }
   
 

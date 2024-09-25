@@ -1,4 +1,4 @@
-
+/* advertisement-detail.css*/
 .content {
     padding-top: 90px;
     padding-left: 20px;
@@ -130,5 +130,14 @@
     margin: 0;
     font-size: 1.25rem;
     color: #333;
+  }
+  .clickable-title {
+    color: #0073b1;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .clickable-title:hover {
+    text-decoration: none;
   }
   

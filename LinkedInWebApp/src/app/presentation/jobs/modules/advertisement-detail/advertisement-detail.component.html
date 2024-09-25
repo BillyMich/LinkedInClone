@@ -1,3 +1,4 @@
+<!--advertisement-detail.html-->
 <div class="job-listing" *ngIf="advertisement">
   <div class="profile-title-box">
     <img
@@ -5,11 +6,12 @@
       [src]="creatorProfilePicture || '../../../assets/user-profile-picture.jpg'"
       alt="Profile Picture"
       class="profile-picture"
-      (error)="onImageError($event)"
+      (error)="onImageError($event)" 
     />
-    <h2>{{ advertisement.title }}</h2>
+
+    <h2 (click)="onAdvertisementClick()" class="clickable-title">{{ advertisement.title }}</h2>
   </div>
-  
+
   <p><strong>Professional Branch:</strong> {{advertisement.professionalBranche }}</p>
   <p><strong>Job Type:</strong> {{ advertisement.jobType }}</p>
   <p><strong>Working Location:</strong> {{ advertisement.workingLocation }}</p>

@@ -79,34 +79,3 @@ textarea {
 .secondary-button:hover {
   background-color: #420372;
 }
-
-.job-listings {
-  margin-top: 40px;
-}
-
-.job-listing {
-  background-color: white;
-  border: 1px solid #ccc;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-}
-
-.job-listing h3 {
-  margin-bottom: 10px;
-  font-size: 20px;
-}
-
-.job-listing p {
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
-/* Section Title */
-.section-title {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #333;
-  text-align: center;
-}

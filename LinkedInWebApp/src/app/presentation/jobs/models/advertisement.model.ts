@@ -27,4 +27,5 @@ export interface AdvertisementDto {
   workingLocation: string;
   jobType: string;
   creatorProfilePicture?: string;
+  creatorId: number;
 }

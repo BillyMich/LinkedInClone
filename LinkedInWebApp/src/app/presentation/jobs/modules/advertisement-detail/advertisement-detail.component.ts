@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { AdvertisementDto } from '../../models/advertisement.model';
 
 @Component({
@@ -8,9 +8,16 @@ import { AdvertisementDto } from '../../models/advertisement.model';
 })
 export class AdvertisementDetailComponent {
   @Input() advertisement!: AdvertisementDto;
-  @Input() IsEditor: boolean = false; 
+  @Input() IsEditor: boolean = false;
   @Input() creatorProfilePicture: string | null = null;
+
+  @Output() advertisementSelected: EventEmitter<AdvertisementDto> = new EventEmitter();
+
+  onAdvertisementClick() {
+    this.advertisementSelected.emit(this.advertisement);
+  }
+
   onImageError(event: any) {
-    event.target.src = '../../../assets/user-profile-picture.jpg';
+    event.target.src = '../../../assets/user-profile-picture.jpg'; 
   }
 }
