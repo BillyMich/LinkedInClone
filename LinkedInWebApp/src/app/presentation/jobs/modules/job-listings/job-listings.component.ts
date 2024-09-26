@@ -26,6 +26,7 @@ export class JobListingsComponent {
   connectedUsers: any[] = [];
   profilePictures: { [creatorId: number]: string | null } = {};
   selectedAdvertisement: AdvertisementDto | null = null;
+  showPopup: boolean = false; 
 
   constructor(
     private advertisementService: AdvertisementService,
@@ -160,6 +161,25 @@ export class JobListingsComponent {
   
   onAdvertisementSelect(advertisement: AdvertisementDto) {
     this.selectedAdvertisement = advertisement;
+  }
+   // Method to apply for the job
+   applyForJob(jobId: number): void {
+    this.advertisementService.applyForJob(jobId).subscribe({
+      next: () => {
+        this.showPopupMessage();  // Show the popup message
+      },
+      error: (error) => {
+        console.error('Error applying for job', error);
+      }
+    });
+  }
+
+  // Method to show the popup message and hide it after 3 seconds
+  showPopupMessage(): void {
+    this.showPopup = true;
+    setTimeout(() => {
+      this.showPopup = false;
+    }, 3000);  // Hide the popup after 3 seconds
   }
   
 

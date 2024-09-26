@@ -62,7 +62,8 @@ textarea {
 }
 
 .primary-button,
-.secondary-button {
+.secondary-button,
+.third-button {
   background-color: #51008f;
   color: white;
   border: none;
@@ -76,9 +77,11 @@ textarea {
 }
 
 .primary-button:hover,
-.secondary-button:hover {
+.secondary-button:hover,
+.third-button-button:hover {
   background-color: #420372;
 }
+
 .button-container {
   display: flex;
   justify-content: center; 
@@ -95,17 +98,38 @@ textarea {
   transition: background-color 0.3s ease;
 }
 
-.primary-button {
+.submit-button{
+  flex:1;
+  margin-right:10px;
+  margin-top: 10px;
   background-color: #51008f;
   color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.secondary-button {
-  background-color: #51008f;
-  color: white;
-}
-
-.primary-button:hover,
-.secondary-button:hover {
+.submit-button:hover {
   background-color: #420372;
+}
+.cansel-button {
+  flex:1;
+  margin-right:10px;
+  margin-left:10px;
+  margin-top: 10px;
+  background-color:hsl(14, 100%, 62%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cansel-button:hover {
+  background-color: hsl(14, 99%, 58%);
 }

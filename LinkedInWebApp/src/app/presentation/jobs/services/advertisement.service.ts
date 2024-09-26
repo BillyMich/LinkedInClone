@@ -29,13 +29,9 @@ export class AdvertisementService {
 
   applyForJob(jobId: number): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>(
-      `${this.apiUrl}/jobs/${jobId}/apply`,
-      {},
-      { headers }
-    );
+    return this.http.post<any>(`${this.apiUrl}/ApplyForAdvertisment`, { jobId }, { headers });
   }
-
+  
   postJob(job: NewAdvertisement): Observable<any> {
     const headers = this.getHeaders();
     return this.http.post<any>(`${this.apiUrl}/CreateAdvertisement`, job, {

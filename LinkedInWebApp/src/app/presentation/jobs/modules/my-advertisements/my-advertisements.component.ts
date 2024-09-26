@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdvertisementDto, AdvertisementRequest } from '../../models/advertisement.model';
 import { AdvertisementService } from '../../services/advertisement.service';
@@ -125,6 +125,7 @@ export class MyAdvertisementsComponent implements OnInit {
           if (response) {
             this.loadAdvertisements();
             this.closeEditForm();
+            window.location.href = window.location.href;
           }
         },
         error: (error) => {
@@ -137,6 +138,12 @@ export class MyAdvertisementsComponent implements OnInit {
     this.advertisementService.getMyAdvertisement().subscribe((advertisements) => {
       this.advertisements = advertisements;
     });
+  }
+  @HostListener('document:keydown.escape', ['$event'])
+  handleEscapeKey(event: KeyboardEvent): void {
+    if (this.showEditForm) {
+      this.closeEditForm();
+    }
   }
 
 }

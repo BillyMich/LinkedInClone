@@ -30,6 +30,13 @@
         <p><strong>Job Type:</strong> {{ selectedAdvertisement.jobType }}</p>
         <p><strong>Working Location:</strong> {{ selectedAdvertisement.workingLocation }}</p>
         <p><strong>Status:</strong> {{ selectedAdvertisement.status }}</p>
+        
+        <button (click)="applyForJob(selectedAdvertisement.id)" class="apply-button">Apply</button>
+  
+        <!-- Popup Message -->
+        <div *ngIf="showPopup" class="popup-message">
+          You applied for the job!
+        </div>
       </div>
     </div>
   </div>
