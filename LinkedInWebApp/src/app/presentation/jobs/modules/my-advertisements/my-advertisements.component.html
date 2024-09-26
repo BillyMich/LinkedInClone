@@ -46,15 +46,21 @@
             </div>
             <div class="form-group">
               <label for="professionalBranche">Professional Branch</label>
-              <input id="professionalBranche" formControlName="professionalBranche" />
+              <select id="professionalBranche" formControlName="professionalBranche">
+                <option *ngFor="let branch of profesionalBranches" [value]="branch.id">{{ branch.name }}</option>
+              </select>
             </div>
             <div class="form-group">
               <label for="jobType">Job Type</label>
-              <input id="jobType" formControlName="jobType" />
+              <select id="jobType" formControlName="jobType">
+                <option *ngFor="let jobType of jobTypes" [value]="jobType.id">{{ jobType.name }}</option>
+              </select>
             </div>
             <div class="form-group">
               <label for="workingLocation">Working Location</label>
-              <input id="workingLocation" formControlName="workingLocation" />
+              <select id="workingLocation" formControlName="workingLocation">
+                <option *ngFor="let location of workingLocations" [value]="location.id">{{ location.name }}</option>
+              </select>
             </div>
             <div class="form-group">
               <label for="status">Status</label>

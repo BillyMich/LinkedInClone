@@ -80,7 +80,7 @@ app-sidebar {
     font-size: 1rem;
     margin-bottom: 10px;
 }
-/* Modal styles */
+
 .modal {
     position: fixed;
     top: 0;
@@ -95,6 +95,7 @@ app-sidebar {
   }
   
   .modal-content {
+    position:relatative;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
@@ -123,8 +124,9 @@ app-sidebar {
     font-size: 14px;
   }
   
-  .primary-button,
-  .secondary-button {
+  .primary-button{
+    flex:1;
+    margin-right:10px;
     margin-top: 10px;
     background-color: #51008f;
     color: white;
@@ -139,8 +141,22 @@ app-sidebar {
   .primary-button:hover {
     background-color: #420372;
   }
+  .secondary-button {
+    flex:1;
+    margin-right:10px;
+    margin-left:10px;
+    margin-top: 10px;
+    background-color:hsl(14, 100%, 62%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
   
   .secondary-button:hover {
-    background-color: #777;
+    background-color: hsl(14, 99%, 58%);
   }
   

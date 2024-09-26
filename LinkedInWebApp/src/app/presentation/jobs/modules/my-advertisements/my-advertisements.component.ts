@@ -108,36 +108,35 @@ export class MyAdvertisementsComponent implements OnInit {
   closeEditForm(): void {
     this.showEditForm = false;
   }
+  onSubmitEditForm(): void {
+    if (this.editForm.valid && this.selectedAdvertisement) {
+      const updatedAdvertisement: AdvertisementRequest = {
+        id: this.selectedAdvertisement.id,
+        title: this.editForm.value.title,
+        freeTxt: this.editForm.value.freeTxt,
+        status: Number(this.editForm.value.status), 
+        professionalBranche: Number(this.editForm.value.professionalBranche), 
+        jobType: Number(this.editForm.value.jobType), 
+        workingLocation: Number(this.editForm.value.workingLocation)
+      };
 
-
-onSubmitEditForm(): void {
-  if (this.editForm.valid && this.selectedAdvertisement) {
-    const updatedAdvertisement: AdvertisementRequest = {
-      id: this.selectedAdvertisement.id,
-      title: this.editForm.value.title,
-      freeTxt: this.editForm.value.freeTxt,
-      status: Number(this.editForm.value.status), 
-      professionalBranche: Number(this.editForm.value.professionalBranche), 
-      jobType: Number(this.editForm.value.jobType), 
-      workingLocation: Number(this.editForm.value.workingLocation), 
-    };
-
-    // Call the update method in AdvertisementService
-    this.advertisementService.updateJob(updatedAdvertisement).subscribe({
-      next: (response) => {
-        this.loadAdvertisements();
-        this.closeEditForm();
-      },
-      error: (error) => {
-        console.error('Error updating advertisement', error);
-      },
+      this.advertisementService.updateJob(updatedAdvertisement).subscribe({
+        next: (response) => {
+          if (response) {
+            this.loadAdvertisements();
+            this.closeEditForm();
+          }
+        },
+        error: (error) => {
+          console.error('Error updating advertisement', error);
+        }
+      });
+    }
+  }
+  loadAdvertisements(): void {
+    this.advertisementService.getMyAdvertisement().subscribe((advertisements) => {
+      this.advertisements = advertisements;
     });
   }
-}
-loadAdvertisements(): void {
-  this.advertisementService.getMyAdvertisement().subscribe((advertisements) => {
-    this.advertisements = advertisements;
-  });
-}
 
 }

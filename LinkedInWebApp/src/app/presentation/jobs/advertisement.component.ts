@@ -102,7 +102,9 @@ export class AdvertisementComponent implements OnInit {
       });
     }
   }
-
+  navigateToJobListings():void{
+    this.router.navigate(['/jobs/advertisements']);
+  }
   navigateToMyAdvertisements(): void {
     this.router.navigate(['/jobs/my-advertisements']);
   }
