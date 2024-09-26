@@ -4,7 +4,7 @@
   <div class="main-content">
     <div class="jobs-section">
       <div class="job-listings-column">
-        <h2 class="section-title">Αγγελίες από συνδεδεμένους επαγγελματίες</h2>
+        <h2 class="section-title"></h2>
         <div *ngFor="let job of connectedJobListings" class="job-listing" (click)="onAdvertisementSelect(job)">
           <app-advertisement-detail
             [advertisement]="job"
@@ -13,7 +13,7 @@
           </app-advertisement-detail>
         </div>
 
-        <h2 class="section-title">Αγγελίες από μη συνδεδεμένους επαγγελματίες</h2>
+        <h2 class="section-title">Περισσότερες Αγγελίες</h2>
         <div *ngFor="let job of nonConnectedJobListings" class="job-listing" (click)="onAdvertisementSelect(job)">
           <app-advertisement-detail
             [advertisement]="job"

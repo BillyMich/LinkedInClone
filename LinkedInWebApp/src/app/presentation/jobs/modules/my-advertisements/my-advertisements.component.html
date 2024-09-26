@@ -4,7 +4,7 @@
   <div class="main-content">
     <div class="my-advertisements-section">
       <div class="advertisements-column">
-        <h2>My Advertisements</h2>
+        <h2>Οι Αγγελίες μου</h2>
         <div *ngIf="advertisements.length > 0; else noAdvertisements">
           <div
             *ngFor="let advertisement of advertisements"
@@ -18,7 +18,7 @@
           </div>
         </div>
         <ng-template #noAdvertisements>
-          <p>No advertisements found.</p>
+          <p>Δεν βρέθηκαν Αγγελίες</p>
         </ng-template>
       </div>
 
