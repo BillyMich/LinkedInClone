@@ -11,6 +11,7 @@ import { GlobalConstantsService } from '../../../../services/global-constants.se
 })
 export class MyAdvertisementsComponent implements OnInit {
   advertisements: AdvertisementDto[] = [];
+  selectedAdvertisement: AdvertisementDto | null = null; 
   jobTypes: any[] = [];
   workingLocations: any[] = [];
   profesionalBranches: any[] = [];
@@ -57,7 +58,6 @@ export class MyAdvertisementsComponent implements OnInit {
     });
   }
 
-
   getBranchNameById(branchId: number): string {
     const branch = this.profesionalBranches.find((branch) => branch.id === branchId);
     return branch ? branch.name : '';
@@ -71,6 +71,10 @@ export class MyAdvertisementsComponent implements OnInit {
   getWorkingLocationById(workingLocationId: number): string {
     const workingLocation = this.workingLocations.find((location) => location.id === workingLocationId);
     return workingLocation ? workingLocation.name : '';
+  }
+
+  onAdvertisementSelect(advertisement: AdvertisementDto): void {
+    this.selectedAdvertisement = advertisement;
   }
 
   editAdvertisement(id: number): void {

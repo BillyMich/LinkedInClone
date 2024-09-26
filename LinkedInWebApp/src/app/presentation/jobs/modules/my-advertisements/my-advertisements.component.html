@@ -1,12 +1,36 @@
-<!-- my-advertisements.component.html-->
-<div class="my-advertisements">
-  <h2>My Advertisements</h2>
-  <div *ngIf="advertisements.length > 0; else noAdvertisements">
-    <div *ngFor="let advertisement of advertisements" class="advertisement-item">
-      <app-advertisement-detail [advertisement]="advertisement" [IsEditor]="true"></app-advertisement-detail>
+<div class="page-container">
+  <app-sidebar></app-sidebar>
+
+  <div class="main-content">
+    <div class="my-advertisements-section">
+      <div class="advertisements-column">
+        <h2>My Advertisements</h2>
+        <div *ngIf="advertisements.length > 0; else noAdvertisements">
+          <div
+            *ngFor="let advertisement of advertisements"
+            class="advertisement-item"
+            (click)="onAdvertisementSelect(advertisement)"
+          >
+            <app-advertisement-detail
+              [advertisement]="advertisement"
+              [IsEditor]="true"
+            ></app-advertisement-detail>
+          </div>
+        </div>
+        <ng-template #noAdvertisements>
+          <p>No advertisements found.</p>
+        </ng-template>
+      </div>
+
+      <div class="advertisement-details-column" *ngIf="selectedAdvertisement">
+        <h2>{{ selectedAdvertisement.title }}</h2>
+        <p><strong>Description:</strong> {{ selectedAdvertisement.freeTxt }}</p>
+        <p><strong>Professional Branch:</strong> {{ selectedAdvertisement.professionalBranche }}</p>
+        <p><strong>Job Type:</strong> {{ selectedAdvertisement.jobType }}</p>
+        <p><strong>Working Location:</strong> {{ selectedAdvertisement.workingLocation }}</p>
+        <p><strong>Status:</strong> {{ selectedAdvertisement.status }}</p>
+        <button (click)="editAdvertisement(selectedAdvertisement.id)" class="primary-button">Edit</button>
+      </div>
     </div>
   </div>
-  <ng-template #noAdvertisements>
-    <p>No advertisements found.</p>
-  </ng-template>
 </div>
