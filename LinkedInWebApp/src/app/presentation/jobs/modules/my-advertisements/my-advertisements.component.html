@@ -29,7 +29,44 @@
         <p><strong>Job Type:</strong> {{ selectedAdvertisement.jobType }}</p>
         <p><strong>Working Location:</strong> {{ selectedAdvertisement.workingLocation }}</p>
         <p><strong>Status:</strong> {{ selectedAdvertisement.status }}</p>
-        <button (click)="editAdvertisement(selectedAdvertisement.id)" class="primary-button">Edit</button>
+        <button (click)="openEditForm(selectedAdvertisement)" class="primary-button">Edit</button>
+      </div>
+
+      <div class="modal" *ngIf="showEditForm">
+        <div class="modal-content">
+          <h2>Edit Advertisement</h2>
+          <form [formGroup]="editForm" (ngSubmit)="onSubmitEditForm()">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input id="title" formControlName="title" />
+            </div>
+            <div class="form-group">
+              <label for="freeTxt">Description</label>
+              <textarea id="freeTxt" formControlName="freeTxt"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="professionalBranche">Professional Branch</label>
+              <input id="professionalBranche" formControlName="professionalBranche" />
+            </div>
+            <div class="form-group">
+              <label for="jobType">Job Type</label>
+              <input id="jobType" formControlName="jobType" />
+            </div>
+            <div class="form-group">
+              <label for="workingLocation">Working Location</label>
+              <input id="workingLocation" formControlName="workingLocation" />
+            </div>
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select id="status" formControlName="status">
+                <option value="1">Draft</option>
+                <option value="2">Published</option>
+              </select>
+            </div>
+            <button type="submit" class="primary-button">Save</button>
+            <button type="button" class="secondary-button" (click)="closeEditForm()">Cancel</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
