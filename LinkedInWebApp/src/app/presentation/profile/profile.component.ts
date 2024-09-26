@@ -100,6 +100,7 @@ export class ProfileComponent implements OnInit {
       company: new FormControl(exp ? exp.company : '', Validators.required),
     });
     this.experience.push(experienceGroup);
+    window.location.href = window.location.href;
   }
 
   addEducation(edu?: any) {
@@ -111,6 +112,7 @@ export class ProfileComponent implements OnInit {
       ),
     });
     this.education.push(educationGroup);
+    window.location.href = window.location.href;
   }
 
   addSkill(skill?: any) {
@@ -118,6 +120,7 @@ export class ProfileComponent implements OnInit {
       name: new FormControl(skill ? skill.name : '', Validators.required),
     });
     this.skills.push(skillGroup);
+    window.location.href = window.location.href;
   }
 
   loadProfilePicture(): void {
@@ -148,6 +151,7 @@ export class ProfileComponent implements OnInit {
       this.settingsService.uploadPhoto(file).subscribe(() => {
         this.loadProfilePicture();
       });
+      window.location.href = window.location.href;
     }
   }
 

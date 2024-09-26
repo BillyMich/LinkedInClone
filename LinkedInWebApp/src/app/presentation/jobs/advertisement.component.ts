@@ -100,6 +100,7 @@ export class AdvertisementComponent implements OnInit {
         },
         error: (error) => console.error('Error adding advertisement', error),
       });
+      window.location.href = window.location.href;
     }
   }
   navigateToJobListings():void{
