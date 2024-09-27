@@ -162,7 +162,7 @@ export class JobListingsComponent {
   onAdvertisementSelect(advertisement: AdvertisementDto) {
     this.selectedAdvertisement = advertisement;
   }
-   // Method to apply for the job
+  
    applyForJob(jobId: number): void {
     this.advertisementService.applyForJob(jobId).subscribe({
       next: () => {
