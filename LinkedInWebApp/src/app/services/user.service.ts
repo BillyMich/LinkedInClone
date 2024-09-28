@@ -18,7 +18,10 @@ export class UserService {
 
   private getHeaders(): HttpHeaders {
     const token = this.localStorageService.getUserToken();
-    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`, 
+      'Content-Type': 'application/json',
+    });
   }
 
   getConnectedUsers(): Observable<any[]> {
@@ -65,6 +68,7 @@ export class UserService {
   }
 
   exportUserData(ids: string[], format: string): Observable<Blob> {
+    const headers = this.getHeaders();
     const params = ids.map((id) => `ids=${id}`).join('&');
     const url =
       format === 'xml'
@@ -72,6 +76,7 @@ export class UserService {
         : `${this.apiUrl}/user/getUsersJson?${params}`;
 
     return this.http.get(url, {
+      headers,
       responseType: 'blob',
     });
   }
@@ -83,6 +88,7 @@ export class UserService {
   }
 
   getAllUsers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/user/getUsers`);
+    const headers = this.getHeaders();
+    return this.http.get<any[]>(`${this.apiUrl}/user/getUsers`, { headers });
   }
 }

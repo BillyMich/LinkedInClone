@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from '../../../services/local-storage/local-storage.service';
-import {
-  AdvertisementRequest,
-  NewAdvertisement,
-} from '../models/advertisement.model';
+import { AdvertisementRequest, NewAdvertisement, } from '../models/advertisement.model';
 
 @Injectable({
   providedIn: 'root',
@@ -32,13 +29,9 @@ export class AdvertisementService {
 
   applyForJob(jobId: number): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>(
-      `${this.apiUrl}/jobs/${jobId}/apply`,
-      {},
-      { headers }
-    );
+    return this.http.post<any>(`${this.apiUrl}/ApplyForAdvertisment`, { jobId }, { headers });
   }
-
+  
   postJob(job: NewAdvertisement): Observable<any> {
     const headers = this.getHeaders();
     return this.http.post<any>(`${this.apiUrl}/CreateAdvertisement`, job, {

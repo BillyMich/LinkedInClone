@@ -26,19 +26,19 @@
 
     <!-- Contact Information -->
     <div class="contact-info">
-      <h2>Contact Information</h2>
+      <h2>Πληροφορίες επαγγελματία</h2>
       <p>Email: {{ user.email }}</p>
-      <p>Phone: {{ user.phone }}</p>
+      <p>Τηλέφωνο: {{ user.phone }}</p>
     </div>
 
     <div class="actions">
-      <button (click)="openExperienceModal()">Add Experience</button>
-      <button (click)="openEducationModal()">Add Education</button>
+      <button (click)="openExperienceModal()">Προσθήκη εργασιακής εμπειρίας</button>
+      <button (click)="openEducationModal()">Προσθήκη πτυχίων</button>
     </div>
 
     <!-- Modals for Adding Data -->
     <div *ngIf="showExperienceModal" class="modal">
-      <h2>Add Experience</h2>
+      <h2>Προσθήκη εργασιακής εμπειρίας</h2>
       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <label>Job Title</label>
         <input formControlName="jobTitle" placeholder="Job Title" />
@@ -54,7 +54,7 @@
     </div>
 
     <div *ngIf="showEducationModal" class="modal">
-      <h2>Add Education</h2>
+      <h2>Προσθήκη πτυχίων</h2>
       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <label>Degree</label>
         <input formControlName="degree" placeholder="Degree" />

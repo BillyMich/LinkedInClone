@@ -1,6 +1,42 @@
-<div class="job-listings">
-    <h2 class="section-title">Διαθέσιμες Αγγελίες</h2>
-    <div *ngFor="let job of jobListings" class="job-listing">
-      <app-advertisement-detail [advertisement]="job"></app-advertisement-detail>
+<div class="page-container">
+  <app-sidebar></app-sidebar>
+
+  <div class="main-content">
+    <div class="jobs-section">
+      <div class="job-listings-column">
+        <h2 class="section-title"></h2>
+        <div *ngFor="let job of connectedJobListings" class="job-listing" (click)="onAdvertisementSelect(job)">
+          <app-advertisement-detail
+            [advertisement]="job"
+            [creatorProfilePicture]="profilePictures[job.creatorId]" 
+            [IsEditor]="true">
+          </app-advertisement-detail>
+        </div>
+
+        <h2 class="section-title">Περισσότερες Αγγελίες</h2>
+        <div *ngFor="let job of nonConnectedJobListings" class="job-listing" (click)="onAdvertisementSelect(job)">
+          <app-advertisement-detail
+            [advertisement]="job"
+            [creatorProfilePicture]="profilePictures[job.creatorId]"
+            [IsEditor]="false">
+          </app-advertisement-detail>
+        </div>
+      </div>
+
+      <div class="advertisement-details-column" *ngIf="selectedAdvertisement">
+        <h2>{{ selectedAdvertisement.title }}</h2>
+        <p><strong>Description:</strong> {{ selectedAdvertisement.freeTxt }}</p>
+        <p><strong>Professional Branch:</strong> {{ selectedAdvertisement.professionalBranche }}</p>
+        <p><strong>Job Type:</strong> {{ selectedAdvertisement.jobType }}</p>
+        <p><strong>Working Location:</strong> {{ selectedAdvertisement.workingLocation }}</p>
+        <p><strong>Status:</strong> {{ selectedAdvertisement.status }}</p>
+        
+        <button (click)="applyForJob(selectedAdvertisement.id)" class="apply-button">Apply</button>
+  
+        <div *ngIf="showPopup" class="popup-message">
+          You applied for the job!
+        </div>
+      </div>
     </div>
   </div>
+</div>

@@ -29,6 +29,7 @@ import { AdvertisementUpdateComponent } from './presentation/jobs/modules/advert
 import { AdvertisementComponent } from './presentation/jobs/advertisement.component';
 import { MyAdvertisementsComponent } from './presentation/jobs/modules/my-advertisements/my-advertisements.component';
 import { JobListingsComponent } from './presentation/jobs/modules/job-listings/job-listings.component';
+import { ViewProfileComponent } from './presentation/view-profile/view-profile.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { JobListingsComponent } from './presentation/jobs/modules/job-listings/j
     AdvertisementComponent,
     MyAdvertisementsComponent,
     JobListingsComponent,
+    ViewProfileComponent
   ],
   imports: [
     BrowserModule,

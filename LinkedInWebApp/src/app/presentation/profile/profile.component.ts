@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { AuthService } from '../../services/auth-service/auth.service';
 import { UserService } from '../../services/user.service';
@@ -100,6 +100,7 @@ export class ProfileComponent implements OnInit {
       company: new FormControl(exp ? exp.company : '', Validators.required),
     });
     this.experience.push(experienceGroup);
+    window.location.href = window.location.href;
   }
 
   addEducation(edu?: any) {
@@ -111,6 +112,7 @@ export class ProfileComponent implements OnInit {
       ),
     });
     this.education.push(educationGroup);
+    window.location.href = window.location.href;
   }
 
   addSkill(skill?: any) {
@@ -118,6 +120,7 @@ export class ProfileComponent implements OnInit {
       name: new FormControl(skill ? skill.name : '', Validators.required),
     });
     this.skills.push(skillGroup);
+    window.location.href = window.location.href;
   }
 
   loadProfilePicture(): void {
@@ -146,8 +149,9 @@ export class ProfileComponent implements OnInit {
         profilePicture: file,
       });
       this.settingsService.uploadPhoto(file).subscribe(() => {
-        this.loadProfilePicture(); // Reload the profile picture after upload
+        this.loadProfilePicture();
       });
+      window.location.href = window.location.href;
     }
   }
 
@@ -166,7 +170,19 @@ export class ProfileComponent implements OnInit {
     this.showEducationModal = false;
   }
 
-  onSubmit() {}
+  @HostListener('document:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.closeModal();
+    } else if (event.key === 'Enter' && (this.showExperienceModal || this.showEducationModal)) {
+      this.onSubmit();
+    }
+  }
+
+  onSubmit() {
+    console.log('Form submitted:', this.profileForm.value);
+  }
+
   onImageError(event: any) {
     event.target.src = '../../../assets/user-profile-picture.jpg';
   }

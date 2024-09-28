@@ -1,11 +1,79 @@
-<div class="my-advertisements">
-    <h2>My Advertisements</h2>
-    <div *ngIf="advertisements.length > 0; else noAdvertisements">
-      <div *ngFor="let advertisement of advertisements" class="advertisement-item">
-        <app-advertisement-detail [advertisement]="advertisement" [IsEditor]=true></app-advertisement-detail>
+<div class="page-container">
+  <app-sidebar></app-sidebar>
+
+  <div class="main-content">
+    <div class="my-advertisements-section">
+      <div class="advertisements-column">
+        <h2>Οι Αγγελίες μου</h2>
+        <div *ngIf="advertisements.length > 0; else noAdvertisements">
+          <div
+            *ngFor="let advertisement of advertisements"
+            class="advertisement-item"
+            (click)="onAdvertisementSelect(advertisement)"
+          >
+            <app-advertisement-detail
+              [advertisement]="advertisement"
+              [IsEditor]="true"
+            ></app-advertisement-detail>
+          </div>
+        </div>
+        <ng-template #noAdvertisements>
+          <p>Δεν βρέθηκαν Αγγελίες</p>
+        </ng-template>
+      </div>
+
+      <div class="advertisement-details-column" *ngIf="selectedAdvertisement">
+        <h2>{{ selectedAdvertisement.title }}</h2>
+        <p><strong>Description:</strong> {{ selectedAdvertisement.freeTxt }}</p>
+        <p><strong>Professional Branch:</strong> {{ selectedAdvertisement.professionalBranche }}</p>
+        <p><strong>Job Type:</strong> {{ selectedAdvertisement.jobType }}</p>
+        <p><strong>Working Location:</strong> {{ selectedAdvertisement.workingLocation }}</p>
+        <p><strong>Status:</strong> {{ selectedAdvertisement.status }}</p>
+        <button (click)="openEditForm(selectedAdvertisement)" class="primary-button">Edit</button>
+      </div>
+
+      <div class="modal" *ngIf="showEditForm">
+        <div class="modal-content">
+          <h2>Edit Advertisement</h2>
+          <form [formGroup]="editForm" (ngSubmit)="onSubmitEditForm()">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input id="title" formControlName="title" />
+            </div>
+            <div class="form-group">
+              <label for="freeTxt">Description</label>
+              <textarea id="freeTxt" formControlName="freeTxt"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="professionalBranche">Professional Branch</label>
+              <select id="professionalBranche" formControlName="professionalBranche">
+                <option *ngFor="let branch of profesionalBranches" [value]="branch.id">{{ branch.name }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="jobType">Job Type</label>
+              <select id="jobType" formControlName="jobType">
+                <option *ngFor="let jobType of jobTypes" [value]="jobType.id">{{ jobType.name }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="workingLocation">Working Location</label>
+              <select id="workingLocation" formControlName="workingLocation">
+                <option *ngFor="let location of workingLocations" [value]="location.id">{{ location.name }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select id="status" formControlName="status">
+                <option value="1">Draft</option>
+                <option value="2">Published</option>
+              </select>
+            </div>
+            <button type="submit" class="primary-button">Save</button>
+            <button type="button" class="secondary-button" (click)="closeEditForm()">Cancel</button>
+          </form>
+        </div>
       </div>
     </div>
-    <ng-template #noAdvertisements>
-      <p>No advertisements found.</p>
-    </ng-template>
   </div>
+</div>

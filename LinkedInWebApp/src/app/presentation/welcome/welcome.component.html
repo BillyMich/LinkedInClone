@@ -1,6 +1,9 @@
 <div class="welcome-container">
   <div class="login-section">
-    <h1>Welcome to Your Professional Hub</h1>
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo" />
+    </div>
+    <h1>Καλώς ήρθατε στο LinkedHub!</h1>
 
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}
@@ -24,10 +27,10 @@
 
     <button routerLink="/register" class="register-button">Register</button>
     <p>
-      Connect, grow, and discover new professional opportunities through our
-      platform.
+      Συνδεθείτε, αναπτυχθείτε και ανακαλύψτε νέες επαγγελματικές ευκαιρίες μέσω μας
+      πλατφόρμα.
     </p>
-    <footer>© 2024 Professional Networking App. All rights reserved.</footer>
+    <footer>© 2024 Professional Networking App. Με την επιφύλαξη παντός δικαιώματος.</footer>
   </div>
   <div class="welcome-image">
     <img src="assets/dxf91zhqd2z6b0bwg85ktm5s4.svg" alt="Welcome Image" />

@@ -66,13 +66,13 @@ const routes: Routes = [
     component: AdvertisementComponent,
     canActivate: [LogedInGuard],
     children: [
-      { path: 'advertisements', component: AdvertisementUpdateComponent },
+      { path: 'updateAdvertisement', component: AdvertisementUpdateComponent },
       {
-        path: 'advertisements/update/:id',
+        path: 'updateAdvertisement/update/:id',
         component: AdvertisementUpdateComponent,
       },
       { path: 'my-advertisements', component: MyAdvertisementsComponent },
-      { path: 'advertisemtns', component: JobListingsComponent },
+      { path: 'advertisements', component: JobListingsComponent },
     ],
   },
   {
