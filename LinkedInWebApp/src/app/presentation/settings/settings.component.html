@@ -1,58 +1,58 @@
 <div class="settings-container content">
   <app-sidebar></app-sidebar>
-  <h1>Settings</h1>
+  <h1>Ρυθμίσεις</h1>
 
   <div class="actions">
-    <button (click)="openEmailModal()">Change Email</button>
-    <button (click)="openPasswordModal()">Change Password</button>
-    <button (click)="openChangeProfilePictureModal()">Change Profile Picture</button>
+    <button (click)="openEmailModal()">Αλλαγή Email</button>
+    <button (click)="openPasswordModal()">Αλλαγή κωδικού πρόσβασης</button>
+    <button (click)="openChangeProfilePictureModal()">Αλλαγή εικόνας προφίλ</button>
   </div>
 
   <div *ngIf="showEmailModal || showPasswordModal || showChangeProfilePictureModal" class="modal-overlay">
     <div *ngIf="showEmailModal" class="modal">
-      <h2>Change Email</h2>
+      <h2>Αλλαγή Email</h2>
       <form [formGroup]="emailForm" (ngSubmit)="onChangeEmail()">
-        <label for="oldPassword">Old Password</label>
-        <input id="oldPassword" formControlName="oldPassword" type="password" placeholder="Enter old password" />
+        <label for="oldPassword">Παλαιός κωδικός πρόσβασης</label>
+        <input id="oldPassword" formControlName="oldPassword" type="password" placeholder="Πληκτρολογήστε τον παλιό κωδικό πρόσβασης" />
 
-        <label for="email">New Email</label>
-        <input id="email" formControlName="email" type="email" placeholder="Enter new email" />
+        <label for="email">Νέο Email</label>
+        <input id="email" formControlName="email" type="email" placeholder="Πληκτρολογήστε τη νέα διεύθυνση ηλεκτρονικής αλληλογραφίας" />
 
-        <button type="submit" [disabled]="emailForm.invalid">Save</button>
-        <button type="button" (click)="closeModal()">Cancel</button>
+        <button type="submit" [disabled]="emailForm.invalid">Επιβεβαίωση</button>
+        <button type="button" (click)="closeModal()">Απόρριψη</button>
       </form>
     </div>
 
     <div *ngIf="showPasswordModal" class="modal">
-      <h2>Change Password</h2>
+      <h2>Αλλαγή κωδικού πρόσβασης</h2>
       <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
-        <label for="oldPassword">Old Password</label>
-        <input id="oldPassword" formControlName="oldPassword" type="password" placeholder="Enter old password" />
+        <label for="oldPassword">Παλαιός κωδικός πρόσβασης</label>
+        <input id="oldPassword" formControlName="oldPassword" type="password" placeholder="Πληκτρολογήστε τον παλιό κωδικό πρόσβασης" />
 
-        <label for="password">New Password</label>
-        <input id="password" formControlName="password" type="password" placeholder="Enter new password" />
+        <label for="password">Νέος κωδικός πρόσβασης</label>
+        <input id="password" formControlName="password" type="password" placeholder="Πληκτρολογήστε τον νέο κωδικό πρόσβασης" />
 
-        <label for="confirmPassword">Confirm Password</label>
-        <input id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="Confirm password" />
+        <label for="confirmPassword">Επιβεβαίωση</label>
+        <input id="confirmPassword" formControlName="confirmPassword" type="password" placeholder="Επανάλληψη νέου κωδικού πρόσβασης" />
 
         <div *ngIf="passwordForm.hasError('mismatch') && passwordForm.touched">
-          <small>Passwords do not match</small>
+          <small>Αναντιστοιχία κωδικών</small>
         </div>
 
-        <button type="submit" [disabled]="passwordForm.invalid">Save</button>
-        <button type="button" (click)="closeModal()">Cancel</button>
+        <button type="submit" [disabled]="passwordForm.invalid">Επιβεβαίωση</button>
+        <button type="button" (click)="closeModal()">Απόρριψη</button>
       </form>
     </div>
 
     <div *ngIf="showChangeProfilePictureModal" class="modal">
       <h2>Change Profile Picture</h2>
       <form (ngSubmit)="onSubmitProfilePicture()">
-        <label for="profilePicture">Upload New Profile Picture</label>
+        <label for="profilePicture">Μεταφόρτωση εικόνας προφίλ</label>
         <input id="profilePicture" type="file" (change)="onFileSelected($event)" />
-        <button type="submit" [disabled]="!selectedFile">Save</button>
-        <button type="button" (click)="closeModal()">Cancel</button>
+        <button type="submit" [disabled]="!selectedFile">Επιβεβεαίωση</button>
+        <button type="button" (click)="closeModal()">Απόρριψη</button>
       </form>
     </div>
   </div>
-  <button (click)="onSignOut()" class="signout-button">Sign Out</button>
+  <button (click)="onSignOut()" class="signout-button">Αποσύνδεση</button>
 </div>

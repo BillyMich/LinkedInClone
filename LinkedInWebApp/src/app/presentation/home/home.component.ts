@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticleService } from '../../services/article.service'; // Using ArticleService
+import { ArticleService } from '../../services/article.service';
 import { SettingsService } from '../../services/settings.service';
 import { Post, Comment } from '../../models/post.model';
 import { IdDictionary } from '../../models/profilePictureDictionary.model';

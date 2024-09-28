@@ -1,31 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { AdvertisementDto } from '../../models/advertisement.model';
-import { AdvertisementComponent } from '../../advertisement.component';
 
 @Component({
   selector: 'app-advertisement-detail',
   templateUrl: './advertisement-detail.component.html',
   styleUrls: ['./advertisement-detail.component.css'],
 })
-export class AdvertisementDetailComponent implements OnInit {
+export class AdvertisementDetailComponent {
   @Input() advertisement!: AdvertisementDto;
-  @Input() IsEditor = false;
+  @Input() IsEditor: boolean = false;
+  @Input() creatorProfilePicture: string | null = null;
 
-  constructor(private advertisementComponent: AdvertisementComponent) {}
+  @Output() advertisementSelected: EventEmitter<AdvertisementDto> = new EventEmitter();
 
-  ngOnInit(): void {}
-
-  getBranchNameById(branchId: number): string {
-    return this.advertisementComponent.getBranchNameById(branchId);
+  onAdvertisementClick() {
+    this.advertisementSelected.emit(this.advertisement);
   }
 
-  getJobTypeById(jobTypeId: number): string {
-    return this.advertisementComponent.getJobTypeById(jobTypeId);
-  }
-
-  getWorkingLocationById(workingLocationId: number): string {
-    return this.advertisementComponent.getWorkingLocationById(
-      workingLocationId
-    );
+  onImageError(event: any) {
+    event.target.src = '../../../assets/user-profile-picture.jpg'; 
   }
 }

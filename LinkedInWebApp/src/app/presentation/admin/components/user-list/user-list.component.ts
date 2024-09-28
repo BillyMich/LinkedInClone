@@ -16,6 +16,10 @@ export class UserListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loadUsers();
+  }
+
+  loadUsers() {
     this.userService.getAllUsers().subscribe({
       next: (data: any[]) => {
         this.users = data.map((user) => ({ ...user, selected: false }));
@@ -23,6 +27,7 @@ export class UserListComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching users:', err);
+        alert('Failed to load users. Please check API connection.');
       },
     });
   }
@@ -50,6 +55,7 @@ export class UserListComponent implements OnInit {
         },
         error: (err) => {
           console.error(`Error exporting user data to ${format}:`, err);
+          alert(`Failed to export data in ${format} format.`);
         },
       });
     } else {

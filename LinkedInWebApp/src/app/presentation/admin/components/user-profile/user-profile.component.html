@@ -34,10 +34,18 @@
   </form>
 
   <div *ngIf="!editMode">
+    <div class="profile-header">
+      <img
+        [src]="profilePictureUrl"
+        alt="Profile Picture"
+        class="profile-picture"
+        (error)="onImageError($event)"
+      />
+    </div>
     <p><strong>Email:</strong> {{ user.email }}</p>
     <p><strong>Phone:</strong> {{ user.phone }}</p>
     <p><strong>Profile Picture:</strong></p>
-    <img [src]="user.profilePictureUrl" alt="Profile Picture" class="profile-picture" />
+ 
     <div class="form-actions">
       <button (click)="toggleEditMode()" class="primary-button">Edit Profile</button>
     </div>

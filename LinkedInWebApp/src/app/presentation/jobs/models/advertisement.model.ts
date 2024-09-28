@@ -1,3 +1,4 @@
+//advertisement.models.ts
 export interface NewAdvertisement {
   title: string;
   freeTxt: string;
@@ -25,4 +26,6 @@ export interface AdvertisementDto {
   professionalBranche: string;
   workingLocation: string;
   jobType: string;
+  creatorProfilePicture?: string;
+  creatorId: number;
 }

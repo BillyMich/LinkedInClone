@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../../../../services/user.service';
+import { SettingsService } from '../../../../services/settings.service';  
 
 @Component({
   selector: 'app-user-profile',
@@ -12,10 +13,12 @@ export class UserProfileComponent implements OnInit {
   user: any = {};
   editMode = false;
   profileForm!: FormGroup;
+  profilePictureUrl: string | ArrayBuffer | null = null;  
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private settingsService: SettingsService  
   ) {}
 
   ngOnInit() {
@@ -27,6 +30,7 @@ export class UserProfileComponent implements OnInit {
           this.user = data;
           console.log('User data:', this.user);
           this.initForm();
+          this.loadProfilePicture(Number(userId)); 
         } else {
           console.error('User data is null or undefined');
         }
@@ -50,6 +54,12 @@ export class UserProfileComponent implements OnInit {
       phone: new FormControl(this.user.phone, [Validators.required]),
       profilePicture: new FormControl(null),
     });
+  }
+
+  private loadProfilePicture(userId: number) {
+    const profilePictureUrl = this.settingsService.getProfilePictureUrl(userId);
+    this.profilePictureUrl =
+      profilePictureUrl || '../../../assets/user-profile-picture.jpg';
   }
 
   toggleEditMode() {
@@ -82,5 +92,9 @@ export class UserProfileComponent implements OnInit {
     } else {
       console.log('Form is not valid');
     }
+  }
+
+  onImageError(event: any) {
+    event.target.src = '../../../assets/user-profile-picture.jpg';
   }
 }

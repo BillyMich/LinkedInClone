@@ -151,6 +151,7 @@ export class SettingsComponent implements OnInit {
         },
       });
       this.closeModal();
+      window.location.href = window.location.href;
     }
   }
 

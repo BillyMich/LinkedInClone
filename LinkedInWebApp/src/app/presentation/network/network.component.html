@@ -6,13 +6,13 @@
         type="text" 
         [(ngModel)]="searchQuery" 
         (input)="searchProfessionals()" 
-        placeholder="Search professionals..." 
+        placeholder="Αναζήτηση επαγγελματιών..." 
         class="search-input"
       />
     </div>
 
     <div *ngIf="searchResults.length > 0" class="search-results">
-      <h2>Search Results</h2>
+      <h2>Αποτελέσματα αναζήτησης</h2>
       <ul>
         <li *ngFor="let professional of searchResults" (click)="viewProfile(professional)">
           <img 
@@ -28,7 +28,7 @@
   </div>
 
   <div class="users-list">
-    <h2>Connected Users</h2>
+    <h2>Όλοι οι φίλοι</h2>
     <div class="grid-container">
       <div *ngFor="let professional of connectedUsers" class="grid-item" (click)="viewProfile(professional)">
         <img 
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <h2>Non-Connected Users</h2>
+    <h2>Μη συνδεδεμένοι χρήστες</h2>
     <div class="grid-container">
       <div *ngFor="let professional of nonConnectedUsers" class="grid-item" (click)="viewProfile(professional)">
         <img 
@@ -77,19 +77,19 @@
         <p>{{ selectedProfessional.jobTitle }} at {{ selectedProfessional.employer }}</p>
   
         <div class="contact-info">
-          <h3>Contact Information</h3>
+          <h3>Πληροφορίες επαφής</h3>
           <p>Email: {{ selectedProfessional.email }}</p>
-          <p>Phone: {{ selectedProfessional.phone }}</p>
+          <p>Τηλέφωνο: {{ selectedProfessional.phone }}</p>
         </div>
   
         <div class="action-buttons">
           <button class="primary-button" (click)="startPrivateChat(selectedProfessional.id)">Start Private Chat</button>
           <button *ngIf="isConnected(selectedProfessional.id)" class="secondary-button" (click)="deleteFriend(selectedProfessional.id)">
-            Delete Friend
+            Διαγραφή φίλου
           </button>
           <button (click)="navigateToProfile(selectedProfessional.id)" class="secondary-button">View Profile</button>
           <button *ngIf="!isConnected(selectedProfessional.id)" class="third-button" (click)="sendFriendRequest(selectedProfessional.id)">
-            Add as Friend
+            Προσθήκη φίλου
           </button>
         </div>
       </div>

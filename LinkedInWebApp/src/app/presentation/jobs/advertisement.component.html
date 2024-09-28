@@ -1,9 +1,14 @@
+<!-- advertisement.component.html-->
 <div class="jobs-container content">
   <app-sidebar></app-sidebar>
-
+ 
   <div class="job-form-container">
-    <button class="toggle-button primary-button" (click)="toggleJobForm()">Δημοσίευση Αγγελίας</button>
-    <button class="toggle-button secondary-button" (click)="navigateToMyAdvertisments()">Οι Αγγελίες Μου</button>
+    <div class="button-container">
+      <button class="toggle-button primary-button" (click)="navigateToJobListings()">Όλες οι Αγγελίες</button>
+      <button class="toggle-button secondary-button" (click)="toggleJobForm()">Δημοσίευση Αγγελίας</button>
+      <button class="toggle-button third-button" (click)="navigateToMyAdvertisements()">Οι Αγγελίες Μου</button>
+    </div>
+
     <div *ngIf="showJobForm" class="job-form-modal">
       <div class="job-form-content">
         <h2>Νέα Αγγελία</h2>
@@ -47,12 +52,11 @@
             </select>
           </div>
 
-          <button type="submit" class="primary-button">Submit</button>
-          <button type="button" class="secondary-button" (click)="toggleJobForm()">Cancel</button>
+          <button type="submit" class="submit-button">Submit</button>
+          <button type="button" class="cansel-button" (click)="toggleJobForm()">Cancel</button>
         </form>
       </div>
     </div>
   </div>
-
   <router-outlet></router-outlet>
 </div>
