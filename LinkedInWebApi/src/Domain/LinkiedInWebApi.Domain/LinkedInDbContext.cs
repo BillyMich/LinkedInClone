@@ -16,6 +16,8 @@ public partial class LinkedInDbContext : DbContext
 
     public virtual DbSet<Advertisement> Advertisements { get; set; }
 
+    public virtual DbSet<AdvertisementApply> AdvertisementApplies { get; set; }
+
     public virtual DbSet<AdvertisementJobType> AdvertisementJobTypes { get; set; }
 
     public virtual DbSet<AdvertismentProfessionalBranch> AdvertismentProfessionalBranches { get; set; }
@@ -49,6 +51,8 @@ public partial class LinkedInDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserCv> UserCvs { get; set; }
+
+    public virtual DbSet<UserCvfile> UserCvfiles { get; set; }
 
     public virtual DbSet<UserEducation> UserEducations { get; set; }
 
@@ -85,6 +89,21 @@ public partial class LinkedInDbContext : DbContext
                 .HasConstraintName("FK_Advertisement_User");
         });
 
+        modelBuilder.Entity<AdvertisementApply>(entity =>
+        {
+            entity.ToTable("AdvertisementApply");
+
+            entity.HasOne(d => d.Advertisment).WithMany(p => p.AdvertisementApplies)
+                .HasForeignKey(d => d.AdvertismentId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AdvertisementApply_Advertisement");
+
+            entity.HasOne(d => d.User).WithMany(p => p.AdvertisementApplies)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AdvertisementApply_User");
+        });
+
         modelBuilder.Entity<AdvertisementJobType>(entity =>
         {
             entity.ToTable("AdvertisementJobType");
@@ -107,7 +126,7 @@ public partial class LinkedInDbContext : DbContext
             entity.HasOne(d => d.Advertisment).WithMany(p => p.AdvertismentProfessionalBranches)
                 .HasForeignKey(d => d.AdvertismentId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_AdvertismentProfessionalBranch_Advertisement1");
+                .HasConstraintName("FK_AdvertismentProfessionalBranch_Advertisement");
 
             entity.HasOne(d => d.Type).WithMany(p => p.AdvertismentProfessionalBranches)
                 .HasForeignKey(d => d.TypeId)
@@ -333,6 +352,20 @@ public partial class LinkedInDbContext : DbContext
                 .HasConstraintName("FK_CV_User");
         });
 
+        modelBuilder.Entity<UserCvfile>(entity =>
+        {
+            entity.ToTable("UserCVFile");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.DateOfFile).IsRequired();
+            entity.Property(e => e.UserCvid).HasColumnName("UserCVId");
+
+            entity.HasOne(d => d.UserCv).WithMany(p => p.UserCvfiles)
+                .HasForeignKey(d => d.UserCvid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserCVFile_User");
+        });
+
         modelBuilder.Entity<UserEducation>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_Education");
@@ -418,7 +451,7 @@ public partial class LinkedInDbContext : DbContext
             entity.HasOne(d => d.UserExperience).WithMany(p => p.UserExperienceWorkingLocations)
                 .HasForeignKey(d => d.UserExperienceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserExperienceWorkingLocation_UserExperience1");
+                .HasConstraintName("FK_UserExperienceWorkingLocation_UserExperience");
         });
 
         modelBuilder.Entity<UserExpirienceProfessionalBranch>(entity =>
@@ -433,7 +466,7 @@ public partial class LinkedInDbContext : DbContext
             entity.HasOne(d => d.UserExperience).WithMany(p => p.UserExpirienceProfessionalBranches)
                 .HasForeignKey(d => d.UserExperienceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserExpirienceProfessionalBranch_UserExperience1");
+                .HasConstraintName("FK_UserExpirienceProfessionalBranch_UserExperience");
         });
 
         modelBuilder.Entity<UserPassword>(entity =>

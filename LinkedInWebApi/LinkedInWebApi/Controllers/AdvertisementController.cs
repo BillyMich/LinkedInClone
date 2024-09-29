@@ -169,5 +169,18 @@ namespace LinkedInWebApi.Controllers
             }
         }
 
+        [HttpGet("ApplyApplicant/{id}")]
+        public async Task<ActionResult<bool>> ApproveApplicant(int id)
+        {
+            try
+            {
+                return Ok(await _advertisementHandler.ApplyApplicantAsync(id, _identity));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

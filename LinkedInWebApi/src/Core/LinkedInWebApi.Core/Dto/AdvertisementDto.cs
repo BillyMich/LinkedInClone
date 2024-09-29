@@ -28,7 +28,7 @@
         /// <summary>
         /// Gets or sets the status of the advertisement.
         /// </summary>
-        public byte Status { get; set; }
+        public int Status { get; set; }
 
         /// <summary>
         /// Gets or sets the professional branch of the advertisement.

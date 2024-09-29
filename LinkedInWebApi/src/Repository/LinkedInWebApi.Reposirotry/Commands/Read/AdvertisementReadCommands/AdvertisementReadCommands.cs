@@ -15,13 +15,25 @@ namespace LinkedInWebApi.Reposirotry.Commands
             _linkedInDbContext = linkedInDbContext;
         }
 
+        public async Task<List<UserDto>> ApplyApplicantAsync(int id)
+        {
+            var userListApplied = await _linkedInDbContext.AdvertisementApplies
+                .Include(u => u.User)
+                .Where(x => x.AdvertismentId == id)
+                .Select(x => x.User)
+                .ToListAsync();
+
+            return userListApplied.ToUserDtoList();
+
+        }
+
         public async Task<AdvertisementDto?> GetAdvertisment(int id)
         {
             var advertisement = await _linkedInDbContext.Advertisements
                 .Include(u => u.AdvertismentProfessionalBranches)
                 .Include(u => u.AdvertisementJobTypes)
-                .Include(u => u.AdvertismentWorkingLocations) // Todo make enums
-                .FirstOrDefaultAsync(x => x.Id == id && x.IsActive && x.Status == 2);
+                .Include(u => u.AdvertismentWorkingLocations)
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsActive);
 
             if (advertisement == null)
             {

@@ -84,6 +84,26 @@ namespace LinkedInWebApi.Reposirotry.Commands
             return user.ToUserDto();
         }
 
+        public Task<List<UserEducationDto>> GetUserEducationAsync(int id)
+        {
+            var userEducation = _linkedInDbContext.UserEducations
+                .Where(x => x.UserId == id)
+                .Select(x => x.ToUserEducationDto())
+                .ToListAsync();
+
+            return userEducation;
+        }
+
+        public Task<List<UserExperienceDto>> GetUserExperienceAsync(int id)
+        {
+            var userExperience = _linkedInDbContext.UserExperiences
+                .Where(x => x.UserId == id)
+                .Select(x => x.ToUserExperienceDto())
+                .ToListAsync();
+
+            return userExperience;
+        }
+
         public async Task<List<UserDto>> GetUsersAsync(List<int>? ids)
         {
             if (ids == null || ids.Count == 0)

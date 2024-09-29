@@ -34,6 +34,16 @@ namespace LinkedInWebApi.Application.Services.UserService
             return await _userReadCommands.GetUserByIdAsync(id);
         }
 
+        public async Task<List<UserEducationDto>> GetUserEducationAsync(int id, ClaimsIdentity identity)
+        {
+            return await _userReadCommands.GetUserEducationAsync(id);
+        }
+
+        public async Task<List<UserExperienceDto>> GetUserExperienceAsync(int id, ClaimsIdentity identity)
+        {
+            return await _userReadCommands.GetUserExperienceAsync(id);
+        }
+
         public async Task<List<UserDto>> GetUsers()
         {
             return await _userReadCommands.GetUsersAsync(new List<int>());
@@ -63,6 +73,18 @@ namespace LinkedInWebApi.Application.Services.UserService
             {
                 FileDownloadName = "users.xml"
             };
+        }
+
+        public async Task RemoveUserEducationAsync(int userEducationId, ClaimsIdentity identity)
+        {
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(identity);
+            await _userUpdateCommands.RemoveUserEducationAsync(userEducationId, curentUserId);
+        }
+
+        public async Task RemoveUserExperienceAsync(int userExperienceId, ClaimsIdentity identity)
+        {
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(identity);
+            await _userUpdateCommands.RemoveUserrExperienceAsync(userExperienceId, curentUserId);
         }
 
         public async Task UpdateProfilePictureAsync(IFormFile file, ClaimsIdentity claimsIdentity)
@@ -96,7 +118,7 @@ namespace LinkedInWebApi.Application.Services.UserService
 
         }
 
-        public async Task UpdateUserEducationAsync(CreateUserEducation createUserEducation, ClaimsIdentity claimsIdentity)
+        public async Task UpdateUserEducationAsync(CreateUserEducationDto createUserEducation, ClaimsIdentity claimsIdentity)
         {
             var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
 

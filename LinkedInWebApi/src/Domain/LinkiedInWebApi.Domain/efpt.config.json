@@ -19,6 +19,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[AdvertisementApply]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[AdvertisementJobType]",
          "ObjectType": 0
       },
@@ -84,6 +88,10 @@
       },
       {
          "Name": "[dbo].[UserCV]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UserCVFile]",
          "ObjectType": 0
       },
       {

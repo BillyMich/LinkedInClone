@@ -4,7 +4,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
 {
     public interface IAdvertisementInserCommands
     {
-
+        Task<bool> ApplyForAdvertismentAsync(ApplyForAdvertismentDto applyForAdvertismentDto, int userId);
         Task<bool> CreateAdvertisement(CreateAdvertisementDto advertisementDto, int userId);
 
     }

@@ -23,6 +23,10 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
         Task<FileDto> GetProfilePictureFromIdAsync(int id);
         Task UpdateUserCVAsync(IFormFile file, ClaimsIdentity identity);
         Task UpdateUserExperienceAsync(CreateUserExperience createUserExperience, ClaimsIdentity identity);
-        Task UpdateUserEducationAsync(CreateUserEducation createUserEducation, ClaimsIdentity identity);
+        Task UpdateUserEducationAsync(CreateUserEducationDto createUserEducation, ClaimsIdentity identity);
+        Task RemoveUserExperienceAsync(int userExperienceId, ClaimsIdentity identity);
+        Task RemoveUpdateUserEducationAsync(int userEducationId, ClaimsIdentity identity);
+        Task<List<UserEducationDto>> GetUserEducationHandlerAsync(int id, ClaimsIdentity identity);
+        Task<List<UserExperienceDto>> GetUserExperienceHandlerAsync(int id, ClaimsIdentity identity);
     }
 }

@@ -11,5 +11,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
         Task<bool> UpdateProfilePicture(int userId, ImageModelDto imageModelDto);
         Task<bool> UpdateUserEmailAsync(int userId, string email);
         Task<bool> UpdateUserPasswordAsync(int userId, string password);
+        Task RemoveUserEducationAsync(int userEducationId, int curentUserId);
+        Task RemoveUserrExperienceAsync(int userExperienceId, int curentUserId);
     }
 }

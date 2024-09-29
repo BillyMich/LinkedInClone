@@ -15,5 +15,6 @@
   <p><strong>Professional Branch:</strong> {{advertisement.professionalBranche }}</p>
   <p><strong>Job Type:</strong> {{ advertisement.jobType }}</p>
   <p><strong>Working Location:</strong> {{ advertisement.workingLocation }}</p>
-  <p *IsEditor><strong>Status:</strong> {{ advertisement.status }}</p>
+  <p *IsEditor><strong>Status:</strong> {{ getStatusLabel(advertisement.status) }}</p>
+  
 </div>

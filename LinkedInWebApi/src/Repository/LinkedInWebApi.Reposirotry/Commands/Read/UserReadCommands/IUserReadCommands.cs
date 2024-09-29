@@ -19,5 +19,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
         Task<FileDto> GetProfilePictureFromId(int id);
 
         Task<UserDto> GetUserByIdWithPasswordAsync(int userId);
+        Task<List<UserEducationDto>> GetUserEducationAsync(int id);
+        Task<List<UserExperienceDto>> GetUserExperienceAsync(int id);
     }
 }

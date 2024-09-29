@@ -27,6 +27,8 @@ public partial class User
 
     public DateTimeOffset UpdatedAt { get; set; }
 
+    public virtual ICollection<AdvertisementApply> AdvertisementApplies { get; set; } = new List<AdvertisementApply>();
+
     public virtual ICollection<Advertisement> Advertisements { get; set; } = new List<Advertisement>();
 
     public virtual ICollection<Chat> ChatUserId1Navigations { get; set; } = new List<Chat>();
@@ -40,6 +42,8 @@ public partial class User
     public virtual ICollection<PostComment> PostComments { get; set; } = new List<PostComment>();
 
     public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
+
+    public virtual ICollection<UserCvfile> UserCvfiles { get; set; } = new List<UserCvfile>();
 
     public virtual ICollection<UserCv> UserCvs { get; set; } = new List<UserCv>();
 

@@ -16,6 +16,35 @@ namespace LinkedInWebApi.Reposirotry.Commands
             _linkedInDbContext = linkedInDbContext;
         }
 
+        public async Task RemoveUserEducationAsync(int userEducationId, int curentUserId)
+        {
+            var findEducationById = await _linkedInDbContext.UserEducations.FirstOrDefaultAsync(x => x.Id == userEducationId);
+
+            if (findEducationById == null)
+            {
+                //throw new ErrorException.NoUserEducationFoundWithGivenIdException();
+            }
+
+            findEducationById.IsActive = false;
+            _linkedInDbContext.Update(findEducationById);
+            await _linkedInDbContext.SaveChangesAsync();
+
+        }
+
+        public async Task RemoveUserrExperienceAsync(int userExperienceId, int curentUserId)
+        {
+            var findExperienceById = _linkedInDbContext.UserExperiences.FirstOrDefault(x => x.Id == userExperienceId);
+
+            if (findExperienceById == null)
+            {
+                //throw new ErrorException.NoUserExperienceFoundWithGivenIdException();
+            }
+
+            findExperienceById.IsActive = false;
+            _linkedInDbContext.Update(findExperienceById);
+            await _linkedInDbContext.SaveChangesAsync();
+        }
+
         public async Task<bool> UpdateProfilePicture(int userId, ImageModelDto imageModelDto)
         {
             var findExistingUserProfilePicture = await _linkedInDbContext.UserPhotoProfiles.FirstOrDefaultAsync(x => x.UserId == userId);

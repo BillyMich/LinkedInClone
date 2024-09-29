@@ -136,13 +136,67 @@ namespace LinkedInWebApi.Controllers
             }
         }
 
+        [HttpDelete("removeUserExperience")]
+        public async Task<IActionResult> RemoveUpdateUserExperience([FromBody] int userExperienceId)
+        {
+            try
+            {
+                await _userHandler.RemoveUserExperienceAsync(userExperienceId, _identity);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPost("updateUserEducation")]
-        public async Task<IActionResult> UpdateUserEducation([FromBody] CreateUserEducation createUserEducation)
+        public async Task<IActionResult> UpdateUserEducation([FromBody] CreateUserEducationDto createUserEducation)
         {
             try
             {
                 await _userHandler.UpdateUserEducationAsync(createUserEducation, _identity);
                 return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete("removeUpdateUserEducation")]
+        public async Task<IActionResult> RemoveUpdateUserEducation([FromBody] int userEducationId)
+        {
+            try
+            {
+                await _userHandler.RemoveUpdateUserEducationAsync(userEducationId, _identity);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("getUserEducation/{id}")]
+        public async Task<ActionResult<List<UserEducationDto>>> GetUserEducation(int id)
+        {
+            try
+            {
+                return Ok(await _userHandler.GetUserEducationHandlerAsync(id, _identity));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("getUserExperience/{id}")]
+        public async Task<ActionResult<List<UserExperienceDto>>> GetUserExperience(int id)
+        {
+            try
+            {
+                return Ok(await _userHandler.GetUserExperienceHandlerAsync(id, _identity));
             }
             catch (Exception)
             {

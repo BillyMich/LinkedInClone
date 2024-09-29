@@ -11,13 +11,25 @@ export class AdvertisementDetailComponent {
   @Input() IsEditor: boolean = false;
   @Input() creatorProfilePicture: string | null = null;
 
-  @Output() advertisementSelected: EventEmitter<AdvertisementDto> = new EventEmitter();
+  @Output() advertisementSelected: EventEmitter<AdvertisementDto> =
+    new EventEmitter();
 
   onAdvertisementClick() {
     this.advertisementSelected.emit(this.advertisement);
   }
 
   onImageError(event: any) {
-    event.target.src = '../../../assets/user-profile-picture.jpg'; 
+    event.target.src = '../../../assets/user-profile-picture.jpg';
+  }
+
+  getStatusLabel(status: number): string {
+    switch (status) {
+      case 1:
+        return 'Draft';
+      case 2:
+        return 'Published';
+      default:
+        return 'Unknown';
+    }
   }
 }
