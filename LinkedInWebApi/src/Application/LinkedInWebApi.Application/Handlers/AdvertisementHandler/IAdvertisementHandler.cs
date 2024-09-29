@@ -20,7 +20,7 @@ namespace LinkedInWebApi.Application.Handlers
 
         Task<List<AdvertisementDto>> GetAdvertismentsOfUserByStatusAsync(byte status, ClaimsIdentity claimsIdentity);
         Task<List<AdvertisementDto>> GetMyAdvertisementAsync(ClaimsIdentity identity);
-        Task<bool> ApplyForAdvertismentAsync(ApplyForAdvertismentDto applyForAdvertismentDto, ClaimsIdentity identity);
+        Task<bool> ApplyForAdvertismentAsync(int applyForAdvertismentDto, ClaimsIdentity identity);
         Task<List<UserDto>> ApplyApplicantAsync(int id, ClaimsIdentity identity);
     }
 }

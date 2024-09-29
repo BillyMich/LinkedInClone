@@ -103,11 +103,11 @@ namespace LinkedInWebApi.Reposirotry.Extensions
             return new List<T> { new() { TypeId = value, IsActive = true, CreatedAt = DateTimeOffset.Now, UpdatedAt = DateTimeOffset.Now } };
         }
 
-        public static AdvertisementApply ToAdvertisementApply(this ApplyForAdvertismentDto advertisementApplyDto, int userId)
+        public static AdvertisementApply ToAdvertisementApply(this int advertisementApplyDto, int userId)
         {
             return new AdvertisementApply
             {
-                AdvertismentId = advertisementApplyDto.AdvertisementId,
+                AdvertismentId = advertisementApplyDto,
                 UserId = userId,
                 IsActive = true,
                 CreatedAt = DateTimeOffset.Now,

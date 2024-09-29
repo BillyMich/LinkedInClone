@@ -44,6 +44,11 @@ namespace LinkedInWebApi.Application.Services
             throw new NotImplementedException();
         }
 
+        public Task<List<NotificationDto>> GetNotificationInPost(ClaimsIdentity identity)
+        {
+            return _postReadCommands.GetNotificationInPost(identity);
+        }
+
         public Task<PostDto?> GetPost(int id, ClaimsIdentity claimsIdentity)
         {
             throw new NotImplementedException();

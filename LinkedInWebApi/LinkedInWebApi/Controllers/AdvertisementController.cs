@@ -157,11 +157,11 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpPost("ApplyForAdvertisment")]
-        public async Task<ActionResult<bool>> ApplyForAdvertisment([FromBody] ApplyForAdvertismentDto applyForAdvertismentDto)
+        public async Task<ActionResult<bool>> ApplyForAdvertisment([FromBody] int advertismentId)
         {
             try
             {
-                return Ok(await _advertisementHandler.ApplyForAdvertismentAsync(applyForAdvertismentDto, _identity));
+                return Ok(await _advertisementHandler.ApplyForAdvertismentAsync(advertismentId, _identity));
             }
             catch (Exception)
             {

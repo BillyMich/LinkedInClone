@@ -24,7 +24,7 @@ namespace LinkedInWebApi.Application.Services
             return await _advertisemenReadCommands.ApplyApplicantAsync(id);
         }
 
-        public Task<bool> ApplyForAdvertismentAsync(ApplyForAdvertismentDto applyForAdvertismentDto, ClaimsIdentity identity)
+        public Task<bool> ApplyForAdvertismentAsync(int applyForAdvertismentDto, ClaimsIdentity identity)
         {
             var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(identity);
 

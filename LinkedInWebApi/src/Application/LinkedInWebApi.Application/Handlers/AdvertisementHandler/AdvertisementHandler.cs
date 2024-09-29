@@ -25,7 +25,7 @@ namespace LinkedInWebApi.Application.Handlers
             return await _advertisementService.ApplyApplicantAsync(id, identity);
         }
 
-        public async Task<bool> ApplyForAdvertismentAsync(ApplyForAdvertismentDto applyForAdvertismentDto, ClaimsIdentity identity)
+        public async Task<bool> ApplyForAdvertismentAsync(int applyForAdvertismentDto, ClaimsIdentity identity)
         {
             return await _advertisementService.ApplyForAdvertismentAsync(applyForAdvertismentDto, identity);
         }

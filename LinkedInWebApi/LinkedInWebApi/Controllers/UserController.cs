@@ -164,7 +164,7 @@ namespace LinkedInWebApi.Controllers
             }
         }
 
-        [HttpDelete("removeUpdateUserEducation")]
+        [HttpDelete("removeUserEducation")]
         public async Task<IActionResult> RemoveUpdateUserEducation([FromBody] int userEducationId)
         {
             try
