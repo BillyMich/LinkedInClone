@@ -15,6 +15,31 @@ namespace LinkedInWebApi.Reposirotry.Commands
             _linkedInDbContext = linkedInDbContext;
         }
 
+        public async Task<List<NotificationDto>> GetNotificationInPost(int userId)
+        {
+
+            try
+            {
+                var notifications = await _linkedInDbContext.Posts
+                    .Where(x => x.CreatorId == userId)
+                    .Include(x => x.PostComments)
+                    .Select(post => new NotificationDto
+                    {
+                        PostId = post.Id,
+                        CommentCount = post.PostComments.Count
+                    })
+                    .ToListAsync();
+
+                return notifications;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
         public async Task<FileDto?> GetPostMultimedia(int id)
         {
             try

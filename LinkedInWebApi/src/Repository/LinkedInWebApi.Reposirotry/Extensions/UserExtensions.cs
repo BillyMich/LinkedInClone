@@ -137,5 +137,69 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 UpdatedAt = DateTimeOffset.Now,
             };
         }
+
+        public static UserEducation ToUserEducation(this CreateUserEducationDto createUserEducation, int userId)
+        {
+            return new UserEducation
+            {
+                UserId = userId,
+                Name = createUserEducation.Name,
+                Description = createUserEducation.Description,
+                IsPublic = createUserEducation.IsPublic,
+                IsActive = true,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now,
+                EducationTypeId = createUserEducation.EducationTypeId
+            };
+        }
+
+        public static UserEducationDto ToUserEducationDto(this UserEducation userEducation)
+        {
+            return new UserEducationDto
+            {
+                Id = userEducation.Id,
+                UserId = userEducation.UserId,
+                Name = userEducation.Name,
+                Description = userEducation.Description,
+                IsPublic = userEducation.IsPublic,
+                IsActive = userEducation.IsActive,
+                CreatedAt = userEducation.CreatedAt,
+                UpdatedAt = userEducation.UpdatedAt,
+                EducationTypeId = userEducation.EducationTypeId
+            };
+        }
+
+        public static UserExperience ToUserExperience(this CreateUserExperience createUserEducation, int userId)
+        {
+            return new UserExperience
+            {
+                UserId = userId,
+                Title = createUserEducation.Title,
+                FreeTxt = createUserEducation.FreeTxt,
+                IsPublic = createUserEducation.IsPublic,
+                IsActive = true,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now,
+                StartedAt = createUserEducation.StartedAt,
+                EndedAt = createUserEducation.EndedAt
+            };
+        }
+
+        public static UserExperienceDto ToUserExperienceDto(this UserExperience userExperience)
+        {
+            return new UserExperienceDto
+            {
+                Id = userExperience.Id,
+                UserId = userExperience.UserId,
+                Title = userExperience.Title,
+                FreeTxt = userExperience.FreeTxt,
+                IsPublic = userExperience.IsPublic,
+                IsActive = userExperience.IsActive,
+                CreatedAt = userExperience.CreatedAt,
+                UpdatedAt = userExperience.UpdatedAt,
+                StartedAt = userExperience.StartedAt,
+                EndedAt = userExperience.EndedAt
+            };
+        }
     }
 }

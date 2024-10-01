@@ -1,6 +1,9 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdvertisementDto, AdvertisementRequest } from '../../models/advertisement.model';
+import {
+  AdvertisementDto,
+  AdvertisementRequest,
+} from '../../models/advertisement.model';
 import { AdvertisementService } from '../../services/advertisement.service';
 import { GlobalConstantsService } from '../../../../services/global-constants.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,8 +16,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class MyAdvertisementsComponent implements OnInit {
   advertisements: AdvertisementDto[] = [];
   selectedAdvertisement: AdvertisementDto | null = null;
-  editForm: FormGroup; 
-  showEditForm: boolean = false; 
+  editForm: FormGroup;
+  showEditForm: boolean = false;
   jobTypes: any[] = [];
   workingLocations: any[] = [];
   profesionalBranches: any[] = [];
@@ -40,14 +43,16 @@ export class MyAdvertisementsComponent implements OnInit {
     this.loadWorkingLocations();
     this.loadProfesionalBranches();
 
-    this.advertisementService.getMyAdvertisement().subscribe((advertisements) => {
-      this.advertisements = advertisements.map((ad) => ({
-        ...ad,
-        professionalBranche: this.getBranchNameById(ad.professionalBranche),
-        jobType: this.getJobTypeById(ad.jobType),
-        workingLocation: this.getWorkingLocationById(ad.workingLocation),
-      }));
-    });
+    this.advertisementService
+      .getMyAdvertisement()
+      .subscribe((advertisements) => {
+        this.advertisements = advertisements.map((ad) => ({
+          ...ad,
+          professionalBranche: this.getBranchNameById(ad.professionalBranche),
+          jobType: this.getJobTypeById(ad.jobType),
+          workingLocation: this.getWorkingLocationById(ad.workingLocation),
+        }));
+      });
   }
 
   private loadJobTypes() {
@@ -60,7 +65,8 @@ export class MyAdvertisementsComponent implements OnInit {
   private loadWorkingLocations() {
     this.globalConstantsService.getWorkingLocations().subscribe({
       next: (data) => (this.workingLocations = data),
-      error: (error) => console.error('Error fetching working locations', error),
+      error: (error) =>
+        console.error('Error fetching working locations', error),
     });
   }
 
@@ -72,7 +78,9 @@ export class MyAdvertisementsComponent implements OnInit {
   }
 
   getBranchNameById(branchId: number): string {
-    const branch = this.profesionalBranches.find((branch) => branch.id === branchId);
+    const branch = this.profesionalBranches.find(
+      (branch) => branch.id === branchId
+    );
     return branch ? branch.name : '';
   }
 
@@ -82,7 +90,9 @@ export class MyAdvertisementsComponent implements OnInit {
   }
 
   getWorkingLocationById(workingLocationId: number): string {
-    const workingLocation = this.workingLocations.find((location) => location.id === workingLocationId);
+    const workingLocation = this.workingLocations.find(
+      (location) => location.id === workingLocationId
+    );
     return workingLocation ? workingLocation.name : '';
   }
 
@@ -90,20 +100,34 @@ export class MyAdvertisementsComponent implements OnInit {
     this.selectedAdvertisement = advertisement;
   }
 
-  openEditForm(advertisement: AdvertisementDto): void {
-    this.selectedAdvertisement = advertisement;
-    this.showEditForm = true; 
-
-    this.editForm.patchValue({
-      title: advertisement.title,
-      freeTxt: advertisement.freeTxt,
-      professionalBranche: advertisement.professionalBranche,
-      jobType: advertisement.jobType,
-      workingLocation: advertisement.workingLocation,
-      status: advertisement.status,
-    });
+  getStatusLabel(status: number): string {
+    switch (status) {
+      case 1:
+        return 'Draft';
+      case 2:
+        return 'Published';
+      default:
+        return 'Unknown';
+    }
   }
 
+  openEditForm(advertisement: AdvertisementDto): void {
+    this.advertisementService
+      .getJobById(advertisement.id)
+      .subscribe((advertisement) => {
+        this.selectedAdvertisement = advertisement;
+
+        this.editForm.patchValue({
+          title: advertisement.title,
+          freeTxt: advertisement.freeTxt,
+          professionalBranche: advertisement.professionalBranche,
+          jobType: advertisement.jobType,
+          workingLocation: advertisement.workingLocation,
+          status: advertisement.status,
+        });
+        this.showEditForm = true;
+      });
+  }
 
   closeEditForm(): void {
     this.showEditForm = false;
@@ -114,10 +138,10 @@ export class MyAdvertisementsComponent implements OnInit {
         id: this.selectedAdvertisement.id,
         title: this.editForm.value.title,
         freeTxt: this.editForm.value.freeTxt,
-        status: Number(this.editForm.value.status), 
-        professionalBranche: Number(this.editForm.value.professionalBranche), 
-        jobType: Number(this.editForm.value.jobType), 
-        workingLocation: Number(this.editForm.value.workingLocation)
+        status: Number(this.editForm.value.status),
+        professionalBranche: Number(this.editForm.value.professionalBranche),
+        jobType: Number(this.editForm.value.jobType),
+        workingLocation: Number(this.editForm.value.workingLocation),
       };
 
       this.advertisementService.updateJob(updatedAdvertisement).subscribe({
@@ -130,14 +154,16 @@ export class MyAdvertisementsComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error updating advertisement', error);
-        }
+        },
       });
     }
   }
   loadAdvertisements(): void {
-    this.advertisementService.getMyAdvertisement().subscribe((advertisements) => {
-      this.advertisements = advertisements;
-    });
+    this.advertisementService
+      .getMyAdvertisement()
+      .subscribe((advertisements) => {
+        this.advertisements = advertisements;
+      });
   }
   @HostListener('document:keydown.escape', ['$event'])
   handleEscapeKey(event: KeyboardEvent): void {
@@ -145,5 +171,4 @@ export class MyAdvertisementsComponent implements OnInit {
       this.closeEditForm();
     }
   }
-
 }

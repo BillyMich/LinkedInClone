@@ -1,5 +1,6 @@
 ﻿using LinkedInWebApi.Application.Handlers;
 using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
@@ -165,6 +166,20 @@ namespace LinkedInWebApi.Controllers
                 {
                     FileDownloadName = fileDto.FileName
                 };
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("GetNotificationInPost")]
+        [Authorize]
+        public async Task<ActionResult<List<NotificationDto>>> GetNotificationInPost()
+        {
+            try
+            {
+                return Ok(await _postHandler.GetNotificationInPost(_identity));
             }
             catch (Exception)
             {

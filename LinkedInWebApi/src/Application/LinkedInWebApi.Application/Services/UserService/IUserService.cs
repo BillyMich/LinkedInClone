@@ -22,6 +22,10 @@ namespace LinkedInWebApi.Application.Services.UserService
         Task UpdateUserSettingsAsync(UpdateUserSettingsDto updateUserSettingsDto, ClaimsIdentity claimsIdentity);
         Task UpdateUserCVAsync(IFormFile file, ClaimsIdentity identity);
         Task UpdateUserExperienceAsync(CreateUserExperience createUserExperience, ClaimsIdentity identity);
-        Task UpdateUserEducationAsync(CreateUserEducation createUserEducation, ClaimsIdentity identity);
+        Task UpdateUserEducationAsync(CreateUserEducationDto createUserEducation, ClaimsIdentity identity);
+        Task RemoveUserExperienceAsync(int userExperienceId, ClaimsIdentity identity);
+        Task RemoveUserEducationAsync(int userEducationId, ClaimsIdentity identity);
+        Task<List<UserEducationDto>> GetUserEducationAsync(int id, ClaimsIdentity identity);
+        Task<List<UserExperienceDto>> GetUserExperienceAsync(int id, ClaimsIdentity identity);
     }
 }

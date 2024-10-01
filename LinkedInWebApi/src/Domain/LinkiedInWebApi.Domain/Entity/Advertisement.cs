@@ -25,6 +25,8 @@ public partial class Advertisement
 
     public DateTimeOffset UpdatedAt { get; set; }
 
+    public virtual ICollection<AdvertisementApply> AdvertisementApplies { get; set; } = new List<AdvertisementApply>();
+
     public virtual ICollection<AdvertisementJobType> AdvertisementJobTypes { get; set; } = new List<AdvertisementJobType>();
 
     public virtual ICollection<AdvertismentProfessionalBranch> AdvertismentProfessionalBranches { get; set; } = new List<AdvertismentProfessionalBranch>();

@@ -46,6 +46,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 ProfessionalBranche = advertisement?.AdvertismentProfessionalBranches.FirstOrDefault()?.TypeId ?? 0,
                 WorkingLocation = advertisement?.AdvertismentWorkingLocations.FirstOrDefault()?.TypeId ?? 0,
                 JobType = advertisement?.AdvertisementJobTypes.FirstOrDefault()?.TypeId ?? 0,
+                Status = advertisement.Status,
                 CreatedAt = advertisement.CreatedAt.DateTime,
                 UpdatedAt = advertisement.UpdatedAt.DateTime,
             };
@@ -72,10 +73,11 @@ namespace LinkedInWebApi.Reposirotry.Extensions
             advertisement.InActivateTypesBeforeUpdate();
             advertisement.Title = advertisementDto.Title;
             advertisement.FreeTxt = advertisementDto.FreeTxt;
-            advertisement.UpdatedAt = DateTimeOffset.Now;
             advertisement.AdvertismentProfessionalBranches = advertisementDto.ProfessionalBranche.ToRFDT<AdvertismentProfessionalBranch>();
             advertisement.AdvertismentWorkingLocations = advertisementDto.WorkingLocation.ToRFDT<AdvertismentWorkingLocation>();
             advertisement.AdvertisementJobTypes = advertisementDto.JobType.ToRFDT<AdvertisementJobType>();
+            advertisement.Status = advertisementDto.Status;
+            advertisement.UpdatedAt = DateTimeOffset.Now;
             return advertisement;
         }
 
@@ -99,6 +101,18 @@ namespace LinkedInWebApi.Reposirotry.Extensions
         private static List<T> ToRFDT<T>(this int value) where T : IAdvertismentDetail, new()
         {
             return new List<T> { new() { TypeId = value, IsActive = true, CreatedAt = DateTimeOffset.Now, UpdatedAt = DateTimeOffset.Now } };
+        }
+
+        public static AdvertisementApply ToAdvertisementApply(this int advertisementApplyDto, int userId)
+        {
+            return new AdvertisementApply
+            {
+                AdvertismentId = advertisementApplyDto,
+                UserId = userId,
+                IsActive = true,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now
+            };
         }
     }
 }

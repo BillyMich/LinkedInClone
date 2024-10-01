@@ -4,6 +4,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
 {
     public interface IAdvertisemenReadCommands
     {
+        Task<List<UserDto>> ApplyApplicantAsync(int id);
         Task<AdvertisementDto?> GetAdvertisment(int id);
 
         Task<List<AdvertisementDto>> GetAdvertisments();

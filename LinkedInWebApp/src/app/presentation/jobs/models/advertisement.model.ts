@@ -22,10 +22,9 @@ export interface AdvertisementDto {
   id: number;
   title: string;
   freeTxt: string;
-  status: string;
+  status: number;
   professionalBranche: string;
   workingLocation: string;
   jobType: string;
-  creatorProfilePicture?: string;
   creatorId: number;
 }

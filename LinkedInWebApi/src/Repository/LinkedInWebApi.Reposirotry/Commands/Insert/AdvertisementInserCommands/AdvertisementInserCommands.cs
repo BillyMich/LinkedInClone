@@ -14,6 +14,19 @@ namespace LinkedInWebApi.Reposirotry.Commands
             _linkedInDbContext = linkedInDbContext;
         }
 
+        public async Task<bool> ApplyForAdvertismentAsync(int applyForAdvertismentDto, int userId)
+        {
+            try
+            {
+                _linkedInDbContext.AdvertisementApplies.Add(applyForAdvertismentDto.ToAdvertisementApply(userId));
+                await _linkedInDbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
         public async Task<bool> CreateAdvertisement(CreateAdvertisementDto advertisementDto, int userId)
         {

@@ -28,7 +28,7 @@
         <p><strong>Professional Branch:</strong> {{ selectedAdvertisement.professionalBranche }}</p>
         <p><strong>Job Type:</strong> {{ selectedAdvertisement.jobType }}</p>
         <p><strong>Working Location:</strong> {{ selectedAdvertisement.workingLocation }}</p>
-        <p><strong>Status:</strong> {{ selectedAdvertisement.status }}</p>
+        <p><strong>Status:</strong> {{ getStatusLabel(selectedAdvertisement.status) }}</p>
         <button (click)="openEditForm(selectedAdvertisement)" class="primary-button">Edit</button>
       </div>
 

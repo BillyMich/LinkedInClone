@@ -63,9 +63,29 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
             await _userService.UpdateUserExperienceAsync(createUserExperience, identity);
         }
 
-        public async Task UpdateUserEducationAsync(CreateUserEducation createUserEducation, ClaimsIdentity identity)
+        public async Task UpdateUserEducationAsync(CreateUserEducationDto createUserEducation, ClaimsIdentity identity)
         {
             await _userService.UpdateUserEducationAsync(createUserEducation, identity);
+        }
+
+        public async Task RemoveUserExperienceAsync(int userExperienceId, ClaimsIdentity identity)
+        {
+            await _userService.RemoveUserExperienceAsync(userExperienceId, identity);
+        }
+
+        public async Task RemoveUpdateUserEducationAsync(int userEducationId, ClaimsIdentity identity)
+        {
+            await _userService.RemoveUserEducationAsync(userEducationId, identity);
+        }
+
+        public async Task<List<UserEducationDto>> GetUserEducationHandlerAsync(int id, ClaimsIdentity identity)
+        {
+            return await _userService.GetUserEducationAsync(id, identity);
+        }
+
+        public async Task<List<UserExperienceDto>> GetUserExperienceHandlerAsync(int id, ClaimsIdentity identity)
+        {
+            return await _userService.GetUserExperienceAsync(id, identity);
         }
     }
 }

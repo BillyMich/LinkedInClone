@@ -26,7 +26,7 @@ export class JobListingsComponent {
   connectedUsers: any[] = [];
   profilePictures: { [creatorId: number]: string | null } = {};
   selectedAdvertisement: AdvertisementDto | null = null;
-  showPopup: boolean = false; 
+  showPopup: boolean = false;
 
   constructor(
     private advertisementService: AdvertisementService,
@@ -76,10 +76,8 @@ export class JobListingsComponent {
   }
 
   private isConnectedUser(jobUserId: number): boolean {
-    return this.connectedUsers.some(user => user.id === jobUserId);
+    return this.connectedUsers.some((user) => user.id === jobUserId);
   }
-
-
 
   InitPage() {
     this.loadJobTypes();
@@ -109,6 +107,17 @@ export class JobListingsComponent {
     });
   }
 
+  getStatusLabel(status: number): string {
+    switch (status) {
+      case 1:
+        return 'Draft';
+      case 2:
+        return 'Published';
+      default:
+        return 'Unknown';
+    }
+  }
+
   viewJob(jobId: number) {}
 
   toggleJobForm() {
@@ -116,38 +125,47 @@ export class JobListingsComponent {
   }
 
   private loadProfilePicture(creatorId: number) {
-    const profilePictureUrl = this.settingsService.getProfilePictureUrl(creatorId);
-    this.profilePictures[creatorId] = profilePictureUrl || '../../../assets/user-profile-picture.jpg'; 
+    const profilePictureUrl =
+      this.settingsService.getProfilePictureUrl(creatorId);
+    this.profilePictures[creatorId] =
+      profilePictureUrl || '../../../assets/user-profile-picture.jpg';
   }
 
   private loadJobListings() {
     this.advertisementService.getJobListings().subscribe({
       next: (data) => {
         console.log('Job listings', data);
-  
-        const connectedListings = data.filter((job) => this.isConnectedUser(job.creatorId));
-        const nonConnectedListings = data.filter((job) => !this.isConnectedUser(job.creatorId));
-  
+
+        const connectedListings = data.filter((job) =>
+          this.isConnectedUser(job.creatorId)
+        );
+        const nonConnectedListings = data.filter(
+          (job) => !this.isConnectedUser(job.creatorId)
+        );
+
         data.forEach((job) => {
           this.loadProfilePicture(job.creatorId);
         });
-  
+
         this.connectedJobListings = connectedListings.map((job) => ({
           ...job,
           professionalBranche: this.getBranchNameById(job.professionalBranche),
           jobType: this.getJobTypeById(job.jobType),
           workingLocation: this.getWorkingLocationById(job.workingLocation),
         }));
-  
+
         this.nonConnectedJobListings = nonConnectedListings.map((job) => ({
           ...job,
           professionalBranche: this.getBranchNameById(job.professionalBranche),
           jobType: this.getJobTypeById(job.jobType),
           workingLocation: this.getWorkingLocationById(job.workingLocation),
         }));
-  
+
         console.log('Connected Job Listings:', this.connectedJobListings);
-        console.log('Non-Connected Job Listings:', this.nonConnectedJobListings);
+        console.log(
+          'Non-Connected Job Listings:',
+          this.nonConnectedJobListings
+        );
 
         if (this.connectedJobListings.length > 0) {
           this.selectedAdvertisement = this.connectedJobListings[0];
@@ -158,19 +176,19 @@ export class JobListingsComponent {
       error: (error) => console.error('Error fetching job listings', error),
     });
   }
-  
+
   onAdvertisementSelect(advertisement: AdvertisementDto) {
     this.selectedAdvertisement = advertisement;
   }
-  
-   applyForJob(jobId: number): void {
+
+  applyForJob(jobId: number): void {
     this.advertisementService.applyForJob(jobId).subscribe({
       next: () => {
-        this.showPopupMessage();  // Show the popup message
+        this.showPopupMessage(); // Show the popup message
       },
       error: (error) => {
         console.error('Error applying for job', error);
-      }
+      },
     });
   }
 
@@ -179,9 +197,8 @@ export class JobListingsComponent {
     this.showPopup = true;
     setTimeout(() => {
       this.showPopup = false;
-    }, 3000);  // Hide the popup after 3 seconds
+    }, 3000); // Hide the popup after 3 seconds
   }
-  
 
   /*
   private loadCollaborativeFilteringJobs() {

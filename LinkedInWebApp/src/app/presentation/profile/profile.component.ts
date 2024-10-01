@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { AuthService } from '../../services/auth-service/auth.service';
 import { UserService } from '../../services/user.service';
 import { SettingsService } from '../../services/settings.service';
+import { GlobalConstantsService } from '../../services/global-constants.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,15 +17,22 @@ export class ProfileComponent implements OnInit {
 
   showExperienceModal: boolean = false;
   showEducationModal: boolean = false;
+  jobTypes: any[] = [];
+  workingLocations: any[] = [];
+  profesionalBranches: any[] = [];
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private globalConstantsService: GlobalConstantsService
   ) {}
 
   ngOnInit() {
     const currentUser = this.authService.getCurrentUser();
+    this.loadJobTypes();
+    this.loadWorkingLocations();
+    this.loadProfesionalBranches();
 
     if (currentUser && currentUser.id) {
       this.userService.getUserById(Number(currentUser.id)).subscribe({
@@ -80,6 +88,28 @@ export class ProfileComponent implements OnInit {
         this.addSkill(skill);
       });
     }
+  }
+
+  private loadJobTypes() {
+    this.globalConstantsService.getJobTypes().subscribe({
+      next: (data) => (this.jobTypes = data),
+      error: (error) => console.error('Error fetching job types', error),
+    });
+  }
+
+  private loadWorkingLocations() {
+    this.globalConstantsService.getWorkingLocations().subscribe({
+      next: (data) => (this.workingLocations = data),
+      error: (error) =>
+        console.error('Error fetching working locations', error),
+    });
+  }
+
+  private loadProfesionalBranches() {
+    this.globalConstantsService.getProfessionalBranches().subscribe({
+      next: (data) => (this.profesionalBranches = data),
+      error: (error) => console.error('Error fetching branches', error),
+    });
   }
 
   get experience(): FormArray {
@@ -174,7 +204,10 @@ export class ProfileComponent implements OnInit {
   handleKeyDown(event: KeyboardEvent) {
     if (event.key === 'Escape') {
       this.closeModal();
-    } else if (event.key === 'Enter' && (this.showExperienceModal || this.showEducationModal)) {
+    } else if (
+      event.key === 'Enter' &&
+      (this.showExperienceModal || this.showEducationModal)
+    ) {
       this.onSubmit();
     }
   }
