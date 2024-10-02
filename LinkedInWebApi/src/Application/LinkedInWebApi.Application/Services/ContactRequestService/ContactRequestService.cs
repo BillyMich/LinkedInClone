@@ -60,6 +60,13 @@ namespace LinkedInWebApi.Application.Services
         {
             var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
 
+            var checkIfExistAlready = await _contactRequestReadCommands.CheckIfExistAlreadyAsync(contactRequestDto, curentUserId);
+
+            if (checkIfExistAlready)
+            {
+                throw ErrorException.ContactRequestAlreadyExistException;
+            }
+
             var result = await _contactRequestInsertCommands.CreateContactRequest(contactRequestDto, curentUserId);
 
             return result;
