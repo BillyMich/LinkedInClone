@@ -109,7 +109,7 @@ namespace LinkedInWebApi.Controllers
         /// <returns>The list of pending connect contacts.</returns>
         [HttpGet("GetPendingConnectContacts")]
         [Authorize]
-        public async Task<ActionResult<ContactRequestOfUserDto>> GetPendingConnectContacts()
+        public async Task<ActionResult<List<ContactRequestOfUserDto>>> GetPendingConnectContacts()
         {
             try
             {

@@ -6,6 +6,5 @@
         public string Description { get; set; }
         public bool IsPublic { get; set; }
         public int EducationTypeId { get; set; }
-
     }
 }

@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage/local-storage.service';
 import { ContactRequestChangeStatusDto } from '../presentation/network/models/network.model';
-import { ContactRequestOfUserDto } from '../presentation/notifications/models/notification.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,14 +20,11 @@ export class NotificationsService {
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
-  getConnectionRequests(): Observable<ContactRequestOfUserDto> {
+  getConnectionRequests(): Observable<any[]> {
     const headers = this.getHeaders();
-    return this.http.get<ContactRequestOfUserDto>(
-      `${this.apiUrl}/GetPendingConnectContacts`,
-      {
-        headers,
-      }
-    );
+    return this.http.get<any[]>(`${this.apiUrl}/GetPendingConnectContacts`, {
+      headers,
+    });
   }
 
   acceptConnectionRequest(
