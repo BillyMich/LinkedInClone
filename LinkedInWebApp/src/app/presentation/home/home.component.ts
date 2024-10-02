@@ -40,10 +40,7 @@ export class HomeComponent implements OnInit {
 
   fetchPosts() {
     this.articleService.getArticles().subscribe((data: Post[]) => {
-      this.posts = data.sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
+      this.posts = data;
       this.posts.forEach((post) => {
         this.commentsToShow[post.id] = 3;
         this.loadMultimediaForPost(post);
