@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationsService } from '../../services/notifications.service';
 import { ContactRequestChangeStatusDto } from '../network/models/network.model';
+import { ContactRequestDto } from './models/notification.model';
 
 @Component({
   selector: 'app-notifications',
@@ -8,7 +9,8 @@ import { ContactRequestChangeStatusDto } from '../network/models/network.model';
   styleUrls: ['./notifications.component.css'],
 })
 export class NotificationsComponent implements OnInit {
-  connectionRequests: any[] = [];
+  connectionRequestsFromOtherUsers: ContactRequestDto[] = [];
+  connectionRequestsFromOtherMe: ContactRequestDto[] = [];
   interestNotes: any[] = [];
   comments: any[] = [];
 
@@ -20,7 +22,8 @@ export class NotificationsComponent implements OnInit {
 
   loadNotifications() {
     this.notificationsService.getConnectionRequests().subscribe((data) => {
-      this.connectionRequests = data;
+      this.connectionRequestsFromOtherUsers = data.contactRequestsTo;
+      this.connectionRequestsFromOtherMe = data.contactRequestsFrom;
     });
 
     this.notificationsService.getInterestNotes().subscribe((data) => {

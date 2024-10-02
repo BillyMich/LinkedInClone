@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LinkiedInWebApi.Domain.Entity;
 
-public partial class RfdtProfessionalBranch
+public partial class RfdtProfessionalBranch 
 {
     public int Id { get; set; }
 

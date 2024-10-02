@@ -150,6 +150,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 CreatedAt = DateTimeOffset.Now,
                 UpdatedAt = DateTimeOffset.Now,
                 EducationTypeId = createUserEducation.EducationTypeId
+
             };
         }
 
@@ -177,6 +178,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 Title = createUserEducation.Title,
                 FreeTxt = createUserEducation.FreeTxt,
                 IsPublic = createUserEducation.IsPublic,
+
                 IsActive = true,
                 CreatedAt = DateTimeOffset.Now,
                 UpdatedAt = DateTimeOffset.Now,
@@ -201,5 +203,17 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 EndedAt = userExperience.EndedAt
             };
         }
+
+        /// <summary>
+        /// Converts an integer value to a list of T objects.
+        /// </summary>
+        /// <typeparam name="T">The type of the objects in the list.</typeparam>
+        /// <param name="value">The integer value.</param>
+        /// <returns>The list of T objects.</returns>
+        private static List<T> ToRFDT<T>(this int value) where T : IAdvertismentDetail, new()
+        {
+            return new List<T> { new() { TypeId = value, IsActive = true, CreatedAt = DateTimeOffset.Now, UpdatedAt = DateTimeOffset.Now } };
+        }
+
     }
 }

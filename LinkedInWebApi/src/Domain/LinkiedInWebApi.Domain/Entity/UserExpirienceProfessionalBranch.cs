@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LinkiedInWebApi.Domain.Entity;
 
-public partial class UserExpirienceProfessionalBranch
+public partial class UserExpirienceProfessionalBranch : IAdvertismentDetail
 {
     public int Id { get; set; }
 
@@ -17,7 +17,7 @@ public partial class UserExpirienceProfessionalBranch
 
     public DateTimeOffset CreatedAt { get; set; }
 
-    public DateTimeOffset UpdateAt { get; set; }
+    public DateTimeOffset UpdatedAt { get; set; }
 
     public virtual RfdtProfessionalBranch Type { get; set; }
 

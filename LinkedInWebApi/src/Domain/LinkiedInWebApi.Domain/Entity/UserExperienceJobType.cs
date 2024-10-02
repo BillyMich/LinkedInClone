@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace LinkiedInWebApi.Domain.Entity;
 
-public partial class UserExperienceJobType
+public partial class UserExperienceJobType : IAdvertismentDetail
 {
     public int Id { get; set; }
 
-    public int JobTypeId { get; set; }
+    public int TypeId { get; set; }
 
     public int UserExpirienceId { get; set; }
 
