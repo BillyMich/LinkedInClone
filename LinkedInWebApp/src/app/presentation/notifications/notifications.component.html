@@ -4,11 +4,11 @@
     
     <h2>Αιτήματα Σύνδεσης</h2>
     <ul>
-      <li *ngFor="let request of connectionRequests">
+      <li *ngFor="let request of connectionRequestsFromOtherUsers">
         <p>{{ request.name }} θέλει να συνδεθεί μαζί σας.</p>
         <button (click)="acceptRequest(request.id)" class="primary-button">Αποδοχή</button>
         <button (click)="rejectRequest(request.id)" class="secondary-button">Απόρριψη</button>
-        <a [routerLink]="['/profile', request.userId]" class="profile-link">Προβολή Προφίλ</a>
+        <a [routerLink]="['/profile', request.userResiverId]" class="profile-link">Προβολή Προφίλ</a>
       </li>
     </ul>
   </div>
