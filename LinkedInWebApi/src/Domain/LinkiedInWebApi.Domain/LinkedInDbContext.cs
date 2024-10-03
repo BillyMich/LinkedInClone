@@ -265,7 +265,6 @@ public partial class LinkedInDbContext : DbContext
         {
             entity.ToTable("RFDT_EducationType");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -428,8 +427,8 @@ public partial class LinkedInDbContext : DbContext
         {
             entity.ToTable("UserExperienceJobType");
 
-            entity.HasOne(d => d.JobType).WithMany(p => p.UserExperienceJobTypes)
-                .HasForeignKey(d => d.JobTypeId)
+            entity.HasOne(d => d.Type).WithMany(p => p.UserExperienceJobTypes)
+                .HasForeignKey(d => d.TypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UserExperienceJobType_RFDT_JobType");
 
@@ -451,7 +450,7 @@ public partial class LinkedInDbContext : DbContext
             entity.HasOne(d => d.UserExperience).WithMany(p => p.UserExperienceWorkingLocations)
                 .HasForeignKey(d => d.UserExperienceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserExperienceWorkingLocation_UserExperience");
+                .HasConstraintName("FK_UserExperienceWorkingLocation_UserExperience2");
         });
 
         modelBuilder.Entity<UserExpirienceProfessionalBranch>(entity =>
