@@ -46,7 +46,9 @@ namespace LinkedInWebApi.Application.Services
 
         public Task<List<NotificationDto>> GetNotificationInPost(ClaimsIdentity identity)
         {
-            return _postReadCommands.GetNotificationInPost(identity);
+            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(identity);
+
+            return _postReadCommands.GetNotificationInPost(curentUserId);
         }
 
         public Task<PostDto?> GetPost(int id, ClaimsIdentity claimsIdentity)

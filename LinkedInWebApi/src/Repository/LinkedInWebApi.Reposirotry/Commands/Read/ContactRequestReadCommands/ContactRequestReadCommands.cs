@@ -57,5 +57,17 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
             return connectedUsers;
         }
+
+        public async Task<bool> CheckIfExistAlreadyAsync(NewContactRequestDto contactRequestDto, int curentUserId)
+        {
+            var contactRequest = await _linkedInDbContext.ContactRequests
+                .Where(x => x.UserRequestId == curentUserId && x.UserResiverId == contactRequestDto.UserResiverId)
+                .FirstOrDefaultAsync();
+
+            if (contactRequest == null) return true;
+
+            return false;
+
+        }
     }
 }
