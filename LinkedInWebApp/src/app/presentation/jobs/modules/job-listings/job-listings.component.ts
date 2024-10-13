@@ -83,7 +83,6 @@ export class JobListingsComponent {
     this.loadJobTypes();
     this.loadWorkingLocations();
     this.loadProfesionalBranches();
-    this.loadJobListings();
   }
   private loadJobTypes() {
     this.genericConstantService.getJobTypes().subscribe({
@@ -135,38 +134,38 @@ export class JobListingsComponent {
     this.advertisementService.getJobListings().subscribe({
       next: (data) => {
         console.log('Job listings', data);
-
-        const connectedListings = data.filter((job) =>
-          this.isConnectedUser(job.creatorId)
+  
+        const currentUserId = this.user.id; 
+  
+        const connectedListings = data.filter((job) => 
+          this.isConnectedUser(job.creatorId) && job.creatorId !== currentUserId
         );
+  
         const nonConnectedListings = data.filter(
-          (job) => !this.isConnectedUser(job.creatorId)
+          (job) => !this.isConnectedUser(job.creatorId) && job.creatorId != currentUserId
         );
-
+  
         data.forEach((job) => {
           this.loadProfilePicture(job.creatorId);
         });
-
+  
         this.connectedJobListings = connectedListings.map((job) => ({
           ...job,
           professionalBranche: this.getBranchNameById(job.professionalBranche),
           jobType: this.getJobTypeById(job.jobType),
           workingLocation: this.getWorkingLocationById(job.workingLocation),
         }));
-
+  
         this.nonConnectedJobListings = nonConnectedListings.map((job) => ({
           ...job,
           professionalBranche: this.getBranchNameById(job.professionalBranche),
           jobType: this.getJobTypeById(job.jobType),
           workingLocation: this.getWorkingLocationById(job.workingLocation),
         }));
-
+  
         console.log('Connected Job Listings:', this.connectedJobListings);
-        console.log(
-          'Non-Connected Job Listings:',
-          this.nonConnectedJobListings
-        );
-
+        console.log('Non-Connected Job Listings:', this.nonConnectedJobListings);
+  
         if (this.connectedJobListings.length > 0) {
           this.selectedAdvertisement = this.connectedJobListings[0];
         } else if (this.nonConnectedJobListings.length > 0) {
@@ -176,6 +175,8 @@ export class JobListingsComponent {
       error: (error) => console.error('Error fetching job listings', error),
     });
   }
+  
+  
 
   onAdvertisementSelect(advertisement: AdvertisementDto) {
     this.selectedAdvertisement = advertisement;
@@ -184,7 +185,7 @@ export class JobListingsComponent {
   applyForJob(jobId: number): void {
     this.advertisementService.applyForJob(jobId).subscribe({
       next: () => {
-        this.showPopupMessage(); // Show the popup message
+        this.showPopupMessage(); 
       },
       error: (error) => {
         console.error('Error applying for job', error);
@@ -192,12 +193,11 @@ export class JobListingsComponent {
     });
   }
 
-  // Method to show the popup message and hide it after 3 seconds
   showPopupMessage(): void {
     this.showPopup = true;
     setTimeout(() => {
       this.showPopup = false;
-    }, 3000); // Hide the popup after 3 seconds
+    }, 3000);
   }
 
   /*
