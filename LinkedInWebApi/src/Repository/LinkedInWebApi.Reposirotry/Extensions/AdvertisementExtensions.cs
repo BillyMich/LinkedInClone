@@ -43,6 +43,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 Id = advertisement.Id,
                 Title = advertisement.Title,
                 FreeTxt = advertisement.FreeTxt,
+                CreatorId = advertisement.CreatorId,
                 ProfessionalBranche = advertisement?.AdvertismentProfessionalBranches.FirstOrDefault()?.TypeId ?? 0,
                 WorkingLocation = advertisement?.AdvertismentWorkingLocations.FirstOrDefault()?.TypeId ?? 0,
                 JobType = advertisement?.AdvertisementJobTypes.FirstOrDefault()?.TypeId ?? 0,

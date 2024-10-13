@@ -33,6 +33,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
                 .Include(u => u.AdvertismentProfessionalBranches)
                 .Include(u => u.AdvertisementJobTypes)
                 .Include(u => u.AdvertismentWorkingLocations)
+                .Include(u => u.Creator)
                 .FirstOrDefaultAsync(x => x.Id == id && x.IsActive);
 
             if (advertisement == null)
@@ -49,6 +50,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
                 .Include(u => u.AdvertismentProfessionalBranches)
                 .Include(u => u.AdvertisementJobTypes)
                 .Include(u => u.AdvertismentWorkingLocations)
+                .Include(u => u.Creator)
                 .Where(x => x.IsActive && x.Status == 2)
                 .ToListAsync();
 
