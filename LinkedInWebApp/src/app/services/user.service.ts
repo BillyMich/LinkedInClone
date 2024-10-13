@@ -27,19 +27,20 @@ export class UserService {
 
   getConnectedUsers(): Observable<any[]> {
     const headers = this.getHeaders();
-
-    return this.http.get<any[]>(`${this.apiUrl}/user/getConnectedUsers`, {
+  
+    return this.http.get<any[]>(`${this.apiUrl}/GetConnectedUsers`, {
       headers,
     });
   }
-
+  
   getNonConnectedUsers(): Observable<any[]> {
     const headers = this.getHeaders();
-
-    return this.http.get<any[]>(`${this.apiUrl}/user/getNonConnectedUsers`, {
+  
+    return this.http.get<any[]>(`${this.apiUrl}/GetNonConnectedUsers`, {
       headers,
     });
   }
+  
 
   createContactRequest(contactRequest: NewContactRequestDto): Observable<any> {
     const headers = this.getHeaders();
