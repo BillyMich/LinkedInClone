@@ -1,5 +1,4 @@
-<div class="profile-container content" *ngIf="user">
-  <!-- Profile Picture Section -->
+<div class="profile-container content" *ngIf="user && profileForm">
   <div class="profile-header">
     <div class="profile-picture-container">
       <img
@@ -16,54 +15,96 @@
         hidden
       />
     </div>
+
+    <div>
+      <h1 class="user-name">{{ user.name }} {{ user.surname }}</h1>
+      <p class="user-title">{{ user.jobTitle }}</p>
+      <p class="user-education">{{ user.university }}</p>
+    </div>
   </div>
 
-  <!-- User Information -->
-  <div class="profile-details">
-    <h1 class="user-name">{{ user.name }} {{ user.surname }}</h1>
-    <p class="user-title">{{ user.jobTitle }}</p>
-    <p class="user-education">{{ user.university }}</p>
-
-    <!-- Contact Information -->
-    <div class="contact-info">
-      <h2>Πληροφορίες επαγγελματία</h2>
-      <p>Email: {{ user.email }}</p>
-      <p>Τηλέφωνο: {{ user.phone }}</p>
-    </div>
-
-    <div class="actions">
-      <button (click)="openExperienceModal()">Προσθήκη εργασιακής εμπειρίας</button>
-      <button (click)="openEducationModal()">Προσθήκη πτυχίων</button>
-    </div>
-
-    <!-- Modals for Adding Data -->
-    <div *ngIf="showExperienceModal" class="modal">
-      <h2>Προσθήκη εργασιακής εμπειρίας</h2>
-      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-        <label>Job Title</label>
-        <input formControlName="jobTitle" placeholder="Job Title" />
-        <label>Company name</label>
-        <input formControlName="company" placeholder="Company" />
-        <label>Working location</label>
-        <input formControlName="company" placeholder="WorkingLocation" />
-        <label>Job type</label>
-        <input formControlName="company" placeholder="JobType" />
-        <button type="submit">Save</button>
-        <button type="button" (click)="closeModal()">Cancel</button>
-      </form>
-    </div>
-
-    <div *ngIf="showEducationModal" class="modal">
-      <h2>Προσθήκη πτυχίων</h2>
-      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-        <label>Degree</label>
-        <input formControlName="degree" placeholder="Degree" />
-        <label>Institution</label>
-        <input formControlName="institution" placeholder="Institution" />
-        <button type="submit">Save</button>
-        <button type="button" (click)="closeModal()">Cancel</button>
-      </form>
-    </div>
-
+  <div class="contact-info">
+    <h2>Πληροφορίες επαγγελματία</h2>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Τηλέφωνο:</strong> {{ user.phone }}</p>
   </div>
+
+  <div class="actions">
+    <button (click)="openExperienceModal()">
+      Προσθήκη εργασιακής εμπειρίας
+    </button>
+    <button (click)="openEducationModal()">Προσθήκη πτυχίων</button>
+  </div>
+
+
+  <div class="experience-section" *ngIf="experience.length > 0">
+    <h2>Εργασιακή Εμπειρία</h2>
+    <div *ngFor="let exp of experience.controls" class="experience-item">
+      <p><strong>Τίτλος:</strong> {{ exp.value.Title }}</p>
+      <p><strong>Περιγραφή:</strong> {{ exp.value.FreeTxt }}</p>
+      <p><strong>Δημόσιο:</strong> {{ exp.value.IsPublic ? 'Ναι' : 'Όχι' }}</p>
+      <p>
+        <strong>Διάρκεια:</strong>
+        {{ exp.value.StartedAt | date: 'MMM yyyy' }} -
+        {{ exp.value.EndedAt ? (exp.value.EndedAt | date: 'MMM yyyy') : 'Σήμερα' }}
+      </p>
+    </div>
+  </div>
+  
+  <div class="education-section" *ngIf="education.length > 0">
+    <h2>Εκπαίδευση</h2>
+    <div *ngFor="let edu of education.controls" class="education-item">
+      <p><strong>Πτυχίο:</strong> {{ edu.value.degree }}</p>
+      <p><strong>Ίδρυμα:</strong> {{ edu.value.institution }}</p>
+      <p><strong>Έτος Αποφοίτησης:</strong> {{ edu.value.graduationYear }}</p>
+    </div>
+  </div>
+
+<div *ngIf="showExperienceModal" class="modal">
+  <h2>Προσθήκη Εργασιακής Εμπειρίας</h2>
+  <form [formGroup]="experienceForm" (ngSubmit)="onSubmitExperience()">
+    <label>Τίτλος</label>
+    <input formControlName="Title" placeholder="Τίτλος" />
+
+    <label>Περιγραφή</label>
+    <textarea formControlName="FreeTxt" placeholder="Περιγραφή"></textarea>
+
+    <label>Δημόσιο</label>
+    <select formControlName="IsPublic">
+      <option [value]="true">Ναι</option>
+      <option [value]="false">Όχι</option>
+    </select>
+
+    <label>Ημερομηνία Έναρξης</label>
+    <input type="date" formControlName="StartedAt" />
+
+    <label>Ημερομηνία Λήξης</label>
+    <input type="date" formControlName="EndedAt" />
+
+    <button type="submit">Αποθήκευση</button>
+    <button type="button" (click)="closeModal()">Ακύρωση</button>
+  </form>
+</div>
+
+
+  <div *ngIf="showEducationModal" class="modal">
+  <h2>Προσθήκη Πτυχίων</h2>
+  <form [formGroup]="educationForm" (ngSubmit)="onSubmitEducation()">
+    <label>Πτυχίο</label>
+    <input formControlName="degree" placeholder="Πτυχίο" />
+
+    <label>Ίδρυμα</label>
+    <input formControlName="institution" placeholder="Ίδρυμα" />
+
+    <label>Έτος Αποφοίτησης</label>
+    <input
+      type="number"
+      formControlName="graduationYear"
+      placeholder="Έτος Αποφοίτησης"
+    />
+
+    <button type="submit">Αποθήκευση</button>
+    <button type="button" (click)="closeModal()">Ακύρωση</button>
+  </form>
+
 </div>
