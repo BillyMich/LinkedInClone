@@ -15,29 +15,9 @@ namespace LinkedInWebApi.Reposirotry.Commands
             _linkedInDbContext = linkedInDbContext;
         }
 
-        public async Task<List<NotificationDto>> GetNotificationInPost(int userId)
+        public Task<List<PostDto>> GetPostByUserAsync(int userId)
         {
-
-            try
-            {
-                var notifications = await _linkedInDbContext.Posts
-                    .Where(x => x.CreatorId == userId)
-                    .Include(x => x.PostComments)
-                    .Select(post => new NotificationDto
-                    {
-                        PostId = post.Id,
-                        CommentCount = post.PostComments.Count
-                    })
-                    .ToListAsync();
-
-                return notifications;
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
+            throw new NotImplementedException();
         }
 
         public async Task<FileDto?> GetPostMultimedia(int id)
@@ -62,7 +42,9 @@ namespace LinkedInWebApi.Reposirotry.Commands
                 var posts = await _linkedInDbContext.Posts.
                     Include(x => x.PostComments).
                     Include(x => x.Creator).
-                    Include(x => x.PostMultimedia).ToListAsync();
+                    Include(x => x.PostMultimedia).
+                    Include(x => x.PostReactions)
+                    .ToListAsync();
                 return posts.ToPostDto();
             }
             catch (Exception ex)

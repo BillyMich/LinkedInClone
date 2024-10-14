@@ -1,6 +1,5 @@
 ﻿using LinkedInWebApi.Application.Handlers;
 using LinkedInWebApi.Core;
-using LinkedInWebApi.Core.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
@@ -42,7 +41,6 @@ namespace LinkedInWebApi.Controllers
 
         [HttpPost("UpdatePost")]
         [Authorize]
-
         public async Task<ActionResult<bool>> UpdatePost([FromBody] PostDto postDto)
         {
             try
@@ -57,7 +55,6 @@ namespace LinkedInWebApi.Controllers
 
         [HttpPost("DeletePost/{id}")]
         [Authorize]
-
         public async Task<ActionResult<bool>> DeletePost(int id)
         {
             try
@@ -72,7 +69,6 @@ namespace LinkedInWebApi.Controllers
 
         [HttpGet("GetPost/{id}")]
         [Authorize]
-
         public async Task<ActionResult<PostDto?>> GetPost(int id)
         {
             try
@@ -87,7 +83,6 @@ namespace LinkedInWebApi.Controllers
 
         [HttpGet("GetPosts")]
         [Authorize]
-
         public async Task<ActionResult<List<PostDto>>?> GetPosts()
         {
             try
@@ -175,7 +170,7 @@ namespace LinkedInWebApi.Controllers
 
         [HttpGet("GetNotificationInPost")]
         [Authorize]
-        public async Task<ActionResult<List<NotificationDto>>> GetNotificationInPost()
+        public async Task<ActionResult<PostNotificationDto>> GetNotificationInPost()
         {
             try
             {

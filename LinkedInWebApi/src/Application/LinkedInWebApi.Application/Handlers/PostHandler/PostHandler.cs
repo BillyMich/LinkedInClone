@@ -34,7 +34,7 @@ namespace LinkedInWebApi.Application.Handlers
             return await _postService.DeletePostComment(id, claimsIdentity);
         }
 
-        public Task<List<NotificationDto>> GetNotificationInPost(ClaimsIdentity identity)
+        public Task<PostNotificationDto> GetNotificationInPost(ClaimsIdentity identity)
         {
             return _postService.GetNotificationInPost(identity);
         }

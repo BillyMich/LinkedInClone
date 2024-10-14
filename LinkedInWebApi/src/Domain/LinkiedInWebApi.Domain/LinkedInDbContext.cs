@@ -44,8 +44,6 @@ public partial class LinkedInDbContext : DbContext
 
     public virtual DbSet<RfdtProfessionalBranch> RfdtProfessionalBranches { get; set; }
 
-    public virtual DbSet<RfdtReaction> RfdtReactions { get; set; }
-
     public virtual DbSet<RfdtWorkingLocation> RfdtWorkingLocations { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -254,11 +252,6 @@ public partial class LinkedInDbContext : DbContext
                 .HasForeignKey(d => d.PostId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PostReaction_Post");
-
-            entity.HasOne(d => d.Reaction).WithMany(p => p.PostReactions)
-                .HasForeignKey(d => d.ReactionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PostReaction_RFDT_Reaction");
         });
 
         modelBuilder.Entity<RfdtEducationType>(entity =>
@@ -285,20 +278,6 @@ public partial class LinkedInDbContext : DbContext
 
             entity.ToTable("RFDT_ProfessionalBranch");
 
-            entity.Property(e => e.Name)
-                .IsRequired()
-                .HasMaxLength(50);
-        });
-
-        modelBuilder.Entity<RfdtReaction>(entity =>
-        {
-            entity.ToTable("RFDT_Reaction");
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.DataOfFile).IsRequired();
-            entity.Property(e => e.FileName)
-                .IsRequired()
-                .HasMaxLength(200);
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50);

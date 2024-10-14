@@ -92,34 +92,6 @@ namespace LinkedInWebApi.Reposirotry.Extensions
 
         #endregion
 
-        #region RfdtReaction
-
-        /// <summary>
-        /// Converts a list of RfdtReaction entities to a list of GennericGlobalConstantDto.
-        /// </summary>
-        /// <param name="professionalBranches">The list of RfdtReaction entities to convert.</param>
-        /// <returns>The converted list of GennericGlobalConstantDto.</returns>
-        public static List<GennericGlobalConstantDto> ToGennericGlobalConstantDto(this List<RfdtReaction> professionalBranches)
-        {
-            return professionalBranches.Select(professionalBranch => professionalBranch.ToGennericGlobalConstantDto()).ToList();
-        }
-
-        /// <summary>
-        /// Converts a single RfdtReaction entity to a GennericGlobalConstantDto.
-        /// </summary>
-        /// <param name="professionalBranch">The RfdtReaction entity to convert.</param>
-        /// <returns>The converted GennericGlobalConstantDto.</returns>
-        public static GennericGlobalConstantDto ToGennericGlobalConstantDto(this RfdtReaction professionalBranch)
-        {
-            return new GennericGlobalConstantDto
-            {
-                Id = professionalBranch.Id,
-                Name = professionalBranch.Name,
-            };
-        }
-
-        #endregion
-
         #region RfdtWorkingLocation
 
         /// <summary>

@@ -44,11 +44,13 @@ namespace LinkedInWebApi.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<NotificationDto>> GetNotificationInPost(ClaimsIdentity identity)
+        public async Task<PostNotificationDto> GetNotificationInPost(ClaimsIdentity identity)
         {
             var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(identity);
+            var postDtos = await _postReadCommands.GetPostByUserAsync(curentUserId);
 
-            return _postReadCommands.GetNotificationInPost(curentUserId);
+            return PostDtosToNotifications(postDtos);
+
         }
 
         public Task<PostDto?> GetPost(int id, ClaimsIdentity claimsIdentity)
@@ -75,5 +77,49 @@ namespace LinkedInWebApi.Application.Services
         {
             throw new NotImplementedException();
         }
+
+        #region Private
+
+        private PostNotificationDto PostDtosToNotifications(List<PostDto> postDtos)
+        {
+            PostNotificationDto postNotificationDtos = new();
+
+            postDtos.ForEach(x =>
+            {
+                postNotificationDtos.CommentNotifications.AddRange(commentNotificationDto(x));
+                postNotificationDtos.ReactionsNotifications.Add(postReactionDto(x));
+
+            });
+            return postNotificationDtos;
+        }
+
+        private List<CommentNotificationDto> commentNotificationDto(PostDto postDto)
+        {
+            List<CommentNotificationDto> commentNotificationDto = new();
+
+            postDto.Comments.ForEach(x =>
+            {
+                commentNotificationDto.Add(new CommentNotificationDto
+                {
+                    PostId = postDto.Id,
+                    UsertId = x.CreatorId,
+                    CommentTxt = x.FreeTxt
+                });
+            });
+
+            return commentNotificationDto;
+        }
+
+        private PostReactionDto postReactionDto(PostDto postDto)
+        {
+            return new PostReactionDto
+            {
+                PostId = postDto.Id,
+                ReactionsSum = postDto.PostReactions
+            };
+        }
+
+
+        #endregion
     }
 }

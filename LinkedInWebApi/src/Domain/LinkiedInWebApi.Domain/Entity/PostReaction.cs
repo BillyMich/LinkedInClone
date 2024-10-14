@@ -11,8 +11,6 @@ public partial class PostReaction
 
     public int PostId { get; set; }
 
-    public int ReactionId { get; set; }
-
     public bool IsActive { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
@@ -20,6 +18,4 @@ public partial class PostReaction
     public DateTimeOffset UpdatedAt { get; set; }
 
     public virtual Post Post { get; set; }
-
-    public virtual RfdtReaction Reaction { get; set; }
 }

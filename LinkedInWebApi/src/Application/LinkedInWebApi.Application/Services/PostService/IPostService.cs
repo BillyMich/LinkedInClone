@@ -23,6 +23,6 @@ namespace LinkedInWebApi.Application.Services
         Task<bool> DeletePostComment(int id, ClaimsIdentity claimsIdentity);
 
         Task<FileDto> GetPostMultimedia(int id, ClaimsIdentity identity);
-        Task<List<NotificationDto>> GetNotificationInPost(ClaimsIdentity identity);
+        Task<PostNotificationDto> GetNotificationInPost(ClaimsIdentity identity);
     }
 }
