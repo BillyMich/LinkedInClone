@@ -56,24 +56,6 @@ namespace LinkedInWebApi.Controllers
         }
 
         /// <summary>
-        /// Retrieves a list of reaction DTOs.
-        /// </summary>
-        /// <returns>A list of reaction DTOs.</returns>
-        [HttpGet("GetReactions")]
-        [Authorize]
-        public async Task<ActionResult<List<GennericGlobalConstantDto>>> GetReactionsAsync()
-        {
-            try
-            {
-                return Ok(await _globalConstantsHandler.GetReactionsAsync());
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
-
-        /// <summary>
         /// Retrieves a list of working location DTOs.
         /// </summary>
         /// <returns>A list of working location DTOs.</returns>

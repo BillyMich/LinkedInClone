@@ -6,7 +6,6 @@ namespace LinkedInWebApi.Reposirotry.Commands
     {
         Task<List<GennericGlobalConstantDto>> GetJobTypeAsync();
         Task<List<GennericGlobalConstantDto>> GetProfessionalBranchDtos();
-        Task<List<GennericGlobalConstantDto>> GetReactionsAsync();
         Task<List<GennericGlobalConstantDto>> GetWorkingLocationsAsync();
     }
 }

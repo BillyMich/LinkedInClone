@@ -38,15 +38,6 @@ namespace LinkedInWebApi.Application.Handlers
         }
 
         /// <summary>
-        /// Gets the reactions.
-        /// </summary>
-        /// <returns>The list of reactions.</returns>
-        public async Task<List<GennericGlobalConstantDto>> GetReactionsAsync()
-        {
-            return await _globalConstantsServices.GetReactionsAsync();
-        }
-
-        /// <summary>
         /// Gets the working locations.
         /// </summary>
         /// <returns>The list of working locations.</returns>

@@ -56,23 +56,6 @@ namespace LinkedInWebApi.Reposirotry.Commands
         }
 
         /// <summary>
-        /// Gets the reactions.
-        /// </summary>
-        /// <returns>A list of reactions.</returns>
-        public async Task<List<GennericGlobalConstantDto>> GetReactionsAsync()
-        {
-            try
-            {
-                var gennericGlobalConstant = await _linkedInDbContext.RfdtReactions.ToListAsync();
-                return gennericGlobalConstant.ToGennericGlobalConstantDto();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        /// <summary>
         /// Gets the working locations.
         /// </summary>
         /// <returns>A list of working locations.</returns>
