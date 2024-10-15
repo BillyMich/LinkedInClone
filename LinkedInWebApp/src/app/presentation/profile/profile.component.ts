@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { AuthService } from '../../services/auth-service/auth.service';
 import { UserService } from '../../services/user.service';
@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
   jobTypes: any[] = [];
   workingLocations: any[] = [];
   profesionalBranches: any[] = [];
+  // educationTypes: any[] = []; //αν αυτοματοποιηθούν
 
   constructor(
     private authService: AuthService,
@@ -49,6 +50,7 @@ export class ProfileComponent implements OnInit {
     this.loadJobTypes();
     this.loadWorkingLocations();
     this.loadProfesionalBranches();
+    // this.loadEducationTypes(); // αν αυτοματοποιηθούν
 
     if (currentUser && currentUser.id) {
       this.userService.getUserById(Number(currentUser.id)).subscribe({
@@ -113,8 +115,7 @@ export class ProfileComponent implements OnInit {
   private loadWorkingLocations() {
     this.globalConstantsService.getWorkingLocations().subscribe({
       next: (data) => (this.workingLocations = data),
-      error: (error) =>
-        console.error('Error fetching working locations', error),
+      error: (error) => console.error('Error fetching working locations', error),
     });
   }
 
@@ -124,6 +125,16 @@ export class ProfileComponent implements OnInit {
       error: (error) => console.error('Error fetching branches', error),
     });
   }
+
+  // αν αυτοματοιποιηθούν
+  /*
+  private loadEducationTypes() {
+    this.globalConstantsService.getEducationTypes().subscribe({
+      next: (data) => (this.educationTypes = data),
+      error: (error) => console.error('Error fetching education types', error),
+    });
+  }
+  */
 
   get experience(): FormArray {
     return this.profileForm.get('experience') as FormArray;
@@ -139,15 +150,17 @@ export class ProfileComponent implements OnInit {
 
   addExperience(exp?: CreateUserExperience) {
     const experienceGroup = new FormGroup({
-      Title: new FormControl(exp ? exp.Title : '', Validators.required),
-      FreeTxt: new FormControl(exp ? exp.FreeTxt : '', Validators.required),
-      IsPublic: new FormControl(exp ? exp.IsPublic : true, Validators.required),
-      StartedAt: new FormControl(
-        exp ? exp.StartedAt.split('T')[0] : '',
+      title: new FormControl(exp ? exp.title : '', Validators.required),
+      freeTxt: new FormControl(exp ? exp.freeTxt : '', Validators.required),
+      isPublic: new FormControl(exp ? exp.isPublic : true, Validators.required),
+      startedAt: new FormControl(
+        exp && exp.startedAt
+          ? this.formatDateFromComponents(exp.startedAt)
+          : '',
         Validators.required
       ),
-      EndedAt: new FormControl(
-        exp && exp.EndedAt ? exp.EndedAt.split('T')[0] : ''
+      endedAt: new FormControl(
+        exp && exp.endedAt ? this.formatDateFromComponents(exp.endedAt) : ''
       ),
     });
     this.experience.push(experienceGroup);
@@ -208,15 +221,15 @@ export class ProfileComponent implements OnInit {
   openExperienceModal() {
     this.closeModal();
     this.experienceForm = new FormGroup({
-      Title: new FormControl('', Validators.required),
-      FreeTxt: new FormControl('', Validators.required),
-      IsPublic: new FormControl(true, Validators.required),
-      StartedAt: new FormControl('', Validators.required),
-      EndedAt: new FormControl(''),
+      title: new FormControl('', Validators.required),
+      freeTxt: new FormControl('', Validators.required),
+      isPublic: new FormControl(true, Validators.required),
+      startedAt: new FormControl('', Validators.required), 
+      endedAt: new FormControl(''), 
     });
     this.showExperienceModal = true;
   }
-
+  
   openEducationModal() {
     this.educationForm = new FormGroup({
       degreeTitle: new FormControl('', Validators.required),
@@ -228,6 +241,7 @@ export class ProfileComponent implements OnInit {
     });
     this.showEducationModal = true;
   }
+  
 
   closeModal() {
     this.showExperienceModal = false;
@@ -251,7 +265,7 @@ export class ProfileComponent implements OnInit {
       }
 
       console.log('Submitting Experience Data:', experienceData);
-
+  
       this.userService.updateUserExperience(experienceData).subscribe({
         next: () => {
           this.loadExistingDetails();
@@ -261,6 +275,8 @@ export class ProfileComponent implements OnInit {
           console.error('Error updating experience:', error);
         },
       });
+    } else {
+      console.log('Experience form is invalid');
     }
   }
 
@@ -270,7 +286,8 @@ export class ProfileComponent implements OnInit {
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-
+  
+  
   onSubmitEducation() {
     const educationData: CreateUserEducationDto = this.educationForm.value;
     console.log('Submitting Education Data:', educationData);
