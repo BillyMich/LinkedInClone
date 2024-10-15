@@ -1,77 +1,123 @@
-<link rel="stylesheet" type="text/css" href="./home.component.css">
-<head>
-  <meta charset="UTF-8">
-  <title></title>
-</head>
 <div class="home-container content">
   <app-sidebar></app-sidebar>
+
   <div class="main-content">
     <div class="profile-section" *ngIf="profilePictureUrl">
-      <img [src]="profilePictureUrl || '../../../assets/user-profile-picture.jpg'" alt="Profile Picture" loading="lazy" class="profile-picture"
-      (error)="onImageError($event)"
-       />
+      <img
+        [src]="profilePictureUrl || '../../../assets/user-profile-picture.jpg'"
+        alt="Profile Picture"
+        loading="lazy"
+        class="profile-picture"
+        (error)="onImageError($event)"
+      />
     </div>
+
     <div class="form">
-    <form (ngSubmit)="onPostSubmit()" #postForm="ngForm">
-      <textarea
-        [(ngModel)]="newPostContent"
-        name="newPostContent"
-        placeholder="Γράψτε κάτι..."
-        required
-      ></textarea>
-      <input type="file" (change)="onFileChange($event)" multiple />
-      <button type="submit" class="primary-button" [disabled]="!postForm.valid">
-        Δημοσίευση
-      </button>
-    </form>
-	</div>
+      <form (ngSubmit)="onPostSubmit()" #postForm="ngForm">
+        <textarea
+          [(ngModel)]="newPostContent"
+          name="newPostContent"
+          placeholder="Γράψτε κάτι..."
+          required
+        ></textarea>
+        <input type="file" (change)="onFileChange($event)" multiple />
+        <button type="submit" class="primary-button" [disabled]="!postForm.valid">
+          Δημοσίευση
+        </button>
+      </form>
+    </div>
+
     <div class="timeline">
       <h2>Χρονολόγιο</h2>
+
       <div *ngFor="let post of posts" class="post">
-        
         <div class="post-header">
           <div class="sender-info">
-            <img *ngIf="getProfilePictureUrlById(post.creatorId)" [src]="getProfilePictureUrlById(post.creatorId)" alt="Profile Picture" class="profile-picture" />
+            <img
+              [src]="getProfilePictureUrlById(post.creatorId)"
+              alt="Profile Picture"
+              class="profile-picture"
+              (error)="onImageError($event)"
+            />
             <h3>{{ post.creatorName }}</h3>
           </div>
           <p class="timestamp">{{ post.createdAt | date: 'short' }}</p>
         </div>
 
-        <div class="multimeda">
+        <div class="multimedia">
           <div *ngIf="post.Multimedia">
-            <img *ngIf="isImage(post.MultimediaType)" [src]="post.Multimedia" alt="Multimedia Content" class="multimedia-content" />
-            <video *ngIf="isVideo(post.MultimediaType)" [src]="post.Multimedia" controls class="multimedia-content"></video>
+            <img
+              *ngIf="isImage(post.MultimediaType)"
+              [src]="post.Multimedia"
+              alt="Multimedia Content"
+              class="multimedia-content"
+            />
+            <video
+              *ngIf="isVideo(post.MultimediaType)"
+              [src]="post.Multimedia"
+              controls
+              class="multimedia-content"
+            ></video>
           </div>
         </div>
 
         <p>{{ post.freeTxt }}</p>
-    
+
         <div class="post-actions">
-          <img src="../../../assets/icons/thumbs-up-solid.svg" alt="Like" (click)="onLike(post.id)" class="icon-button like-icon" />
+          <img
+            src="../../../assets/icons/thumbs-up-solid.svg"
+            alt="Like"
+            class="icon-button like-icon"
+            (click)="onLike(post.id)"
+          />
         </div>
 
         <div class="comments-section">
-          <div *ngFor="let comment of post.comments | slice:0:commentsToShow[post.id]" class="comment">
+          <div
+            *ngFor="let comment of post.comments | slice: 0:commentsToShow[post.id]"
+            class="comment"
+          >
             <div class="comment-body">
-              <img *ngIf="getProfilePictureUrlById(comment.creatorId)" 
-                   [src]="getProfilePictureUrlById(comment.creatorId)" 
-                   alt="Profile Picture" 
-                   class="comment-profile-picture" />
+              <img
+                [src]="getProfilePictureUrlById(comment.creatorId)"
+                alt="Profile Picture"
+                class="comment-profile-picture"
+                (error)="onImageError($event)"
+              />
               <p>{{ comment.freeTxt }}</p>
             </div>
 
             <div class="comment-actions">
-              <img src="../../../assets/icons/thumbs-up-solid.svg" alt="Like" class="small-like-icon" />
+              <img
+                src="../../../assets/icons/thumbs-up-solid.svg"
+                alt="Like"
+                class="small-like-icon"
+              />
             </div>
           </div>
-        
-          <button *ngIf="commentsToShow[post.id] < post.comments.length" (click)="loadMoreComments(post.id)" class="secondary-button">Load More Comments</button>
+
+          <button
+            *ngIf="commentsToShow[post.id] < post.comments.length"
+            (click)="loadMoreComments(post.id)"
+            class="secondary-button"
+          >
+            Load More Comments
+          </button>
         </div>
-        
+
         <div class="comment-box">
           <form (submit)="onCommentSubmit(post.id)">
-            <input [(ngModel)]="newComments[post.id]" name="newComment-{{post.id}}" placeholder="Γράψτε ένα σχόλιο..." />
-            <img src="../../../assets/icons/paper-plane-solid.svg" alt="Send" class="icon-button send-icon" (click)="onCommentSubmit(post.id)" />
+            <input
+              [(ngModel)]="newComments[post.id]"
+              name="newComment-{{ post.id }}"
+              placeholder="Γράψτε ένα σχόλιο..."
+            />
+            <img
+              src="../../../assets/icons/paper-plane-solid.svg"
+              alt="Send"
+              class="icon-button send-icon"
+              (click)="onCommentSubmit(post.id)"
+            />
           </form>
         </div>
       </div>

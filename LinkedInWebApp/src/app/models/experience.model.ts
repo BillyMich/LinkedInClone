@@ -1,9 +1,7 @@
-// experience.model.ts
 export interface ExperienceDto {
-    Title: string;
-    FreeTxt: string;
-    IsPublic: boolean;
-    StartedAt: string; 
-    EndedAt?: string; 
-  }
-  
+  title: string;
+  freeTxt: string;
+  isPublic: boolean;
+  startedAt: string;
+  endedAt?: string;
+}

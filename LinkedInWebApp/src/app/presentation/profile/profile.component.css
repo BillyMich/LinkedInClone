@@ -88,60 +88,94 @@ body {
 
 .modal {
   background-color: #ffffff;
-  padding: 30px;
+  padding: 20px; 
   border-radius: 12px;
-  width: 80%;
+  width: 50%; 
   max-width: 600px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.modal h2 {
-  text-align: center;
-  font-size: 24px;
-  color: #0073b1;
-  margin-bottom: 20px;
-}
-
-.modal form {
-  display: flex;
-  flex-direction: column;
+  text-align: left;
 }
 
 .modal label {
+  display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  font-size: 14px;
+  color: #333; 
 }
 
 .modal input,
 .modal select,
 .modal textarea {
-  padding: 10px;
+  width: 100%;
+  padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
   margin-bottom: 15px;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
-.modal button[type="submit"] {
-  background-color: #51008f;
+.modal button[type="submit"],
+.modal button[type="button"] {
+  background-color: #28a745;
   color: #ffffff;
-}
-
-.modal button[type="submit"]:hover {
-  background-color: #3d006b;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 14px; 
+  width: auto; 
+  display: inline-block;
+  margin-right: 10px; 
+  border:none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .modal button[type="button"] {
-  background-color: #e74c3c;
-  color: #ffffff;
+  background-color: #51008f;
+}
+
+.modal button[type="submit"]:hover {
+  background-color: #32c855;
 }
 
 .modal button[type="button"]:hover {
-  background-color: #c0392b;
+  background-color: #6302ad;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-start; 
+  margin-top: 20px;
+}
+
+.modal h2 {
+  color: #0073b1; 
+  font-size: 24px; 
+  margin-bottom: 20px;
+  text-align: center; 
+}
+
+.actions button {
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .modal {
+    width: 90%; /
+  }
+
+  .actions {
+    flex-direction: column; 
+    margin-top: 10px;
+  }
+
+  .actions button {
+    margin-bottom: 10px;
+  }
 }
 
 .experience-section,

@@ -27,7 +27,6 @@ export class ArticleService {
   createArticle(article: any, file: any): Observable<any> {
     const headers = this.getHeaders();
 
-    // Create FormData object
     const formData: FormData = new FormData();
     formData.append('FreeTxt', article?.freeTxt);
     formData.append('file', file);
@@ -72,7 +71,7 @@ export class ArticleService {
     const headers = this.getHeaders();
     return this.http.get(`${this.apiUrl}/GetPostMultimedia/${articleId}`, {
       headers,
-      responseType: 'blob', // Ensure the response is treated as a binary file
+      responseType: 'blob',
     });
   }
 }

@@ -100,11 +100,12 @@ export class UserService {
     return this.http.get<any[]>(`${this.apiUrl}/user/getUsers`, { headers });
   }
 
-  updateUserExperience(experienceData: ExperienceDto): Observable<any> {
+  updateUserExperience(experienceData: any): Observable<any> {
     const headers = this.getHeaders();
-    const url = `${this.apiUrl}/user/updateUserExperience`;
-    return this.http.post<any>(url, experienceData, { headers });
+    return this.http
+      .post(`${this.apiUrl}/user/updateUserExperience`, experienceData, { headers })
   }
+  
   
   updateUserEducation(educationData: EducationDto): Observable<any> {
     const headers = this.getHeaders();
