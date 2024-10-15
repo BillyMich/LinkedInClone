@@ -87,24 +87,28 @@
 </div>
 
 
-  <div *ngIf="showEducationModal" class="modal">
+<div *ngIf="showEducationModal" class="modal">
   <h2>Προσθήκη Πτυχίων</h2>
   <form [formGroup]="educationForm" (ngSubmit)="onSubmitEducation()">
-    <label>Πτυχίο</label>
-    <input formControlName="degree" placeholder="Πτυχίο" />
+    <label>Τίτλος Πτυχίου</label>
+    <input formControlName="degreeTitle" placeholder="Τίτλος Πτυχίου" />
 
-    <label>Ίδρυμα</label>
-    <input formControlName="institution" placeholder="Ίδρυμα" />
+    <label>Περιγραφή</label>
+    <input formControlName="description" placeholder="Περιγραφή" />
 
-    <label>Έτος Αποφοίτησης</label>
-    <input
-      type="number"
-      formControlName="graduationYear"
-      placeholder="Έτος Αποφοίτησης"
-    />
+    <label>Ημερομηνία Έναρξης</label>
+    <input type="date" formControlName="startDate" placeholder="Ημερομηνία Έναρξης" />
+
+    <label>Ημερομηνία Λήξης</label>
+    <input type="date" formControlName="endDate" placeholder="Ημερομηνία Λήξης" />
+
+    <label>Δημόσιο</label>
+    <input type="checkbox" formControlName="isPublic" />
+
+    <label>Τύπος Εκπαίδευσης</label>
+    <input type="number" formControlName="educationTypeId" placeholder="Τύπος Εκπαίδευσης" />
 
     <button type="submit">Αποθήκευση</button>
     <button type="button" (click)="closeModal()">Ακύρωση</button>
   </form>
-
 </div>

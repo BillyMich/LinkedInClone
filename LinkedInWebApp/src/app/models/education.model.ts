@@ -1,5 +1,8 @@
-export interface EducationDto {
-  degree: string;
-  institution: string;
-  graduationYear: number;
+export interface CreateUserEducationDto {
+  degreeTitle: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  isPublic: boolean;
+  educationTypeId: number;
 }

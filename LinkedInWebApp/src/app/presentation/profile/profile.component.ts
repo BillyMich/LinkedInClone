@@ -4,8 +4,8 @@ import { AuthService } from '../../services/auth-service/auth.service';
 import { UserService } from '../../services/user.service';
 import { SettingsService } from '../../services/settings.service';
 import { GlobalConstantsService } from '../../services/global-constants.service';
-import { ExperienceDto } from '../../models/experience.model';
-import { EducationDto } from '../../models/education.model';
+import { CreateUserExperience } from '../../models/experience.model';
+import { CreateUserEducationDto } from '../../models/education.model';
 
 @Component({
   selector: 'app-profile',
@@ -34,7 +34,10 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.profileForm = new FormGroup({
-      fullName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      fullName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
       email: new FormControl('', [Validators.required, Validators.email]),
       phone: new FormControl('', [Validators.required]),
       experience: new FormArray([]),
@@ -77,7 +80,7 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserExperience(this.user.id).subscribe({
       next: (experiences) => {
         this.experience.clear();
-        experiences.forEach((exp: ExperienceDto) => {
+        experiences.forEach((exp: CreateUserExperience) => {
           this.addExperience(exp);
         });
       },
@@ -90,7 +93,7 @@ export class ProfileComponent implements OnInit {
       next: (educations) => {
         console.log('Fetched educations:', educations);
         this.education.clear();
-        educations.forEach((edu: EducationDto) => {
+        educations.forEach((edu: CreateUserEducationDto) => {
           this.addEducation(edu);
         });
       },
@@ -134,7 +137,7 @@ export class ProfileComponent implements OnInit {
     return this.profileForm.get('skills') as FormArray;
   }
 
-  addExperience(exp?: ExperienceDto) {
+  addExperience(exp?: CreateUserExperience) {
     const experienceGroup = new FormGroup({
       Title: new FormControl(exp ? exp.Title : '', Validators.required),
       FreeTxt: new FormControl(exp ? exp.FreeTxt : '', Validators.required),
@@ -150,18 +153,26 @@ export class ProfileComponent implements OnInit {
     this.experience.push(experienceGroup);
   }
 
-  addEducation(edu?: EducationDto) {
+  addEducation(edu?: CreateUserEducationDto) {
     const educationGroup = new FormGroup({
-      degree: new FormControl(edu ? edu.degree : '', Validators.required),
-      institution: new FormControl(edu ? edu.institution : '', Validators.required),
-      graduationYear: new FormControl(
-        edu ? edu.graduationYear : '',
-        [Validators.required, Validators.min(1900), Validators.max(new Date().getFullYear())]
+      degreeTitle: new FormControl(
+        edu ? edu.degreeTitle : '',
+        Validators.required
+      ),
+      description: new FormControl(
+        edu ? edu.description : '',
+        Validators.required
+      ),
+      startDate: new FormControl(edu ? edu.startDate : '', Validators.required),
+      endDate: new FormControl(edu ? edu.endDate : ''),
+      isPublic: new FormControl(edu ? edu.isPublic : true, Validators.required),
+      educationTypeId: new FormControl(
+        edu ? edu.educationTypeId : 0,
+        Validators.required
       ),
     });
     this.education.push(educationGroup);
   }
-  
 
   loadProfilePicture(): void {
     const currentUser = this.authService.getCurrentUser();
@@ -207,15 +218,13 @@ export class ProfileComponent implements OnInit {
   }
 
   openEducationModal() {
-    //this.closeModal();
     this.educationForm = new FormGroup({
-      degree: new FormControl('', Validators.required),
-      institution: new FormControl('', Validators.required),
-      graduationYear: new FormControl('', [
-        Validators.required,
-        Validators.min(1900),
-        Validators.max(new Date().getFullYear()),
-      ]),
+      degreeTitle: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
+      startDate: new FormControl('', Validators.required),
+      endDate: new FormControl(''),
+      isPublic: new FormControl(true, Validators.required),
+      educationTypeId: new FormControl(0, Validators.required),
     });
     this.showEducationModal = true;
   }
@@ -228,15 +237,17 @@ export class ProfileComponent implements OnInit {
   onSubmitExperience() {
     if (this.experienceForm.valid) {
       const formValues = this.experienceForm.value;
-      const experienceData: ExperienceDto = {
+      const experienceData: CreateUserExperience = {
         Title: formValues.Title,
         FreeTxt: formValues.FreeTxt,
         IsPublic: formValues.IsPublic,
-        StartedAt: new Date(formValues.StartedAt).toISOString(),
+        StartedAt: this.formatDateOnly(new Date(formValues.StartedAt)),
       };
 
       if (formValues.EndedAt) {
-        experienceData.EndedAt = new Date(formValues.EndedAt).toISOString();
+        experienceData.EndedAt = this.formatDateOnly(
+          new Date(formValues.EndedAt)
+        );
       }
 
       console.log('Submitting Experience Data:', experienceData);
@@ -253,27 +264,28 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  onSubmitEducation() {
-    if (this.educationForm.valid) {
-      const educationData: EducationDto = this.educationForm.value;
-      console.log('Submitting Education Data:', educationData);
-      this.userService.updateUserEducation(educationData).subscribe({
-        next: () => {
-          this.loadExistingDetails();
-          this.closeModal();
-        },
-        error: (error) => {
-          console.error('Error updating education:', error);
-        },
-      });
-    } else {
-      console.log('Education form is invalid');
-    }
+  private formatDateOnly(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
-  
+
+  onSubmitEducation() {
+    const educationData: CreateUserEducationDto = this.educationForm.value;
+    console.log('Submitting Education Data:', educationData);
+    this.userService.updateUserEducation(educationData).subscribe({
+      next: () => {
+        this.loadExistingDetails();
+        this.closeModal();
+      },
+      error: (error) => {
+        console.error('Error updating education:', error);
+      },
+    });
+  }
 
   onImageError(event: any) {
     event.target.src = '../../../assets/user-profile-picture.jpg';
   }
-  
 }
