@@ -5,21 +5,19 @@ using System.Collections.Generic;
 
 namespace LinkiedInWebApi.Domain.Entity;
 
-public partial class PostReaction
+public partial class RfdtReaction
 {
     public int Id { get; set; }
 
-    public int PostId { get; set; }
+    public string Name { get; set; }
 
-    public int UserId { get; set; }
+    public string FileName { get; set; }
+
+    public byte[] DataOfFile { get; set; }
 
     public bool IsActive { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
 
     public DateTimeOffset UpdatedAt { get; set; }
-
-    public virtual Post Post { get; set; }
-
-    public virtual User User { get; set; }
 }

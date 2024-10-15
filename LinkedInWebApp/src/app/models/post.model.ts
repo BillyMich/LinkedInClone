@@ -21,4 +21,5 @@ export interface Post {
   comments: Comment[];
   Multimedia: any;
   MultimediaType: string;
+  PostReactions: number;
 }

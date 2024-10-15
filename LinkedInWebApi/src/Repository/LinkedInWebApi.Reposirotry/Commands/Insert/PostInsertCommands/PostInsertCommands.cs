@@ -1,4 +1,5 @@
 ﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
 using LinkedInWebApi.Reposirotry.Extensions;
 using LinkiedInWebApi.Domain;
 
@@ -40,6 +41,22 @@ namespace LinkedInWebApi.Reposirotry.Commands
                 await _linkedInDbContext.PostComments.AddAsync(postComment);
                 await _linkedInDbContext.SaveChangesAsync();
                 return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> LikePost(LikePostDto likePostDto, int v)
+        {
+            try
+            {
+                var porsReaction = likePostDto.ToPostReaction(v);
+                await _linkedInDbContext.PostReactions.AddAsync(porsReaction);
+                await _linkedInDbContext.SaveChangesAsync();
+                return true;
+
             }
             catch (Exception ex)
             {

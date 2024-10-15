@@ -1,5 +1,6 @@
 ﻿using LinkedInWebApi.Application.Handlers;
 using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
@@ -175,6 +176,20 @@ namespace LinkedInWebApi.Controllers
             try
             {
                 return Ok(await _postHandler.GetNotificationInPost(_identity));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("LikePost")]
+        [Authorize]
+        public async Task<ActionResult<bool>> LikePost([FromBody] LikePostDto likePostDto)
+        {
+            try
+            {
+                return Ok(await _postHandler.LikePost(likePostDto, _identity));
             }
             catch (Exception)
             {

@@ -43,6 +43,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
                     Include(x => x.PostComments).
                     Include(x => x.Creator).
                     Include(x => x.PostMultimedia).
+                    Include(x => x.PostReactions).
                     Include(x => x.PostReactions)
                     .ToListAsync();
                 return posts.ToPostDto();

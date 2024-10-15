@@ -41,6 +41,8 @@ public partial class User
 
     public virtual ICollection<PostComment> PostComments { get; set; } = new List<PostComment>();
 
+    public virtual ICollection<PostReaction> PostReactions { get; set; } = new List<PostReaction>();
+
     public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
 
     public virtual ICollection<UserCvfile> UserCvfiles { get; set; } = new List<UserCvfile>();

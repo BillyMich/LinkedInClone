@@ -1,5 +1,6 @@
 ﻿using LinkedInWebApi.Application.Extensions;
 using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
 using LinkedInWebApi.Core.Helpers;
 using LinkedInWebApi.Reposirotry.Commands;
 using Microsoft.AspNetCore.Http;
@@ -117,6 +118,11 @@ namespace LinkedInWebApi.Application.Services
                 PostId = postDto.Id,
                 ReactionsSum = postDto.PostReactions
             };
+        }
+
+        public async Task<bool> LikePost(LikePostDto likePostDto, ClaimsIdentity identity)
+        {
+            return await _postInsertCommands.LikePost(likePostDto, ClaimsIdentityaHelper.GetUserIdAsync(identity));
         }
 
 

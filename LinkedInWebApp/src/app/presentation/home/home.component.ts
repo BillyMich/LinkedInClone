@@ -4,12 +4,12 @@ import { SettingsService } from '../../services/settings.service';
 import { Post, Comment } from '../../models/post.model';
 import { IdDictionary } from '../../models/profilePictureDictionary.model';
 import { AuthService } from '../../services/auth-service/auth.service';
+import { LikePostDto } from './models/likePostDto.models';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-
 export class HomeComponent implements OnInit {
   posts: Post[] = [];
   newPostContent: string = '';
@@ -73,7 +73,8 @@ export class HomeComponent implements OnInit {
   }
 
   onLike(postId: number) {
-    this.articleService.likeArticle(postId).subscribe(() => {
+    const likePostDto: LikePostDto = { postId };
+    this.articleService.likeArticle(likePostDto).subscribe(() => {
       this.fetchPosts();
     });
   }
