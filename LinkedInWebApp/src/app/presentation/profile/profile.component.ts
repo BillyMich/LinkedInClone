@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { AuthService } from '../../services/auth-service/auth.service';
 import { UserService } from '../../services/user.service';
@@ -275,5 +275,9 @@ export class ProfileComponent implements OnInit {
   onImageError(event: any) {
     event.target.src = '../../../assets/user-profile-picture.jpg';
   }
-  
+
+  @HostListener('document:keydown.escape', ['$event']) 
+  handleEscapeKey(event: KeyboardEvent) {
+    this.closeModal();
+  }
 }

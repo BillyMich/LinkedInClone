@@ -98,9 +98,7 @@ export class HomeComponent implements OnInit {
         });
       }
       post.comments.forEach((comment) => {
-        if (
-          !this.idDictionary.some((entry) => entry.userId === comment.creatorId)
-        ) {
+        if (!this.idDictionary.some((entry) => entry.userId === comment.creatorId)) {
           this.idDictionary.push({
             userId: comment.creatorId,
             ProfilePictureUrl: null,
@@ -108,29 +106,31 @@ export class HomeComponent implements OnInit {
         }
       });
     });
-
+  
     this.idDictionary.forEach((entry) => {
-      entry.ProfilePictureUrl = this.settingsService.getProfilePictureUrl(
-        entry.userId
-      );
+      const profilePictureUrl = this.settingsService.getProfilePictureUrl(entry.userId);
+      entry.ProfilePictureUrl = profilePictureUrl ? profilePictureUrl : '../../../assets/user-profile-picture.jpg';
     });
   }
+  
 
   getProfilePictureUrlById(userId: number): string | null {
     const entry = this.idDictionary.find((entry) => entry.userId === userId);
-    return entry ? entry.ProfilePictureUrl : null;
+    return entry ? (entry.ProfilePictureUrl || '../../../assets/user-profile-picture.jpg') : '../../../assets/user-profile-picture.jpg';
   }
+  
 
   loadProfilePicture(): void {
     const currentUser = this.authService.getCurrentUser();
     if (currentUser && currentUser.id) {
-      this.profilePictureUrl = this.settingsService.getProfilePictureUrl(
-        currentUser.id
-      );
+      const profilePictureUrl = this.settingsService.getProfilePictureUrl(currentUser.id);
+      this.profilePictureUrl = profilePictureUrl ? profilePictureUrl : '../../../assets/user-profile-picture.jpg';
     } else {
       console.error('User not found or missing user ID');
+      this.profilePictureUrl = '../../../assets/user-profile-picture.jpg'; 
     }
   }
+  
 
   loadMultimediaForPost(post: Post) {
     this.articleService.getPostMultimedia(post.id).subscribe(
