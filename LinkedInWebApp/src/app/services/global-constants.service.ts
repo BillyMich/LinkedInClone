@@ -57,6 +57,14 @@ export class GlobalConstantsService {
       })
       .pipe(catchError(this.handleError));
   }
+getEducationTypes(): Observable<GennericGlobalConstantDto[]> {
+  const headers = this.getHeaders();
+  return this.http
+    .get<GennericGlobalConstantDto[]>(`${this.apiUrl}/GetEducationTypes`, {
+      headers,
+    })
+    .pipe(catchError(this.handleError));
+}
 
   private handleError(error: any): Observable<never> {
     console.error('An error occurred:', error);

@@ -36,75 +36,80 @@
     <button (click)="openEducationModal()">Προσθήκη πτυχίων</button>
   </div>
 
-
   <div class="experience-section" *ngIf="experience.length > 0">
     <h2>Εργασιακή Εμπειρία</h2>
     <div *ngFor="let exp of experience.controls" class="experience-item">
-      <p><strong>Τίτλος:</strong> {{ exp.value.Title }}</p>
-      <p><strong>Περιγραφή:</strong> {{ exp.value.FreeTxt }}</p>
-      <p><strong>Δημόσιο:</strong> {{ exp.value.IsPublic ? 'Ναι' : 'Όχι' }}</p>
+      <p><strong>Τίτλος:</strong> {{ exp.value.title }}</p>
+      <p><strong>Περιγραφή:</strong> {{ exp.value.freeTxt }}</p>
+      <p><strong>Δημόσιο:</strong> {{ exp.value.isPublic ? 'Ναι' : 'Όχι' }}</p>
       <p>
         <strong>Διάρκεια:</strong>
-        {{ exp.value.StartedAt | date: 'MMM yyyy' }} -
-        {{ exp.value.EndedAt ? (exp.value.EndedAt | date: 'MMM yyyy') : 'Σήμερα' }}
+        {{ exp.value.startedAt }} -
+        {{ exp.value.endedAt ? exp.value.endedAt : 'Σήμερα' }}
       </p>
     </div>
   </div>
-  
+
   <div class="education-section" *ngIf="education.length > 0">
     <h2>Εκπαίδευση</h2>
     <div *ngFor="let edu of education.controls" class="education-item">
-      <p><strong>Πτυχίο:</strong> {{ edu.value.degree }}</p>
-      <p><strong>Ίδρυμα:</strong> {{ edu.value.institution }}</p>
-      <p><strong>Έτος Αποφοίτησης:</strong> {{ edu.value.graduationYear }}</p>
+      <p><strong>Όνομα:</strong> {{ edu.value.name }}</p>
+      <p><strong>Περιγραφή:</strong> {{ edu.value.description }}</p>
+      <p><strong>Δημόσιο:</strong> {{ edu.value.isPublic ? 'Ναι' : 'Όχι' }}</p>
+      <!-- αν αυτοματοποιηθούν-->
+      <!-- <p><strong>Τύπος Εκπαίδευσης:</strong> {{ getEducationTypeName(edu.value.educationTypeId) }}</p> -->
     </div>
   </div>
+</div>
 
+<!-- Experience Modal -->
 <div *ngIf="showExperienceModal" class="modal">
   <h2>Προσθήκη Εργασιακής Εμπειρίας</h2>
   <form [formGroup]="experienceForm" (ngSubmit)="onSubmitExperience()">
     <label>Τίτλος</label>
-    <input formControlName="Title" placeholder="Τίτλος" />
+    <input formControlName="title" placeholder="Τίτλος" />
 
     <label>Περιγραφή</label>
-    <textarea formControlName="FreeTxt" placeholder="Περιγραφή"></textarea>
+    <textarea formControlName="freeTxt" placeholder="Περιγραφή"></textarea>
 
     <label>Δημόσιο</label>
-    <select formControlName="IsPublic">
+    <select formControlName="isPublic">
       <option [value]="true">Ναι</option>
       <option [value]="false">Όχι</option>
     </select>
 
     <label>Ημερομηνία Έναρξης</label>
-    <input type="date" formControlName="StartedAt" />
+    <input type="date" formControlName="startedAt" />
 
     <label>Ημερομηνία Λήξης</label>
-    <input type="date" formControlName="EndedAt" />
+    <input type="date" formControlName="endedAt" />
 
     <button type="submit">Αποθήκευση</button>
     <button type="button" (click)="closeModal()">Ακύρωση</button>
   </form>
 </div>
 
-
-  <div *ngIf="showEducationModal" class="modal">
+<!-- Education Modal -->
+<div *ngIf="showEducationModal" class="modal">
   <h2>Προσθήκη Πτυχίων</h2>
   <form [formGroup]="educationForm" (ngSubmit)="onSubmitEducation()">
-    <label>Πτυχίο</label>
-    <input formControlName="degree" placeholder="Πτυχίο" />
+    <label>Όνομα</label>
+    <input formControlName="name" placeholder="Όνομα" />
 
-    <label>Ίδρυμα</label>
-    <input formControlName="institution" placeholder="Ίδρυμα" />
+    <label>Περιγραφή</label>
+    <input formControlName="description" placeholder="Περιγραφή" />
 
-    <label>Έτος Αποφοίτησης</label>
-    <input
-      type="number"
-      formControlName="graduationYear"
-      placeholder="Έτος Αποφοίτησης"
-    />
+    <label>Δημόσιο</label>
+    <select formControlName="isPublic">
+      <option [value]="true">Ναι</option>
+      <option [value]="false">Όχι</option>
+    </select>
+
+    <!-- Αν αυτοματοποιηθούν-->
+    <!-- <label>Τύπος Εκπαίδευσης</label>
+    <input type="number" formControlName="educationTypeId" placeholder="Τύπος Εκπαίδευσης" /> -->
 
     <button type="submit">Αποθήκευση</button>
     <button type="button" (click)="closeModal()">Ακύρωση</button>
   </form>
-
 </div>
