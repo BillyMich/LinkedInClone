@@ -18,16 +18,17 @@ export class NotificationsService {
 
   private getHeaders(): HttpHeaders {
     const token = this.localStorageService.getUserToken();
-    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
   }
 
   getConnectionRequests(): Observable<ContactRequestOfUserDto> {
     const headers = this.getHeaders();
     return this.http.get<ContactRequestOfUserDto>(
-      `${this.apiUrl}/GetPendingConnectContacts`,
-      {
-        headers,
-      }
+      `${this.apiUrl}/getPendingConnectContacts`,
+      { headers }
     );
   }
 
