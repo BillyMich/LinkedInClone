@@ -36,7 +36,7 @@ export class NotificationsComponent implements OnInit {
     );
 
     this.notificationsService
-      .changeRequestStatus(changeStatusRequest)
+      .acceptConnectionRequest(changeStatusRequest)
       .subscribe(() => {
         this.loadNotifications();
       });
@@ -49,7 +49,7 @@ export class NotificationsComponent implements OnInit {
     );
 
     this.notificationsService
-      .changeRequestStatus(changeStatusRequest)
+      .acceptConnectionRequest(changeStatusRequest)
       .subscribe(() => {
         this.loadNotifications();
       });

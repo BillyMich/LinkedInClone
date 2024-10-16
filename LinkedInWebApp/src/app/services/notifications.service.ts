@@ -32,17 +32,6 @@ export class NotificationsService {
     );
   }
 
-  changeRequestStatus(
-    changeStatusRequest: ContactRequestChangeStatusDto
-  ): Observable<any> {
-    const headers = this.getHeaders();
-    return this.http.post<any>(
-      `${this.apiUrl}/changeStatusOfRequest`,
-      changeStatusRequest,
-      { headers }
-    );
-  }
-
   acceptConnectionRequest(
     changeStatusRequest: ContactRequestChangeStatusDto
   ): Observable<any> {
