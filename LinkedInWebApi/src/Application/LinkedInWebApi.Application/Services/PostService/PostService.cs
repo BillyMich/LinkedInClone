@@ -48,9 +48,7 @@ namespace LinkedInWebApi.Application.Services
         public async Task<PostNotificationDto> GetNotificationInPost(ClaimsIdentity identity)
         {
             var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(identity);
-            var postDtos = await _postReadCommands.GetPostByUserAsync(curentUserId);
-
-            return PostDtosToNotifications(postDtos);
+            return await _postReadCommands.GetPostNotificationByUserAsync(curentUserId);
 
         }
 
@@ -81,48 +79,13 @@ namespace LinkedInWebApi.Application.Services
 
         #region Private
 
-        private PostNotificationDto PostDtosToNotifications(List<PostDto> postDtos)
-        {
-            PostNotificationDto postNotificationDtos = new();
 
-            postDtos.ForEach(x =>
-            {
-                postNotificationDtos.CommentNotifications.AddRange(commentNotificationDto(x));
-                postNotificationDtos.ReactionsNotifications.Add(postReactionDto(x));
 
-            });
-            return postNotificationDtos;
-        }
-
-        private List<CommentNotificationDto> commentNotificationDto(PostDto postDto)
-        {
-            List<CommentNotificationDto> commentNotificationDto = new();
-
-            postDto.Comments.ForEach(x =>
-            {
-                commentNotificationDto.Add(new CommentNotificationDto
-                {
-                    PostId = postDto.Id,
-                    UsertId = x.CreatorId,
-                    CommentTxt = x.FreeTxt
-                });
-            });
-
-            return commentNotificationDto;
-        }
-
-        private PostReactionDto postReactionDto(PostDto postDto)
-        {
-            return new PostReactionDto
-            {
-                PostId = postDto.Id,
-                ReactionsSum = postDto.PostReactions
-            };
-        }
 
         public async Task<bool> LikePost(LikePostDto likePostDto, ClaimsIdentity identity)
         {
-            return await _postInsertCommands.LikePost(likePostDto, ClaimsIdentityaHelper.GetUserIdAsync(identity));
+            //return await _postInsertCommands.LikePost(likePostDto, ClaimsIdentityaHelper.GetUserIdAsync(identity));
+            return true;
         }
 
 

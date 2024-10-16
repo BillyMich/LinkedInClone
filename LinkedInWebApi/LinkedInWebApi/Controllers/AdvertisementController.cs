@@ -182,5 +182,18 @@ namespace LinkedInWebApi.Controllers
             }
         }
 
+        [HttpGet("GetApplyApplicantsNotification")]
+        public async Task<ActionResult<List<ApplicationNotificationDto>>> GetApplyApplicantsNotification()
+        {
+            try
+            {
+                return Ok(await _advertisementHandler.GetApplyApplicationNotificationAsync(_identity));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

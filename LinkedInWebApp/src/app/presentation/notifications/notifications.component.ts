@@ -18,6 +18,8 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.loadNotifications();
+    this.loadInterestNotes();
+    this.loadComments();
   }
 
   loadNotifications() {
@@ -25,14 +27,18 @@ export class NotificationsComponent implements OnInit {
       this.connectionRequestsFromOthers = data.contactRequestsTo;
       this.connectionRequestsFromMe = data.contactRequestsFrom;
     });
+  }
 
-    // μολις έχουμε υποστήριξη απο back
-    /*  this.notificationsService.getInterestNotes().subscribe((data: InterestNote[]) => {
-    this.interestNotes = data;
-     }); */
-    /*  this.notificationsService.getComments().subscribe((data: CommentNotification[]) => {
-    this.comments = data;
-    }); */
+  loadInterestNotes() {
+    this.notificationsService.getInterestNotes().subscribe((data) => {
+      this.interestNotes = data;
+    });
+  }
+
+  loadComments() {
+    this.notificationsService.getComments().subscribe((data) => {
+      this.comments = data;
+    });
   }
 
   acceptRequest(requestId: number) {

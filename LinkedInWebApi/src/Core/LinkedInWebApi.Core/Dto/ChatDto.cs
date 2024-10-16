@@ -23,7 +23,7 @@
         /// <summary>
         /// Gets or sets the last message in the chat.
         /// </summary>
-        public string? LastMessage { get; set; }
+        public string LastMessage { get; set; }
 
         /// <summary>
         /// Gets or sets the date of the last message in the chat.

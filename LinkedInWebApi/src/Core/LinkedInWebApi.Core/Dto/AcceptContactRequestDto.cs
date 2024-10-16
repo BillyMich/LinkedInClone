@@ -1,4 +1,4 @@
-﻿namespace LinkedInWebApi.Core.Dto
+﻿namespace LinkedInWebApi.Core
 {
     /// <summary>
     /// Represents the data transfer object for accepting a contact request.

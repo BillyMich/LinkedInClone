@@ -1,4 +1,5 @@
 ﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.ExceptionHandler;
 using LinkedInWebApi.Core.Extensions;
 using LinkedInWebApi.Reposirotry.Extensions;
 using LinkiedInWebApi.Domain;
@@ -110,15 +111,16 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
         }
 
-        public async Task<UserDto> GetUserByIdAsync(int userId)
+        public async Task<UserDto?> GetUserByIdAsync(int userId)
         {
 
             var user = await _linkedInDbContext.Users.SingleAsync(x => x.Id == userId && x.IsActive);
 
             if (user == null)
             {
-                //throw new ErrorException.NoUserFountWithGivenIdException();
+                throw ErrorException.NoUserFountWithGivenIdException;
             }
+
             return user.ToUserDto();
 
         }

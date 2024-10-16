@@ -11,5 +11,6 @@ namespace LinkedInWebApi.Reposirotry.Commands
         Task<List<AdvertisementDto>?> GetAdvertismentsByProfessionalBranches(List<int> professionalBranches);
         Task<List<AdvertisementDto>?> GetAdvertisementsByStatus(byte status);
         Task<List<AdvertisementDto>?> GetMyAdvertisements(int curentUserId);
+        Task<List<ApplicationNotificationDto>?> GetMyAdvertismentApplicantsAsync(int v);
     }
 }

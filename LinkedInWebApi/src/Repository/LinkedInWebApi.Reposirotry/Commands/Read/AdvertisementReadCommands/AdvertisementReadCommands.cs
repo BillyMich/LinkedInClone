@@ -133,5 +133,17 @@ namespace LinkedInWebApi.Reposirotry.Commands
             return advertisement.ToAdvertisementDtos();
 
         }
+
+        public async Task<List<ApplicationNotificationDto>?> GetMyAdvertismentApplicantsAsync(int userId)
+        {
+            var advertisement = await _linkedInDbContext.Advertisements
+                .Include(u => u.AdvertisementApplies)
+                .ThenInclude(u => u.User)
+                .ThenInclude(u => u.Advertisements)
+                .Where(x => x.CreatorId == userId)
+                .ToListAsync();
+
+            return advertisement.ToApplicationNotificationDtos();
+        }
     }
 }
