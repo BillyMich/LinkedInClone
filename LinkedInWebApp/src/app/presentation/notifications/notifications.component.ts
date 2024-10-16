@@ -27,6 +27,12 @@ export class NotificationsComponent implements OnInit {
     });
 
     // μολις έχουμε υποστήριξη απο back
+    /*  this.notificationsService.getInterestNotes().subscribe((data: InterestNote[]) => {
+    this.interestNotes = data;
+     }); */
+    /*  this.notificationsService.getComments().subscribe((data: CommentNotification[]) => {
+    this.comments = data;
+    }); */
   }
 
   acceptRequest(requestId: number) {
