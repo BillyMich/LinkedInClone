@@ -1,9 +1,12 @@
 ﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.ExceptionHandler;
 using LinkedInWebApi.Core.Extensions;
 using LinkedInWebApi.Reposirotry.Extensions;
 using LinkiedInWebApi.Domain;
 using LinkiedInWebApi.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace LinkedInWebApi.Reposirotry.Commands
 {
@@ -49,6 +52,51 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
         }
 
+        public async Task<List<User>> GetUserAllEntityAsync(List<int>? ids)
+        {
+
+            var a = await _linkedInDbContext.Users
+                .Include(x => x.UserEducations)
+                .Include(x => x.AdvertisementApplies)
+                .Include(x => x.Advertisements)
+                .Include(x => x.ContactRequestUserRequests)
+                .Include(x => x.ContactRequestUserResivers)
+                .Include(x => x.PostComments)
+                .Include(x => x.PostReactions)
+                .Include(x => x.Posts)
+                .Include(x => x.UserExperiences)
+                .ToListAsync();
+
+            var xmlSerializer = new XmlSerializer(typeof(User));
+            var settings = new XmlWriterSettings
+            {
+                Indent = true,
+                OmitXmlDeclaration = true
+            };
+
+            using (var stringWriter = new StringWriter())
+            using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
+            {
+                var namespaces = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
+                xmlSerializer.Serialize(xmlWriter, a, namespaces);
+                var s = stringWriter.ToString();
+
+                return a;
+            }
+
+
+            return await _linkedInDbContext.Users.Where(x => ids.Contains(x.Id)).Include(x => x.UserEducations)
+                    .Include(x => x.AdvertisementApplies)
+                    .Include(x => x.Advertisements)
+                    .Include(x => x.ContactRequestUserRequests)
+                    .Include(x => x.ContactRequestUserResivers)
+                    .Include(x => x.PostComments)
+                    .Include(x => x.PostReactions)
+                    .Include(x => x.Posts)
+                    .Include(x => x.UserExperiences)
+                    .ToListAsync();
+        }
+
         public async Task<UserDto?> GetUserByEmailAsync(string email)
         {
 
@@ -63,15 +111,16 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
         }
 
-        public async Task<UserDto> GetUserByIdAsync(int userId)
+        public async Task<UserDto?> GetUserByIdAsync(int userId)
         {
 
             var user = await _linkedInDbContext.Users.SingleAsync(x => x.Id == userId && x.IsActive);
 
             if (user == null)
             {
-                //throw new ErrorException.NoUserFountWithGivenIdException();
+                throw ErrorException.NoUserFountWithGivenIdException;
             }
+
             return user.ToUserDto();
 
         }
@@ -122,11 +171,5 @@ namespace LinkedInWebApi.Reposirotry.Commands
             return users.SerializeToJson<User>();
         }
 
-        public async Task<string> GetUsersToXMLAsync()
-        {
-            var users = await _linkedInDbContext.Users.ToListAsync();
-
-            return users.SerializeToXml<User>();
-        }
     }
 }

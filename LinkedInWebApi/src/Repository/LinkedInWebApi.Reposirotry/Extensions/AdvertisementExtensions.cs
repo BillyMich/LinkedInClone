@@ -36,22 +36,19 @@ namespace LinkedInWebApi.Reposirotry.Extensions
         /// </summary>
         /// <param name="advertisement">The Advertisement object.</param>
         /// <returns>The converted AdvertisementDto object.</returns>
-        public static AdvertisementDto ToAdvertisementDto(this Advertisement? advertisement)
+        public static AdvertisementDto ToAdvertisementDto(this Advertisement? advertisement) => new AdvertisementDto
         {
-            return new AdvertisementDto
-            {
-                Id = advertisement.Id,
-                Title = advertisement.Title,
-                FreeTxt = advertisement.FreeTxt,
-                CreatorId = advertisement.CreatorId,
-                ProfessionalBranche = advertisement?.AdvertismentProfessionalBranches.FirstOrDefault()?.TypeId ?? 0,
-                WorkingLocation = advertisement?.AdvertismentWorkingLocations.FirstOrDefault()?.TypeId ?? 0,
-                JobType = advertisement?.AdvertisementJobTypes.FirstOrDefault()?.TypeId ?? 0,
-                Status = advertisement.Status,
-                CreatedAt = advertisement.CreatedAt.DateTime,
-                UpdatedAt = advertisement.UpdatedAt.DateTime,
-            };
-        }
+            Id = advertisement?.Id ?? 0,
+            Title = advertisement?.Title ?? string.Empty,
+            FreeTxt = advertisement?.FreeTxt ?? string.Empty,
+            CreatorId = advertisement?.CreatorId ?? 0,
+            ProfessionalBranche = advertisement?.AdvertismentProfessionalBranches.FirstOrDefault()?.TypeId ?? 0,
+            WorkingLocation = advertisement?.AdvertismentWorkingLocations.FirstOrDefault()?.TypeId ?? 0,
+            JobType = advertisement?.AdvertisementJobTypes.FirstOrDefault()?.TypeId ?? 0,
+            Status = advertisement?.Status ?? default(byte),
+            CreatedAt = advertisement?.CreatedAt.DateTime ?? DateTime.MinValue,
+            UpdatedAt = advertisement?.UpdatedAt.DateTime ?? DateTime.MinValue,
+        };
 
         /// <summary>
         /// Converts a list of Advertisement objects to a list of AdvertisementDto objects.
@@ -115,5 +112,15 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 UpdatedAt = DateTimeOffset.Now
             };
         }
+
+        public static List<ApplicationNotificationDto> ToApplicationNotificationDtos(this List<Advertisement> advertisements)
+        {
+            return advertisements.SelectMany(x => x.AdvertisementApplies.Select(y => new ApplicationNotificationDto
+            {
+                UserName = y.User.Name,
+                ApplicationTitle = x.Title,
+            })).ToList();
+        }
+
     }
 }

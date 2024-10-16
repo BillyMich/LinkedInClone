@@ -15,9 +15,24 @@ namespace LinkedInWebApi.Reposirotry.Commands
             _linkedInDbContext = linkedInDbContext;
         }
 
-        public Task<List<PostDto>> GetPostByUserAsync(int userId)
+        public async Task<PostNotificationDto> GetPostNotificationByUserAsync(int userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var postByUser = await _linkedInDbContext.Posts.Where(x => x.CreatorId == userId && x.IsActive == true)
+                    .Include(u => u.PostComments)
+                    .ThenInclude(u => u.Creator)
+                    .Include(z => z.PostReactions)
+                    .ThenInclude(z => z.User)
+                    .ToListAsync();
+
+                return postByUser.ToNotifications();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task<FileDto?> GetPostMultimedia(int id)
@@ -28,9 +43,9 @@ namespace LinkedInWebApi.Reposirotry.Commands
                 if (postMultimedia == null) { return null; }
                 return postMultimedia.ToPostPhotoDto();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
 
         }
@@ -49,9 +64,9 @@ namespace LinkedInWebApi.Reposirotry.Commands
                     .ToListAsync();
                 return posts.ToPostDto();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 

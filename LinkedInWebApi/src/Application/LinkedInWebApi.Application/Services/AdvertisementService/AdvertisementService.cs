@@ -10,9 +10,9 @@ namespace LinkedInWebApi.Application.Services
     {
         private readonly IAdvertisementInserCommands _advertisemenInsertCommands;
         private readonly IAdvertisementUpdateCommands _advertisemenUpdateCommands;
-        private readonly IAdvertisemenReadCommands _advertisemenReadCommands;
+        private readonly IAdvertisementReadCommands _advertisemenReadCommands;
 
-        public AdvertisementService(IAdvertisementInserCommands advertisemenInsertCommands, IAdvertisementUpdateCommands advertisemenUpdateCommands, IAdvertisemenReadCommands advertisemenReadCommands)
+        public AdvertisementService(IAdvertisementInserCommands advertisemenInsertCommands, IAdvertisementUpdateCommands advertisemenUpdateCommands, IAdvertisementReadCommands advertisemenReadCommands)
         {
             _advertisemenInsertCommands = advertisemenInsertCommands;
             _advertisemenUpdateCommands = advertisemenUpdateCommands;
@@ -26,9 +26,7 @@ namespace LinkedInWebApi.Application.Services
 
         public Task<bool> ApplyForAdvertismentAsync(int applyForAdvertismentDto, ClaimsIdentity identity)
         {
-            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(identity);
-
-            return _advertisemenInsertCommands.ApplyForAdvertismentAsync(applyForAdvertismentDto, curentUserId);
+            return _advertisemenInsertCommands.ApplyForAdvertismentAsync(applyForAdvertismentDto, ClaimsIdentityaHelper.GetUserIdAsync(identity));
         }
 
         /// <summary>
@@ -39,10 +37,9 @@ namespace LinkedInWebApi.Application.Services
         /// <returns>True if the advertisement is created successfully, otherwise false.</returns>
         public async Task<bool> CreateAdvertisement(CreateAdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity)
         {
-            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
-            var result = await _advertisemenInsertCommands.CreateAdvertisement(advertisementDto, curentUserId);
+            var createResult = await _advertisemenInsertCommands.CreateAdvertisement(advertisementDto, ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity));
 
-            if (!result)
+            if (!createResult)
             {
                 throw ErrorException.UnexpectedBehaviorException;
             }
@@ -58,10 +55,9 @@ namespace LinkedInWebApi.Application.Services
         /// <returns>True if the advertisement is deleted successfully, otherwise false.</returns>
         public async Task<bool> DeleteAdvertisment(int id, ClaimsIdentity claimsIdentity)
         {
-            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
-            var result = await _advertisemenUpdateCommands.DeleteAdvertisement(id, curentUserId);
+            var updateResult = await _advertisemenUpdateCommands.DeleteAdvertisement(id, ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity));
 
-            if (!result)
+            if (!updateResult)
             {
                 throw ErrorException.UnexpectedBehaviorException;
             }
@@ -85,7 +81,7 @@ namespace LinkedInWebApi.Application.Services
         /// </summary>
         /// <param name="claimsIdentity">The claims identity of the user.</param>
         /// <returns>A list of advertisements.</returns>
-        public Task<List<AdvertisementDto>> GetAdvertisments(ClaimsIdentity claimsIdentity)
+        public Task<List<AdvertisementDto>?> GetAdvertisments(ClaimsIdentity claimsIdentity)
         {
             return _advertisemenReadCommands.GetAdvertisments();
         }
@@ -95,7 +91,7 @@ namespace LinkedInWebApi.Application.Services
         /// </summary>
         /// <param name="professionalBranches">The list of professional branches.</param>
         /// <returns>A list of advertisements.</returns>
-        public Task<List<AdvertisementDto>> GetAdvertismentsByProfessionalBranches(List<int> professionalBranches)
+        public Task<List<AdvertisementDto>?> GetAdvertismentsByProfessionalBranches(List<int> professionalBranches)
         {
             return _advertisemenReadCommands.GetAdvertismentsByProfessionalBranches(professionalBranches);
         }
@@ -106,16 +102,19 @@ namespace LinkedInWebApi.Application.Services
         /// <param name="status">The status of the advertisements.</param>
         /// <param name="claimsIdentity">The claims identity of the user.</param>
         /// <returns>A list of advertisements.</returns>
-        public Task<List<AdvertisementDto>> GetAdvertismentsOfUserByStatusAsync(byte status, ClaimsIdentity claimsIdentity)
+        public Task<List<AdvertisementDto>?> GetAdvertismentsOfUserByStatusAsync(byte status, ClaimsIdentity claimsIdentity)
         {
-            return _advertisemenReadCommands.GetAdvertismentsByStatus(status);
+            return _advertisemenReadCommands.GetAdvertisementsByStatus(status);
         }
 
-        public Task<List<AdvertisementDto>> GetMyAdvertisementAsync(ClaimsIdentity claimsIdentity)
+        public async Task<List<ApplicationNotificationDto>?> GetApplyApplicationNotificationAsync(ClaimsIdentity identity)
         {
-            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
+            return await _advertisemenReadCommands.GetMyAdvertismentApplicantsAsync(ClaimsIdentityaHelper.GetUserIdAsync(identity));
+        }
 
-            return _advertisemenReadCommands.GetMyAdvertisments(curentUserId);
+        public Task<List<AdvertisementDto>?> GetMyAdvertisementAsync(ClaimsIdentity claimsIdentity)
+        {
+            return _advertisemenReadCommands.GetMyAdvertisements(ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity));
         }
 
         /// <summary>
@@ -127,9 +126,9 @@ namespace LinkedInWebApi.Application.Services
         public async Task<bool> UpdateAdvertismentAsync(UpdateAdvertisementDto advertisementDto, ClaimsIdentity claimsIdentity)
         {
             var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
-            var result = await _advertisemenUpdateCommands.UpdateAdvertisementAsync(advertisementDto, curentUserId);
+            var updateResult = await _advertisemenUpdateCommands.UpdateAdvertisementAsync(advertisementDto, curentUserId);
 
-            if (!result)
+            if (!updateResult)
             {
                 throw ErrorException.UnexpectedBehaviorException;
             }

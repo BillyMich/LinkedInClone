@@ -26,14 +26,14 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
         }
 
 
-        public async Task<IActionResult> GetUsersToJson(List<int>? ids, ClaimsIdentity claimsIdentity)
+        public async Task<IActionResult> GetUsersToJsonAsync(List<int>? ids, ClaimsIdentity claimsIdentity)
         {
-            return await _userService.GetUsersToJson(ids);
+            return await _userService.GetUsersToJsonAsync(ids);
         }
 
         public async Task<IActionResult> GetUsersToXMLAsync(List<int>? ids, ClaimsIdentity claimsIdentity)
         {
-            return await _userService.GetUsersToXML(ids);
+            return await _userService.GetUsersToXmlAsync(ids);
         }
 
 

@@ -9,8 +9,8 @@ import { ContactRequestDto } from './models/notification.models';
   styleUrls: ['./notifications.component.css'],
 })
 export class NotificationsComponent implements OnInit {
-  connectionRequestsFromOtherUsers: ContactRequestDto[] = [];
-  connectionRequestsFromOtherMe: ContactRequestDto[] = [];
+  connectionRequestsFromOthers: ContactRequestDto[] = [];
+  connectionRequestsFromMe: ContactRequestDto[] = [];
   interestNotes: any[] = [];
   comments: any[] = [];
 
@@ -18,28 +18,33 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.loadNotifications();
+    this.loadInterestNotes();
+    this.loadComments();
   }
 
   loadNotifications() {
     this.notificationsService.getConnectionRequests().subscribe((data) => {
-      this.connectionRequestsFromOtherUsers = data.contactRequestsTo;
-      this.connectionRequestsFromOtherMe = data.contactRequestsFrom;
+      this.connectionRequestsFromOthers = data.contactRequestsTo;
+      this.connectionRequestsFromMe = data.contactRequestsFrom;
     });
+  }
 
+  loadInterestNotes() {
     this.notificationsService.getInterestNotes().subscribe((data) => {
       this.interestNotes = data;
     });
+  }
 
+  loadComments() {
     this.notificationsService.getComments().subscribe((data) => {
       this.comments = data;
     });
   }
 
   acceptRequest(requestId: number) {
-    const statusId = 1;
     const changeStatusRequest = new ContactRequestChangeStatusDto(
       requestId,
-      statusId
+      1 //accept
     );
 
     this.notificationsService
@@ -50,10 +55,9 @@ export class NotificationsComponent implements OnInit {
   }
 
   rejectRequest(requestId: number) {
-    const statusId = 0;
     const changeStatusRequest = new ContactRequestChangeStatusDto(
       requestId,
-      statusId
+      2 // reject
     );
 
     this.notificationsService

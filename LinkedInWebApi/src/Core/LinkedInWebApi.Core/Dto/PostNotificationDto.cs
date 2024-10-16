@@ -10,14 +10,19 @@
     public class CommentNotificationDto
     {
         public int PostId { get; set; }
-        public int UsertId { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
         public string CommentTxt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
     }
 
     public class PostReactionDto
     {
         public int PostId { get; set; }
-        public int ReactionsSum { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
+
     }
 
 

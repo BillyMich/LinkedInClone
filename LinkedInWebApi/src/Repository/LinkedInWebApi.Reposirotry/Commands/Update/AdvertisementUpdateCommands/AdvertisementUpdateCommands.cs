@@ -27,13 +27,12 @@ namespace LinkedInWebApi.Reposirotry.Commands
                 }
 
                 _linkedInDbContext.Advertisements.Remove(advertisement);
-                _linkedInDbContext.SaveChanges();
-
+                await _linkedInDbContext.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
             {
-                return false;
+                throw;
             }
         }
 
@@ -43,6 +42,12 @@ namespace LinkedInWebApi.Reposirotry.Commands
             try
             {
                 var advertisement = await _linkedInDbContext.Advertisements.FirstOrDefaultAsync(x => x.Id == advertisementDto.Id && x.CreatorId == creatorId);
+
+                if (advertisement == null)
+                {
+                    return false;
+                }
+
                 advertisement.ToUpdateAdvertisement(advertisementDto);
                 _linkedInDbContext.Advertisements.Update(advertisement);
                 _linkedInDbContext.SaveChanges();
@@ -50,7 +55,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
             }
             catch (Exception)
             {
-                return false;
+                throw;
             }
 
         }

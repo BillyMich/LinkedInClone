@@ -1,28 +1,45 @@
 <div class="notifications-container content">
   <app-sidebar></app-sidebar>
+
   <div class="connection-requests">
-    
     <h2>Αιτήματα Σύνδεσης</h2>
     <ul>
-      <li *ngFor="let request of connectionRequestsFromOtherUsers">
+      <li *ngFor="let request of connectionRequestsFromOthers">
         <p>{{ request.name }} θέλει να συνδεθεί μαζί σας.</p>
-        <button (click)="acceptRequest(request.id)" class="primary-button">Αποδοχή</button>
-        <button (click)="rejectRequest(request.id)" class="secondary-button">Απόρριψη</button>
-        <a [routerLink]="['/profile', request.userResiverId]" class="profile-link">Προβολή Προφίλ</a>
+        <button (click)="acceptRequest(request.id)" class="primary-button">
+          Αποδοχή
+        </button>
+        <button (click)="rejectRequest(request.id)" class="secondary-button">
+          Απόρριψη
+        </button>
+        <a [routerLink]="['/profile', request.userResiverId]" class="profile-link">
+          Προβολή Προφίλ
+        </a>
       </li>
     </ul>
   </div>
 
-  <div class="interest-notes">
-    <h2>Σημειώσεις Ενδιαφέροντος και Σχόλια</h2>
-    <ul>
-      <li *ngFor="let note of interestNotes">
-        <p>{{ note.userName }} σημείωσε το ενδιαφέρον του για το άρθρο σας: {{ note.articleTitle }}</p>
-      </li>
-      <li *ngFor="let comment of comments">
-        <p>{{ comment.userName }} σχολίασε στο άρθρο σας: "{{ comment.articleTitle }}"</p>
-        <p>{{ comment.content }}</p>
-      </li>
-    </ul>
-  </div>
+<div class="interest-notes">
+  <h2>Σημειώσεις Ενδιαφέροντος</h2>
+  <ul>
+    <li *ngFor="let note of interestNotes">
+      <p>
+        {{ note.userName }} σημείωσε το ενδιαφέρον του για το άρθρο σας: {{ note.applicationTitle }}
+      </p>
+    </li>
+  </ul>
+</div>
+
+<div class="comments">
+  <h2>Σχόλια</h2>
+  <ul>
+    <li *ngFor="let comment of comments">
+      <p>
+        {{ comment.userName }} σχολίασε στο άρθρο σας: "{{ comment.articleTitle }}"
+      </p>
+      <p>{{ comment.content }}</p>
+    </li>
+  </ul>
+</div>
+
 </div>

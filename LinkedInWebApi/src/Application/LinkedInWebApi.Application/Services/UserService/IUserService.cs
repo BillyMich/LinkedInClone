@@ -8,17 +8,11 @@ namespace LinkedInWebApi.Application.Services.UserService
     public interface IUserService
     {
         Task<UserDto> GetUser(int id, ClaimsIdentity claimsIdentity);
-
         Task<List<UserDto>> GetUsers();
-
-        Task<IActionResult> GetUsersToXML(List<int>? ids);
-
-        Task<IActionResult> GetUsersToJson(List<int>? ids);
-
+        Task<IActionResult> GetUsersToXmlAsync(List<int>? ids);
+        Task<IActionResult> GetUsersToJsonAsync(List<int>? ids);
         Task UpdateProfilePictureAsync(IFormFile file, ClaimsIdentity claimsIdentity);
-
         Task<FileDto> GetProfilePictureFromId(int id);
-
         Task UpdateUserSettingsAsync(UpdateUserSettingsDto updateUserSettingsDto, ClaimsIdentity claimsIdentity);
         Task UpdateUserCVAsync(IFormFile file, ClaimsIdentity identity);
         Task UpdateUserExperienceAsync(CreateUserExperienceDto createUserExperience, ClaimsIdentity identity);

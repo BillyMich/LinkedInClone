@@ -18,11 +18,11 @@ namespace LinkedInWebApi.Controllers
         /// Initializes a new instance of the <see cref="AdminController"/> class.
         /// </summary>
         /// <param name="userHandler">The user handler.</param>
-        /// <param name="httpContextAccessor">The HTTP context accessor.</param>
-        public AdminController(IUserHandler userHandler, IHttpContextAccessor httpContextAccessor)
+        /// <param name="httpContextAccessors">The HTTP context accessor.</param>
+        public AdminController(IUserHandler userHandler, IHttpContextAccessor httpContextAccessors)
         {
             _userHandler = userHandler;
-            _identity = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
+            _identity = httpContextAccessors.HttpContext.User.Identity as ClaimsIdentity;
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace LinkedInWebApi.Controllers
         {
             try
             {
-                return await _userHandler.GetUsersToJson(ids, _identity);
+                return await _userHandler.GetUsersToJsonAsync(ids, _identity);
             }
             catch (Exception)
             {
