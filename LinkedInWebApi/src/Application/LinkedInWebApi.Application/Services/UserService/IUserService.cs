@@ -11,9 +11,9 @@ namespace LinkedInWebApi.Application.Services.UserService
 
         Task<List<UserDto>> GetUsers();
 
-        Task<IActionResult> GetUsersToXML(List<int>? ids);
+        Task<IActionResult> GetUsersToXmlAsync(List<int>? ids);
 
-        Task<IActionResult> GetUsersToJson(List<int>? ids);
+        Task<IActionResult> GetUsersToJsonAsync(List<int>? ids);
 
         Task UpdateProfilePictureAsync(IFormFile file, ClaimsIdentity claimsIdentity);
 

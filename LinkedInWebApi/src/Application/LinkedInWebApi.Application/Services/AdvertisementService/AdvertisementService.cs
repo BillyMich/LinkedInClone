@@ -10,9 +10,9 @@ namespace LinkedInWebApi.Application.Services
     {
         private readonly IAdvertisementInserCommands _advertisemenInsertCommands;
         private readonly IAdvertisementUpdateCommands _advertisemenUpdateCommands;
-        private readonly IAdvertisemenReadCommands _advertisemenReadCommands;
+        private readonly IAdvertisementReadCommands _advertisemenReadCommands;
 
-        public AdvertisementService(IAdvertisementInserCommands advertisemenInsertCommands, IAdvertisementUpdateCommands advertisemenUpdateCommands, IAdvertisemenReadCommands advertisemenReadCommands)
+        public AdvertisementService(IAdvertisementInserCommands advertisemenInsertCommands, IAdvertisementUpdateCommands advertisemenUpdateCommands, IAdvertisementReadCommands advertisemenReadCommands)
         {
             _advertisemenInsertCommands = advertisemenInsertCommands;
             _advertisemenUpdateCommands = advertisemenUpdateCommands;
@@ -85,7 +85,7 @@ namespace LinkedInWebApi.Application.Services
         /// </summary>
         /// <param name="claimsIdentity">The claims identity of the user.</param>
         /// <returns>A list of advertisements.</returns>
-        public Task<List<AdvertisementDto>> GetAdvertisments(ClaimsIdentity claimsIdentity)
+        public Task<List<AdvertisementDto>?> GetAdvertisments(ClaimsIdentity claimsIdentity)
         {
             return _advertisemenReadCommands.GetAdvertisments();
         }
@@ -95,7 +95,7 @@ namespace LinkedInWebApi.Application.Services
         /// </summary>
         /// <param name="professionalBranches">The list of professional branches.</param>
         /// <returns>A list of advertisements.</returns>
-        public Task<List<AdvertisementDto>> GetAdvertismentsByProfessionalBranches(List<int> professionalBranches)
+        public Task<List<AdvertisementDto>?> GetAdvertismentsByProfessionalBranches(List<int> professionalBranches)
         {
             return _advertisemenReadCommands.GetAdvertismentsByProfessionalBranches(professionalBranches);
         }
@@ -106,16 +106,16 @@ namespace LinkedInWebApi.Application.Services
         /// <param name="status">The status of the advertisements.</param>
         /// <param name="claimsIdentity">The claims identity of the user.</param>
         /// <returns>A list of advertisements.</returns>
-        public Task<List<AdvertisementDto>> GetAdvertismentsOfUserByStatusAsync(byte status, ClaimsIdentity claimsIdentity)
+        public Task<List<AdvertisementDto>?> GetAdvertismentsOfUserByStatusAsync(byte status, ClaimsIdentity claimsIdentity)
         {
-            return _advertisemenReadCommands.GetAdvertismentsByStatus(status);
+            return _advertisemenReadCommands.GetAdvertisementsByStatus(status);
         }
 
-        public Task<List<AdvertisementDto>> GetMyAdvertisementAsync(ClaimsIdentity claimsIdentity)
+        public Task<List<AdvertisementDto>?> GetMyAdvertisementAsync(ClaimsIdentity claimsIdentity)
         {
             var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
 
-            return _advertisemenReadCommands.GetMyAdvertisments(curentUserId);
+            return _advertisemenReadCommands.GetMyAdvertisements(curentUserId);
         }
 
         /// <summary>

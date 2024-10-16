@@ -49,12 +49,18 @@ namespace LinkedInWebApi.Application.Services.UserService
             return await _userReadCommands.GetUsersAsync(new List<int>());
         }
 
-        public async Task<IActionResult> GetUsersToJson(List<int>? ids)
+        public async Task<IActionResult> GetUsersToJsonAsync(List<int>? ids)
         {
-            var usersList = await _userReadCommands.GetUsersAsync(ids);
+            var usersList = await _userReadCommands.GetUserAllEntityAsync(ids);
 
-            var json = JsonConvert.SerializeObject(usersList);
-            var byteArray = Encoding.UTF8.GetBytes(json);
+            var settings = new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+
+            string jsonString = JsonConvert.SerializeObject(usersList, settings);
+            var byteArray = Encoding.UTF8.GetBytes(jsonString);
             var stream = new MemoryStream(byteArray);
 
             return new FileStreamResult(stream, "application/json")
@@ -63,15 +69,17 @@ namespace LinkedInWebApi.Application.Services.UserService
             };
         }
 
-        public async Task<IActionResult> GetUsersToXML(List<int>? ids)
+        public async Task<IActionResult> GetUsersToXmlAsync(List<int>? ids)
         {
-            var usersList = await _userReadCommands.GetUsersAsync(ids);
+            var usersList = await _userReadCommands.GetUserAllEntityAsync(ids);
 
-            string xmlContent = await XMLSerialazationExtension.GenerateUserXmlAsync(usersList);
-            byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(xmlContent);
-            return new FileContentResult(byteArray, "application/xml")
+            string xmlContent = XMLSerialazationExtension.SerializeToXml(usersList);
+            byte[] byteArray = Encoding.UTF8.GetBytes(xmlContent);
+            var stream = new MemoryStream(byteArray);
+
+            return new FileStreamResult(stream, "application/xml")
             {
-                FileDownloadName = "users.xml"
+                FileDownloadName = "UsersData.xml"
             };
         }
 

@@ -81,7 +81,7 @@ builder.Services.AddScoped<IGlobalConstantsServices, GlobalConstantsServices>();
 
 //Commands
 builder.Services.AddScoped<IAdvertisementInserCommands, AdvertisementInserCommands>();
-builder.Services.AddScoped<IAdvertisemenReadCommands, AdvertisementReadCommands>();
+builder.Services.AddScoped<IAdvertisementReadCommands, AdvertisementReadCommands>();
 builder.Services.AddScoped<IAdvertisementUpdateCommands, AdvertisementUpdateCommands>();
 builder.Services.AddScoped<IContactRequestInsertCommands, ContactRequestInsertCommands>();
 builder.Services.AddScoped<IContactRequestReadCommands, ContactRequestReadCommands>();

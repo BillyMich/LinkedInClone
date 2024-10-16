@@ -21,6 +21,7 @@ export class MyAdvertisementsComponent implements OnInit {
   jobTypes: any[] = [];
   workingLocations: any[] = [];
   profesionalBranches: any[] = [];
+  applicantsOfSelectedJob: any[] = [];
 
   constructor(
     private advertisementService: AdvertisementService,
@@ -98,6 +99,14 @@ export class MyAdvertisementsComponent implements OnInit {
 
   onAdvertisementSelect(advertisement: AdvertisementDto): void {
     this.selectedAdvertisement = advertisement;
+    this.getApplicantsOfSelectedJob(advertisement.id);
+  }
+
+  private getApplicantsOfSelectedJob(jobApplicationId: number) {
+    this.advertisementService.approveApplicant(jobApplicationId).subscribe({
+      next: (data) => (this.applicantsOfSelectedJob = data),
+      error: (error) => console.error('Error fetching applicants', error),
+    });
   }
 
   getStatusLabel(status: number): string {

@@ -53,7 +53,7 @@ namespace LinkedInWebApi.Controllers
         {
             try
             {
-                return await _userHandler.GetUsersToJson(ids, _identity);
+                return await _userHandler.GetUsersToJsonAsync(ids, _identity);
             }
             catch (Exception)
             {

@@ -6,6 +6,7 @@ import {
   AdvertisementRequest,
   NewAdvertisement,
 } from '../models/advertisement.model';
+import { User } from '../../../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -89,6 +90,13 @@ export class AdvertisementService {
   getMyAdvertisement(): Observable<any[]> {
     const headers = this.getHeaders();
     return this.http.get<any[]>(`${this.apiUrl}/GetMyAdvertisements`, {
+      headers,
+    });
+  }
+
+  approveApplicant(id: number): Observable<User[]> {
+    const headers = this.getHeaders();
+    return this.http.get<User[]>(`${this.apiUrl}/ApplyApplicant/${id}`, {
       headers,
     });
   }

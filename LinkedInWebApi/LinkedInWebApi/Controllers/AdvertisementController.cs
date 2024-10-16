@@ -170,7 +170,7 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpGet("ApplyApplicant/{id}")]
-        public async Task<ActionResult<bool>> ApproveApplicant(int id)
+        public async Task<ActionResult<List<UserDto>>> ApproveApplicant(int id)
         {
             try
             {
