@@ -64,7 +64,7 @@ namespace LinkedInWebApi.Application.Services
 
         public async Task<List<PostDto>> GetPosts(ClaimsIdentity claimsIdentity)
         {
-            return await _postReadCommands.GetPosts();
+            return OrderPostAlgorithm(await _postReadCommands.GetPosts());
         }
 
         public Task<bool> UpdatePost(PostDto postDto, ClaimsIdentity claimsIdentity)
@@ -82,10 +82,40 @@ namespace LinkedInWebApi.Application.Services
 
 
 
-        public async Task<bool> LikePost(LikePostDto likePostDto, ClaimsIdentity identity)
+        public async Task<bool> LikePostAsync(LikePostDto likePostDto, ClaimsIdentity identity)
         {
-            //return await _postInsertCommands.LikePost(likePostDto, ClaimsIdentityaHelper.GetUserIdAsync(identity));
-            return true;
+            return await _postInsertCommands.LikePostAsync(likePostDto, ClaimsIdentityaHelper.GetUserIdAsync(identity));
+        }
+
+        private List<PostDto> OrderPostAlgorithm(List<PostDto> posts)
+        {
+
+            foreach (var post in posts)
+            {
+                post.Points = CaculatePostValue(post);
+            }
+
+            return posts.OrderByDescending(x => x.Points).ToList();
+        }
+
+        private int CaculatePostValue(PostDto postDictionary)
+        {
+            int points = pointsFromComments(postDictionary);
+
+            points += pointsFromReactions(postDictionary);
+
+            return points;
+        }
+
+        private int pointsFromReactions(PostDto postDictionary)
+        {
+            return postDictionary.PostReactions;
+        }
+
+
+        private int pointsFromComments(PostDto postDictionary)
+        {
+            return postDictionary.Comments.Count;
         }
 
 

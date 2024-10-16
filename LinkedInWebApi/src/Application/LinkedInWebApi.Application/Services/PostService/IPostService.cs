@@ -17,6 +17,6 @@ namespace LinkedInWebApi.Application.Services
         Task<bool> DeletePostComment(int id, ClaimsIdentity claimsIdentity);
         Task<FileDto> GetPostMultimedia(int id, ClaimsIdentity identity);
         Task<PostNotificationDto> GetNotificationInPost(ClaimsIdentity identity);
-        Task<bool> LikePost(LikePostDto likePostDto, ClaimsIdentity identity);
+        Task<bool> LikePostAsync(LikePostDto likePostDto, ClaimsIdentity identity);
     }
 }
