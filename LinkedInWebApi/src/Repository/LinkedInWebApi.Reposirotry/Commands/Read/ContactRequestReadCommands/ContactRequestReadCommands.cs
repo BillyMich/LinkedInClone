@@ -61,12 +61,13 @@ namespace LinkedInWebApi.Reposirotry.Commands
         public async Task<bool> CheckIfExistAlreadyAsync(NewContactRequestDto contactRequestDto, int curentUserId)
         {
             var contactRequest = await _linkedInDbContext.ContactRequests
-                .Where(x => x.UserRequestId == curentUserId && x.UserResiverId == contactRequestDto.UserResiverId)
+                .Where(x => (x.UserRequestId == curentUserId && x.UserResiverId == contactRequestDto.UserResiverId) ||
+                (x.UserRequestId == contactRequestDto.UserResiverId && x.UserResiverId == curentUserId))
                 .FirstOrDefaultAsync();
 
-            if (contactRequest == null) return true;
+            if (contactRequest == null) return false;
 
-            return false;
+            return true;
 
         }
     }
