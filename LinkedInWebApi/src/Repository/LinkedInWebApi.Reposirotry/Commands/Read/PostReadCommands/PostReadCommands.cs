@@ -41,6 +41,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
             {
                 var posts = await _linkedInDbContext.Posts.
                     Include(x => x.PostComments).
+                    ThenInclude(x => x.Creator).
                     Include(x => x.Creator).
                     Include(x => x.PostMultimedia).
                     Include(x => x.PostReactions).

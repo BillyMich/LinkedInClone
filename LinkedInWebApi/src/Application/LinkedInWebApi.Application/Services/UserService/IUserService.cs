@@ -27,5 +27,6 @@ namespace LinkedInWebApi.Application.Services.UserService
         Task RemoveUserEducationAsync(int userEducationId, ClaimsIdentity identity);
         Task<List<UserEducationDto>> GetUserEducationAsync(int id, ClaimsIdentity identity);
         Task<List<UserExperienceDto>> GetUserExperienceAsync(int id, ClaimsIdentity identity);
+        Task<IActionResult> GetUserToJson(List<int>? ids);
     }
 }
