@@ -115,7 +115,8 @@ export class ProfileComponent implements OnInit {
   private loadWorkingLocations() {
     this.globalConstantsService.getWorkingLocations().subscribe({
       next: (data) => (this.workingLocations = data),
-      error: (error) => console.error('Error fetching working locations', error),
+      error: (error) =>
+        console.error('Error fetching working locations', error),
     });
   }
 
@@ -150,20 +151,27 @@ export class ProfileComponent implements OnInit {
 
   addExperience(exp?: CreateUserExperience) {
     const experienceGroup = new FormGroup({
-      title: new FormControl(exp ? exp.title : '', Validators.required),
-      freeTxt: new FormControl(exp ? exp.freeTxt : '', Validators.required),
-      isPublic: new FormControl(exp ? exp.isPublic : true, Validators.required),
+      title: new FormControl(exp ? exp.Title : '', Validators.required),
+      freeTxt: new FormControl(exp ? exp.FreeTxt : '', Validators.required),
+      isPublic: new FormControl(exp ? exp.IsPublic : true, Validators.required),
       startedAt: new FormControl(
-        exp && exp.startedAt
-          ? this.formatDateFromComponents(exp.startedAt)
+        exp && exp.StartedAt
+          ? this.formatDateFromComponents(exp.StartedAt)
           : '',
         Validators.required
       ),
       endedAt: new FormControl(
-        exp && exp.endedAt ? this.formatDateFromComponents(exp.endedAt) : ''
+        exp && exp.EndedAt ? this.formatDateFromComponents(exp.EndedAt) : ''
       ),
     });
     this.experience.push(experienceGroup);
+  }
+
+  private formatDateFromComponents(dateObj: any): string {
+    const { year, month, day } = dateObj;
+    const monthString = month < 10 ? `0${month}` : month.toString();
+    const dayString = day < 10 ? `0${day}` : day.toString();
+    return `${year}-${monthString}-${dayString}`;
   }
 
   addEducation(edu?: CreateUserEducationDto) {
@@ -224,12 +232,12 @@ export class ProfileComponent implements OnInit {
       title: new FormControl('', Validators.required),
       freeTxt: new FormControl('', Validators.required),
       isPublic: new FormControl(true, Validators.required),
-      startedAt: new FormControl('', Validators.required), 
-      endedAt: new FormControl(''), 
+      startedAt: new FormControl('', Validators.required),
+      endedAt: new FormControl(''),
     });
     this.showExperienceModal = true;
   }
-  
+
   openEducationModal() {
     this.educationForm = new FormGroup({
       degreeTitle: new FormControl('', Validators.required),
@@ -241,7 +249,6 @@ export class ProfileComponent implements OnInit {
     });
     this.showEducationModal = true;
   }
-  
 
   closeModal() {
     this.showExperienceModal = false;
@@ -265,7 +272,7 @@ export class ProfileComponent implements OnInit {
       }
 
       console.log('Submitting Experience Data:', experienceData);
-  
+
       this.userService.updateUserExperience(experienceData).subscribe({
         next: () => {
           this.loadExistingDetails();
@@ -286,8 +293,7 @@ export class ProfileComponent implements OnInit {
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-  
-  
+
   onSubmitEducation() {
     const educationData: CreateUserEducationDto = this.educationForm.value;
     console.log('Submitting Education Data:', educationData);
