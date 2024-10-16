@@ -125,7 +125,7 @@ namespace LinkedInWebApi.Application.Services.UserService
             await _userInsertCommands.InsertUserEducationAsync(createUserEducation, curentUserId);
         }
 
-        public async Task UpdateUserExperienceAsync(CreateUserExperience createUserExperience, ClaimsIdentity claimsIdentity)
+        public async Task UpdateUserExperienceAsync(CreateUserExperienceDto createUserExperience, ClaimsIdentity claimsIdentity)
         {
             var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
 

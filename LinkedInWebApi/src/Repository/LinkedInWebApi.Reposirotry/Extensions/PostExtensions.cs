@@ -1,4 +1,5 @@
 ﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
 using LinkiedInWebApi.Domain.Entity;
 
 namespace LinkedInWebApi.Reposirotry.Extensions
@@ -46,8 +47,8 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 CreatedAt = post.CreatedAt,
                 UpdatedAt = post.UpdatedAt,
                 Comments = post.PostComments.ToList().ToCommentDto(),
-                FileDto = post.PostMultimedia.FirstOrDefault()?.ToPostPhotoDto()
-
+                FileDto = post.PostMultimedia.FirstOrDefault()?.ToPostPhotoDto(),
+                PostReactions = post.PostReactions.Count(),
             };
         }
 
@@ -94,6 +95,18 @@ namespace LinkedInWebApi.Reposirotry.Extensions
             {
                 FileName = postPhoto.FileName,
                 DataOfFile = postPhoto.DataOfFile,
+            };
+        }
+
+        public static PostReaction ToPostReaction(this LikePostDto likePostDto, int userId)
+        {
+            return new PostReaction
+            {
+                PostId = likePostDto.PostId,
+                UserId = userId,
+                IsActive = true,
+                CreatedAt = DateTimeOffset.Now,
+                UpdatedAt = DateTimeOffset.Now
             };
         }
 

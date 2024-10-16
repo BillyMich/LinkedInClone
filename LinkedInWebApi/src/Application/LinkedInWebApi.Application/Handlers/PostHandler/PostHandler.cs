@@ -1,5 +1,6 @@
 ﻿using LinkedInWebApi.Application.Services;
 using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
@@ -34,7 +35,7 @@ namespace LinkedInWebApi.Application.Handlers
             return await _postService.DeletePostComment(id, claimsIdentity);
         }
 
-        public Task<List<NotificationDto>> GetNotificationInPost(ClaimsIdentity identity)
+        public Task<PostNotificationDto> GetNotificationInPost(ClaimsIdentity identity)
         {
             return _postService.GetNotificationInPost(identity);
         }
@@ -52,6 +53,11 @@ namespace LinkedInWebApi.Application.Handlers
         public Task<List<PostDto>> GetPosts(ClaimsIdentity claimsIdentity)
         {
             return _postService.GetPosts(claimsIdentity);
+        }
+
+        public Task<bool> LikePost(LikePostDto likePostDto, ClaimsIdentity identity)
+        {
+            return _postService.LikePost(likePostDto, identity);
         }
 
         public Task<bool> UpdatePost(PostDto postDto, ClaimsIdentity claimsIdentity)

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'; 
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { NewContactRequestDto } from '../presentation/network/models/network.model';
 import { LocalStorageService } from './local-storage/local-storage.service';
-import { ExperienceDto } from '../models/experience.model';
-import { EducationDto } from '../models/education.model';
+import { CreateUserExperience } from '../models/experience.model';
+import { CreateUserEducationDto } from '../models/education.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,27 +20,26 @@ export class UserService {
   private getHeaders(): HttpHeaders {
     const token = this.localStorageService.getUserToken();
     return new HttpHeaders({
-      'Authorization': `Bearer ${token}`, 
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
   }
 
   getConnectedUsers(): Observable<any[]> {
     const headers = this.getHeaders();
-  
+
     return this.http.get<any[]>(`${this.apiUrl}/GetConnectedUsers`, {
       headers,
     });
   }
-  
+
   getNonConnectedUsers(): Observable<any[]> {
     const headers = this.getHeaders();
-  
+
     return this.http.get<any[]>(`${this.apiUrl}/GetNonConnectedUsers`, {
       headers,
     });
   }
-  
 
   createContactRequest(contactRequest: NewContactRequestDto): Observable<any> {
     const headers = this.getHeaders();
@@ -53,19 +52,21 @@ export class UserService {
 
   changeRequestStatus(requestId: string, status: string): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>(`${this.apiUrl}/user/ChangeStatusOfRequest`, {
-      requestId,
-      status,
-    }, { headers });
+    return this.http.post<any>(
+      `${this.apiUrl}/user/ChangeStatusOfRequest`,
+      {
+        requestId,
+        status,
+      },
+      { headers }
+    );
   }
 
   updateUser(id: string, user: any): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>(
-      `${this.apiUrl}/user/updateUserSettings`,
-      user,
-      { headers }
-    );
+    return this.http.post<any>(`${this.apiUrl}/user/updateUserSettings`, user, {
+      headers,
+    });
   }
 
   getUserById(id: number): Observable<any> {
@@ -100,28 +101,27 @@ export class UserService {
     return this.http.get<any[]>(`${this.apiUrl}/user/getUsers`, { headers });
   }
 
-  updateUserExperience(experienceData: any): Observable<any> {
+  updateUserExperience(experienceData: CreateUserExperience): Observable<any> {
     const headers = this.getHeaders();
     return this.http
       .post(`${this.apiUrl}/user/updateUserExperience`, experienceData, { headers })
   }
-  
-  
-  updateUserEducation(educationData: EducationDto): Observable<any> {
+
+  updateUserEducation(educationData: CreateUserEducationDto): Observable<any> {
     const headers = this.getHeaders();
     const url = `${this.apiUrl}/user/updateUserEducation`;
     return this.http.post<any>(url, educationData, { headers });
   }
 
-  getUserExperience(userId: number): Observable<ExperienceDto[]> {
+  getUserExperience(userId: number): Observable<CreateUserExperience[]> {
     const headers = this.getHeaders();
     const url = `${this.apiUrl}/user/getUserExperience/${userId}`;
-    return this.http.get<ExperienceDto[]>(url, { headers });
+    return this.http.get<CreateUserExperience[]>(url, { headers });
   }
 
-  getUserEducation(userId: number): Observable<EducationDto[]> {
+  getUserEducation(userId: number): Observable<CreateUserEducationDto[]> {
     const headers = this.getHeaders();
     const url = `${this.apiUrl}/user/getUserEducation/${userId}`;
-    return this.http.get<EducationDto[]>(url, { headers });
+    return this.http.get<CreateUserEducationDto[]>(url, { headers });
   }
 }

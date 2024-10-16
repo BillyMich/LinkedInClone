@@ -9,8 +9,6 @@ public partial class UserExperienceJobType
 {
     public int Id { get; set; }
 
-    public int JobTypeId { get; set; }
-
     public int UserExpirienceId { get; set; }
 
     public bool IsActive { get; set; }
@@ -19,7 +17,9 @@ public partial class UserExperienceJobType
 
     public DateTimeOffset UpdatedAt { get; set; }
 
-    public virtual RfdtJobType JobType { get; set; }
+    public int TypeId { get; set; }
+
+    public virtual RfdtJobType Type { get; set; }
 
     public virtual UserExperience UserExpirience { get; set; }
 }

@@ -42,7 +42,6 @@ namespace LinkedInWebApi.Controllers
 
         [HttpPost("UpdatePost")]
         [Authorize]
-
         public async Task<ActionResult<bool>> UpdatePost([FromBody] PostDto postDto)
         {
             try
@@ -57,7 +56,6 @@ namespace LinkedInWebApi.Controllers
 
         [HttpPost("DeletePost/{id}")]
         [Authorize]
-
         public async Task<ActionResult<bool>> DeletePost(int id)
         {
             try
@@ -72,7 +70,6 @@ namespace LinkedInWebApi.Controllers
 
         [HttpGet("GetPost/{id}")]
         [Authorize]
-
         public async Task<ActionResult<PostDto?>> GetPost(int id)
         {
             try
@@ -87,7 +84,6 @@ namespace LinkedInWebApi.Controllers
 
         [HttpGet("GetPosts")]
         [Authorize]
-
         public async Task<ActionResult<List<PostDto>>?> GetPosts()
         {
             try
@@ -175,11 +171,25 @@ namespace LinkedInWebApi.Controllers
 
         [HttpGet("GetNotificationInPost")]
         [Authorize]
-        public async Task<ActionResult<List<NotificationDto>>> GetNotificationInPost()
+        public async Task<ActionResult<PostNotificationDto>> GetNotificationInPost()
         {
             try
             {
                 return Ok(await _postHandler.GetNotificationInPost(_identity));
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("LikePost")]
+        [Authorize]
+        public async Task<ActionResult<bool>> LikePost([FromBody] LikePostDto likePostDto)
+        {
+            try
+            {
+                return Ok(await _postHandler.LikePost(likePostDto, _identity));
             }
             catch (Exception)
             {

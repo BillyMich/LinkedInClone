@@ -255,17 +255,16 @@ public partial class LinkedInDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PostReaction_Post");
 
-            entity.HasOne(d => d.Reaction).WithMany(p => p.PostReactions)
-                .HasForeignKey(d => d.ReactionId)
+            entity.HasOne(d => d.User).WithMany(p => p.PostReactions)
+                .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PostReaction_RFDT_Reaction");
+                .HasConstraintName("FK_PostReaction_User");
         });
 
         modelBuilder.Entity<RfdtEducationType>(entity =>
         {
             entity.ToTable("RFDT_EducationType");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -428,8 +427,8 @@ public partial class LinkedInDbContext : DbContext
         {
             entity.ToTable("UserExperienceJobType");
 
-            entity.HasOne(d => d.JobType).WithMany(p => p.UserExperienceJobTypes)
-                .HasForeignKey(d => d.JobTypeId)
+            entity.HasOne(d => d.Type).WithMany(p => p.UserExperienceJobTypes)
+                .HasForeignKey(d => d.TypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UserExperienceJobType_RFDT_JobType");
 

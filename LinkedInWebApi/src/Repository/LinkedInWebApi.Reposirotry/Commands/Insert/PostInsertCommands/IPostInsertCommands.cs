@@ -1,4 +1,5 @@
 ﻿using LinkedInWebApi.Core;
+using LinkedInWebApi.Core.Dto;
 
 namespace LinkedInWebApi.Reposirotry.Commands
 {
@@ -7,6 +8,6 @@ namespace LinkedInWebApi.Reposirotry.Commands
         Task<bool> CreatePost(CreatePostDto postDto, FileDto fileDto, int userId);
 
         Task<bool> CreatePostComment(CreatePostCommentDto postCommentDto, int userId);
-
+        Task<bool> LikePost(LikePostDto likePostDto, int v);
     }
 }

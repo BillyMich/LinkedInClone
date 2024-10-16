@@ -1,8 +1,8 @@
-// src/app/models/education.model.ts
-
-export interface EducationDto {
-  name: string;
+export interface CreateUserEducationDto {
+  degreeTitle: string;
   description: string;
+  startDate: string;
+  endDate: string;
   isPublic: boolean;
   educationTypeId: number;
 }

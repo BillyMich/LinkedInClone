@@ -123,7 +123,7 @@ namespace LinkedInWebApi.Controllers
         }
 
         [HttpPost("updateUserExperience")]
-        public async Task<IActionResult> UpdateUserExperience([FromBody] CreateUserExperience createUserExperience)
+        public async Task<IActionResult> UpdateUserExperience([FromBody] CreateUserExperienceDto createUserExperience)
         {
             try
             {

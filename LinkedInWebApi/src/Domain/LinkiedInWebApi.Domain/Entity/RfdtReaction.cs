@@ -20,6 +20,4 @@ public partial class RfdtReaction
     public DateTimeOffset CreatedAt { get; set; }
 
     public DateTimeOffset UpdatedAt { get; set; }
-
-    public virtual ICollection<PostReaction> PostReactions { get; set; } = new List<PostReaction>();
 }

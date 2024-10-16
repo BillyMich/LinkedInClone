@@ -1,7 +1,7 @@
 ﻿
 namespace LinkedInWebApi.Core
 {
-    public class CreateUserExperience
+    public class CreateUserExperienceDto
     {
         public string Title { get; set; }
         public string FreeTxt { get; set; }

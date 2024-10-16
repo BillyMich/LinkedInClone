@@ -17,12 +17,36 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
         public async Task InsertUserEducationAsync(CreateUserEducationDto createUserEducation, int curentUserId)
         {
-            await linkedInDbContext.UserEducations.AddAsync(createUserEducation.ToUserEducation(curentUserId));
+
+            try
+            {
+                await linkedInDbContext.UserEducations.AddAsync(createUserEducation.ToUserEducation(curentUserId));
+                await linkedInDbContext.SaveChangesAsync();
+                return;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+
         }
 
-        public Task InsertUserExperienceAsync(CreateUserExperience createUserExperience, int curentUserId)
+        public async Task InsertUserExperienceAsync(CreateUserExperienceDto createUserExperience, int curentUserId)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                await linkedInDbContext.UserExperiences.AddAsync(createUserExperience.ToUserExperience(curentUserId));
+                await linkedInDbContext.SaveChangesAsync();
+                return;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+
         }
 
         public async Task<bool> RegisterUserAsync(UserDto userDto)

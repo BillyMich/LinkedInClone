@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage/local-storage.service';
+import { LikePostDto } from '../presentation/home/models/likePostDto.models';
 
 @Injectable({
   providedIn: 'root',
@@ -36,13 +37,11 @@ export class ArticleService {
     });
   }
 
-  likeArticle(articleId: number): Observable<any> {
+  likeArticle(likePostDto: LikePostDto): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>(
-      `${this.apiUrl}/UpdatePost`,
-      { id: articleId },
-      { headers }
-    );
+    return this.http.post<any>(`${this.apiUrl}/LikePost`, likePostDto, {
+      headers,
+    });
   }
 
   commentArticle(articleId: number, comment: string): Observable<any> {

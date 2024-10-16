@@ -1,7 +1,7 @@
-export interface ExperienceDto {
-  title: string;
-  freeTxt: string;
-  isPublic: boolean;
-  startedAt: string;
-  endedAt?: string;
+export interface CreateUserExperience {
+  Title: string;
+  FreeTxt: string;
+  IsPublic: boolean;
+  StartedAt: string;
+  EndedAt?: string;
 }

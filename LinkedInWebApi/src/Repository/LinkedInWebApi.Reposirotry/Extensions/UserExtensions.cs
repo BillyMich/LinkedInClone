@@ -143,7 +143,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
             return new UserEducation
             {
                 UserId = userId,
-                Name = createUserEducation.Name,
+                Name = createUserEducation.DegreeTitle,
                 Description = createUserEducation.Description,
                 IsPublic = createUserEducation.IsPublic,
                 IsActive = true,
@@ -169,7 +169,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
             };
         }
 
-        public static UserExperience ToUserExperience(this CreateUserExperience createUserEducation, int userId)
+        public static UserExperience ToUserExperience(this CreateUserExperienceDto createUserEducation, int userId)
         {
             return new UserExperience
             {

@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [LinkedInDb]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Database [LinkedInDb]    Script Date: 10/3/2024 11:39:51 PM ******/
 CREATE DATABASE [LinkedInDb]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -82,7 +82,7 @@ ALTER DATABASE [LinkedInDb] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANU
 GO
 USE [LinkedInDb]
 GO
-/****** Object:  Table [dbo].[Advertisement]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[Advertisement]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -103,7 +103,25 @@ CREATE TABLE [dbo].[Advertisement](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[AdvertisementJobType]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[AdvertisementApply]    Script Date: 10/3/2024 11:39:51 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AdvertisementApply](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[AdvertismentId] [int] NOT NULL,
+	[UserId] [int] NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[CreatedAt] [datetimeoffset](7) NOT NULL,
+	[UpdatedAt] [datetimeoffset](7) NOT NULL,
+ CONSTRAINT [PK_AdvertisementApply] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AdvertisementJobType]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -121,7 +139,7 @@ CREATE TABLE [dbo].[AdvertisementJobType](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[AdvertismentProfessionalBranch]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[AdvertismentProfessionalBranch]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -139,7 +157,7 @@ CREATE TABLE [dbo].[AdvertismentProfessionalBranch](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[AdvertismentWorkingLocation]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[AdvertismentWorkingLocation]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -157,7 +175,7 @@ CREATE TABLE [dbo].[AdvertismentWorkingLocation](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Chat]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[Chat]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -175,7 +193,7 @@ CREATE TABLE [dbo].[Chat](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ChatMessage]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[ChatMessage]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -193,7 +211,7 @@ CREATE TABLE [dbo].[ChatMessage](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ContactRequest]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[ContactRequest]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -212,7 +230,7 @@ CREATE TABLE [dbo].[ContactRequest](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Post]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[Post]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -231,7 +249,7 @@ CREATE TABLE [dbo].[Post](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PostComment]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[PostComment]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -250,7 +268,7 @@ CREATE TABLE [dbo].[PostComment](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PostMultimedia]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[PostMultimedia]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -269,7 +287,7 @@ CREATE TABLE [dbo].[PostMultimedia](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PostReaction]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[PostReaction]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -277,7 +295,6 @@ GO
 CREATE TABLE [dbo].[PostReaction](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[PostId] [int] NOT NULL,
-	[ReactionId] [int] NOT NULL,
 	[IsActive] [bit] NOT NULL,
 	[CreatedAt] [datetimeoffset](7) NOT NULL,
 	[UpdatedAt] [datetimeoffset](7) NOT NULL,
@@ -287,13 +304,13 @@ CREATE TABLE [dbo].[PostReaction](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[RFDT_EducationType]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[RFDT_EducationType]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[RFDT_EducationType](
-	[Id] [int] NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](50) NOT NULL,
 	[IsActive] [bit] NOT NULL,
 	[CreatedAt] [datetimeoffset](7) NOT NULL,
@@ -304,7 +321,7 @@ CREATE TABLE [dbo].[RFDT_EducationType](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[RFDT_JobType]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[RFDT_JobType]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -321,7 +338,7 @@ CREATE TABLE [dbo].[RFDT_JobType](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[RFDT_ProfessionalBranch]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[RFDT_ProfessionalBranch]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -338,26 +355,7 @@ CREATE TABLE [dbo].[RFDT_ProfessionalBranch](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[RFDT_Reaction]    Script Date: 9/20/2024 3:32:10 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[RFDT_Reaction](
-	[Id] [int] NOT NULL,
-	[Name] [nvarchar](50) NOT NULL,
-	[FileName] [nvarchar](200) NOT NULL,
-	[DataOfFile] [varbinary](max) NOT NULL,
-	[IsActive] [bit] NOT NULL,
-	[CreatedAt] [datetimeoffset](7) NOT NULL,
-	[UpdatedAt] [datetimeoffset](7) NOT NULL,
- CONSTRAINT [PK_RFDT_Reaction] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[RFDT_WorkingLocation]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[RFDT_WorkingLocation]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -374,7 +372,7 @@ CREATE TABLE [dbo].[RFDT_WorkingLocation](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[User]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[User]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -396,7 +394,7 @@ CREATE TABLE [dbo].[User](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UserCV]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[UserCV]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -416,7 +414,25 @@ CREATE TABLE [dbo].[UserCV](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UserEducation]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[UserCVFile]    Script Date: 10/3/2024 11:39:51 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UserCVFile](
+	[Id] [int] NOT NULL,
+	[UserCVId] [int] NOT NULL,
+	[DateOfFile] [varbinary](max) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[CreatedAt] [datetimeoffset](7) NOT NULL,
+	[UpdatedAt] [datetimeoffset](7) NOT NULL,
+ CONSTRAINT [PK_UserCVFile] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[UserEducation]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -437,7 +453,7 @@ CREATE TABLE [dbo].[UserEducation](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UserEducationProfessionalBranch]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[UserEducationProfessionalBranch]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -455,7 +471,7 @@ CREATE TABLE [dbo].[UserEducationProfessionalBranch](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UserExperience]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[UserExperience]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -477,25 +493,25 @@ CREATE TABLE [dbo].[UserExperience](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UserExperienceJobType]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[UserExperienceJobType]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[UserExperienceJobType](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[JobTypeId] [int] NOT NULL,
 	[UserExpirienceId] [int] NOT NULL,
 	[IsActive] [bit] NOT NULL,
 	[CreatedAt] [datetimeoffset](7) NOT NULL,
 	[UpdatedAt] [datetimeoffset](7) NOT NULL,
+	[TypeId] [int] NOT NULL,
  CONSTRAINT [PK_UserExperienceJobType] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UserExperienceWorkingLocation]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[UserExperienceWorkingLocation]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -513,7 +529,7 @@ CREATE TABLE [dbo].[UserExperienceWorkingLocation](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UserExpirienceProfessionalBranch]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[UserExpirienceProfessionalBranch]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -531,7 +547,7 @@ CREATE TABLE [dbo].[UserExpirienceProfessionalBranch](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UserPassword]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[UserPassword]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -549,7 +565,7 @@ CREATE TABLE [dbo].[UserPassword](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UserPhotoProfile]    Script Date: 9/20/2024 3:32:10 AM ******/
+/****** Object:  Table [dbo].[UserPhotoProfile]    Script Date: 10/3/2024 11:39:51 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -573,6 +589,16 @@ REFERENCES [dbo].[User] ([Id])
 GO
 ALTER TABLE [dbo].[Advertisement] CHECK CONSTRAINT [FK_Advertisement_User]
 GO
+ALTER TABLE [dbo].[AdvertisementApply]  WITH CHECK ADD  CONSTRAINT [FK_AdvertisementApply_Advertisement] FOREIGN KEY([AdvertismentId])
+REFERENCES [dbo].[Advertisement] ([Id])
+GO
+ALTER TABLE [dbo].[AdvertisementApply] CHECK CONSTRAINT [FK_AdvertisementApply_Advertisement]
+GO
+ALTER TABLE [dbo].[AdvertisementApply]  WITH CHECK ADD  CONSTRAINT [FK_AdvertisementApply_User] FOREIGN KEY([UserId])
+REFERENCES [dbo].[User] ([Id])
+GO
+ALTER TABLE [dbo].[AdvertisementApply] CHECK CONSTRAINT [FK_AdvertisementApply_User]
+GO
 ALTER TABLE [dbo].[AdvertisementJobType]  WITH CHECK ADD  CONSTRAINT [FK_AdvertisementJobType_Advertisement1] FOREIGN KEY([AdvertisementId])
 REFERENCES [dbo].[Advertisement] ([Id])
 GO
@@ -582,6 +608,11 @@ ALTER TABLE [dbo].[AdvertisementJobType]  WITH CHECK ADD  CONSTRAINT [FK_Adverti
 REFERENCES [dbo].[RFDT_JobType] ([Id])
 GO
 ALTER TABLE [dbo].[AdvertisementJobType] CHECK CONSTRAINT [FK_AdvertisementJobType_RFDT_JobType1]
+GO
+ALTER TABLE [dbo].[AdvertismentProfessionalBranch]  WITH CHECK ADD  CONSTRAINT [FK_AdvertismentProfessionalBranch_Advertisement] FOREIGN KEY([AdvertismentId])
+REFERENCES [dbo].[Advertisement] ([Id])
+GO
+ALTER TABLE [dbo].[AdvertismentProfessionalBranch] CHECK CONSTRAINT [FK_AdvertismentProfessionalBranch_Advertisement]
 GO
 ALTER TABLE [dbo].[AdvertismentProfessionalBranch]  WITH CHECK ADD  CONSTRAINT [FK_AdvertismentProfessionalBranch_Advertisement1] FOREIGN KEY([AdvertismentId])
 REFERENCES [dbo].[Advertisement] ([Id])
@@ -653,15 +684,15 @@ REFERENCES [dbo].[Post] ([Id])
 GO
 ALTER TABLE [dbo].[PostReaction] CHECK CONSTRAINT [FK_PostReaction_Post]
 GO
-ALTER TABLE [dbo].[PostReaction]  WITH CHECK ADD  CONSTRAINT [FK_PostReaction_RFDT_Reaction] FOREIGN KEY([ReactionId])
-REFERENCES [dbo].[RFDT_Reaction] ([Id])
-GO
-ALTER TABLE [dbo].[PostReaction] CHECK CONSTRAINT [FK_PostReaction_RFDT_Reaction]
-GO
 ALTER TABLE [dbo].[UserCV]  WITH CHECK ADD  CONSTRAINT [FK_CV_User] FOREIGN KEY([UserId])
 REFERENCES [dbo].[User] ([Id])
 GO
 ALTER TABLE [dbo].[UserCV] CHECK CONSTRAINT [FK_CV_User]
+GO
+ALTER TABLE [dbo].[UserCVFile]  WITH CHECK ADD  CONSTRAINT [FK_UserCVFile_User] FOREIGN KEY([UserCVId])
+REFERENCES [dbo].[User] ([Id])
+GO
+ALTER TABLE [dbo].[UserCVFile] CHECK CONSTRAINT [FK_UserCVFile_User]
 GO
 ALTER TABLE [dbo].[UserEducation]  WITH CHECK ADD  CONSTRAINT [FK_Education_User] FOREIGN KEY([UserId])
 REFERENCES [dbo].[User] ([Id])
@@ -688,7 +719,7 @@ REFERENCES [dbo].[User] ([Id])
 GO
 ALTER TABLE [dbo].[UserExperience] CHECK CONSTRAINT [FK_Experience_User]
 GO
-ALTER TABLE [dbo].[UserExperienceJobType]  WITH CHECK ADD  CONSTRAINT [FK_UserExperienceJobType_RFDT_JobType] FOREIGN KEY([JobTypeId])
+ALTER TABLE [dbo].[UserExperienceJobType]  WITH CHECK ADD  CONSTRAINT [FK_UserExperienceJobType_RFDT_JobType] FOREIGN KEY([TypeId])
 REFERENCES [dbo].[RFDT_JobType] ([Id])
 GO
 ALTER TABLE [dbo].[UserExperienceJobType] CHECK CONSTRAINT [FK_UserExperienceJobType_RFDT_JobType]
@@ -703,20 +734,20 @@ REFERENCES [dbo].[RFDT_WorkingLocation] ([Id])
 GO
 ALTER TABLE [dbo].[UserExperienceWorkingLocation] CHECK CONSTRAINT [FK_UserExperienceWorkingLocation_RFDT_WorkingLocation1]
 GO
-ALTER TABLE [dbo].[UserExperienceWorkingLocation]  WITH CHECK ADD  CONSTRAINT [FK_UserExperienceWorkingLocation_UserExperience1] FOREIGN KEY([UserExperienceId])
+ALTER TABLE [dbo].[UserExperienceWorkingLocation]  WITH CHECK ADD  CONSTRAINT [FK_UserExperienceWorkingLocation_UserExperience2] FOREIGN KEY([UserExperienceId])
 REFERENCES [dbo].[UserExperience] ([Id])
 GO
-ALTER TABLE [dbo].[UserExperienceWorkingLocation] CHECK CONSTRAINT [FK_UserExperienceWorkingLocation_UserExperience1]
+ALTER TABLE [dbo].[UserExperienceWorkingLocation] CHECK CONSTRAINT [FK_UserExperienceWorkingLocation_UserExperience2]
 GO
 ALTER TABLE [dbo].[UserExpirienceProfessionalBranch]  WITH CHECK ADD  CONSTRAINT [FK_UserExpirienceProfessionalBranch_RFDT_ProfessionalBranch] FOREIGN KEY([TypeId])
 REFERENCES [dbo].[RFDT_ProfessionalBranch] ([Id])
 GO
 ALTER TABLE [dbo].[UserExpirienceProfessionalBranch] CHECK CONSTRAINT [FK_UserExpirienceProfessionalBranch_RFDT_ProfessionalBranch]
 GO
-ALTER TABLE [dbo].[UserExpirienceProfessionalBranch]  WITH CHECK ADD  CONSTRAINT [FK_UserExpirienceProfessionalBranch_UserExperience1] FOREIGN KEY([UserExperienceId])
+ALTER TABLE [dbo].[UserExpirienceProfessionalBranch]  WITH CHECK ADD  CONSTRAINT [FK_UserExpirienceProfessionalBranch_UserExperience] FOREIGN KEY([UserExperienceId])
 REFERENCES [dbo].[UserExperience] ([Id])
 GO
-ALTER TABLE [dbo].[UserExpirienceProfessionalBranch] CHECK CONSTRAINT [FK_UserExpirienceProfessionalBranch_UserExperience1]
+ALTER TABLE [dbo].[UserExpirienceProfessionalBranch] CHECK CONSTRAINT [FK_UserExpirienceProfessionalBranch_UserExperience]
 GO
 ALTER TABLE [dbo].[UserPassword]  WITH CHECK ADD  CONSTRAINT [FK_UserPassworld_User] FOREIGN KEY([UserId])
 REFERENCES [dbo].[User] ([Id])

@@ -62,14 +62,12 @@
         </div>
 
         <p>{{ post.freeTxt }}</p>
+        <p>{{ post.PostReactions}}</p>
 
+    
         <div class="post-actions">
-          <img
-            src="../../../assets/icons/thumbs-up-solid.svg"
-            alt="Like"
-            class="icon-button like-icon"
-            (click)="onLike(post.id)"
-          />
+          <img src="../../../assets/icons/thumbs-up-solid.svg" alt="Like" (click)="onLike(post.id)" class="icon-button like-icon" />
+          <p>{{ post.PostReactions}}</p>
         </div>
 
         <div class="comments-section">

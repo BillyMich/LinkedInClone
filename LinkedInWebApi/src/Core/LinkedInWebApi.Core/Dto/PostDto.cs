@@ -8,6 +8,7 @@
         public string FreeTxt { get; set; }
         public bool IsActive { get; set; }
         public int Status { get; set; }
+        public int PostReactions { get; set; }
         public List<CommentDto> Comments { get; set; }
         public FileDto FileDto { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
