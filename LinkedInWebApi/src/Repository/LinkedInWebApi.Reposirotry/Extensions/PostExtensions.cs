@@ -46,7 +46,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 Status = post.Status,
                 CreatedAt = post.CreatedAt,
                 UpdatedAt = post.UpdatedAt,
-                Comments = post.PostComments.ToList().ToCommentDto(),
+                Comments = post.PostComments?.ToList()?.ToCommentDto(),
                 FileDto = post.PostMultimedia.FirstOrDefault()?.ToPostPhotoDto(),
                 PostReactions = post.PostReactions.Count(),
             };
@@ -57,9 +57,9 @@ namespace LinkedInWebApi.Reposirotry.Extensions
             return posts.Select(x => x.ToPostDto()).ToList();
         }
 
-        public static List<CommentDto> ToCommentDto(this List<PostComment> comments)
+        public static List<CommentDto> ToCommentDto(this List<PostComment>? comments)
         {
-            return comments.Select(x => x.ToCommentDto()).ToList();
+            return comments?.Select(x => x.ToCommentDto()).ToList();
         }
 
         public static CommentDto ToCommentDto(this PostComment comment)
