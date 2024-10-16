@@ -26,9 +26,9 @@ namespace LinkedInWebApi.Application.Handlers.UserHandler
         }
 
 
-        public Task<IActionResult> GetUsersToJson(List<int>? ids, ClaimsIdentity claimsIdentity)
+        public async Task<IActionResult> GetUsersToJson(List<int>? ids, ClaimsIdentity claimsIdentity)
         {
-            throw new NotImplementedException();
+            return await _userService.GetUsersToJson(ids);
         }
 
         public async Task<IActionResult> GetUsersToXMLAsync(List<int>? ids, ClaimsIdentity claimsIdentity)

@@ -44,7 +44,7 @@ export class UserService {
   createContactRequest(contactRequest: NewContactRequestDto): Observable<any> {
     const headers = this.getHeaders();
     return this.http.post<any>(
-      `${this.apiUrl}/user/CreateContactRequest`,
+      `${this.apiUrl}/CreateContactRequest`,
       contactRequest,
       { headers }
     );
@@ -53,7 +53,7 @@ export class UserService {
   changeRequestStatus(requestId: string, status: string): Observable<any> {
     const headers = this.getHeaders();
     return this.http.post<any>(
-      `${this.apiUrl}/user/ChangeStatusOfRequest`,
+      `${this.apiUrl}/ChangeStatusOfRequest`,
       {
         requestId,
         status,
@@ -79,8 +79,8 @@ export class UserService {
     const params = ids.map((id) => `ids=${id}`).join('&');
     const url =
       format === 'xml'
-        ? `${this.apiUrl}/user/getUsersXML?${params}`
-        : `${this.apiUrl}/user/getUsersJson?${params}`;
+        ? `${this.apiUrl}/admin/getUsersToXML?${params}`
+        : `${this.apiUrl}/admin/getUsersToJson?${params}`;
 
     return this.http.get(url, {
       headers,
@@ -103,8 +103,11 @@ export class UserService {
 
   updateUserExperience(experienceData: CreateUserExperience): Observable<any> {
     const headers = this.getHeaders();
-    return this.http
-      .post(`${this.apiUrl}/user/updateUserExperience`, experienceData, { headers })
+    return this.http.post(
+      `${this.apiUrl}/user/updateUserExperience`,
+      experienceData,
+      { headers }
+    );
   }
 
   updateUserEducation(educationData: CreateUserEducationDto): Observable<any> {

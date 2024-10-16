@@ -75,6 +75,11 @@ namespace LinkedInWebApi.Application.Services.UserService
             };
         }
 
+        public Task<IActionResult> GetUserToJson(List<int>? ids)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task RemoveUserEducationAsync(int userEducationId, ClaimsIdentity identity)
         {
             var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(identity);
