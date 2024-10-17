@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LinkedInWebApi.Reposirotry.Commands
 {
-    public class AdvertisementReadCommands : IAdvertisemenReadCommands
+    public class AdvertisementReadCommands : IAdvertisementReadCommands
     {
 
         private readonly LinkedInDbContext _linkedInDbContext;
@@ -44,7 +44,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
             return advertisement.ToAdvertisementDto();
         }
 
-        public async Task<List<AdvertisementDto>> GetAdvertisments()
+        public async Task<List<AdvertisementDto>?> GetAdvertisments()
         {
             var advertisement = await _linkedInDbContext.Advertisements
                 .Include(u => u.AdvertismentProfessionalBranches)
@@ -62,7 +62,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
             return advertisement.ToAdvertisementDtos();
         }
 
-        public async Task<List<AdvertisementDto>> GetAdvertismentsByCreator(int creatorId)
+        public async Task<List<AdvertisementDto>?> GetAdvertismentsByCreator(int creatorId)
         {
             var advertisement = await _linkedInDbContext.Advertisements
                 .Include(u => u.AdvertismentProfessionalBranches)
@@ -80,7 +80,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
             return advertisement.ToAdvertisementDtos();
         }
 
-        public async Task<List<AdvertisementDto>> GetAdvertismentsByProfessionalBranches(List<int> professionalBranches)
+        public async Task<List<AdvertisementDto>?> GetAdvertismentsByProfessionalBranches(List<int> professionalBranches)
         {
             var advertisement = await _linkedInDbContext.Advertisements
                 .Include(u => u.AdvertismentProfessionalBranches)
@@ -97,7 +97,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
             return advertisement.ToAdvertisementDtos();
         }
 
-        public async Task<List<AdvertisementDto>> GetAdvertismentsByStatus(byte status)
+        public async Task<List<AdvertisementDto>?> GetAdvertisementsByStatus(byte status)
         {
             var advertisement = await _linkedInDbContext.Advertisements
                 .Include(u => u.AdvertismentProfessionalBranches)
@@ -115,14 +115,14 @@ namespace LinkedInWebApi.Reposirotry.Commands
             return advertisement.ToAdvertisementDtos();
         }
 
-        public async Task<List<AdvertisementDto>> GetMyAdvertisments(int curentUserId)
+        public async Task<List<AdvertisementDto>?> GetMyAdvertisements(int currentUserId)
         {
             var advertisement = await _linkedInDbContext.Advertisements
                 .Include(u => u.AdvertismentProfessionalBranches)
                 .Include(u => u.AdvertisementJobTypes)
                 .Include(u => u.AdvertismentWorkingLocations)
                 .Where(x => x.IsActive)
-                .Where(x => x.CreatorId == curentUserId)
+                .Where(x => x.CreatorId == currentUserId)
                 .ToListAsync();
 
             if (advertisement == null)
@@ -132,6 +132,18 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
             return advertisement.ToAdvertisementDtos();
 
+        }
+
+        public async Task<List<ApplicationNotificationDto>?> GetMyAdvertismentApplicantsAsync(int userId)
+        {
+            var advertisement = await _linkedInDbContext.Advertisements
+                .Include(u => u.AdvertisementApplies)
+                .ThenInclude(u => u.User)
+                .ThenInclude(u => u.Advertisements)
+                .Where(x => x.CreatorId == userId)
+                .ToListAsync();
+
+            return advertisement.ToApplicationNotificationDtos();
         }
     }
 }

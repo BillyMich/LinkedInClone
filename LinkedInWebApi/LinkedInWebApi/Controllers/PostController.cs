@@ -15,10 +15,10 @@ namespace LinkedInWebApi.Controllers
         private readonly IPostHandler _postHandler;
         private readonly ClaimsIdentity _identity;
 
-        public PostController(IPostHandler postHandler, IHttpContextAccessor httpContextAccessor)
+        public PostController(IPostHandler postHandler, IHttpContextAccessor httpContextAccessors)
         {
             _postHandler = postHandler;
-            _identity = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
+            _identity = httpContextAccessors.HttpContext.User.Identity as ClaimsIdentity;
         }
 
         [HttpPost("CreatePost")]
@@ -98,7 +98,6 @@ namespace LinkedInWebApi.Controllers
 
         [HttpPost("CreatePostComment")]
         [Authorize]
-
         public async Task<ActionResult<bool>> CreatePostComment([FromBody] CreatePostCommentDto createPostCommentDto)
         {
             try
@@ -189,7 +188,7 @@ namespace LinkedInWebApi.Controllers
         {
             try
             {
-                return Ok(await _postHandler.LikePost(likePostDto, _identity));
+                return Ok(await _postHandler.LikePostAsync(likePostDto, _identity));
             }
             catch (Exception)
             {

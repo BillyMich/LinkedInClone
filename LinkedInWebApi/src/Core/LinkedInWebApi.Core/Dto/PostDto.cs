@@ -11,6 +11,7 @@
         public int PostReactions { get; set; }
         public List<CommentDto> Comments { get; set; }
         public FileDto FileDto { get; set; }
+        public int Points { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset UpdatedAt { get; set; }
     }

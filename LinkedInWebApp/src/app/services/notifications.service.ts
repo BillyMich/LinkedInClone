@@ -45,14 +45,17 @@ export class NotificationsService {
 
   getInterestNotes(): Observable<any[]> {
     const headers = this.getHeaders();
-    return this.http.get<any[]>(`${this.apiUrl}/notifications/interest-notes`, {
-      headers,
-    });
+    return this.http.get<any[]>(
+      `${this.apiUrl}/GetApplyApplicantsNotification`,
+      {
+        headers,
+      }
+    );
   }
 
   getComments(): Observable<any[]> {
     const headers = this.getHeaders();
-    return this.http.get<any[]>(`${this.apiUrl}/notifications/comments`, {
+    return this.http.get<any[]>(`${this.apiUrl}/post/GetNotificationInPost`, {
       headers,
     });
   }

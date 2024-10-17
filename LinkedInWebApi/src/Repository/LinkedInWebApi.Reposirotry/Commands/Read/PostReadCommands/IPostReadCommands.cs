@@ -4,7 +4,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
 {
     public interface IPostReadCommands
     {
-        Task<List<PostDto>> GetPostByUserAsync(int userId);
+        Task<PostNotificationDto> GetPostNotificationByUserAsync(int curentUserId);
         Task<FileDto> GetPostMultimedia(int id);
         Task<List<PostDto>> GetPosts();
 

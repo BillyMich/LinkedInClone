@@ -48,9 +48,7 @@ namespace LinkedInWebApi.Application.Services
         public async Task<PostNotificationDto> GetNotificationInPost(ClaimsIdentity identity)
         {
             var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(identity);
-            var postDtos = await _postReadCommands.GetPostByUserAsync(curentUserId);
-
-            return PostDtosToNotifications(postDtos);
+            return await _postReadCommands.GetPostNotificationByUserAsync(curentUserId);
 
         }
 
@@ -66,7 +64,7 @@ namespace LinkedInWebApi.Application.Services
 
         public async Task<List<PostDto>> GetPosts(ClaimsIdentity claimsIdentity)
         {
-            return await _postReadCommands.GetPosts();
+            return OrderPostAlgorithm(await _postReadCommands.GetPosts());
         }
 
         public Task<bool> UpdatePost(PostDto postDto, ClaimsIdentity claimsIdentity)
@@ -81,48 +79,43 @@ namespace LinkedInWebApi.Application.Services
 
         #region Private
 
-        private PostNotificationDto PostDtosToNotifications(List<PostDto> postDtos)
+
+
+
+        public async Task<bool> LikePostAsync(LikePostDto likePostDto, ClaimsIdentity identity)
         {
-            PostNotificationDto postNotificationDtos = new();
-
-            postDtos.ForEach(x =>
-            {
-                postNotificationDtos.CommentNotifications.AddRange(commentNotificationDto(x));
-                postNotificationDtos.ReactionsNotifications.Add(postReactionDto(x));
-
-            });
-            return postNotificationDtos;
+            return await _postInsertCommands.LikePostAsync(likePostDto, ClaimsIdentityaHelper.GetUserIdAsync(identity));
         }
 
-        private List<CommentNotificationDto> commentNotificationDto(PostDto postDto)
+        private List<PostDto> OrderPostAlgorithm(List<PostDto> posts)
         {
-            List<CommentNotificationDto> commentNotificationDto = new();
 
-            postDto.Comments.ForEach(x =>
+            foreach (var post in posts)
             {
-                commentNotificationDto.Add(new CommentNotificationDto
-                {
-                    PostId = postDto.Id,
-                    UsertId = x.CreatorId,
-                    CommentTxt = x.FreeTxt
-                });
-            });
+                post.Points = CaculatePostValue(post);
+            }
 
-            return commentNotificationDto;
+            return posts.OrderByDescending(x => x.Points).ToList();
         }
 
-        private PostReactionDto postReactionDto(PostDto postDto)
+        private int CaculatePostValue(PostDto postDictionary)
         {
-            return new PostReactionDto
-            {
-                PostId = postDto.Id,
-                ReactionsSum = postDto.PostReactions
-            };
+            int points = pointsFromComments(postDictionary);
+
+            points += pointsFromReactions(postDictionary);
+
+            return points;
         }
 
-        public async Task<bool> LikePost(LikePostDto likePostDto, ClaimsIdentity identity)
+        private int pointsFromReactions(PostDto postDictionary)
         {
-            return await _postInsertCommands.LikePost(likePostDto, ClaimsIdentityaHelper.GetUserIdAsync(identity));
+            return postDictionary.PostReactions;
+        }
+
+
+        private int pointsFromComments(PostDto postDictionary)
+        {
+            return postDictionary.Comments.Count;
         }
 
 

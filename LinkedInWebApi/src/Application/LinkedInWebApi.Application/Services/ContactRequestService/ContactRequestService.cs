@@ -39,8 +39,7 @@ namespace LinkedInWebApi.Application.Services
         /// <returns>A task representing the asynchronous operation.</returns>
         public async Task<bool> ChangeStatusOfRequest(ContactRequestChangeStatusDto contactRequestChangeStatusDto, ClaimsIdentity claimsIdentity)
         {
-            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
-            var result = await _contactRequestUpdateCommands.ChangeStatusOfRequest(contactRequestChangeStatusDto, curentUserId);
+            var result = await _contactRequestUpdateCommands.ChangeStatusOfRequest(contactRequestChangeStatusDto, ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity));
 
             if (!result)
             {
@@ -60,7 +59,7 @@ namespace LinkedInWebApi.Application.Services
         {
             var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
 
-            var checkIfExistAlready = await _contactRequestReadCommands.CheckIfExistAlreadyAsync(contactRequestDto, curentUserId);
+            var checkIfExistAlready = await _contactRequestReadCommands.CheckIfExistAlreadyAsync(contactRequestDto, ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity));
 
             if (checkIfExistAlready)
             {
@@ -81,7 +80,7 @@ namespace LinkedInWebApi.Application.Services
         {
             var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
 
-            var connectionRequestOfUser = await _contactRequestReadCommands.GetPendingConnectContactsAsync(curentUserId);
+            var connectionRequestOfUser = await _contactRequestReadCommands.GetPendingConnectContactsAsync(ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity));
 
             return FilterContanctRequest(connectionRequestOfUser, curentUserId);
         }
@@ -93,9 +92,7 @@ namespace LinkedInWebApi.Application.Services
         /// <returns>A task representing the asynchronous operation.</returns>
         public async Task<List<UserDto>> GetConnectedUsersAsync(ClaimsIdentity claimsIdentity)
         {
-            var curentUserId = ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity);
-
-            return await _contactRequestReadCommands.GetConnectedUsersAsync(curentUserId);
+            return await _contactRequestReadCommands.GetConnectedUsersAsync(ClaimsIdentityaHelper.GetUserIdAsync(claimsIdentity));
         }
 
         /// <summary>

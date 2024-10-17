@@ -14,10 +14,10 @@ namespace LinkedInWebApi.Controllers
         private readonly ClaimsIdentity _identity;
 
 
-        public UserController(IUserHandler userHandler, IHttpContextAccessor httpContextAccessor)
+        public UserController(IUserHandler userHandler, IHttpContextAccessor httpContextAccessors)
         {
             _userHandler = userHandler;
-            _identity = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
+            _identity = httpContextAccessors.HttpContext.User.Identity as ClaimsIdentity;
         }
 
         [HttpGet("getUser/{id}")]
@@ -203,6 +203,5 @@ namespace LinkedInWebApi.Controllers
                 return BadRequest();
             }
         }
-
     }
 }

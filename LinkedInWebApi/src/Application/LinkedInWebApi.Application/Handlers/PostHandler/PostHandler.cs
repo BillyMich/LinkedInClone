@@ -55,9 +55,9 @@ namespace LinkedInWebApi.Application.Handlers
             return _postService.GetPosts(claimsIdentity);
         }
 
-        public Task<bool> LikePost(LikePostDto likePostDto, ClaimsIdentity identity)
+        public Task<bool> LikePostAsync(LikePostDto likePostDto, ClaimsIdentity identity)
         {
-            return _postService.LikePost(likePostDto, identity);
+            return _postService.LikePostAsync(likePostDto, identity);
         }
 
         public Task<bool> UpdatePost(PostDto postDto, ClaimsIdentity claimsIdentity)

@@ -1,4 +1,5 @@
 ﻿using LinkedInWebApi.Core;
+using LinkiedInWebApi.Domain.Entity;
 
 namespace LinkedInWebApi.Reposirotry.Commands
 {
@@ -12,9 +13,9 @@ namespace LinkedInWebApi.Reposirotry.Commands
 
         Task<List<UserDto>> GetUsersAsync(List<int>? ints);
 
-        Task<string> GetUsersToJsonAsync();
+        Task<List<User>> GetUserAllEntityAsync(List<int>? ints);
 
-        Task<string> GetUsersToXMLAsync();
+        Task<string> GetUsersToJsonAsync();
 
         Task<FileDto> GetProfilePictureFromId(int id);
 

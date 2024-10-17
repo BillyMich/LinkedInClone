@@ -57,7 +57,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
             return posts.Select(x => x.ToPostDto()).ToList();
         }
 
-        public static List<CommentDto> ToCommentDto(this List<PostComment>? comments)
+        public static List<CommentDto>? ToCommentDto(this List<PostComment>? comments)
         {
             return comments?.Select(x => x.ToCommentDto()).ToList();
         }
@@ -107,6 +107,30 @@ namespace LinkedInWebApi.Reposirotry.Extensions
                 IsActive = true,
                 CreatedAt = DateTimeOffset.Now,
                 UpdatedAt = DateTimeOffset.Now
+            };
+        }
+
+        public static PostNotificationDto ToNotifications(this List<Post> posts)
+        {
+            return new PostNotificationDto
+            {
+                CommentNotifications = posts.SelectMany(x => x.PostComments.Select(y => new CommentNotificationDto
+                {
+                    PostId = x.Id,
+                    UserId = y.CreatorId,
+                    UserName = y.Creator.Name,
+                    CommentTxt = y.FreeTxt,
+                    CreatedAt = y.CreatedAt
+
+                })).OrderBy(x => x.CreatedAt).ToList(),
+
+                ReactionsNotifications = posts.SelectMany(x => x.PostReactions.Select(y => new PostReactionDto
+                {
+                    PostId = x.Id,
+                    UserId = y.UserId,
+                    UserName = y.User.Name,
+                    CreatedAt = y.CreatedAt
+                })).OrderBy(x => x.CreatedAt).ToList()
             };
         }
 

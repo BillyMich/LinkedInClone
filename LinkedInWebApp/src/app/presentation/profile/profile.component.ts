@@ -255,36 +255,27 @@ export class ProfileComponent implements OnInit {
     this.showEducationModal = false;
   }
 
-  onSubmitExperience() {
-    if (this.experienceForm.valid) {
-      const formValues = this.experienceForm.value;
-      const experienceData: CreateUserExperience = {
-        Title: formValues.Title,
-        FreeTxt: formValues.FreeTxt,
-        IsPublic: formValues.IsPublic,
-        StartedAt: this.formatDateOnly(new Date(formValues.StartedAt)),
-      };
+  onSubmitExperience(): void {
+    const formValues = this.experienceForm.value;
+    const experienceData: CreateUserExperience = {
+      Title: formValues.title,
+      FreeTxt: formValues.freeTxt,
+      IsPublic: formValues.isPublic,
+      StartedAt: this.formatDateOnly(new Date(formValues.startedAt)),
+      EndedAt: formValues.endedAt
+        ? this.formatDateOnly(new Date(formValues.endedAt))
+        : undefined,
+    };
 
-      if (formValues.EndedAt) {
-        experienceData.EndedAt = this.formatDateOnly(
-          new Date(formValues.EndedAt)
-        );
-      }
-
-      console.log('Submitting Experience Data:', experienceData);
-
-      this.userService.updateUserExperience(experienceData).subscribe({
-        next: () => {
-          this.loadExistingDetails();
-          this.closeModal();
-        },
-        error: (error) => {
-          console.error('Error updating experience:', error);
-        },
-      });
-    } else {
-      console.log('Experience form is invalid');
-    }
+    // Call your service to submit the data
+    this.userService.updateUserExperience(experienceData).subscribe({
+      next: (response) => {
+        console.log('Experience created successfully', response);
+      },
+      error: (error) => {
+        console.error('Error creating experience', error);
+      },
+    });
   }
 
   private formatDateOnly(date: Date): string {
