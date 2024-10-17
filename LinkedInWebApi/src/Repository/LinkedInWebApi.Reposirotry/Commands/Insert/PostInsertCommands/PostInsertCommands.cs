@@ -48,7 +48,7 @@ namespace LinkedInWebApi.Reposirotry.Commands
             }
         }
 
-        public async Task<bool> LikePost(LikePostDto likePostDto, int v)
+        public async Task<bool> LikePostAsync(LikePostDto likePostDto, int v)
         {
             try
             {

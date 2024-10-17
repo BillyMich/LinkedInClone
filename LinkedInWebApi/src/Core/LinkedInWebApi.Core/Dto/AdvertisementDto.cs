@@ -54,5 +54,7 @@
         /// Gets or sets the last update date and time of the advertisement.
         /// </summary>
         public DateTime UpdatedAt { get; set; }
+
+        public int TimesViewed { get; set; }
     }
 }

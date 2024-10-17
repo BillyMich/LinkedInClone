@@ -188,7 +188,7 @@ namespace LinkedInWebApi.Controllers
         {
             try
             {
-                return Ok(await _postHandler.LikePost(likePostDto, _identity));
+                return Ok(await _postHandler.LikePostAsync(likePostDto, _identity));
             }
             catch (Exception)
             {
