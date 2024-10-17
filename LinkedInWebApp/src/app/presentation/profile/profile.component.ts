@@ -6,6 +6,7 @@ import { SettingsService } from '../../services/settings.service';
 import { GlobalConstantsService } from '../../services/global-constants.service';
 import { CreateUserExperience } from '../../models/experience.model';
 import { CreateUserEducationDto } from '../../models/education.model';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -30,7 +31,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private settingsService: SettingsService,
-    private globalConstantsService: GlobalConstantsService
+    private globalConstantsService: GlobalConstantsService,
   ) {}
 
   ngOnInit() {
@@ -308,4 +309,17 @@ export class ProfileComponent implements OnInit {
   onImageError(event: any) {
     event.target.src = '../../../assets/user-profile-picture.jpg';
   }
+
+  formatDuration(startDateStr: string, endDateStr?: string): string {
+    const startDate = new Date(startDateStr);
+    const endDate = endDateStr ? new Date(endDateStr) : new Date();
+  
+    const startMonthYear = formatDate(startDate, 'LLLL yyyy', 'el');
+    const endMonthYear = endDateStr
+      ? formatDate(endDate, 'LLLL yyyy', 'el')
+      : 'Σήμερα';
+  
+    return `${startMonthYear} - ${endMonthYear}`;
+  }
+  
 }
