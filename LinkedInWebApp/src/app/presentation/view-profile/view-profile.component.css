@@ -1,62 +1,179 @@
+/* view-profile.component.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  background-color: #fdfdf2;
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  padding-top: 120px;
+}
+
 .view-profile-container {
-    background-color: #fdfdf2;
+  background-color: #fdfdf2;
+  padding: 60px;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.section-box {
+  background-color: #fff;
+  padding: 30px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #71007b;
+}
+
+.section-box:last-child {
+  margin-bottom: 0;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.profile-picture-container {
+  margin-right: 20px;
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-details {
+  color: #333333;
+}
+
+.user-name {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.user-job {
+  font-size: 18px;
+  color: #0073b1;
+  margin-bottom: 5px;
+}
+
+.user-company,
+.user-university {
+  font-size: 16px;
+  color: #666666;
+  margin-bottom: 5px;
+}
+
+.contact-info h2 {
+  font-size: 21px;
+  margin-bottom: 10px;
+  color: #0073b1;
+}
+
+.contact-info p {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.action-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.primary-button,
+.secondary-button {
+  padding: 12px 24px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  transition: background-color 0.3s ease;
+  color: #ffffff;
+}
+
+.primary-button {
+  background-color: #51008f;
+}
+
+.secondary-button {
+  background-color: #0073b1;
+}
+
+.primary-button:hover {
+  background-color: #3d006b;
+}
+
+.secondary-button:hover {
+  background-color: #005b8c;
+}
+
+.experience-section h2,
+.education-section h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #0073b1;
+}
+
+.experience-item,
+.education-item {
+  margin-bottom: 20px;
+}
+
+.experience-title,
+.education-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.experience-description,
+.education-description {
+  font-size: 16px;
+  color: #333333;
+  margin-bottom: 8px;
+}
+
+.experience-duration,
+.education-duration {
+  font-size: 14px;
+  color: #666666;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+  .view-profile-container {
     padding: 30px;
-    padding-top: 120px;
-    max-width: 800px;
-    margin: 0 auto;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }
-  
+
   .profile-header {
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
   }
-  
-  .profile-picture-container {
-    margin-right: 20px;
-  }
-  
+
   .profile-picture {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
+    width: 120px;
+    height: 120px;
   }
-  
-  .profile-details {
-    flex-grow: 1;
-  }
-  
-  .profile-details h1 {
-    font-size: 24px;
-    margin: 0;
-    color: #333;
-  }
-  
-  .contact-info {
-    margin-top: 20px;
-  }
-  
+
   .action-buttons {
-    margin-top: 20px;
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .primary-button, .secondary-button {
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+
+  .action-buttons button {
+    margin-bottom: 10px;
+    width: 100%;
   }
-  
-  .primary-button {
-    background-color: #f0f0f0;
-    color: #333;
-  }
-  
-  .secondary-button {
-    background-color: #f0f0f0;
-    color: #333;
-  }
-  
+}

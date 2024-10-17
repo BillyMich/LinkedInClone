@@ -1,4 +1,7 @@
+<!-- view-profile.component.html -->
 <div class="view-profile-container content" *ngIf="user">
+  <!-- Profile Header -->
+  <div class="section-box">
     <div class="profile-header">
       <div class="profile-picture-container">
         <img
@@ -9,22 +12,44 @@
         />
       </div>
       <div class="profile-details">
-        <h1>{{ user.name }} {{ user.surname }}</h1>
+        <h1 class="user-name">{{ user.name }} {{ user.surname }}</h1>
         <p class="user-job">{{ user.jobTitle }}</p>
         <p class="user-company">{{ user.company }}</p>
         <p class="user-university">{{ user.university }}</p>
       </div>
     </div>
-  
-    <div class="contact-info">
-      <h2>Πληροφορίες επαγγελματία</h2>
-      <p>Email: {{ user.email }}</p>
-      <p>Τηλέφωνο: {{ user.phone }}</p>
+  </div>
+
+  <!-- Contact Info -->
+  <div class="contact-info section-box">
+    <h2>Πληροφορίες επαγγελματία</h2>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Τηλέφωνο:</strong> {{ user.phone }}</p>
+  </div>
+
+  <!-- Experience Section -->
+  <div class="experience-section section-box" *ngIf="experience.length > 0">
+    <h2>Εργασιακή Εμπειρία</h2>
+    <div *ngFor="let exp of experience" class="experience-item">
+      <p class="experience-title"><strong>{{ exp.title }}</strong></p>
+      <p class="experience-description">{{ exp.freeTxt }}</p>
+      <p class="experience-duration">{{ formatDuration(exp.startedAt, exp.endedAt) }}</p>
     </div>
-  
-    <div class="action-buttons">
-      <button class="primary-button" (click)="startPrivateChat(user.id)">Έναρξη συζήτησης</button>
-      <button class="secondary-button" (click)="sendFriendRequest(user.id)">Προσθήκη φίλου</button>
+  </div>
+
+  <!-- Education Section -->
+  <div class="education-section section-box" *ngIf="education.length > 0">
+    <h2>Εκπαίδευση</h2>
+    <div *ngFor="let edu of education" class="education-item">
+      <p class="education-title"><strong>{{ edu.degreeTitle }}</strong></p>
+      <p class="education-description">{{ edu.description }}</p>
+      <p class="education-duration">{{ formatDuration(edu.startDate, edu.endDate) }}</p>
     </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <button class="primary-button" (click)="startPrivateChat(user.id)">Έναρξη συζήτησης</button>
+    <button class="secondary-button" (click)="sendFriendRequest(user.id)">Προσθήκη φίλου</button>
+  </div>
 </div>
-  

@@ -1,7 +1,12 @@
 export interface CreateUserExperience {
-  Title: string;
-  FreeTxt: string;
-  IsPublic: boolean;
-  StartedAt: string;
-  EndedAt?: string;
+  id?: number;
+  userId?: number;
+  title: string;
+  freeTxt: string;
+  isPublic: boolean;
+  isActive?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  startedAt: string;
+  endedAt?: string;
 }

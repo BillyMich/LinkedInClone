@@ -159,4 +159,60 @@ app-sidebar {
   .secondary-button:hover {
     background-color: hsl(14, 99%, 58%);
   }
-  
+
+  .section-box {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+/* Advertisement Details Box */
+.advertisement-details-box h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.advertisement-details-box p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.applicants-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.applicants-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.applicants-section li {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 15px 0;
+}
+
+.applicants-section li:last-child {
+  border-bottom: none;
+}
+
+.applicants-section p {
+  margin: 5px 0;
+}
+
+.applicants-section .primary-button,
+.applicants-section .secondary-button {
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.primary-button {
+  margin-top: 10px;
+}
+
+.secondary-button {
+  margin-top: 10px;
+}
