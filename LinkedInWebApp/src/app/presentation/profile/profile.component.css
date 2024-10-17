@@ -1,8 +1,11 @@
-/* Add custom font */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 body {
   font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  background-color: #fdfdf2;
+  margin: 0;
+  padding: 0;
 }
 
 .content {
@@ -14,8 +17,29 @@ body {
   padding: 60px;
   max-width: 800px;
   margin: 0 auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+  border-radius: 10px; 
 }
 
+
+.section-box {
+  background-color: #fff; 
+  padding: 30px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
+  border: 1px solid #71007b; 
+}
+.section-box .actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+
+.section-box:last-child {
+  margin-bottom: 0;
+}
 .profile-header {
   display: flex;
   align-items: center;
@@ -56,9 +80,19 @@ body {
   margin-bottom: 20px;
 }
 
+.contact-info {
+
+  background-color: #fff;
+  padding: 30px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
 .contact-info h2 {
-  font-size: 22px;
+  font-size: 21px;
   margin-bottom: 10px;
+  color: #0073b1;
 }
 
 .contact-info p {
@@ -88,9 +122,9 @@ body {
 
 .modal {
   background-color: #ffffff;
-  padding: 20px; 
+  padding: 20px;
   border-radius: 12px;
-  width: 50%; 
+  width: 50%;
   max-width: 600px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   position: fixed;
@@ -98,6 +132,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: left;
+  z-index: 1000; 
 }
 
 .modal label {
@@ -105,7 +140,7 @@ body {
   margin-bottom: 5px;
   font-weight: bold;
   font-size: 14px;
-  color: #333; 
+  color: #333;
 }
 
 .modal input,
@@ -126,11 +161,11 @@ body {
   color: #ffffff;
   border-radius: 8px;
   padding: 12px 20px;
-  font-size: 14px; 
-  width: auto; 
+  font-size: 14px;
+  width: auto;
   display: inline-block;
-  margin-right: 10px; 
-  border:none;
+  margin-right: 10px;
+  border: none;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -146,46 +181,26 @@ body {
   background-color: #6302ad;
 }
 
-.actions {
-  display: flex;
-  justify-content: flex-start; 
-  margin-top: 20px;
-}
-
 .modal h2 {
-  color: #0073b1; 
-  font-size: 24px; 
+  color: #0073b1;
+  font-size: 24px;
   margin-bottom: 20px;
-  text-align: center; 
-}
-
-.actions button {
-  margin-right: 10px;
-}
-
-@media (max-width: 768px) {
-  .modal {
-    width: 90%; 
-  }
-
-  .actions {
-    flex-direction: column; 
-    margin-top: 10px;
-  }
-
-  .actions button {
-    margin-bottom: 10px;
-  }
+  text-align: center;
 }
 
 .experience-section,
 .education-section {
+
+  background-color: #fff;
+  padding: 30px;
   margin-bottom: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .experience-section h2,
 .education-section h2 {
-  font-size: 22px;
+  font-size: 20px;
   margin-bottom: 15px;
   color: #0073b1;
 }
@@ -221,7 +236,94 @@ body {
     height: 120px;
   }
 
+  .actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .actions button {
     margin-bottom: 10px;
+    width: 100%;
   }
+
+  .modal {
+    width: 90%;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 999; 
+}
+
+
+button {
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.modal label {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.modal input,
+.modal select,
+.modal textarea {
+  font-size: 16px;
+}
+
+.modal textarea {
+  resize: vertical;
+}
+
+
+.modal .close-button {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal .close-button:hover {
+  color: #0073b1;
+}
+
+.experience-title,
+.education-title {
+  font-size: 18px; 
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+
+.experience-duration,
+.education-duration {
+  font-size: 14px;
+  color: #666666;  
+  margin-bottom: 15px;
+}
+
+
+.experience-item p,
+.education-item p {
+  margin: 0;
 }

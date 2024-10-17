@@ -1,5 +1,5 @@
 // src/app/app.module.ts
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +30,10 @@ import { AdvertisementComponent } from './presentation/jobs/advertisement.compon
 import { MyAdvertisementsComponent } from './presentation/jobs/modules/my-advertisements/my-advertisements.component';
 import { JobListingsComponent } from './presentation/jobs/modules/job-listings/job-listings.component';
 import { ViewProfileComponent } from './presentation/view-profile/view-profile.component';
+import { registerLocaleData } from '@angular/common';
+import localeEl from '@angular/common/locales/el';
+
+registerLocaleData(localeEl);
 
 @NgModule({
   declarations: [
@@ -67,7 +71,9 @@ import { ViewProfileComponent } from './presentation/view-profile/view-profile.c
     MatButtonModule,
     RouterModule,
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'el' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

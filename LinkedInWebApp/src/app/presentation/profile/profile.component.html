@@ -1,68 +1,92 @@
 <div class="profile-container content" *ngIf="user && profileForm">
-  <div class="profile-header">
-    <div class="profile-picture-container">
-      <img
-        [src]="profilePictureUrl || '../../../assets/user-profile-picture.jpg'"
-        alt="Profile Picture"
-        class="profile-picture"
-        (click)="triggerFileInput()"
-        (error)="onImageError($event)"
-      />
-      <input
-        type="file"
-        id="file-input"
-        (change)="onFileChange($event)"
-        hidden
-      />
-    </div>
+  <!-- Profile Header -->
+  <div class="section-box">
+    <div class="profile-header">
+      <div class="profile-picture-container">
+        <img
+          [src]="profilePictureUrl || '../../../assets/user-profile-picture.jpg'"
+          alt="Profile Picture"
+          class="profile-picture"
+          (click)="triggerFileInput()"
+          (error)="onImageError($event)"
+        />
+        <input
+          type="file"
+          id="file-input"
+          (change)="onFileChange($event)"
+          hidden
+        />
+      </div>
 
-    <div>
-      <h1 class="user-name">{{ user.name }} {{ user.surname }}</h1>
-      <p class="user-title">{{ user.jobTitle }}</p>
-      <p class="user-education">{{ user.university }}</p>
+      <div>
+        <h1 class="user-name">{{ user.name }} {{ user.surname }}</h1>
+        <p class="user-title">{{ user.jobTitle }}</p>
+        <p class="user-education">{{ user.university }}</p>
+      </div>
     </div>
   </div>
 
-  <div class="contact-info">
+  <!-- Contact Info -->
+  <div class="contact-info section-box">
     <h2>Πληροφορίες επαγγελματία</h2>
     <p><strong>Email:</strong> {{ user.email }}</p>
     <p><strong>Τηλέφωνο:</strong> {{ user.phone }}</p>
   </div>
 
-  <div class="actions">
-    <button (click)="openExperienceModal()">
-      Προσθήκη εργασιακής εμπειρίας
-    </button>
-    <button (click)="openEducationModal()">Προσθήκη πτυχίων</button>
-  </div>
-
-  <div class="experience-section" *ngIf="experience.length > 0">
+  <!-- Experience Section -->
+  <div class="experience-section section-box" *ngIf="experience.length > 0">
     <h2>Εργασιακή Εμπειρία</h2>
     <div *ngFor="let exp of experience.controls" class="experience-item">
-      <p><strong>Τίτλος:</strong> {{ exp.value.title }}</p>
-      <p><strong>Περιγραφή:</strong> {{ exp.value.freeTxt }}</p>
-      <p><strong>Δημόσιο:</strong> {{ exp.value.isPublic ? 'Ναι' : 'Όχι' }}</p>
-      <p>
-        <strong>Διάρκεια:</strong>
-        {{ exp.value.startedAt }} -
-        {{ exp.value.endedAt ? exp.value.endedAt : 'Σήμερα' }}
-      </p>
+      <p class="experience-title"><strong>{{ exp.value.title }}</strong></p>
+      <p class="experience-description">{{ exp.value.freeTxt }}</p>
+      <p class="experience-duration">{{ formatDuration(exp.value.startedAt, exp.value.endedAt) }}</p>
+    </div>
+    <!-- Add Work Experience Button Below the Section -->
+    <div class="actions">
+      <button (click)="openExperienceModal()">Προσθήκη εργασιακής εμπειρίας</button>
     </div>
   </div>
 
-  <div class="education-section" *ngIf="education.length > 0">
+
+
+    <!-- Education Section -->
+    <div class="education-section section-box" *ngIf="education.length > 0">
+      <h2>Εκπαίδευση</h2>
+      <div *ngFor="let edu of education.controls" class="education-item">
+        <p class="education-title"><strong>{{ edu.value.degreeTitle }}</strong></p>
+        <p class="education-description">{{ edu.value.description }}</p>
+        <p class="education-duration">{{ formatDuration(edu.value.startDate, edu.value.endDate) }}</p>
+      </div>
+      <!-- Add Education Button Below the Section -->
+      <div class="actions">
+        <button (click)="openEducationModal()">Προσθήκη πτυχίων</button>
+      </div>
+    </div>
+
+
+
+  <!-- If there are no experiences, display the button alone -->
+  <div *ngIf="experience.length === 0" class="experience-section section-box">
+    <h2>Εργασιακή Εμπειρία</h2>
+    <p>Δεν έχετε προσθέσει εργασιακή εμπειρία.</p>
+    <div class="actions">
+      <button (click)="openExperienceModal()">Προσθήκη εργασιακής εμπειρίας</button>
+    </div>
+  </div>
+
+  <!-- If there are no educations, display the button alone -->
+  <div *ngIf="education.length === 0" class="education-section section-box">
     <h2>Εκπαίδευση</h2>
-    <div *ngFor="let edu of education.controls" class="education-item">
-      <p><strong>Όνομα:</strong> {{ edu.value.name }}</p>
-      <p><strong>Περιγραφή:</strong> {{ edu.value.description }}</p>
-      <p><strong>Δημόσιο:</strong> {{ edu.value.isPublic ? 'Ναι' : 'Όχι' }}</p>
-      <!-- αν αυτοματοποιηθούν-->
-      <!-- <p><strong>Τύπος Εκπαίδευσης:</strong> {{ getEducationTypeName(edu.value.educationTypeId) }}</p> -->
+    <p>Δεν έχετε προσθέσει πτυχία.</p>
+    <div class="actions">
+      <button (click)="openEducationModal()">Προσθήκη πτυχίων</button>
     </div>
   </div>
 </div>
 
-<!-- Experience Modal -->
+<!-- Modal Overlay -->
+<div *ngIf="showExperienceModal || showEducationModal" class="modal-overlay" (click)="closeModal()"></div>
+
 <div *ngIf="showExperienceModal" class="modal">
   <h2>Προσθήκη Εργασιακής Εμπειρίας</h2>
   <form [formGroup]="experienceForm" (ngSubmit)="onSubmitExperience()">
@@ -89,7 +113,7 @@
   </form>
 </div>
 
-
+<!-- Education Modal -->
 <div *ngIf="showEducationModal" class="modal">
   <h2>Προσθήκη Πτυχίων</h2>
   <form [formGroup]="educationForm" (ngSubmit)="onSubmitEducation()">
@@ -100,10 +124,10 @@
     <input formControlName="description" placeholder="Περιγραφή" />
 
     <label>Ημερομηνία Έναρξης</label>
-    <input type="date" formControlName="startDate" placeholder="Ημερομηνία Έναρξης" />
+    <input type="date" formControlName="startDate" />
 
     <label>Ημερομηνία Λήξης</label>
-    <input type="date" formControlName="endDate" placeholder="Ημερομηνία Λήξης" />
+    <input type="date" formControlName="endDate" />
 
     <label>Δημόσιο</label>
     <input type="checkbox" formControlName="isPublic" />

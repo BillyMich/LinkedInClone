@@ -180,4 +180,19 @@ export class MyAdvertisementsComponent implements OnInit {
       this.closeEditForm();
     }
   }
+  approveApplicant(applicantId: number): void {
+    this.advertisementService.approveApplicant(applicantId).subscribe({
+      next: () => {
+        if (this.selectedAdvertisement) {
+          this.getApplicantsOfSelectedJob(this.selectedAdvertisement.id);
+        }
+      },
+      error: (error) => console.error('Error approving applicant', error),
+    });
+  }
+  
+  rejectApplicant(applicantId: number): void {
+    
+  }
+  
 }
