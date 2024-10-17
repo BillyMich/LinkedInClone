@@ -22,7 +22,8 @@
         </ng-template>
       </div>
 
-      <div class="advertisement-details-column" *ngIf="selectedAdvertisement">
+    <div class="advertisement-details-column" *ngIf="selectedAdvertisement">
+      <div class="section-box advertisement-details-box">
         <h2>{{ selectedAdvertisement.title }}</h2>
         <p><strong>Description:</strong> {{ selectedAdvertisement.freeTxt }}</p>
         <p><strong>Professional Branch:</strong> {{ selectedAdvertisement.professionalBranche }}</p>
@@ -31,6 +32,20 @@
         <p><strong>Status:</strong> {{ getStatusLabel(selectedAdvertisement.status) }}</p>
         <button (click)="openEditForm(selectedAdvertisement)" class="primary-button">Edit</button>
       </div>
+
+      <div *ngIf="applicantsOfSelectedJob && applicantsOfSelectedJob.length > 0" class="section-box applicants-section">
+        <h3>Applicants</h3>
+        <ul>
+          <li *ngFor="let applicant of applicantsOfSelectedJob">
+            <p><strong>{{ applicant.name }} {{ applicant.surname }}</strong></p>
+            <p>Email: {{ applicant.email }}</p>
+            <button (click)="approveApplicant(applicant.id)" class="primary-button">Approve</button>
+            <button (click)="rejectApplicant(applicant.id)" class="secondary-button">Reject</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
 
 
       <div class="modal" *ngIf="showEditForm">
@@ -76,14 +91,6 @@
         </div>
         
       </div>
-    </div>
-    <div *ngIf="this.applicantsOfSelectedJob && this.applicantsOfSelectedJob.length > 0">
-      <h3>Users</h3>
-      <ul>
-        <li *ngFor="let user of this.applicantsOfSelectedJob">
-          {{ user.name }} ({{ user.email }})
-        </li>
-      </ul>
     </div>
   </div>
 </div>

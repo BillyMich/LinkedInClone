@@ -70,7 +70,9 @@
   flex-direction: column;
   width: 100vh;
 }
-
+.messages-content h2{
+  color: #0073b1;
+}
 .messages {
   flex-grow: 1;
   overflow-y: auto;
