@@ -28,14 +28,6 @@
     <p><strong>Email:</strong> {{ user.email }}</p>
     <p><strong>Τηλέφωνο:</strong> {{ user.phone }}</p>
   </div>
-
-  <div class="actions">
-    <button (click)="openExperienceModal()">
-      Προσθήκη εργασιακής εμπειρίας
-    </button>
-    <button (click)="openEducationModal()">Προσθήκη πτυχίων</button>
-  </div>
-
   <div class="experience-section" *ngIf="experience.length > 0">
     <h2>Εργασιακή Εμπειρία</h2>
     <div *ngFor="let exp of experience.controls" class="experience-item">
@@ -61,6 +53,14 @@
     </div>
   </div>
 </div>
+  <div class="actions">
+    <button (click)="openExperienceModal()">
+      Προσθήκη εργασιακής εμπειρίας
+    </button>
+    <button (click)="openEducationModal()">Προσθήκη πτυχίων</button>
+  </div>
+
+  
 
 <!-- Experience Modal -->
 <div *ngIf="showExperienceModal" class="modal">

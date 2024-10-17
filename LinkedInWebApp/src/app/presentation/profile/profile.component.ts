@@ -151,21 +151,20 @@ export class ProfileComponent implements OnInit {
 
   addExperience(exp?: CreateUserExperience) {
     const experienceGroup = new FormGroup({
-      title: new FormControl(exp ? exp.Title : '', Validators.required),
-      freeTxt: new FormControl(exp ? exp.FreeTxt : '', Validators.required),
-      isPublic: new FormControl(exp ? exp.IsPublic : true, Validators.required),
+      title: new FormControl(exp ? exp.title : '', Validators.required),
+      freeTxt: new FormControl(exp ? exp.freeTxt : '', Validators.required),
+      isPublic: new FormControl(exp ? exp.isPublic : true, Validators.required),
       startedAt: new FormControl(
-        exp && exp.StartedAt
-          ? this.formatDateFromComponents(exp.StartedAt)
-          : '',
+        exp && exp.startedAt ? exp.startedAt : '',
         Validators.required
       ),
       endedAt: new FormControl(
-        exp && exp.EndedAt ? this.formatDateFromComponents(exp.EndedAt) : ''
+        exp && exp.endedAt ? exp.endedAt : ''
       ),
     });
     this.experience.push(experienceGroup);
   }
+  
 
   private formatDateFromComponents(dateObj: any): string {
     const { year, month, day } = dateObj;
@@ -184,11 +183,16 @@ export class ProfileComponent implements OnInit {
         edu ? edu.description : '',
         Validators.required
       ),
-      startDate: new FormControl(edu ? edu.startDate : '', Validators.required),
-      endDate: new FormControl(edu ? edu.endDate : ''),
+      startDate: new FormControl(
+        edu && edu.startDate ? edu.startDate : '',
+        Validators.required
+      ),
+      endDate: new FormControl(
+        edu && edu.endDate ? edu.endDate : ''
+      ),
       isPublic: new FormControl(edu ? edu.isPublic : true, Validators.required),
       educationTypeId: new FormControl(
-        edu ? edu.educationTypeId : 0,
+        edu ? edu.educationTypeId : null,
         Validators.required
       ),
     });
@@ -245,7 +249,7 @@ export class ProfileComponent implements OnInit {
       startDate: new FormControl('', Validators.required),
       endDate: new FormControl(''),
       isPublic: new FormControl(true, Validators.required),
-      educationTypeId: new FormControl(0, Validators.required),
+      educationTypeId: new FormControl(null, Validators.required),
     });
     this.showEducationModal = true;
   }
@@ -258,25 +262,27 @@ export class ProfileComponent implements OnInit {
   onSubmitExperience(): void {
     const formValues = this.experienceForm.value;
     const experienceData: CreateUserExperience = {
-      Title: formValues.title,
-      FreeTxt: formValues.freeTxt,
-      IsPublic: formValues.isPublic,
-      StartedAt: this.formatDateOnly(new Date(formValues.startedAt)),
-      EndedAt: formValues.endedAt
+      title: formValues.title,
+      freeTxt: formValues.freeTxt,
+      isPublic: formValues.isPublic,
+      startedAt: this.formatDateOnly(new Date(formValues.startedAt)),
+      endedAt: formValues.endedAt
         ? this.formatDateOnly(new Date(formValues.endedAt))
         : undefined,
     };
-
-    // Call your service to submit the data
+  
     this.userService.updateUserExperience(experienceData).subscribe({
       next: (response) => {
         console.log('Experience created successfully', response);
+        this.loadExistingDetails(); 
+        this.closeModal(); 
       },
       error: (error) => {
         console.error('Error creating experience', error);
       },
     });
   }
+  
 
   private formatDateOnly(date: Date): string {
     const year = date.getFullYear();
