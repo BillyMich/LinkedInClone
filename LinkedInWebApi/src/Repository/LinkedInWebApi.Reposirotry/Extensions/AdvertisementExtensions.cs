@@ -48,6 +48,7 @@ namespace LinkedInWebApi.Reposirotry.Extensions
             Status = advertisement?.Status ?? default(byte),
             CreatedAt = advertisement?.CreatedAt.DateTime ?? DateTime.MinValue,
             UpdatedAt = advertisement?.UpdatedAt.DateTime ?? DateTime.MinValue,
+            TimesViewed = advertisement?.TimesViewed ?? 0,
         };
 
         /// <summary>

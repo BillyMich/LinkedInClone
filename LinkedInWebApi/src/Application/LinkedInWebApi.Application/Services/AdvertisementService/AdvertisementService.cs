@@ -81,9 +81,10 @@ namespace LinkedInWebApi.Application.Services
         /// </summary>
         /// <param name="claimsIdentity">The claims identity of the user.</param>
         /// <returns>A list of advertisements.</returns>
-        public Task<List<AdvertisementDto>?> GetAdvertisments(ClaimsIdentity claimsIdentity)
+        public async Task<List<AdvertisementDto>?> GetAdvertisments(ClaimsIdentity claimsIdentity)
         {
-            return _advertisemenReadCommands.GetAdvertisments();
+            var advertisments = await _advertisemenReadCommands.GetAdvertisments();
+            return advertisments?.OrderByDescending(x => x.TimesViewed).ToList();
         }
 
         /// <summary>
@@ -135,5 +136,6 @@ namespace LinkedInWebApi.Application.Services
 
             return true;
         }
+
     }
 }
