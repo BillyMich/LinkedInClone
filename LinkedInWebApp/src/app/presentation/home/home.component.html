@@ -75,17 +75,17 @@
             *ngFor="let comment of post.comments | slice: 0:commentsToShow[post.id]"
             class="comment"
           >
-            <div class="comment-body">
+            <div class="comment-header">
               <img
                 [src]="getProfilePictureUrlById(comment.creatorId)"
                 alt="Profile Picture"
                 class="comment-profile-picture"
                 (error)="onImageError($event)"
               />
-              <p>{{ comment.creatorName }}</p>
-              <p>{{ comment.freeTxt }}</p>
+              <p class="commenter-name">{{ comment.creatorName }}</p>
             </div>
-
+            <p class="comment-text">{{ comment.freeTxt }}</p>
+        
             <div class="comment-actions">
               <img
                 src="../../../assets/icons/thumbs-up-solid.svg"
@@ -94,7 +94,7 @@
               />
             </div>
           </div>
-
+        
           <button
             *ngIf="commentsToShow[post.id] < post.comments.length"
             (click)="loadMoreComments(post.id)"
@@ -103,6 +103,7 @@
             Load More Comments
           </button>
         </div>
+        
 
         <div class="comment-box">
           <form (submit)="onCommentSubmit(post.id)">
