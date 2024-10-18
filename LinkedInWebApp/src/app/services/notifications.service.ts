@@ -3,7 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage/local-storage.service';
 import { ContactRequestChangeStatusDto } from '../presentation/network/models/network.model';
-import { ContactRequestOfUserDto } from '../presentation/notifications/models/notification.models';
+import {
+  ContactRequestOfUserDto,
+  PostNotificationDto,
+} from '../presentation/notifications/models/notification.models';
 
 @Injectable({
   providedIn: 'root',
@@ -53,10 +56,13 @@ export class NotificationsService {
     );
   }
 
-  getComments(): Observable<any[]> {
+  getComments(): Observable<PostNotificationDto> {
     const headers = this.getHeaders();
-    return this.http.get<any[]>(`${this.apiUrl}/post/GetNotificationInPost`, {
-      headers,
-    });
+    return this.http.get<PostNotificationDto>(
+      `${this.apiUrl}/post/GetNotificationInPost`,
+      {
+        headers,
+      }
+    );
   }
 }

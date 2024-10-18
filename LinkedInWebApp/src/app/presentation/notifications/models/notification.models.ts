@@ -10,3 +10,23 @@ export interface ContactRequestDto {
   isActive: boolean;
   isAccepted: boolean;
 }
+
+export interface PostNotificationDto {
+  commentNotifications: CommentNotificationDto[];
+  reactionsNotifications: PostReactionDto[];
+}
+
+export interface CommentNotificationDto {
+  postId: number;
+  userId: number;
+  userName: string;
+  commentTxt: string;
+  createdAt: string;
+}
+
+export interface PostReactionDto {
+  postId: number;
+  userId: number;
+  userName: string;
+  createdAt: string;
+}

@@ -20,24 +20,34 @@
   </div>
 
 <div class="interest-notes">
-  <h2>Σημειώσεις Ενδιαφέροντος</h2>
+  <h2>Σημειώσεις Ενδιαφέροντος σε αγγελίες</h2>
   <ul>
     <li *ngFor="let note of interestNotes">
       <p>
-        {{ note.userName }} σημείωσε το ενδιαφέρον του για το άρθρο σας: {{ note.applicationTitle }}
+        {{ note.userName }} σημείωσε το ενδιαφέρον του για το την δουλεία σας: {{ note.applicationTitle }}
       </p>
     </li>
   </ul>
 </div>
 
-<div class="comments">
+<div class="comment-notes">
   <h2>Σχόλια</h2>
   <ul>
-    <li *ngFor="let comment of comments">
+    <li *ngFor="let note of postNotifications?.commentNotifications">
       <p>
-        {{ comment.userName }} σχολίασε στο άρθρο σας: "{{ comment.articleTitle }}"
+        {{ note.userName }} σχολίασε στο άρθρο σας: "{{ note.commentTxt }}"
       </p>
-      <p>{{ comment.content }}</p>
+    </li>
+  </ul>
+</div>
+
+<div class="interest-notes">
+  <h2>Σημειώσεις Ενδιαφέροντος σε Posts</h2>
+  <ul>
+    <li *ngFor="let note of postNotifications?.reactionsNotifications">
+      <p>
+        {{ note.userName }} σημείωσε το ενδιαφέρον του για το post σας.
+      </p>
     </li>
   </ul>
 </div>
